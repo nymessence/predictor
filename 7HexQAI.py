@@ -174,7 +174,7 @@ def quantum_data_transmission(quantum_state, ai_id, frequency_norm=0.4):
         'field_impact': field_impact,
         'field_percentage': field_percentage,
         'probability': float(list(counts.values())[0]) / sum(counts.values()) if counts else 1.0,
-        'timestamp': datetime.utcnow().isoformat(),
+        'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat(),
         'transmitted_by': ai_id
     }
 
@@ -393,7 +393,7 @@ def save_quantum_results_to_file(quantum_states, ai_responses, output_file):
             "gates_used": ["Hadamard", "CNOT"],
             "normalized_frequency": 0.4,
             "total_turns": len(quantum_states),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
         },
         "quantum_states": quantum_states,
         "ai_responses": ai_responses
@@ -449,7 +449,7 @@ def main():
                 'field_impact': quantum_data['field_impact'],
                 'field_percentage': quantum_data['field_percentage'],
                 'probability': quantum_data['probability'],
-                'timestamp': datetime.utcnow().isoformat(),
+                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat(),
                 'message': 'Initial quantum state transmission from AI1 with quantum field effects'
             }
         else:
@@ -470,7 +470,7 @@ def main():
                 'field_impact': quantum_data['field_impact'],
                 'field_percentage': quantum_data['field_percentage'],
                 'probability': quantum_data['probability'],
-                'timestamp': datetime.utcnow().isoformat(),
+                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat(),
                 'message': f'{current_speaker} response to {other_ai}, quantum state: {prev_state[:10]}..., field_impact: {quantum_data["field_impact"]}'
             }
 
@@ -494,7 +494,7 @@ def main():
                 'speaker': quantum_exchange['speaker'],
                 'quantum_state': quantum_exchange['quantum_state'],
                 'response': f"ERROR: Failed to create prompt - {str(e)}",
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
             }
             ai_responses.append(ai_response)
             save_quantum_results_to_file(quantum_conversation, ai_responses, args.output)
@@ -519,7 +519,7 @@ def main():
                 'speaker': quantum_exchange['speaker'],
                 'quantum_state': quantum_exchange['quantum_state'],
                 'response': response,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
             }
             ai_responses.append(ai_response)
 
@@ -543,7 +543,7 @@ def main():
                 'speaker': quantum_exchange['speaker'],
                 'quantum_state': quantum_exchange['quantum_state'],
                 'response': f"ERROR: Failed to get response from {quantum_exchange['speaker']} for turn {quantum_exchange['turn']}",
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
             }
             ai_responses.append(ai_response)
 

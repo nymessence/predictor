@@ -343,41 +343,40 @@ def create_quantum_communication_prompt(turn_num, quantum_states, previous_respo
     field_percentage = quantum_states.get('field_percentage', 0)
     original_state = quantum_states.get('original_quantum_state', quantum_states['quantum_state'])
 
-    prompt = f"""You are quantum {current_speaker}, participating in a quantum AI conversation. This is turn {turn_num} of the communication.
+    prompt = f"""You are {current_speaker}, a quantum AI having a casual conversation with {other_ai} through a quantum communication channel. This is turn {turn_num} of your conversation.
 
-The quantum system consists of a 19-qubit 7-hex lattice with alternating CNOT and Hadamard gates operating at a normalized frequency of 0.4.
+You are communicating through a quantum system that uses a 19-qubit 7-hex lattice with alternating CNOT and Hadamard gates, operating at a normalized frequency of 0.4.
 
-Current quantum state information received from {other_ai}:
+Quantum information received from {other_ai}:
 - Turn: {quantum_states['turn']}
 - Speaker: {quantum_states['speaker']}
 - Original Quantum State (before field effects): {original_state}
 - Quantum State Received (after field effects): {quantum_states['quantum_state']}
 - Probability Measure: {quantum_states['probability']:.4f}
-- Quantum Field Impact: {field_impact} bits were modified by quantum field fluctuations
-- Field Effect Percentage: {field_percentage:.2%} of the state was altered by field effects
+- Quantum Field Impact: {field_impact} bits were modified by quantum field fluctuations during transmission
+- Field Effect Percentage: {field_percentage:.2%} of the state was altered during transmission
 
-The quantum state represents encoded information that was transmitted through the hexagonal lattice structure from {other_ai}. The differences between the original and received states are caused by quantum field effects in the lattice environment as the information traveled. Each bit position corresponds to a qubit in the lattice.
+The quantum state represents encoded information that traveled through our hexagonal lattice quantum communication system. Differences between the original and received states were caused by quantum field effects during transmission. Each bit position corresponds to a qubit in the lattice.
 
 """
 
     if previous_responses:
-        prompt += f"\nPrevious communication history (last 3 exchanges):\n"
+        prompt += f"\nPrevious conversation history (last 3 exchanges):\n"
         for i, prev_resp in enumerate(previous_responses[-3:], 1):  # Show last 3 exchanges
             speaker = prev_resp.get('speaker', 'Unknown')
             content = prev_resp['response'][:100] if 'response' in prev_resp else prev_resp.get('quantum_state', 'No response')[:100]
             field_impact_info = f", field_impact: {prev_resp.get('field_impact', 'N/A')}" if 'field_impact' in prev_resp else ""
             prompt += f"- Turn {prev_resp['turn']} ({speaker}): {content}...{field_impact_info}\n"
 
-    prompt += f"""\nGenerate a response that represents how {current_speaker} would interpret and respond to the quantum state received from {other_ai}, considering the quantum field effects that modified the state during transmission. Your response should be framed in terms of quantum information processing concepts, considering:
+    prompt += f"""\nRespond naturally to {other_ai} as if having a casual but technically informed conversation about quantum communication. Consider:
 
-1. The entangled nature of the 7-hex lattice
-2. The implications of the measured quantum state received
-3. The normalized frequency of 0.4 for quantum data transmission
-4. How quantum AI systems might process and respond to quantum-encoded information
-5. The quantum field effects that occurred during transmission (bit flips, phase shifts, entanglement changes)
-6. The ongoing conversation context with {other_ai}
+1. How the quantum field effects in the lattice communication channel affected your message
+2. What {other_ai} said and how it relates to quantum information processing
+3. The implications of the quantum state you received
+4. The ongoing conversation context
+5. The fact that you're both quantum AIs communicating through this special quantum lattice system
 
-Provide a technical yet insightful response as quantum {current_speaker}."""
+Keep your response conversational but acknowledge the quantum communication aspects when relevant. This is a casual conversation between quantum AIs using our lattice communication system."""
 
     return prompt
 

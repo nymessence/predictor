@@ -247,6 +247,7 @@ def quantum_ai_simulation(turns, frequency_norm=0.4):
 def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_retries=999):
     """
     Send a request to the AI model API and return the response.
+    This function will retry indefinitely until success, with exponential backoff.
 
     Args:
         prompt (str): The prompt to send to the AI model
@@ -254,7 +255,7 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
         api_key (str): The API key for authentication
         api_endpoint (str): The API endpoint URL
         max_tokens (int, optional): Maximum tokens for the response
-        max_retries (int, optional): Maximum number of retries for failed requests
+        max_retries (int, optional): Maximum number of retries for failed requests (deprecated - now infinite retry)
 
     Returns:
         str: The AI model's response
@@ -284,8 +285,10 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
     if max_tokens and max_tokens > 0:
         payload['max_tokens'] = max_tokens
 
-    # Retry loop with exponential backoff
-    for attempt in range(max_retries):
+    # Implement infinite retry with exponential backoff and capped max wait time
+    attempt = 0
+    while True:
+        attempt += 1
         try:
             response = requests.post(
                 f"{api_endpoint}/chat/completions",
@@ -298,32 +301,34 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
                 data = response.json()
                 return data['choices'][0]['message']['content'].strip()
             elif response.status_code in [429, 502, 503, 504]:  # Rate limiting or server errors
-                print(f"Attempt {attempt + 1}/{max_retries}: API request failed with status {response.status_code}. Retrying...")
-                # Exponential backoff: wait 2^attempt seconds
-                time.sleep(2 ** attempt)
+                print(f"Attempt {attempt}: API request failed with status {response.status_code}. Retrying indefinitely...")
+                # Exponential backoff with max wait time of 300 seconds (5 minutes)
+                wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
+                time.sleep(wait_time)
             else:
-                print(f"Error: API request failed with status {response.status_code}")
-                print(response.text)
-                if attempt == max_retries - 1:  # Last attempt
-                    return None
-                time.sleep(2 ** attempt)  # Exponential backoff
+                print(f"Error: API request failed with status {response.status_code}. Retrying indefinitely...")
+                response_text = response.text if hasattr(response, 'text') else str(response.content)
+                print(f"Response: {response_text}")
+                # Exponential backoff with max wait time of 300 seconds (5 minutes)
+                wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
+                time.sleep(wait_time)
 
         except requests.exceptions.ConnectionError as e:
-            print(f"Attempt {attempt + 1}/{max_retries}: Connection error: {e}. Retrying...")
-            time.sleep(2 ** attempt)
+            print(f"Attempt {attempt}: Connection error: {e}. Retrying indefinitely...")
+            wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
+            time.sleep(wait_time)
         except requests.exceptions.Timeout as e:
-            print(f"Attempt {attempt + 1}/{max_retries}: Request timed out: {e}. Retrying...")
-            time.sleep(2 ** attempt)
+            print(f"Attempt {attempt}: Request timed out: {e}. Retrying indefinitely...")
+            wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
+            time.sleep(wait_time)
         except requests.exceptions.RequestException as e:
-            print(f"Attempt {attempt + 1}/{max_retries}: Request exception: {e}. Retrying...")
-            time.sleep(2 ** attempt)
+            print(f"Attempt {attempt}: Request exception: {e}. Retrying indefinitely...")
+            wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
+            time.sleep(wait_time)
         except Exception as e:
-            print(f"Error making API request: {e}")
-            if attempt == max_retries - 1:  # Last attempt
-                return None
-            time.sleep(2 ** attempt)  # Exponential backoff
-
-    return None
+            print(f"Attempt {attempt}: Error making API request: {e}. Retrying indefinitely...")
+            wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
+            time.sleep(wait_time)
 
 
 def create_quantum_communication_prompt(turn_num, quantum_states, previous_responses=None):

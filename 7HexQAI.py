@@ -13,7 +13,7 @@ import json
 import os
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 import numpy as np
 
 try:
@@ -25,6 +25,11 @@ except ImportError:
     print("Error: Qiskit library is required but not installed.")
     print("Install it with: pip install qiskit qiskit-aer")
     sys.exit(1)
+
+
+def get_utc_timestamp():
+    """Get current UTC timestamp in ISO format."""
+    return datetime.now(timezone.utc).isoformat()
 
 
 def create_hex_lattice_circuit(num_qubits=19):
@@ -174,7 +179,7 @@ def quantum_data_transmission(quantum_state, ai_id, frequency_norm=0.4):
         'field_impact': field_impact,
         'field_percentage': field_percentage,
         'probability': float(list(counts.values())[0]) / sum(counts.values()) if counts else 1.0,
-        'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat(),
+        'timestamp': get_utc_timestamp(),
         'transmitted_by': ai_id
     }
 
@@ -392,7 +397,7 @@ def save_quantum_results_to_file(quantum_states, ai_responses, output_file):
             "gates_used": ["Hadamard", "CNOT"],
             "normalized_frequency": 0.4,
             "total_turns": len(quantum_states),
-            "timestamp": datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
+            "timestamp": get_utc_timestamp()
         },
         "quantum_states": quantum_states,
         "ai_responses": ai_responses
@@ -411,6 +416,7 @@ def main():
     parser.add_argument("--model", required=True, help="Model identifier to use")
     parser.add_argument("--endpoint", required=True, help="API endpoint URL")
     parser.add_argument("--max-tokens", type=int, default=32000, help="Maximum tokens for response")
+    parser.add_argument("--api-delay", type=float, default=1.0, help="Delay in seconds between API calls (default: 1.0)")
     parser.add_argument("--output", type=str, required=True, help="Output file to save results in JSON format")
 
     args = parser.parse_args()
@@ -448,7 +454,7 @@ def main():
                 'field_impact': quantum_data['field_impact'],
                 'field_percentage': quantum_data['field_percentage'],
                 'probability': quantum_data['probability'],
-                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat(),
+                'timestamp': get_utc_timestamp(),
                 'message': 'Initial quantum state transmission from AI1 with quantum field effects'
             }
         else:
@@ -469,7 +475,7 @@ def main():
                 'field_impact': quantum_data['field_impact'],
                 'field_percentage': quantum_data['field_percentage'],
                 'probability': quantum_data['probability'],
-                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat(),
+                'timestamp': get_utc_timestamp(),
                 'message': f'{current_speaker} response to {other_ai}, quantum state: {prev_state[:10]}..., field_impact: {quantum_data["field_impact"]}'
             }
 
@@ -493,7 +499,7 @@ def main():
                 'speaker': quantum_exchange['speaker'],
                 'quantum_state': quantum_exchange['quantum_state'],
                 'response': f"ERROR: Failed to create prompt - {str(e)}",
-                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
+                'timestamp': get_utc_timestamp()
             }
             ai_responses.append(ai_response)
             save_quantum_results_to_file(quantum_conversation, ai_responses, args.output)
@@ -518,7 +524,7 @@ def main():
                 'speaker': quantum_exchange['speaker'],
                 'quantum_state': quantum_exchange['quantum_state'],
                 'response': response,
-                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
+                'timestamp': get_utc_timestamp()
             }
             ai_responses.append(ai_response)
 
@@ -533,7 +539,7 @@ def main():
                 print("\n" + "="*60 + "\n")
 
             # Small delay to be respectful to the API
-            time.sleep(1)
+            time.sleep(args.api_delay)
         else:
             print(f"[Turn {quantum_exchange['turn']}] {quantum_exchange['speaker']} failed to get AI response.")
             # Instead of stopping completely, create an error response and continue
@@ -542,7 +548,7 @@ def main():
                 'speaker': quantum_exchange['speaker'],
                 'quantum_state': quantum_exchange['quantum_state'],
                 'response': f"ERROR: Failed to get response from {quantum_exchange['speaker']} for turn {quantum_exchange['turn']}",
-                'timestamp': datetime.now(datetime.UTC).isoformat() if hasattr(datetime, 'UTC') else datetime.utcnow().isoformat()
+                'timestamp': get_utc_timestamp()
             }
             ai_responses.append(ai_response)
 
@@ -554,7 +560,7 @@ def main():
                 print("\n" + "="*60 + "\n")
 
             # Small delay to be respectful to the API
-            time.sleep(1)
+            time.sleep(args.api_delay)
 
     print(f"\nQuantum Hex AI simulation completed. Results saved to {args.output}")
 

@@ -427,13 +427,57 @@ def main():
     print(f"Using model: {args.model}")
     print("-" * 60)
 
-    # Perform quantum AI simulation
     print("Starting quantum AI simulation with alternating AI conversation...")
-    quantum_conversation = quantum_ai_simulation(args.turns, frequency_norm=0.4)
 
-    # Process quantum states through the AI model with alternating AIs
+    # Initialize data structures
+    quantum_conversation = []
     ai_responses = []
-    for i, quantum_exchange in enumerate(quantum_conversation):
+
+    # Process each turn by first simulating quantum state, then getting AI response
+    for turn in range(args.turns):
+        print(f"Turn {turn + 1}/{args.turns}: Processing quantum AI communication...")
+
+        if turn == 0:
+            # First turn: AI1 initiates conversation
+            print("  AI1 initiates conversation through quantum lattice...")
+            quantum_data = quantum_data_transmission(None, 'AI1', 0.4)
+            quantum_exchange = {
+                'turn': turn + 1,
+                'speaker': 'AI1',
+                'quantum_state': quantum_data['quantum_state'],
+                'original_quantum_state': quantum_data['original_quantum_state'],
+                'field_impact': quantum_data['field_impact'],
+                'field_percentage': quantum_data['field_percentage'],
+                'probability': quantum_data['probability'],
+                'timestamp': datetime.utcnow().isoformat(),
+                'message': 'Initial quantum state transmission from AI1 with quantum field effects'
+            }
+        else:
+            # Determine who speaks based on turn number (AI1 starts, then alternating)
+            # Turn 1 (index 0) = AI1, Turn 2 (index 1) = AI2, Turn 3 (index 2) = AI1, etc.
+            current_speaker = 'AI1' if turn % 2 == 0 else 'AI2'  # AI1 on even indices (0, 2, 4...), AI2 on odd indices (1, 3, 5...)
+            other_ai = 'AI2' if current_speaker == 'AI1' else 'AI1'
+
+            print(f"  {current_speaker} responds after receiving data from {other_ai}...")
+            # Use the last quantum state from the conversation
+            prev_state = quantum_conversation[-1]['quantum_state']
+            quantum_data = quantum_data_transmission(prev_state, current_speaker, 0.4)
+            quantum_exchange = {
+                'turn': turn + 1,
+                'speaker': current_speaker,
+                'quantum_state': quantum_data['quantum_state'],
+                'original_quantum_state': quantum_data['original_quantum_state'],
+                'field_impact': quantum_data['field_impact'],
+                'field_percentage': quantum_data['field_percentage'],
+                'probability': quantum_data['probability'],
+                'timestamp': datetime.utcnow().isoformat(),
+                'message': f'{current_speaker} response to {other_ai}, quantum state: {prev_state[:10]}..., field_impact: {quantum_data["field_impact"]}'
+            }
+
+        # Add to conversation log
+        quantum_conversation.append(quantum_exchange)
+
+        # Immediately process the quantum state through the AI model
         print(f"\nProcessing quantum state from turn {quantum_exchange['turn']} ({quantum_exchange['speaker']}) with AI model...")
 
         # Create prompt based on quantum state
@@ -469,7 +513,7 @@ def main():
             save_quantum_results_to_file(quantum_conversation, ai_responses, args.output)
 
             # Add separator between responses
-            if i < len(quantum_conversation) - 1:
+            if turn < args.turns - 1:
                 print("\n" + "="*60 + "\n")
 
             # Small delay to be respectful to the API

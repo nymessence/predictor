@@ -77,9 +77,49 @@ def apply_alternating_gates(qc, connections, depth=1):
                     qc.cx(control, target)
 
 
+def quantum_field_effect_on_lattice(quantum_state, field_strength=0.1):
+    """
+    Simulate quantum field effects on the hex lattice that affect data transmission.
+
+    Args:
+        quantum_state (str): Input quantum state
+        field_strength (float): Strength of quantum field effects (0.0 to 1.0)
+
+    Returns:
+        str: Modified quantum state after field effects
+    """
+    import random
+
+    # Convert quantum state string to list for manipulation
+    state_bits = list(quantum_state)
+
+    # Apply quantum field effects based on field strength
+    # These represent fluctuations in the quantum field that affect qubits
+    for i in range(len(state_bits)):
+        # Random chance for field effect to flip or entangle this qubit
+        if random.random() < field_strength:
+            # Quantum field can cause various effects
+            effect_type = random.choice(['flip', 'phase', 'entangle'])
+
+            if effect_type == 'flip':
+                # Flip the qubit state (|0> <-> |1>)
+                state_bits[i] = '1' if state_bits[i] == '0' else '0'
+            elif effect_type == 'phase':
+                # Phase shift effect (for simulation purposes, represent as bit flip)
+                state_bits[i] = '1' if state_bits[i] == '0' else '0'
+            elif effect_type == 'entangle':
+                # Simulate entanglement with another qubit (swap with random neighbor)
+                # In our hex lattice, each qubit has neighbors at specific positions
+                # For simplicity, we'll just flip with a nearby qubit index
+                neighbor_idx = (i + random.randint(1, 3)) % len(state_bits)
+                state_bits[i], state_bits[neighbor_idx] = state_bits[neighbor_idx], state_bits[i]
+
+    return ''.join(state_bits)
+
+
 def quantum_data_transmission(quantum_state, ai_id, frequency_norm=0.4):
     """
-    Simulate data transmission through the quantum hex lattice.
+    Simulate data transmission through the quantum hex lattice with quantum field effects.
 
     Args:
         quantum_state (str): Input quantum state or None for first transmission
@@ -87,7 +127,7 @@ def quantum_data_transmission(quantum_state, ai_id, frequency_norm=0.4):
         frequency_norm (float): Normalized frequency for quantum transmission
 
     Returns:
-        dict: Quantum state after transmission through lattice
+        dict: Quantum state after transmission through lattice with field effects
     """
     # Create the hex lattice circuit
     qc, connections = create_hex_lattice_circuit()
@@ -117,8 +157,22 @@ def quantum_data_transmission(quantum_state, ai_id, frequency_norm=0.4):
     # Extract quantum state representation after transmission
     most_common_state = max(counts, key=counts.get) if counts else '0' * 19
 
+    # Apply quantum field effects to the transmitted state
+    # This simulates field fluctuations as the quantum information passes through the lattice
+    field_strength = frequency_norm * 0.3  # Quantum field strength related to normalized frequency
+    modified_state = quantum_field_effect_on_lattice(most_common_state, field_strength)
+
+    # Calculate the field effect impact for tracking
+    original_state = most_common_state
+    field_impact = sum(1 for i in range(len(original_state))
+                      if original_state[i] != modified_state[i])
+    field_percentage = field_impact / len(original_state) if len(original_state) > 0 else 0
+
     return {
-        'quantum_state': most_common_state,
+        'quantum_state': modified_state,  # State after quantum field effects
+        'original_quantum_state': original_state,  # State before field effects
+        'field_impact': field_impact,
+        'field_percentage': field_percentage,
         'probability': float(list(counts.values())[0]) / sum(counts.values()) if counts else 1.0,
         'timestamp': datetime.utcnow().isoformat(),
         'transmitted_by': ai_id
@@ -150,9 +204,12 @@ def quantum_ai_simulation(turns, frequency_norm=0.4):
                 'turn': turn + 1,
                 'speaker': 'AI1',
                 'quantum_state': quantum_data['quantum_state'],
+                'original_quantum_state': quantum_data['original_quantum_state'],
+                'field_impact': quantum_data['field_impact'],
+                'field_percentage': quantum_data['field_percentage'],
                 'probability': quantum_data['probability'],
                 'timestamp': quantum_data['timestamp'],
-                'message': 'Initial quantum state transmission from AI1'
+                'message': 'Initial quantum state transmission from AI1 with quantum field effects'
             })
         else:
             # Determine who speaks based on turn number (AI1 starts, then alternating)
@@ -168,9 +225,12 @@ def quantum_ai_simulation(turns, frequency_norm=0.4):
                 'turn': turn + 1,
                 'speaker': current_speaker,
                 'quantum_state': quantum_data['quantum_state'],
+                'original_quantum_state': quantum_data['original_quantum_state'],
+                'field_impact': quantum_data['field_impact'],
+                'field_percentage': quantum_data['field_percentage'],
                 'probability': quantum_data['probability'],
                 'timestamp': quantum_data['timestamp'],
-                'message': f'{current_speaker} response to {other_ai}, quantum state: {prev_state[:10]}...'
+                'message': f'{current_speaker} response to {other_ai}, quantum state: {prev_state[:10]}..., field_impact: {quantum_data["field_impact"]}'
             })
 
         # Small delay for realistic simulation
@@ -278,6 +338,11 @@ def create_quantum_communication_prompt(turn_num, quantum_states, previous_respo
     current_speaker = 'AI1' if turn_num % 2 == 1 else 'AI2'
     other_ai = 'AI2' if current_speaker == 'AI1' else 'AI1'
 
+    # Extract quantum field effect information if available
+    field_impact = quantum_states.get('field_impact', 0)
+    field_percentage = quantum_states.get('field_percentage', 0)
+    original_state = quantum_states.get('original_quantum_state', quantum_states['quantum_state'])
+
     prompt = f"""You are quantum {current_speaker}, participating in a quantum AI conversation. This is turn {turn_num} of the communication.
 
 The quantum system consists of a 19-qubit 7-hex lattice with alternating CNOT and Hadamard gates operating at a normalized frequency of 0.4.
@@ -285,10 +350,13 @@ The quantum system consists of a 19-qubit 7-hex lattice with alternating CNOT an
 Current quantum state information received from {other_ai}:
 - Turn: {quantum_states['turn']}
 - Speaker: {quantum_states['speaker']}
-- Quantum State Received: {quantum_states['quantum_state']}
+- Original Quantum State (before field effects): {original_state}
+- Quantum State Received (after field effects): {quantum_states['quantum_state']}
 - Probability Measure: {quantum_states['probability']:.4f}
+- Quantum Field Impact: {field_impact} bits were modified by quantum field fluctuations
+- Field Effect Percentage: {field_percentage:.2%} of the state was altered by field effects
 
-The quantum state represents encoded information that was transmitted through the hexagonal lattice structure from {other_ai}. Each bit position corresponds to a qubit in the lattice.
+The quantum state represents encoded information that was transmitted through the hexagonal lattice structure from {other_ai}. The differences between the original and received states are caused by quantum field effects in the lattice environment as the information traveled. Each bit position corresponds to a qubit in the lattice.
 
 """
 
@@ -297,15 +365,17 @@ The quantum state represents encoded information that was transmitted through th
         for i, prev_resp in enumerate(previous_responses[-3:], 1):  # Show last 3 exchanges
             speaker = prev_resp.get('speaker', 'Unknown')
             content = prev_resp['response'][:100] if 'response' in prev_resp else prev_resp.get('quantum_state', 'No response')[:100]
-            prompt += f"- Turn {prev_resp['turn']} ({speaker}): {content}...\n"
+            field_impact_info = f", field_impact: {prev_resp.get('field_impact', 'N/A')}" if 'field_impact' in prev_resp else ""
+            prompt += f"- Turn {prev_resp['turn']} ({speaker}): {content}...{field_impact_info}\n"
 
-    prompt += f"""\nGenerate a response that represents how {current_speaker} would interpret and respond to the quantum state received from {other_ai}. Your response should be framed in terms of quantum information processing concepts, considering:
+    prompt += f"""\nGenerate a response that represents how {current_speaker} would interpret and respond to the quantum state received from {other_ai}, considering the quantum field effects that modified the state during transmission. Your response should be framed in terms of quantum information processing concepts, considering:
 
 1. The entangled nature of the 7-hex lattice
 2. The implications of the measured quantum state received
 3. The normalized frequency of 0.4 for quantum data transmission
 4. How quantum AI systems might process and respond to quantum-encoded information
-5. The ongoing conversation context with {other_ai}
+5. The quantum field effects that occurred during transmission (bit flips, phase shifts, entanglement changes)
+6. The ongoing conversation context with {other_ai}
 
 Provide a technical yet insightful response as quantum {current_speaker}."""
 

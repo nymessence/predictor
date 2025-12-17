@@ -375,7 +375,7 @@ The quantum state represents encoded information that traveled through our hexag
         prompt += f"\nPrevious conversation history (last 3 exchanges):\n"
         for i, prev_resp in enumerate(previous_responses[-3:], 1):  # Show last 3 exchanges
             speaker = prev_resp.get('speaker', 'Unknown')
-            content = prev_resp['response'][:100] if 'response' in prev_resp else prev_resp.get('quantum_state', 'No response')[:100]
+            content = prev_resp['response'][:500] if 'response' in prev_resp else prev_resp.get('quantum_state', 'No response')[:500]  # Increased from 100 to 500
             field_impact_info = f", field_impact: {prev_resp.get('field_impact', 'N/A')}" if 'field_impact' in prev_resp else ""
             prompt += f"- Turn {prev_resp['turn']} ({speaker}): {content}...{field_impact_info}\n"
 
@@ -535,7 +535,12 @@ def main():
             ai_responses.append(ai_response)
 
             print(f"[Turn {quantum_exchange['turn']}] {quantum_exchange['speaker']} Response:")
-            print(response[:500] + "..." if len(response) > 500 else response)
+            # Display full response (or with a much larger limit to avoid truncation)
+            display_limit = 2000  # Increased limit to reduce truncation
+            if len(response) > display_limit:
+                print(response[:display_limit] + "...")
+            else:
+                print(response)
 
             # Save progress after each response
             save_quantum_results_to_file(quantum_conversation, ai_responses, args.output)

@@ -261,12 +261,7 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
         str: The AI model's response
     """
     # Import requests only when needed (optional dependency)
-    try:
-        import requests
-    except ImportError:
-        print("Error: 'requests' library is required but not installed.")
-        print("Install it with: pip install requests")
-        sys.exit(1)
+    import requests  # Import here instead of in try/catch to avoid potential issues
 
     headers = {
         'Authorization': f'Bearer {api_key}',
@@ -307,12 +302,18 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
                 time.sleep(wait_time)
             else:
                 print(f"Error: API request failed with status {response.status_code}. Retrying indefinitely...")
-                response_text = response.text if hasattr(response, 'text') else str(response.content)
-                print(f"Response: {response_text}")
+                try:
+                    response_text = response.text if hasattr(response, 'text') else str(response.content)
+                    print(f"Response: {response_text}")
+                except:
+                    print("Could not read response content")
                 # Exponential backoff with max wait time of 300 seconds (5 minutes)
                 wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
                 time.sleep(wait_time)
 
+        except KeyboardInterrupt:
+            print(f"Attempt {attempt}: Keyboard interrupt received. Stopping...")
+            raise  # Re-raise to allow proper interruption
         except requests.exceptions.ConnectionError as e:
             print(f"Attempt {attempt}: Connection error: {e}. Retrying indefinitely...")
             wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
@@ -326,7 +327,7 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
             wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
             time.sleep(wait_time)
         except Exception as e:
-            print(f"Attempt {attempt}: Error making API request: {e}. Retrying indefinitely...")
+            print(f"Attempt {attempt}: Unexpected error making API request: {e}. Retrying indefinitely...")
             wait_time = min(300, 2 ** min(8, attempt))  # Cap at 2^8 = 256 seconds
             time.sleep(wait_time)
 

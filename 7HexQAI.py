@@ -481,20 +481,37 @@ def main():
         print(f"\nProcessing quantum state from turn {quantum_exchange['turn']} ({quantum_exchange['speaker']}) with AI model...")
 
         # Create prompt based on quantum state
-        prompt = create_quantum_communication_prompt(
-            quantum_exchange['turn'],
-            quantum_exchange,
-            ai_responses
-        )
+        try:
+            prompt = create_quantum_communication_prompt(
+                quantum_exchange['turn'],
+                quantum_exchange,
+                ai_responses
+            )
+        except Exception as e:
+            print(f"[Turn {quantum_exchange['turn']}] Error creating prompt: {e}")
+            ai_response = {
+                'turn': quantum_exchange['turn'],
+                'speaker': quantum_exchange['speaker'],
+                'quantum_state': quantum_exchange['quantum_state'],
+                'response': f"ERROR: Failed to create prompt - {str(e)}",
+                'timestamp': datetime.utcnow().isoformat()
+            }
+            ai_responses.append(ai_response)
+            save_quantum_results_to_file(quantum_conversation, ai_responses, args.output)
+            continue  # Continue to next turn instead of breaking
 
         # Get response from AI model
-        response = get_api_response(
-            prompt,
-            args.model,
-            args.api_key,
-            args.endpoint,
-            max_tokens=args.max_tokens
-        )
+        try:
+            response = get_api_response(
+                prompt,
+                args.model,
+                args.api_key,
+                args.endpoint,
+                max_tokens=args.max_tokens
+            )
+        except Exception as e:
+            print(f"[Turn {quantum_exchange['turn']}] Error calling API: {e}")
+            response = None
 
         if response:
             ai_response = {
@@ -519,8 +536,26 @@ def main():
             # Small delay to be respectful to the API
             time.sleep(1)
         else:
-            print(f"[Turn {quantum_exchange['turn']}] {quantum_exchange['speaker']} failed to get AI response. Stopping.")
-            break
+            print(f"[Turn {quantum_exchange['turn']}] {quantum_exchange['speaker']} failed to get AI response.")
+            # Instead of stopping completely, create an error response and continue
+            ai_response = {
+                'turn': quantum_exchange['turn'],
+                'speaker': quantum_exchange['speaker'],
+                'quantum_state': quantum_exchange['quantum_state'],
+                'response': f"ERROR: Failed to get response from {quantum_exchange['speaker']} for turn {quantum_exchange['turn']}",
+                'timestamp': datetime.utcnow().isoformat()
+            }
+            ai_responses.append(ai_response)
+
+            # Save progress even with error
+            save_quantum_results_to_file(quantum_conversation, ai_responses, args.output)
+
+            # Continue to next turn instead of stopping
+            if turn < args.turns - 1:
+                print("\n" + "="*60 + "\n")
+
+            # Small delay to be respectful to the API
+            time.sleep(1)
 
     print(f"\nQuantum Hex AI simulation completed. Results saved to {args.output}")
 

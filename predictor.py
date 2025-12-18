@@ -254,15 +254,19 @@ def main():
     if args.chinese_penalty:
         # Create a logit bias for Chinese characters
         # Note: Actual token IDs depend on the model's tokenizer,
-        # so this is an approximation based on common patterns
-        # For GLM models, Chinese characters may have specific token ranges
-        # We'll use common token ranges that are likely to include Chinese characters
+        # This is an experimental approach based on typical tokenization patterns
+        # GLM models often have Chinese characters in specific token ranges
 
-        # This approach tries multiple potential token ranges based on different tokenizers
-        # Adding more concentrated ranges that are more likely to contain Chinese tokens
-        for base in [10000, 20000, 30000, 40000, 50000, 60000, 70000]:
-            for offset in range(0, 100):  # Add 100 consecutive tokens from each base range
+        # For GLM models, Chinese characters are often in higher token ID ranges
+        # Try more concentrated ranges that are likely to contain Chinese character tokens
+        # Focus on ranges that commonly represent CJK characters in various tokenizers
+        for base in [20000, 25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000]:
+            for offset in range(0, 50):  # Add 50 consecutive tokens from each base range
                 logit_bias_chinese[str(base + offset)] = -100
+
+        # Additionally, add some specific ranges known to often contain CJK characters
+        for token_id in range(70000, 80000, 20):  # Sparse sampling of high-range tokens
+            logit_bias_chinese[str(token_id)] = -100
 
     for i in range(start_offset, args.years):
         current_year = args.start_year + i

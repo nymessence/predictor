@@ -106,11 +106,40 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
 
                 # If we need to reject Chinese characters and the response contains them
                 if reject_chinese and contains_chinese(response_text):
-                    print(f"Attempt {attempt + 1}/{max_retries}: Response contains Chinese characters, retrying...")
-                    # Add instructions to avoid Chinese to the prompt and try again
-                    modified_prompt = f"{prompt}\n\nIMPORTANT: Please respond only in English. Do not use any Chinese characters or other non-English text."
-                    payload['messages'] = [{'role': 'user', 'content': modified_prompt}]
-                    continue  # Retry with modified prompt
+                    print(f"Attempt {attempt + 1}/{max_retries}: Response contains Chinese characters, translating to English...")
+                    # Instead of retrying, translate the Chinese response to English
+                    translation_prompt = f"Please translate the following text to English:\n\n{response_text}"
+                    translation_payload = {
+                        'model': model,
+                        'messages': [
+                            {'role': 'user', 'content': translation_prompt}
+                        ],
+                        'temperature': 0.3,  # Lower temperature for more consistent translation
+                    }
+
+                    # Only add max_tokens if it's provided and greater than 0
+                    if max_tokens and max_tokens > 0:
+                        translation_payload['max_tokens'] = max_tokens
+
+                    # Only add logit_bias if provided
+                    if logit_bias:
+                        translation_payload['logit_bias'] = logit_bias
+
+                    translation_response = requests.post(
+                        f"{api_endpoint}/chat/completions",
+                        headers=headers,
+                        data=json.dumps(translation_payload),
+                        timeout=600
+                    )
+
+                    if translation_response.status_code == 200:
+                        translation_data = translation_response.json()
+                        translated_text = translation_data['choices'][0]['message']['content'].strip()
+                        return translated_text
+                    else:
+                        # If translation fails, return the original text but warn
+                        print(f"Warning: Translation failed, returning original response with Chinese characters")
+                        return response_text
 
                 return response_text
             elif response.status_code in [429, 502, 503, 504]:  # Rate limiting or server errors

@@ -234,6 +234,8 @@ def main():
                         help="Output file to save predictions in JSON format")
     parser.add_argument("--chinese-penalty", action="store_true",
                         help="Apply logit bias to penalize Chinese characters in responses")
+    parser.add_argument("--reject-chinese", action="store_true",
+                        help="Reject responses containing Chinese characters and retry with English-only instruction")
 
     args = parser.parse_args()
 
@@ -344,7 +346,10 @@ def main():
             # Select the appropriate logit_bias based on arguments
             selected_logit_bias = logit_bias_chinese if args.chinese_penalty else None
 
-            response = get_api_response(prompt, args.model, args.api_key, args.api_endpoint, max_tokens=response_max_tokens, logit_bias=selected_logit_bias, reject_chinese=args.chinese_penalty)
+            # Use reject_chinese based on the new flag or default to chinese_penalty flag
+            use_reject_chinese = args.reject_chinese or args.chinese_penalty
+
+            response = get_api_response(prompt, args.model, args.api_key, args.api_endpoint, max_tokens=response_max_tokens, logit_bias=selected_logit_bias, reject_chinese=use_reject_chinese)
 
             if response:
                 predictions.append(response)

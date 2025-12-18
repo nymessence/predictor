@@ -363,6 +363,7 @@ def main():
     parser.add_argument("--api-delay", type=float, default=1.0, help="Delay in seconds between API calls (default: 1.0)")
     parser.add_argument("--output", type=str, required=True, help="Output file to save results in JSON format")
     parser.add_argument("--chinese-penalty", action="store_true", help="Apply logit bias to penalize Chinese characters in responses")
+    parser.add_argument("--reject-chinese", action="store_true", help="Reject responses containing Chinese characters and retry with English-only instruction")
 
     global args  # Make args accessible globally for the save function
     args = parser.parse_args()
@@ -444,6 +445,9 @@ def main():
             # Select the appropriate logit_bias based on arguments
             selected_logit_bias = logit_bias_chinese if args.chinese_penalty else None
 
+            # Use reject_chinese based on the new flag or default to chinese_penalty flag
+            use_reject_chinese = args.reject_chinese or args.chinese_penalty
+
             response = get_api_response(
                 prompt,
                 args.model,
@@ -451,7 +455,7 @@ def main():
                 args.endpoint,
                 max_tokens=args.max_tokens,
                 logit_bias=selected_logit_bias,
-                reject_chinese=args.chinese_penalty
+                reject_chinese=use_reject_chinese
             )
         except Exception as e:
             print(f"[Turn {turn + 1}] Error calling API: {e}")

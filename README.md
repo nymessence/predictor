@@ -37,6 +37,7 @@ python predictor.py --model "MODEL_IDENTIFIER" \
 - `--token-limit`: Token limit for context (default: 32000)
 - `--output`: Output file to save predictions in JSON format
 - `--chinese-penalty`: Apply logit bias to penalize Chinese characters in responses
+- `--reject-chinese`: Reject responses containing Chinese characters and retry with English-only instruction
 
 ### Example
 

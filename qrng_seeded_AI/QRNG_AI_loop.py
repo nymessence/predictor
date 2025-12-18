@@ -352,16 +352,14 @@ def main():
         # Create a logit bias for Chinese characters
         # Note: Actual token IDs depend on the model's tokenizer,
         # so this is an approximation based on common patterns
-        # GLM models may have character-level tokens in certain ranges
+        # For GLM models, Chinese characters may have specific token ranges
+        # We'll use common token ranges that are likely to include Chinese characters
 
-        # Create bias for a broader range of potential Chinese character tokens
-        # This is a more comprehensive but still limited approach to avoid request size limits
-        # In GLM models, Chinese characters often have specific token ranges
-        for token_id in range(30000, 60000, 1000):  # Sample potential Chinese character token ranges
-            # Add several tokens within potential Chinese character ranges
-            for offset in range(0, 100, 10):  # Add more specific tokens in each range
-                logit_bias_chinese[str(token_id + offset)] = -100
-                logit_bias_chinese[str(token_id + offset + 5)] = -100
+        # This approach tries multiple potential token ranges based on different tokenizers
+        # Adding more concentrated ranges that are more likely to contain Chinese tokens
+        for base in [10000, 20000, 30000, 40000, 50000, 60000, 70000]:
+            for offset in range(0, 100):  # Add 100 consecutive tokens from each base range
+                logit_bias_chinese[str(base + offset)] = -100
 
     # Initialize data structure
     ai_responses = []

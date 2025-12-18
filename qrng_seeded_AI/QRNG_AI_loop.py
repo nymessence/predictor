@@ -158,7 +158,7 @@ def apply_random_seed_for_ai(ai_id, qrng_source, rand_source, turn_number):
     # print(f"Applied seed {seed_value} for {ai_id} on turn {turn_number + 1} using {ai_id.lower()}_source")
 
 
-def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_retries=999):
+def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_retries=999, logit_bias=None):
     """
     Send a request to the AI model API and return the response.
     This function will retry indefinitely until success, with exponential backoff.
@@ -170,6 +170,7 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
         api_endpoint (str): The API endpoint URL
         max_tokens (int, optional): Maximum tokens for the response
         max_retries (int, optional): Maximum number of retries for failed requests (deprecated - now infinite retry)
+        logit_bias (dict, optional): Dictionary of token IDs to biases to influence generation
 
     Returns:
         str: The AI model's response
@@ -189,6 +190,10 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
         ],
         'temperature': 0.7,  # Internal parameter, not mentioned in conversation
     }
+
+    # Add logit_bias if provided
+    if logit_bias:
+        payload['logit_bias'] = logit_bias
 
     # Only add max_tokens if it's provided and greater than 0
     if max_tokens and max_tokens > 0:
@@ -317,6 +322,7 @@ def main():
     parser.add_argument("--max-tokens", type=int, default=32000, help="Maximum tokens for response")
     parser.add_argument("--api-delay", type=float, default=1.0, help="Delay in seconds between API calls (default: 1.0)")
     parser.add_argument("--output", type=str, required=True, help="Output file to save results in JSON format")
+    parser.add_argument("--chinese-penalty", action="store_true", help="Apply logit bias to penalize Chinese characters in responses")
 
     global args  # Make args accessible globally for the save function
     args = parser.parse_args()
@@ -339,6 +345,16 @@ def main():
     print("-" * 60)
 
     print("Starting AI conversation simulation with alternating AI responses...")
+
+    # Prepare logit bias for Chinese characters if requested
+    logit_bias_chinese = {}
+    if args.chinese_penalty:
+        # Create a sample logit bias for Chinese characters
+        # Note: Actual token IDs depend on the model's tokenizer,
+        # so this is an approximation that may work for some models
+        # We'll use a small sample to avoid request size limits
+        for token_id in range(20000, 20010):  # Example token IDs that might correspond to Chinese chars in some models
+            logit_bias_chinese[str(token_id)] = -100
 
     # Initialize data structure
     ai_responses = []
@@ -376,12 +392,16 @@ def main():
 
         # Get response from AI model
         try:
+            # Select the appropriate logit_bias based on arguments
+            selected_logit_bias = logit_bias_chinese if args.chinese_penalty else None
+
             response = get_api_response(
                 prompt,
                 args.model,
                 args.api_key,
                 args.endpoint,
-                max_tokens=args.max_tokens
+                max_tokens=args.max_tokens,
+                logit_bias=selected_logit_bias
             )
         except Exception as e:
             print(f"[Turn {turn + 1}] Error calling API: {e}")

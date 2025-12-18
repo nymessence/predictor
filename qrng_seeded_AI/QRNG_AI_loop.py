@@ -158,7 +158,36 @@ def apply_random_seed_for_ai(ai_id, qrng_source, rand_source, turn_number):
     # print(f"Applied seed {seed_value} for {ai_id} on turn {turn_number + 1} using {ai_id.lower()}_source")
 
 
-def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_retries=999, logit_bias=None):
+def contains_chinese(text):
+    """
+    Check if the text contains Chinese characters.
+
+    Args:
+        text (str): Text to check
+
+    Returns:
+        bool: True if text contains Chinese characters, False otherwise
+    """
+    import unicodedata
+    for char in text:
+        if '\u4e00' <= char <= '\u9fff':  # CJK Unified Ideographs
+            return True
+        # Additional check for other CJK ranges
+        if any([
+            '\u3400' <= char <= '\u4dbf',    # CJK Extension A
+            '\u20000' <= char <= '\u2a6df',  # CJK Extension B
+            '\u2a700' <= char <= '\u2b73f',  # CJK Extension C
+            '\u2b740' <= char <= '\u2b81f',  # CJK Extension D
+            '\u2b820' <= char <= '\u2ceaf',  # CJK Extension E
+            '\u2ceb0' <= char <= '\u2ebef',  # CJK Extension F
+            '\u30000' <= char <= '\u3134f',  # CJK Extension G
+            '\uf900' <= char <= '\ufaff',    # CJK Compatibility Ideographs
+        ]):
+            return True
+    return False
+
+
+def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_retries=999, logit_bias=None, reject_chinese=False):
     """
     Send a request to the AI model API and return the response.
     This function will retry indefinitely until success, with exponential backoff.
@@ -171,6 +200,7 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
         max_tokens (int, optional): Maximum tokens for the response
         max_retries (int, optional): Maximum number of retries for failed requests (deprecated - now infinite retry)
         logit_bias (dict, optional): Dictionary of token IDs to biases to influence generation
+        reject_chinese (bool, optional): Whether to reject responses containing Chinese characters
 
     Returns:
         str: The AI model's response
@@ -213,7 +243,17 @@ def get_api_response(prompt, model, api_key, api_endpoint, max_tokens=None, max_
 
             if response.status_code == 200:
                 data = response.json()
-                return data['choices'][0]['message']['content'].strip()
+                response_text = data['choices'][0]['message']['content'].strip()
+
+                # If we need to reject Chinese characters and the response contains them
+                if reject_chinese and contains_chinese(response_text):
+                    print(f"Attempt {attempt}: Response contains Chinese characters, retrying...")
+                    # Add instructions to avoid Chinese to the prompt and try again
+                    modified_prompt = f"{prompt}\n\nIMPORTANT: Please respond only in English. Do not use any Chinese characters or other non-English text."
+                    payload['messages'] = [{'role': 'user', 'content': modified_prompt}]
+                    continue  # Retry with modified prompt
+
+                return response_text
             elif response.status_code in [429, 502, 503, 504]:  # Rate limiting or server errors
                 print(f"Attempt {attempt}: API request failed with status {response.status_code}. Retrying indefinitely...")
                 # Exponential backoff with max wait time of 300 seconds (5 minutes)
@@ -410,7 +450,8 @@ def main():
                 args.api_key,
                 args.endpoint,
                 max_tokens=args.max_tokens,
-                logit_bias=selected_logit_bias
+                logit_bias=selected_logit_bias,
+                reject_chinese=args.chinese_penalty
             )
         except Exception as e:
             print(f"[Turn {turn + 1}] Error calling API: {e}")

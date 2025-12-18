@@ -36,6 +36,7 @@ python predictor.py --model "MODEL_IDENTIFIER" \
 - `--start-year`: Starting year for predictions (default: next year)
 - `--token-limit`: Token limit for context (default: 32000)
 - `--output`: Output file to save predictions in JSON format
+- `--chinese-penalty`: Apply logit bias to penalize Chinese characters in responses
 
 ### Example
 

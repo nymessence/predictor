@@ -341,20 +341,29 @@ def main():
                             return sentence.strip(), move_found, ""
 
             # Also check for moves mentioned without "to" pattern: "e4", "Nf3", etc.
-            # But be more specific to avoid false positives
-            potential_moves = re.findall(r'\b([a-h][1-8]|[KQRBN]?x?[a-h][1-8]|[KQRBN][a-h][1-8]|[KQ]?O-O(?:-O)?)\b', response_text)
+            # But be very specific to avoid false positives with non-chess terms
+            # Only consider valid chess notation (coordinates and piece moves)
+            chess_pattern = r'\b([a-h][1-8]|[KQRBN][a-h][1-8]|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?[a-h][1-8][+#]?|O-O(?:-O)?)\b'
+            potential_moves = re.findall(chess_pattern, response_text, re.IGNORECASE)
 
-            # Filter to ensure these look like actual chess moves (not just coordinates in text)
-            # Look for context terms that suggest this is a move
-            context_terms = ['move', 'play', 'go', 'advance', 'position', 'strategy', 'game']
-            has_context = any(term.lower() in response_text.lower() for term in context_terms)
+            # Filter to ensure these look like actual chess moves (not just any coordinate in text)
+            # Look for context terms that suggest this is a chess-related move
+            chess_context_terms = ['chess', 'move', 'play', 'go', 'advance', 'position', 'strategy', 'game', 'board', 'castle', 'capture']
+            has_chess_context = any(term.lower() in response_text.lower() for term in chess_context_terms)
 
+            # Only return as a move if it's a valid chess notation AND appears in a chess context
             for potential_move in potential_moves:
-                # If the text contains context terms suggesting it's about chess, consider as move
-                if has_context and potential_move in response_text:
+                if has_chess_context:
                     # Clean the dialogue by removing the move and surrounding context
                     dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                     # Clean up extra punctuation and spacing
+                    dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                    return dialogue_text, potential_move, ""
+
+                # Special handling for move patterns that might appear without chess context
+                # If it's a clear chess move pattern like "e4", "Nf3", etc., we'll be more lenient
+                elif re.match(r'^[a-h][1-8]$', potential_move) or re.match(r'^[KQRBN][a-h]?[1-8]?[a-h][1-8]$', potential_move):
+                    dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                     dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                     return dialogue_text, potential_move, ""
 
@@ -371,7 +380,7 @@ def main():
 
             move_notation = move_notation.strip()
 
-            # Handle castling notation
+            # Handle castling notation first
             if move_notation.lower() in ['o-o', '0-0']:  # Kingside castling
                 # For white: king from (7,4) to (7,6), rook from (7,7) to (7,5)
                 # For black: king from (0,4) to (0,6), rook from (0,7) to (0,5)
@@ -394,7 +403,31 @@ def main():
                     return True, from_pos, to_pos
                 return False, None, None
 
-            # Handle standard notation like: e4, Nf3, exd5, Bxf7+, etc.
+            # Handle standard chess notation: e4, Nf3, exd5, Bxf7+, etc.
+            # Check if the move looks like proper chess notation before processing
+            chess_pattern = r'^([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][KQRBN]?[+#]?)$'
+            if not re.match(chess_pattern, move_notation.lower()):
+                # If it's not standard algebraic notation, check if it's in the form "e2 to e4" or "e2-e4"
+                coord_to_coord_pattern = r'([a-h][1-8])\s*(?:to|-)\s*([a-h][1-8])'
+                match = re.search(coord_to_coord_pattern, move_notation, re.IGNORECASE)
+                if match:
+                    from_sq = match.group(1).lower()
+                    to_sq = match.group(2).lower()
+
+                    # Convert to coordinates
+                    from_col = ord(from_sq[0]) - ord('a')
+                    from_row = 8 - int(from_sq[1])
+                    to_col = ord(to_sq[0]) - ord('a')
+                    to_row = 8 - int(to_sq[1])
+
+                    from_pos = (from_row, from_col)
+                    to_pos = (to_row, to_col)
+
+                    if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                        return True, from_pos, to_pos
+                    return False, None, None
+
+            # Standard algebraic notation processing
             # Extract destination square (last 2 characters that look like a square)
             dest_match = re.search(r'([a-h][1-8])$', move_notation.lower())
             if dest_match:

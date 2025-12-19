@@ -325,20 +325,40 @@ def main():
             # "I will move my pawn to e4" or "I'll advance my pawn to e4" or "My move is e4"
 
             # Enhanced natural language parsing for chess moves
-            natural_chess_pattern = r'(?:move|advance|play|go|move\s+to|advance\s+to)\s+(?:my\s+)?(?:pawn|piece|knight|bishop|rook|queen|king)?\s*(?:from\s+[a-h][1-8]\s+)?to\s+([a-h][1-8])'
+            # Handle more complex phrases like "move my pawn from e2 to e4"
+            natural_chess_pattern = r'(?:move|advance|play|go|move\s+to|advance\s+to)\s+(?:my\s+)?(?:pawn|piece|knight|bishop|rook|queen|king)?\s*(?:from\s+([a-h][1-8])\s+)?to\s+([a-h][1-8])'
             natural_matches = re.findall(natural_chess_pattern, response_text, re.IGNORECASE)
 
             if natural_matches:
-                move_found = natural_matches[0]
+                for from_sq, to_sq in natural_matches:
+                    if from_sq and to_sq:  # Both source and destination found
+                        # Construct a proper move notation from source to destination
+                        full_move = f"{from_sq}{to_sq}"
 
-                # Extract the sentence containing the move
-                for match in natural_matches:
-                    # Find the sentence containing the match
-                    sentences = re.split(r'[.!?]+', response_text)
-                    for sentence in sentences:
-                        if match in sentence:
-                            # Return the sentence as dialogue and the extracted move
-                            return sentence.strip(), move_found, ""
+                        # Extract the sentence containing the move
+                        sentences = re.split(r'[.!?]+', response_text)
+                        for sentence in sentences:
+                            if from_sq in sentence and to_sq in sentence:
+                                # Return the sentence as dialogue and the constructed move
+                                return sentence.strip(), f"{from_sq}-{to_sq}", ""
+
+            # Alternative pattern for "from e2 to e4" format
+            alt_pattern = r'from\s+([a-h][1-8])\s+to\s+([a-h][1-8])'
+            alt_matches = re.findall(alt_pattern, response_text, re.IGNORECASE)
+
+            if alt_matches:
+                for from_sq, to_sq in alt_matches:
+                    # Create a sentence pattern to find the sentence containing this move
+                    sentence_pattern = r'[^.!?]*\bfrom\s+' + re.escape(from_sq) + r'\s+to\s+' + re.escape(to_sq) + r'\b[^.!?]*[.!?]'
+                    sentence_matches = re.findall(sentence_pattern, response_text, re.IGNORECASE)
+                    if sentence_matches:
+                        move_str = f"{from_sq}{to_sq}"  # Chess notation e2e4
+                        sentence = sentence_matches[0].strip()
+                        return sentence, move_str, ""
+
+                    # If we couldn't find a specific sentence, construct move anyway
+                    move_str = f"{from_sq}{to_sq}"
+                    return response_text, move_str, ""
 
             # Also check for moves mentioned without "to" pattern: "e4", "Nf3", etc.
             # But be very specific to avoid false positives with non-chess terms

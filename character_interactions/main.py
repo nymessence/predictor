@@ -224,14 +224,14 @@ def main():
             import json
             import re
 
-            # Try to find JSON within the response using regex first
+            # First, try to find JSON within the response using regex
             # Look for JSON between curly braces
             json_pattern = r'\{[^{}]*\}'  # Simple non-nested JSON objects
             nested_json_pattern = r'\{(?:[^{}]|{[^{}]*})*\}'  # Allow one level of nesting
             complex_json_pattern = r'\{[\s\S]*?\}'  # Greedy capture for complex JSON
 
             # Try different patterns to find JSON in the response
-            patterns = [nested_json_pattern, json_pattern]
+            patterns = [complex_json_pattern, nested_json_pattern, json_pattern]
             for pattern in patterns:
                 matches = re.findall(pattern, response_text, re.DOTALL)
                 if matches:
@@ -241,9 +241,9 @@ def main():
                             parsed = json.loads(json_clean)
 
                             # Extract common fields used across different games
-                            dialogue = parsed.get('dialogue', parsed.get('strategy_thoughts', ''))
-                            move = parsed.get('move', parsed.get('action', parsed.get('letter', parsed.get('choice', ''))))
-                            board_state = parsed.get('board_state', parsed.get('state', ''))
+                            dialogue = parsed.get('dialogue', parsed.get('strategy_thoughts', parsed.get('thoughts', '')))
+                            move = parsed.get('move', parsed.get('action', parsed.get('letter', parsed.get('choice', parsed.get('selection', '')))))
+                            board_state = parsed.get('board_state', parsed.get('state', parsed.get('game_state', parsed.get('result', ''))))
 
                             # Return successfully if we have at least one valid piece of data
                             if dialogue or move:
@@ -251,8 +251,77 @@ def main():
                         except (json.JSONDecodeError, KeyError):
                             continue  # Try the next match
 
-            # If no JSON could be parsed, return the original text as dialogue
-            return response_text, None, None
+            # If no JSON could be parsed, try to extract move-like patterns from plain text
+            # Look for common chess patterns: e4, Nf3, exd5, O-O, etc.
+            chess_pattern = r'\b([a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8]|[KQ]?O-O(?:-O)?[+#]?)\b'
+            chess_matches = re.findall(chess_pattern, response_text, re.IGNORECASE)
+
+            if chess_matches and len(chess_matches) > 0:
+                # Extract move and use the rest as dialogue
+                move_found = chess_matches[0]
+
+                # Remove the move from the text to use as dialogue
+                dialogue_text = re.sub(chess_pattern, '', response_text, 1, re.IGNORECASE).strip()
+
+                # Remove extra whitespace and punctuation
+                dialogue_text = re.sub(r'\s+', ' ', dialogue_text)
+
+                return dialogue_text, move_found, ""
+
+            # Look for common patterns in other games
+            # Tic-tac-toe: [0,2], (1,1), etc.
+            ttt_pattern = r'[\[\(]\s*(\d+)\s*[,;\s]\s*(\d+)\s*[\]\)]'
+            ttt_matches = re.findall(ttt_pattern, response_text)
+
+            if ttt_matches and len(ttt_matches) > 0:
+                row, col = ttt_matches[0]
+                move_found = f"[{row}, {col}]"
+
+                # Remove the move from the text to use as dialogue
+                dialogue_text = re.sub(ttt_pattern, '', response_text, 1).strip()
+                dialogue_text = re.sub(r'\s+', ' ', dialogue_text)
+
+                return dialogue_text, move_found, ""
+
+            # Look for rock-paper-scissors choices
+            rps_pattern = r'\b(rock|paper|scissors|r|p|s)\b'
+            rps_matches = re.findall(rps_pattern, response_text, re.IGNORECASE)
+
+            if rps_matches and len(rps_matches) > 0:
+                choice_found = rps_matches[0].lower()
+                if choice_found in ['r']:
+                    choice_found = 'rock'
+                elif choice_found in ['p']:
+                    choice_found = 'paper'
+                elif choice_found in ['s']:
+                    choice_found = 'scissors'
+
+                # Remove the choice from the text to use as dialogue
+                dialogue_text = re.sub(rps_pattern, '', response_text, 1, re.IGNORECASE).strip()
+                dialogue_text = re.sub(r'\s+', ' ', dialogue_text)
+
+                return dialogue_text, choice_found, ""
+
+            # Look for hangman letter guesses (single letters)
+            hangman_pattern = r'\b([a-zA-Z])\b'
+            letter_matches = re.findall(hangman_pattern, response_text)
+
+            # Filter to common letters mentioned in context of guessing
+            words_with_letters = re.findall(r'guess[esd]?\s+(?:that\s+)?(?:it\'s\s+)?(?:the\s+)?(?:letter\s+)?["\']?([a-zA-Z])["\']?', response_text, re.IGNORECASE)
+            if words_with_letters:
+                letter_found = words_with_letters[0].lower()
+
+                # Use the sentence containing the letter as dialogue
+                for match in words_with_letters:
+                    match_idx = response_text.find(match)
+                    if match_idx != -1:
+                        # Extract a portion around the match
+                        start = max(0, match_idx - 30)
+                        end = min(len(response_text), match_idx + 30)
+                        return response_text[start:end].strip(), letter_found, ""
+
+            # If no specific patterns found, return the entire text as dialogue with no move
+            return response_text, "", ""
 
         # Check for game mode specific constraints
         if args.chess and args.max_turns != MAX_TURNS:

@@ -30,7 +30,7 @@ from response_generator import generate_response_adaptive
 from repitition_detector import detect_repetition_patterns
 from scenario_adapter import adapt_character_message
 from scenario_progression import ScenarioProgressor, check_scenario_progression
-from chess_game import ChessGame
+from chess_game_module import ChessGame
 from tic_tac_toe_game import TicTacToeGame
 from rock_paper_scissors_game import RockPaperScissorsGame
 from hangman_game import HangmanGame

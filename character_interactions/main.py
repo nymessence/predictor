@@ -361,6 +361,81 @@ def main():
             # If still no move found, return the entire text as dialogue with no move
             return response_text, "", ""
 
+        # Specific function to parse chess move notation
+        def parse_move_notation(move_notation, chess_game, current_player_color):
+            """Parse algebraic move notation and return the from/to positions."""
+            import re
+
+            if not move_notation:
+                return False, None, None
+
+            move_notation = move_notation.strip()
+
+            # Handle castling notation
+            if move_notation.lower() in ['o-o', '0-0']:  # Kingside castling
+                # For white: king from (7,4) to (7,6), rook from (7,7) to (7,5)
+                # For black: king from (0,4) to (0,6), rook from (0,7) to (0,5)
+                row = 7 if current_player_color == 'white' else 0
+                from_pos = (row, 4)  # King start position for castling
+                to_pos = (row, 6)   # King end position for kingside castling
+
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
+
+            elif move_notation.lower() in ['o-o-o', '0-0-0']:  # Queenside castling
+                # For white: king from (7,4) to (7,2), rook from (7,0) to (7,3)
+                # For black: king from (0,4) to (0,2), rook from (0,0) to (0,3)
+                row = 7 if current_player_color == 'white' else 0
+                from_pos = (row, 4)  # King start position for castling
+                to_pos = (row, 2)   # King end position for queenside castling
+
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
+
+            # Handle standard notation like: e4, Nf3, exd5, Bxf7+, etc.
+            # Extract destination square (last 2 characters that look like a square)
+            dest_match = re.search(r'([a-h][1-8])$', move_notation.lower())
+            if dest_match:
+                dest_sq = dest_match.group(1)
+                dest_col = ord(dest_sq[0]) - ord('a')
+                dest_row = 8 - int(dest_sq[1])
+                dest_pos = (dest_row, dest_col)
+
+                # If the notation is just a destination square (like 'e4'), try to find the piece that can move there
+                if len(move_notation.strip()) == 2:  # Simple notation like 'e4'
+                    # Find all pieces of current player's color that can move to this destination
+                    for row_idx in range(8):
+                        for col_idx in range(8):
+                            piece = chess_game.get_piece_at(row_idx, col_idx)
+                            if piece and chess_game.is_own_piece(piece, current_player_color):
+                                # Check if this piece can move to the destination
+                                temp_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                if dest_pos in temp_moves:
+                                    from_pos = (row_idx, col_idx)
+                                    if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                        return True, from_pos, dest_pos
+                    return False, None, None  # No valid piece can make this move
+
+                # For more complex notation, try to extract source info
+                else:
+                    # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.)
+                    source_match = re.search(r'([a-h][1-8]).*?([a-h][1-8])', move_notation.lower())
+                    if source_match:
+                        from_sq = source_match.group(1)
+                        to_sq = source_match.group(2)  # Should match dest_sq
+
+                        from_col = ord(from_sq[0]) - ord('a')
+                        from_row = 8 - int(from_sq[1])
+                        from_pos = (from_row, from_col)
+
+                        if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                            return True, from_pos, dest_pos
+
+            # If we couldn't parse it, return failure
+            return False, None, None
+
         # Check for game mode specific constraints
         if args.chess and args.max_turns != MAX_TURNS:
             print(f"⚠️  WARNING: --max-turns parameter is not recommended in chess mode as games continue until completion")

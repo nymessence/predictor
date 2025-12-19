@@ -400,6 +400,10 @@ def main():
 
             move_notation = move_notation.strip()
 
+            # If move notation is empty, return failure
+            if not move_notation:
+                return False, None, None
+
             # Handle castling notation first
             if move_notation.lower() in ['o-o', '0-0']:  # Kingside castling
                 # For white: king from (7,4) to (7,6), rook from (7,7) to (7,5)
@@ -423,68 +427,89 @@ def main():
                     return True, from_pos, to_pos
                 return False, None, None
 
+            # Handle coordinate format "e2e4" (source to destination)
+            coord_format_pattern = r'^([a-h][1-8])([a-h][1-8])$'
+            coord_match = re.match(coord_format_pattern, move_notation.lower())
+            if coord_match:
+                from_sq = coord_match.group(1)
+                to_sq = coord_match.group(2)
+
+                from_col = ord(from_sq[0]) - ord('a')
+                from_row = 8 - int(from_sq[1])
+                to_col = ord(to_sq[0]) - ord('a')
+                to_row = 8 - int(to_sq[1])
+
+                from_pos = (from_row, from_col)
+                to_pos = (to_row, to_col)
+
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
+
             # Handle standard chess notation: e4, Nf3, exd5, Bxf7+, etc.
-            # Check if the move looks like proper chess notation before processing
+            # Check if the move looks like proper chess notation
             chess_pattern = r'^([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][KQRBN]?[+#]?)$'
-            if not re.match(chess_pattern, move_notation.lower()):
-                # If it's not standard algebraic notation, check if it's in the form "e2 to e4" or "e2-e4"
-                coord_to_coord_pattern = r'([a-h][1-8])\s*(?:to|-)\s*([a-h][1-8])'
-                match = re.search(coord_to_coord_pattern, move_notation, re.IGNORECASE)
-                if match:
-                    from_sq = match.group(1).lower()
-                    to_sq = match.group(2).lower()
+            if re.match(chess_pattern, move_notation.lower()):
+                # Standard algebraic notation processing
+                # Extract destination square (last 2 characters that look like a square)
+                dest_match = re.search(r'([a-h][1-8])$', move_notation.lower())
+                if dest_match:
+                    dest_sq = dest_match.group(1)
+                    dest_col = ord(dest_sq[0]) - ord('a')
+                    dest_row = 8 - int(dest_sq[1])
+                    dest_pos = (dest_row, dest_col)
 
-                    # Convert to coordinates
-                    from_col = ord(from_sq[0]) - ord('a')
-                    from_row = 8 - int(from_sq[1])
-                    to_col = ord(to_sq[0]) - ord('a')
-                    to_row = 8 - int(to_sq[1])
+                    # If the notation is just a destination square (like 'e4'), try to find the piece that can move there
+                    if len(move_notation.strip()) == 2:  # Simple notation like 'e4'
+                        # Find all pieces of current player's color that can move to this destination
+                        for row_idx in range(8):
+                            for col_idx in range(8):
+                                piece = chess_game.get_piece_at(row_idx, col_idx)
+                                if piece and chess_game.is_own_piece(piece, current_player_color):
+                                    # Check if this piece can move to the destination
+                                    temp_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                    if dest_pos in temp_moves:
+                                        from_pos = (row_idx, col_idx)
+                                        if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                            return True, from_pos, dest_pos
+                        return False, None, None  # No valid piece can make this move
 
-                    from_pos = (from_row, from_col)
-                    to_pos = (to_row, to_col)
+                    # For more complex notation, try to extract source info
+                    # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.) - but this is for more complex patterns
+                    # If we have more complex patterns, we can handle them here
+                    else:
+                        # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.)
+                        source_match = re.search(r'([a-h][1-8]).*?([a-h][1-8])', move_notation.lower())
+                        if source_match:
+                            from_sq = source_match.group(1)
+                            to_sq = source_match.group(2)  # Should match dest_sq
 
-                    if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
-                        return True, from_pos, to_pos
-                    return False, None, None
+                            from_col = ord(from_sq[0]) - ord('a')
+                            from_row = 8 - int(from_sq[1])
+                            from_pos = (from_row, from_col)
 
-            # Standard algebraic notation processing
-            # Extract destination square (last 2 characters that look like a square)
-            dest_match = re.search(r'([a-h][1-8])$', move_notation.lower())
-            if dest_match:
-                dest_sq = dest_match.group(1)
-                dest_col = ord(dest_sq[0]) - ord('a')
-                dest_row = 8 - int(dest_sq[1])
-                dest_pos = (dest_row, dest_col)
+                            if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                return True, from_pos, dest_pos
 
-                # If the notation is just a destination square (like 'e4'), try to find the piece that can move there
-                if len(move_notation.strip()) == 2:  # Simple notation like 'e4'
-                    # Find all pieces of current player's color that can move to this destination
-                    for row_idx in range(8):
-                        for col_idx in range(8):
-                            piece = chess_game.get_piece_at(row_idx, col_idx)
-                            if piece and chess_game.is_own_piece(piece, current_player_color):
-                                # Check if this piece can move to the destination
-                                temp_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
-                                if dest_pos in temp_moves:
-                                    from_pos = (row_idx, col_idx)
-                                    if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
-                                        return True, from_pos, dest_pos
-                    return False, None, None  # No valid piece can make this move
+            # If it's not standard algebraic notation, check if it's in the form "e2 to e4" or "e2-e4" or "e2,e4"
+            coord_to_coord_pattern = r'([a-h][1-8])\s*(?:to|[-,])\s*([a-h][1-8])'
+            match = re.search(coord_to_coord_pattern, move_notation, re.IGNORECASE)
+            if match:
+                from_sq = match.group(1).lower()
+                to_sq = match.group(2).lower()
 
-                # For more complex notation, try to extract source info
-                else:
-                    # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.)
-                    source_match = re.search(r'([a-h][1-8]).*?([a-h][1-8])', move_notation.lower())
-                    if source_match:
-                        from_sq = source_match.group(1)
-                        to_sq = source_match.group(2)  # Should match dest_sq
+                # Convert to coordinates
+                from_col = ord(from_sq[0]) - ord('a')
+                from_row = 8 - int(from_sq[1])
+                to_col = ord(to_sq[0]) - ord('a')
+                to_row = 8 - int(to_sq[1])
 
-                        from_col = ord(from_sq[0]) - ord('a')
-                        from_row = 8 - int(from_sq[1])
-                        from_pos = (from_row, from_col)
+                from_pos = (from_row, from_col)
+                to_pos = (to_row, to_col)
 
-                        if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
-                            return True, from_pos, dest_pos
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
 
             # If we couldn't parse it, return failure
             return False, None, None

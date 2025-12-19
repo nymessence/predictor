@@ -320,7 +320,45 @@ def main():
                         end = min(len(response_text), match_idx + 30)
                         return response_text[start:end].strip(), letter_found, ""
 
-            # If no specific patterns found, return the entire text as dialogue with no move
+            # If no specific patterns found directly, try more comprehensive natural language parsing
+            # Look for patterns where the AI mentions a move in natural language like:
+            # "I will move my pawn to e4" or "I'll advance my pawn to e4" or "My move is e4"
+
+            # Enhanced natural language parsing for chess moves
+            natural_chess_pattern = r'(?:move|advance|play|go|move\s+to|advance\s+to)\s+(?:my\s+)?(?:pawn|piece|knight|bishop|rook|queen|king)?\s*(?:from\s+[a-h][1-8]\s+)?to\s+([a-h][1-8])'
+            natural_matches = re.findall(natural_chess_pattern, response_text, re.IGNORECASE)
+
+            if natural_matches:
+                move_found = natural_matches[0]
+
+                # Extract the sentence containing the move
+                for match in natural_matches:
+                    # Find the sentence containing the match
+                    sentences = re.split(r'[.!?]+', response_text)
+                    for sentence in sentences:
+                        if match in sentence:
+                            # Return the sentence as dialogue and the extracted move
+                            return sentence.strip(), move_found, ""
+
+            # Also check for moves mentioned without "to" pattern: "e4", "Nf3", etc.
+            # But be more specific to avoid false positives
+            potential_moves = re.findall(r'\b([a-h][1-8]|[KQRBN]?x?[a-h][1-8]|[KQRBN][a-h][1-8]|[KQ]?O-O(?:-O)?)\b', response_text)
+
+            # Filter to ensure these look like actual chess moves (not just coordinates in text)
+            # Look for context terms that suggest this is a move
+            context_terms = ['move', 'play', 'go', 'advance', 'position', 'strategy', 'game']
+            has_context = any(term.lower() in response_text.lower() for term in context_terms)
+
+            for potential_move in potential_moves:
+                # If the text contains context terms suggesting it's about chess, consider as move
+                if has_context and potential_move in response_text:
+                    # Clean the dialogue by removing the move and surrounding context
+                    dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
+                    # Clean up extra punctuation and spacing
+                    dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                    return dialogue_text, potential_move, ""
+
+            # If still no move found, return the entire text as dialogue with no move
             return response_text, "", ""
 
         # Check for game mode specific constraints

@@ -1,0 +1,3 @@
+[
+  "Context length exceeded. Your messages contain 461333 characters (approximately 115333 tokens), but the maximum allowed is 128000 characters (32000 tokens). Please reduce your message length or upgrade to a plan with the Full Context addon."
+]

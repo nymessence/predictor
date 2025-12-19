@@ -1,0 +1,18 @@
+INSTRUCTIONS
+
+you will be working in the folder ~/AI-Pairing-Sims/TESTING
+
+there are a series of python files there and currently you can use a command like this to test it
+uv run main.py "json/nya_elyria.json" "json/empress_azalea.json" --delay 40 --similarity 0.65 -o "Nya_&_Azalea.json" -t 10
+
+if any issues are found find and fix them
+
+IMPORTANT: DO NOT STOP UNTIL ALL ISSUES HAVE BEEN FIXED AND IMPLEMENTED
+
+IMPORTANT: Git commit after each edit and revert and retry if a commit breaks something
+
+your job is to implement additional parameter such that you can run this command
+uv run main.py "json/nya_elyria.json" "json/empress_azalea.json" --delay 40 --similarity 0.65 --api-endpoint "https://api.llm7.io/v1" --model "glm-4.5-flash" --api-key $AICHAT_API_KEY -o "Nya_&_Azalea_1.json" -t 10
+
+one this command works you will test this one too
+uv run main.py "json/nya_elyria.json" "json/empress_azalea.json" --delay 60 --similarity 0.65 --api-endpoint "https://api.airforce/v1" --model "deepseek-v3 --api-key $AICHAT_API_KEY -o "Nya_&_Azalea_2.json" -t 10

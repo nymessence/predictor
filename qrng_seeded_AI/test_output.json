@@ -1,0 +1,30 @@
+{
+  "simulation_info": {
+    "type": "QRNG Seeded AI Conversation",
+    "qrng_source": "test",
+    "random_source": "test",
+    "temperature": 0.7,
+    "total_turns": 3,
+    "timestamp": "2025-12-18T21:03:23.345636+00:00"
+  },
+  "ai_responses": [
+    {
+      "turn": 1,
+      "speaker": "AI1",
+      "response": "Simulated response from AI1 on turn 1. This demonstrates the QRNG seeding system is working correctly. Seed applied for this turn: 744165",
+      "timestamp": "2025-12-18T21:03:23.144144+00:00"
+    },
+    {
+      "turn": 2,
+      "speaker": "AI2",
+      "response": "Simulated response from AI2 on turn 2. This demonstrates the QRNG seeding system is working correctly. Seed applied for this turn: 958365",
+      "timestamp": "2025-12-18T21:03:23.244642+00:00"
+    },
+    {
+      "turn": 3,
+      "speaker": "AI1",
+      "response": "Simulated response from AI1 on turn 3. This demonstrates the QRNG seeding system is working correctly. Seed applied for this turn: 133070",
+      "timestamp": "2025-12-18T21:03:23.345613+00:00"
+    }
+  ]
+}

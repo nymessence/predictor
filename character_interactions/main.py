@@ -218,6 +218,42 @@ def main():
         api_key = validate_api_key(args)
         print("✓ API key validated\n")
 
+        # Define helper functions for parsing game responses with JSON format
+        def parse_game_json_response(response_text, character_name):
+            """Parse the JSON response from the AI containing dialogue, move/action, and game state."""
+            import json
+            import re
+
+            # Try to find JSON within the response using regex first
+            # Look for JSON between curly braces
+            json_pattern = r'\{[^{}]*\}'  # Simple non-nested JSON objects
+            nested_json_pattern = r'\{(?:[^{}]|{[^{}]*})*\}'  # Allow one level of nesting
+            complex_json_pattern = r'\{[\s\S]*?\}'  # Greedy capture for complex JSON
+
+            # Try different patterns to find JSON in the response
+            patterns = [nested_json_pattern, json_pattern]
+            for pattern in patterns:
+                matches = re.findall(pattern, response_text, re.DOTALL)
+                if matches:
+                    for json_str in matches:
+                        try:
+                            json_clean = json_str.strip()
+                            parsed = json.loads(json_clean)
+
+                            # Extract common fields used across different games
+                            dialogue = parsed.get('dialogue', parsed.get('strategy_thoughts', ''))
+                            move = parsed.get('move', parsed.get('action', parsed.get('letter', parsed.get('choice', ''))))
+                            board_state = parsed.get('board_state', parsed.get('state', ''))
+
+                            # Return successfully if we have at least one valid piece of data
+                            if dialogue or move:
+                                return dialogue.strip(), move.strip(), board_state.strip()
+                        except (json.JSONDecodeError, KeyError):
+                            continue  # Try the next match
+
+            # If no JSON could be parsed, return the original text as dialogue
+            return response_text, None, None
+
         # Check for game mode specific constraints
         if args.chess and args.max_turns != MAX_TURNS:
             print(f"⚠️  WARNING: --max-turns parameter is not recommended in chess mode as games continue until completion")
@@ -415,7 +451,7 @@ Make sure your move is legal in the current position. Think through your strateg
                         print(resp)
 
                         # Parse the JSON response
-                        dialogue, move_notation, board_state = parse_chess_json_response(resp, current_char['name'])
+                        dialogue, move_notation, board_state = parse_game_json_response(resp, current_char['name'])
 
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
@@ -594,7 +630,7 @@ Think through your strategy before responding.
                         print(resp)
 
                         # Parse the JSON response
-                        dialogue, move_notation, board_state = parse_chess_json_response(resp, current_char['name'])
+                        dialogue, move_notation, board_state = parse_game_json_response(resp, current_char['name'])
 
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
@@ -753,7 +789,7 @@ Make your guess now.
                     print(resp)
 
                     # Parse the JSON response
-                    dialogue, letter_guess, reasoning = parse_chess_json_response(resp, current_char['name'])
+                    dialogue, letter_guess, reasoning = parse_game_json_response(resp, current_char['name'])
 
                     if dialogue:
                         print(f"💬 Dialogue: {dialogue}")
@@ -902,7 +938,7 @@ Make your decision now.
                     print(resp)
 
                     # Parse the JSON response
-                    dialogue, action_choice, reasoning = parse_chess_json_response(resp, current_char['name'])
+                    dialogue, action_choice, reasoning = parse_game_json_response(resp, current_char['name'])
 
                     if dialogue:
                         print(f"💬 Dialogue: {dialogue}")

@@ -694,13 +694,29 @@ You are playing chess. It's your turn to make a move. Please respond in the foll
 Make sure your move is legal in the current position. Think through your strategy before responding.
                         """.strip()
 
+                        # Extract lorebook entries based on game context keywords
+                        lorebook_entries = []
+                        game_scenario = "Playing a game of chess"
+                        from character_loader import extract_lorebook_entries
+                        # Search for keywords in game scenario that match character lorebooks
+                        scenario_keywords = game_scenario.lower().split()
+                        for char in characters:
+                            entries = extract_lorebook_entries(char['raw_data'], chess_history, max_entries=2)
+                            # Filter entries by scenario relevance
+                            relevant_entries = []
+                            for entry in entries:
+                                if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
+                                    relevant_entries.append(entry)
+                            lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
+
                         # Generate response with chess context
                         resp = generate_response_adaptive(
                             current_char, other_char, chess_history, turn,
                             enable_environmental=not args.no_environmental,
                             similarity_threshold=args.similarity,
                             verbose=args.verbose,
-                            scenario_context="Playing a game of chess"
+                            scenario_context="Playing a game of chess",
+                            lorebook_entries=lorebook_entries if lorebook_entries else None
                         )
 
                         # Validate response
@@ -873,13 +889,29 @@ You are playing tic-tac-toe. It's your turn to make a move. Please respond in th
 Think through your strategy before responding.
                         """.strip()
 
+                        # Extract lorebook entries based on game context keywords
+                        lorebook_entries = []
+                        game_scenario = "Playing a game of tic-tac-toe"
+                        from character_loader import extract_lorebook_entries
+                        # Search for keywords in game scenario that match character lorebooks
+                        scenario_keywords = game_scenario.lower().split()
+                        for char in characters:
+                            entries = extract_lorebook_entries(char['raw_data'], ttt_history, max_entries=2)
+                            # Filter entries by scenario relevance
+                            relevant_entries = []
+                            for entry in entries:
+                                if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
+                                    relevant_entries.append(entry)
+                            lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
+
                         # Generate response with game context
                         resp = generate_response_adaptive(
                             current_char, other_char, ttt_history, turn,
                             enable_environmental=not args.no_environmental,
                             similarity_threshold=args.similarity,
                             verbose=args.verbose,
-                            scenario_context="Playing a game of tic-tac-toe"
+                            scenario_context="Playing a game of tic-tac-toe",
+                            lorebook_entries=lorebook_entries if lorebook_entries else None
                         )
 
                         # Validate response
@@ -1032,13 +1064,29 @@ You are playing hangman. Guess a single letter to uncover the secret word. Respo
 Make your guess now.
                     """.strip()
 
+                    # Extract lorebook entries based on game context keywords
+                    lorebook_entries = []
+                    game_scenario = "Playing a game of hangman"
+                    from character_loader import extract_lorebook_entries
+                    # Search for keywords in game scenario that match character lorebooks
+                    scenario_keywords = game_scenario.lower().split()
+                    for char in characters:
+                        entries = extract_lorebook_entries(char['raw_data'], hangman_history, max_entries=2)
+                        # Filter entries by scenario relevance
+                        relevant_entries = []
+                        for entry in entries:
+                            if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
+                                relevant_entries.append(entry)
+                        lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
+
                     # Generate response with game context
                     resp = generate_response_adaptive(
                         current_char, other_char, hangman_history, turn,
                         enable_environmental=not args.no_environmental,
                         similarity_threshold=args.similarity,
                         verbose=args.verbose,
-                        scenario_context="Playing a game of hangman"
+                        scenario_context="Playing a game of hangman",
+                        lorebook_entries=lorebook_entries if lorebook_entries else None
                     )
 
                     # Validate response
@@ -1181,13 +1229,29 @@ You are playing twenty-one (simplified blackjack). Decide to hit (take another c
 Make your decision now.
                     """.strip()
 
+                    # Extract lorebook entries based on game context keywords
+                    lorebook_entries = []
+                    game_scenario = "Playing a game of twenty-one"
+                    from character_loader import extract_lorebook_entries
+                    # Search for keywords in game scenario that match character lorebooks
+                    scenario_keywords = game_scenario.lower().split()
+                    for char in characters:
+                        entries = extract_lorebook_entries(char['raw_data'], twentyone_history, max_entries=2)
+                        # Filter entries by scenario relevance
+                        relevant_entries = []
+                        for entry in entries:
+                            if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
+                                relevant_entries.append(entry)
+                        lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
+
                     # Generate response with game context
                     resp = generate_response_adaptive(
                         current_char, other_char, twentyone_history, turn,
                         enable_environmental=not args.no_environmental,
                         similarity_threshold=args.similarity,
                         verbose=args.verbose,
-                        scenario_context="Playing a game of twenty-one"
+                        scenario_context="Playing a game of twenty-one",
+                        lorebook_entries=lorebook_entries if lorebook_entries else None
                     )
 
                     # Validate response

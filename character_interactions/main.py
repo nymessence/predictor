@@ -1067,184 +1067,98 @@ Make your decision now.
                 print(f"\n{'='*80}")
                 print(f"[TURN {turn}] {characters[current_char_index]['name']}")
                 print('='*80)
-            
-            try:
-                # Get current and other characters
-                current_char = characters[current_char_index]
-                other_char = characters[other_char_index]
 
-                # Determine current scenario context (default to args.scenario or enhanced if progression exists)
-                current_scenario = args.scenario
-                if scenario_progressor:
-                    # Always use the latest scenario context from progressor if available
-                    current_scenario = scenario_progressor.get_scenario_context_for_stage()
+                try:
+                    # Get current and other characters
+                    current_char = characters[current_char_index]
+                    other_char = characters[other_char_index]
 
-                # Check for scenario progression
-                scenario_progression_message = ""
-                if scenario_progressor:
-                    scenario_progression_message = check_scenario_progression(scenario_progressor, history, turn)
-                    if scenario_progression_message:
-                        print(f"🚀 SCENARIO PROGRESSION: {scenario_progression_message}")
-                        # Add scenario progression to history as a narrative element
-                        history.append({'name': 'Narrator', 'content': scenario_progression_message})
-                        # Update the scenario context for this turn and for future turns
+                    # Determine current scenario context (default to args.scenario or enhanced if progression exists)
+                    current_scenario = args.scenario
+                    if scenario_progressor:
+                        # Always use the latest scenario context from progressor if available
                         current_scenario = scenario_progressor.get_scenario_context_for_stage()
-                        args.scenario = current_scenario  # Update the main scenario for future use
-                        print(f"📊 Updated scenario context: {scenario_progressor.get_current_stage_description()}")
 
-                # Extract lorebook entries based on scenario keywords
-                lorebook_entries = []
-                if current_scenario:  # Use current_scenario which may be updated by progression
-                    from character_loader import extract_lorebook_entries
-                    # Search for keywords in scenario that match character lorebooks
-                    scenario_keywords = current_scenario.lower().split()
-                    for char in characters:
-                        entries = extract_lorebook_entries(char['raw_data'], history, max_entries=2)
-                        # Filter entries by scenario relevance
-                        relevant_entries = []
-                        for entry in entries:
-                            if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
-                                relevant_entries.append(entry)
-                        lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
+                    # Check for scenario progression
+                    scenario_progression_message = ""
+                    if scenario_progressor:
+                        scenario_progression_message = check_scenario_progression(scenario_progressor, history, turn)
+                        if scenario_progression_message:
+                            print(f"🚀 SCENARIO PROGRESSION: {scenario_progression_message}")
+                            # Add scenario progression to history as a narrative element
+                            history.append({'name': 'Narrator', 'content': scenario_progression_message})
+                            # Update the scenario context for this turn and for future turns
+                            current_scenario = scenario_progressor.get_scenario_context_for_stage()
+                            args.scenario = current_scenario  # Update the main scenario for future use
+                            print(f"📊 Updated scenario context: {scenario_progressor.get_current_stage_description()}")
 
-                resp = generate_response_adaptive(
-                    current_char, other_char, history, turn,
-                    enable_environmental=not args.no_environmental,
-                    similarity_threshold=args.similarity,
-                    verbose=args.verbose,
-                    scenario_context=current_scenario,
-                    lorebook_entries=lorebook_entries if lorebook_entries else None
-                )
+                    # Extract lorebook entries based on scenario keywords
+                    lorebook_entries = []
+                    if current_scenario:  # Use current_scenario which may be updated by progression
+                        from character_loader import extract_lorebook_entries
+                        # Search for keywords in scenario that match character lorebooks
+                        scenario_keywords = current_scenario.lower().split()
+                        for char in characters:
+                            entries = extract_lorebook_entries(char['raw_data'], history, max_entries=2)
+                            # Filter entries by scenario relevance
+                            relevant_entries = []
+                            for entry in entries:
+                                if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
+                                    relevant_entries.append(entry)
+                            lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
 
-                # Validate response
-                if not isinstance(resp, str):
-                    resp = str(resp)
-                if len(resp.strip()) < 10:
+                    resp = generate_response_adaptive(
+                        current_char, other_char, history, turn,
+                        enable_environmental=not args.no_environmental,
+                        similarity_threshold=args.similarity,
+                        verbose=args.verbose,
+                        scenario_context=current_scenario,
+                        lorebook_entries=lorebook_entries if lorebook_entries else None
+                    )
+
+                    # Validate response
+                    if not isinstance(resp, str):
+                        resp = str(resp)
+                    if len(resp.strip()) < 10:
+                        from response_generator import generate_emergency_response
+                        resp = generate_emergency_response(current_char, other_char, history, {}, turn)
+
+                    history.append({'name': current_char['name'], 'content': resp})
+                    print(resp)
+
+                    # Switch characters (cycle through all characters)
+                    other_char_index = current_char_index
+                    current_char_index = (current_char_index + 1) % len(characters)
+
+                    # Delay before next turn
+                    if turn < args.max_turns:
+                        print(f"\n⏳ Waiting {args.delay} seconds...")
+                        time.sleep(args.delay)
+
+                except KeyboardInterrupt:
+                    print("\n⚠️  Interrupted by user. Saving...")
+                    break
+
+                except Exception as e:
+                    print(f"\n❌ Error on turn {turn}: {e}")
+                    import traceback
+                    traceback.print_exc()
+
+                    # Generate fallback response
                     from response_generator import generate_emergency_response
-                    resp = generate_emergency_response(current_char, other_char, history, {}, turn)
+                    fallback_resp = generate_emergency_response(current_char, other_char, history, {}, turn)
+                    history.append({'name': current_char['name'], 'content': fallback_resp})
+                    print(fallback_resp)
 
-                history.append({'name': current_char['name'], 'content': resp})
-                print(resp)
-
-                # Switch characters (cycle through all characters)
-                other_char_index = current_char_index
-                current_char_index = (current_char_index + 1) % len(characters)
-
-                # Delay before next turn
-                if turn < args.max_turns:
-                    print(f"\n⏳ Waiting {args.delay} seconds...")
-                    time.sleep(args.delay)
-
-            except KeyboardInterrupt:
-                print("\n⚠️  Interrupted by user. Saving...")
-                break
-
-            except Exception as e:
-                print(f"\n❌ Error on turn {turn}: {e}")
-                import traceback
-                traceback.print_exc()
-
-                # Generate fallback response
-                from response_generator import generate_emergency_response
-                fallback_resp = generate_emergency_response(current_char, other_char, history, {}, turn)
-                history.append({'name': current_char['name'], 'content': fallback_resp})
-                print(fallback_resp)
-
-                # Switch characters (cycle through all characters)
-                other_char_index = current_char_index
-                current_char_index = (current_char_index + 1) % len(characters)
-                continue
+                    # Switch characters (cycle through all characters)
+                    other_char_index = current_char_index
+                    current_char_index = (current_char_index + 1) % len(characters)
+                    continue
 
         # Save conversation and analyze
         save_conversation(history, output_file)
         print_final_analysis(history, args.similarity)
 
-                # Determine current scenario context (default to args.scenario or enhanced if progression exists)
-                current_scenario = args.scenario
-                if scenario_progressor:
-                    # Always use the latest scenario context from progressor if available
-                    current_scenario = scenario_progressor.get_scenario_context_for_stage()
-
-                # Check for scenario progression
-                scenario_progression_message = ""
-                if scenario_progressor:
-                    scenario_progression_message = check_scenario_progression(scenario_progressor, history, turn)
-                    if scenario_progression_message:
-                        print(f"🚀 SCENARIO PROGRESSION: {scenario_progression_message}")
-                        # Add scenario progression to history as a narrative element
-                        history.append({'name': 'Narrator', 'content': scenario_progression_message})
-                        # Update the scenario context for this turn and for future turns
-                        current_scenario = scenario_progressor.get_scenario_context_for_stage()
-                        args.scenario = current_scenario  # Update the main scenario for future use
-                        print(f"📊 Updated scenario context: {scenario_progressor.get_current_stage_description()}")
-
-                # Extract lorebook entries based on scenario keywords
-                lorebook_entries = []
-                if current_scenario:  # Use current_scenario which may be updated by progression
-                    from character_loader import extract_lorebook_entries
-                    # Search for keywords in scenario that match character lorebooks
-                    scenario_keywords = current_scenario.lower().split()
-                    for char in characters:
-                        entries = extract_lorebook_entries(char['raw_data'], history, max_entries=2)
-                        # Filter entries by scenario relevance
-                        relevant_entries = []
-                        for entry in entries:
-                            if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
-                                relevant_entries.append(entry)
-                        lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
-
-                resp = generate_response_adaptive(
-                    current_char, other_char, history, turn,
-                    enable_environmental=not args.no_environmental,
-                    similarity_threshold=args.similarity,
-                    verbose=args.verbose,
-                    scenario_context=current_scenario,
-                    lorebook_entries=lorebook_entries if lorebook_entries else None
-                )
-                
-                # Validate response
-                if not isinstance(resp, str):
-                    resp = str(resp)
-                if len(resp.strip()) < 10:
-                    from response_generator import generate_emergency_response
-                    resp = generate_emergency_response(current_char, other_char, history, {}, turn)
-                
-                history.append({'name': current_char['name'], 'content': resp})
-                print(resp)
-                
-                # Switch characters (cycle through all characters)
-                other_char_index = current_char_index
-                current_char_index = (current_char_index + 1) % len(characters)
-                
-                # Delay before next turn
-                if turn < args.max_turns:
-                    print(f"\n⏳ Waiting {args.delay} seconds...")
-                    time.sleep(args.delay)
-                    
-            except KeyboardInterrupt:
-                print("\n⚠️  Interrupted by user. Saving...")
-                break
-                
-            except Exception as e:
-                print(f"\n❌ Error on turn {turn}: {e}")
-                import traceback
-                traceback.print_exc()
-                
-                # Generate fallback response
-                from response_generator import generate_emergency_response
-                fallback_resp = generate_emergency_response(current_char, other_char, history, {}, turn)
-                history.append({'name': current_char['name'], 'content': fallback_resp})
-                print(fallback_resp)
-                
-                # Switch characters (cycle through all characters)
-                other_char_index = current_char_index
-                current_char_index = (current_char_index + 1) % len(characters)
-                continue
-        
-        # Save and analyze
-        save_conversation(history, output_file)
-        print_final_analysis(history, args.similarity)
-        
     except Exception as e:
         print(f"\n❌ FATAL ERROR: {e}")
         import traceback

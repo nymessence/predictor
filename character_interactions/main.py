@@ -983,7 +983,7 @@ def main():
             # Using a conservative estimate of ~1.3 tokens per word to approximate GPT tokenization
             return int(len(words) * 1.3)
 
-        def limit_history_window(full_history: List[dict], max_tokens: int = 1000) -> List[dict]:
+        def limit_history_window(full_history: list, max_tokens: int = 1000) -> list:
             """
             Limit the history to a sliding window that fits within token limits.
             Keeps the most recent entries while ensuring token limit is respected.

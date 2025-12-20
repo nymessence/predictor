@@ -1086,9 +1086,89 @@ def main():
                                             return True, from_pos, dest_pos
                         return False, None, None  # No valid piece can make this move
 
-                    # For more complex notation, try to extract source info
-                    # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.) - but this is for more complex patterns
-                    # If we have more complex patterns, we can handle them here
+                    # For more complex notation, handle different cases
+                    # First, check if this is a piece move like "Nf3", "Bc4", "Qh5", etc.
+                    piece_move_pattern = r'^([KQRBN])([a-h][1-8])$'
+                    piece_move_match = re.match(piece_move_pattern, move_notation.upper().replace('+', '').replace('#', '').replace('x', ''))
+                    if piece_move_match:
+                        piece_letter = piece_move_match.group(1)  # K, Q, R, B, or N
+                        # dest_pos already found from earlier matching
+                        # Now find which piece of the specified type can move to dest_pos
+
+                        for row_idx in range(8):
+                            for col_idx in range(8):
+                                piece = chess_game.get_piece_at(row_idx, col_idx)
+                                if piece and chess_game.is_own_piece(piece, current_player_color):
+                                    # Get piece type (first character, uppercase)
+                                    actual_piece_type = piece.upper()[0]
+                                    # For pawns, the notation is just "e4" not "Pe4", so pawn moves are handled separately
+                                    if actual_piece_type == piece_letter:
+                                        # Check if this piece can move to the destination
+                                        possible_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                        if dest_pos in possible_moves:
+                                            from_pos = (row_idx, col_idx)
+                                            if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                                return True, from_pos, dest_pos
+                        return False, None, None  # No valid piece of this type can make the move
+
+                    # Then, handle capture notation like "Nxf3", "Bxe5", etc.
+                    piece_capture_pattern = r'^([KQRBN])x?([a-h][1-8])$'
+                    piece_capture_match = re.match(piece_capture_pattern, move_notation.upper().replace('+', '').replace('#', ''))
+                    if piece_capture_match:
+                        piece_letter = piece_capture_match.group(1)  # K, Q, R, B, or N
+                        # dest_pos already found from earlier matching
+
+                        for row_idx in range(8):
+                            for col_idx in range(8):
+                                piece = chess_game.get_piece_at(row_idx, col_idx)
+                                if piece and chess_game.is_own_piece(piece, current_player_color):
+                                    actual_piece_type = piece.upper()[0]
+                                    if actual_piece_type == piece_letter:
+                                        # Check if this piece can move to the destination (capturing)
+                                        possible_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                        if dest_pos in possible_moves:
+                                            from_pos = (row_idx, col_idx)
+                                            if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                                return True, from_pos, dest_pos
+                        return False, None, None  # No valid piece of this type can make the capture
+
+                    # Then handle disambiguation moves like "Nbf3", "Raxd1", "N1f3", etc.
+                    disambiguation_pattern = r'^([KQRBN])([a-h]|[1-8])([a-h][1-8])$'
+                    disambiguation_match = re.match(disambiguation_pattern, move_notation.upper().replace('+', '').replace('#', '').replace('x', ''))
+                    if disambiguation_match:
+                        piece_letter = disambiguation_match.group(1)  # K, Q, R, B, or N
+                        disambiguator = disambiguation_match.group(2)  # File (a-h) or rank (1-8)
+                        target_sq = disambiguation_match.group(3)      # Target square
+
+                        if len(disambiguator) == 1 and len(target_sq) == 2:  # Like Nf3 where f is the disambiguator
+                            target_col = ord(target_sq[0]) - ord('a')
+                            target_row = 8 - int(target_sq[1])
+                            target_pos = (target_row, target_col)
+
+                            for row_idx in range(8):
+                                for col_idx in range(8):
+                                    piece = chess_game.get_piece_at(row_idx, col_idx)
+                                    if piece and chess_game.is_own_piece(piece, current_player_color):
+                                        actual_piece_type = piece.upper()[0]
+                                        if actual_piece_type == piece_letter:
+                                            # Check if piece file or rank matches the disambiguator
+                                            piece_file = chr(ord('a') + col_idx)
+                                            piece_rank = str(8 - row_idx)
+
+                                            # Match if either file or rank matches disambiguator
+                                            file_matches = disambiguator == piece_file
+                                            rank_matches = disambiguator == piece_rank
+
+                                            if (file_matches or rank_matches):
+                                                # Check if this piece can move to target
+                                                possible_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                                if target_pos in possible_moves:
+                                                    from_pos = (row_idx, col_idx)
+                                                    if chess_game.is_move_legal(from_pos, target_pos, current_player_color):
+                                                        return True, from_pos, target_pos
+                            return False, None, None  # No qualifying piece found
+
+                    # For other complex notations (like "e2e4", "d7d8Q", etc.)
                     else:
                         # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.)
                         source_match = re.search(r'([a-h][1-8]).*?([a-h][1-8])', move_notation.lower())

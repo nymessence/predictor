@@ -373,6 +373,8 @@ def main():
 
             # Only return as a move if it's a valid chess notation AND appears in a chess context
             for potential_move in potential_moves:
+                # Additional validation to make sure it's not a false positive
+                # The move should be near chess-related context
                 if has_chess_context:
                     # Clean the dialogue by removing the move and surrounding context
                     dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
@@ -380,14 +382,269 @@ def main():
                     dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                     return dialogue_text, potential_move, ""
 
-                # Special handling for move patterns that might appear without chess context
-                # If it's a clear chess move pattern like "e4", "Nf3", etc., we'll be more lenient
-                elif re.match(r'^[a-h][1-8]$', potential_move) or re.match(r'^[KQRBN][a-h]?[1-8]?[a-h][1-8]$', potential_move):
+                # Special handling for clear chess move patterns that appear even without explicit context
+                elif re.match(r'^[a-h][1-8]$', potential_move) or re.match(r'^[KQRBN][a-h][1-8]$', potential_move):
+                    # For these very clear patterns, allow them if they appear in reasonable chess-related text
                     dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                     dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                     return dialogue_text, potential_move, ""
 
             # If still no move found, return the entire text as dialogue with no move
+            return response_text, "", ""
+
+        # Game-specific JSON parsing functions to avoid cross-game pattern contamination
+        def parse_chess_json_response(response_text, character_name):
+            """Parse JSON response specifically for chess, extracting dialogue, move, and board state."""
+            import json
+            import re
+
+            # First try to find JSON within the response
+            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            matches = re.findall(json_pattern, response_text, re.DOTALL)
+
+            if matches:
+                for json_str in matches:
+                    try:
+                        json_clean = json_str.strip()
+                        parsed = json.loads(json_clean)
+
+                        dialogue = parsed.get('dialogue', '')
+                        move = parsed.get('move', '').strip()
+                        board_state = parsed.get('board_state', '') or parsed.get('game_state', '')
+
+                        if dialogue or move:
+                            return dialogue, move, board_state
+                    except json.JSONDecodeError:
+                        continue  # Try the next match
+
+            # If no JSON found, extract chess-specific moves from plain text
+            # Only look for valid chess notation in the response
+
+            # Look for chess moves in standard notation: e4, Nf3, exd5, Bxf7+, etc.
+            chess_pattern = r'\b([a-h][1-8]|[KQRBN][a-h][1-8]|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?[a-h][1-8][+#]?|O-O(?:-O)?)\b'
+            potential_moves = re.findall(chess_pattern, response_text, re.IGNORECASE)
+
+            # Filter to ensure these look like actual chess moves (not just any coordinate in text)
+            # Look for context terms that suggest this is a chess-related response
+            chess_context_terms = ['chess', 'move', 'play', 'go', 'advance', 'position', 'strategy', 'game', 'board', 'castle', 'capture', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn']
+            has_chess_context = any(term.lower() in response_text.lower() for term in chess_context_terms)
+
+            # Only return as a move if it's a valid chess notation AND appears in a chess context
+            for potential_move in potential_moves:
+                if has_chess_context:
+                    # Clean the dialogue by removing the move reference
+                    dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
+                    dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                    return dialogue_text, potential_move, ""
+
+            # Special handling for "from X to Y" chess notation patterns
+            from_to_pattern = r'from\s+([a-h][1-8])\s+to\s+([a-h][1-8])'
+            from_to_matches = re.findall(from_to_pattern, response_text, re.IGNORECASE)
+
+            for from_sq, to_sq in from_to_matches:
+                # Extract the sentence containing the move
+                sentence_matches = re.findall(rf'[^.!?]*\bfrom\s+{re.escape(from_sq)}\s+to\s+{re.escape(to_sq)}\b[^.!?]*[.!?]', response_text, re.IGNORECASE)
+                if sentence_matches:
+                    move_val = f"{from_sq}{to_sq}"  # Convert to coordinate format like "e2e4"
+                    dialogue_text = sentence_matches[0].strip()
+                    return dialogue_text, move_val, ""
+
+            # If no chess-specific move found, return as dialogue only
+            return response_text, "", ""
+
+        def parse_ttt_json_response(response_text, character_name):
+            """Parse JSON response specifically for tic-tac-toe, extracting dialogue, move, and board state."""
+            import json
+            import re
+
+            # First try to find JSON within the response
+            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            matches = re.findall(json_pattern, response_text, re.DOTALL)
+
+            if matches:
+                for json_str in matches:
+                    try:
+                        json_clean = json_str.strip()
+                        parsed = json.loads(json_clean)
+
+                        dialogue = parsed.get('dialogue', '')
+                        move = parsed.get('move', '').strip()
+                        board_state = parsed.get('board_state', '') or parsed.get('game_state', '')
+
+                        if dialogue or move:
+                            return dialogue, move, board_state
+                    except json.JSONDecodeError:
+                        continue  # Try the next match
+
+            # If no JSON found, try to extract tic-tac-toe specific moves
+            # Look for [row, col] format like [0,2], (0, 2), etc.
+            ttt_pattern = r'[([:\s]*([0-2])\s*[,;\s]\s*([0-2])[)\]:\s]*'
+            ttt_matches = re.findall(ttt_pattern, response_text)
+
+            if ttt_matches:
+                for _, row, col in ttt_matches:  # Fix for tuple unpacking with the group pattern
+                    # Extract the sentence containing the move
+                    sentences = re.split(r'[.!?]+', response_text)
+                    move_val = f"[{row}, {col}]"
+                    for sentence in sentences:
+                        if row in sentence and col in sentence:
+                            # Remove the move from dialogue
+                            dialogue_text = re.sub(ttt_pattern, '', response_text).strip()
+                            dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                            return dialogue_text, move_val, ""
+
+            # If no ttt-specific move found, return as dialogue only
+            return response_text, "", ""
+
+        def parse_rps_json_response(response_text, character_name):
+            """Parse JSON response specifically for rock-paper-scissors, extracting dialogue, choice, and reasoning."""
+            import json
+            import re
+
+            # First try to find JSON within the response
+            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            matches = re.findall(json_pattern, response_text, re.DOTALL)
+
+            if matches:
+                for json_str in matches:
+                    try:
+                        json_clean = json_str.strip()
+                        parsed = json.loads(json_clean)
+
+                        dialogue = parsed.get('dialogue', '')
+                        move = parsed.get('move', '').strip()  # Expected to be rock, paper, or scissors
+                        reasoning = parsed.get('reasoning', '')
+
+                        if dialogue or move:
+                            return dialogue, move, reasoning
+                    except json.JSONDecodeError:
+                        continue  # Try the next match
+
+            # If no JSON found, try to extract rock-paper-scissors specific choices
+            # Look for keywords: rock, paper, scissors, or their abbreviations
+            rps_pattern = r'\b(rock|paper|scissors|r|p|s)\b'
+            rps_matches = re.findall(rps_pattern, response_text, re.IGNORECASE)
+
+            if rps_matches:
+                for choice in rps_matches:
+                    # Normalize the choice
+                    normalized_choice = choice.lower()
+                    if normalized_choice in ['r', 'rock']:
+                        final_choice = 'rock'
+                    elif normalized_choice in ['p', 'paper']:
+                        final_choice = 'paper'
+                    elif normalized_choice in ['s', 'scissors']:
+                        final_choice = 'scissors'
+                    else:
+                        continue  # Skip unrecognized matches
+
+                    # Extract the sentence containing the choice
+                    sentences = re.split(r'[.!?]+', response_text)
+                    for sentence in sentences:
+                        if choice.lower() in sentence.lower():
+                            # Remove the choice word from dialogue
+                            dialogue_text = re.sub(r'\b' + re.escape(choice) + r'\b', '', response_text, re.IGNORECASE).strip()
+                            dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                            return dialogue_text, final_choice, ""
+
+            # If no rps-specific choice found, return as dialogue only
+            return response_text, "", ""
+
+        def parse_hangman_json_response(response_text, character_name):
+            """Parse JSON response specifically for hangman, extracting dialogue, guessed letter, and reasoning."""
+            import json
+            import re
+
+            # First try to find JSON within the response
+            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            matches = re.findall(json_pattern, response_text, re.DOTALL)
+
+            if matches:
+                for json_str in matches:
+                    try:
+                        json_clean = json_str.strip()
+                        parsed = json.loads(json_clean)
+
+                        dialogue = parsed.get('dialogue', '')
+                        letter = parsed.get('letter', '').strip()
+                        reasoning = parsed.get('reasoning', '')
+
+                        if dialogue or letter:
+                            return dialogue, letter, reasoning
+                    except json.JSONDecodeError:
+                        continue  # Try the next match
+
+            # If no JSON found, try to extract hangman letter guesses
+            # Look for single letter patterns in the context of hangman
+            # Enhanced to only capture letters in hangman-specific context
+            context_clues = ['guess', 'letter', 'think', 'try', 'pick', 'select', 'word', 'hangman']
+            has_context = any(clue in response_text.lower() for clue in context_clues)
+
+            if has_context:
+                # Look for single capital letters or single lowercase letters in context
+                letter_pattern = r'\b([a-zA-Z])\b'
+                letter_matches = re.findall(letter_pattern, response_text)
+
+                for letter in letter_matches:
+                    if len(letter) == 1 and letter.isalpha():
+                        # Remove the letter from dialogue
+                        dialogue_text = re.sub(r'\b' + re.escape(letter) + r'\b', '', response_text).strip()
+                        dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                        return dialogue_text, letter.lower(), ""
+
+            # If no hangman-specific letter found, return as dialogue only
+            return response_text, "", ""
+
+        def parse_twentyone_json_response(response_text, character_name):
+            """Parse JSON response specifically for twenty-one, extracting dialogue, action, and reasoning."""
+            import json
+            import re
+
+            # First try to find JSON within the response
+            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            matches = re.findall(json_pattern, response_text, re.DOTALL)
+
+            if matches:
+                for json_str in matches:
+                    try:
+                        json_clean = json_str.strip()
+                        parsed = json.loads(json_clean)
+
+                        dialogue = parsed.get('dialogue', '')
+                        action = parsed.get('action', '').strip()  # Expected to be 'hit' or 'stand'
+                        reasoning = parsed.get('reasoning', '')
+
+                        if dialogue or action:
+                            return dialogue, action, reasoning
+                    except json.JSONDecodeError:
+                        continue  # Try the next match
+
+            # If no JSON found, try to extract twenty-one specific actions
+            # Look for keywords: hit, stand, or their context
+            twentyone_pattern = r'\b(hit|stand|h|s)\b'
+            action_matches = re.findall(twentyone_pattern, response_text, re.IGNORECASE)
+
+            if action_matches:
+                for action in action_matches:
+                    # Normalize the action
+                    normalized_action = action.lower()
+                    if normalized_action in ['h', 'hit']:
+                        final_action = 'hit'
+                    elif normalized_action in ['s', 'stand']:
+                        final_action = 'stand'
+                    else:
+                        continue  # Skip unrecognized matches
+
+                    # Extract the sentence containing the action
+                    sentences = re.split(r'[.!?]+', response_text)
+                    for sentence in sentences:
+                        if normalized_action in sentence.lower():
+                            # Remove the action from dialogue
+                            dialogue_text = re.sub(r'\b' + re.escape(action) + r'\b', '', response_text, re.IGNORECASE).strip()
+                            dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                            return dialogue_text, final_action, ""
+
+            # If no twenty-one specific action found, return as dialogue only
             return response_text, "", ""
 
         # Specific function to parse chess move notation
@@ -727,7 +984,7 @@ Make sure your move is legal in the current position. Think through your strateg
                         print(resp)
 
                         # Parse the JSON response
-                        dialogue, move_notation, board_state = parse_game_json_response(resp, current_char['name'])
+                        dialogue, move_notation, board_state = parse_chess_json_response(resp, current_char['name'])
 
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
@@ -922,7 +1179,7 @@ Think through your strategy before responding.
                         print(resp)
 
                         # Parse the JSON response
-                        dialogue, move_notation, board_state = parse_game_json_response(resp, current_char['name'])
+                        dialogue, move_notation, board_state = parse_rps_json_response(resp, current_char['name'])
 
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
@@ -1097,7 +1354,7 @@ Make your guess now.
                     print(resp)
 
                     # Parse the JSON response
-                    dialogue, letter_guess, reasoning = parse_game_json_response(resp, current_char['name'])
+                    dialogue, letter_guess, reasoning = parse_hangman_json_response(resp, current_char['name'])
 
                     if dialogue:
                         print(f"💬 Dialogue: {dialogue}")
@@ -1262,7 +1519,7 @@ Make your decision now.
                     print(resp)
 
                     # Parse the JSON response
-                    dialogue, action_choice, reasoning = parse_game_json_response(resp, current_char['name'])
+                    dialogue, action_choice, reasoning = parse_twentyone_json_response(resp, current_char['name'])
 
                     if dialogue:
                         print(f"💬 Dialogue: {dialogue}")

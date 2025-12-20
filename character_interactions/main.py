@@ -580,21 +580,108 @@ def main():
                                             return True, from_pos, dest_pos
                         return False, None, None  # No valid piece can make this move
 
-                    # For more complex notation, try to extract source info
-                    else:
-                        # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.) - but this is for more complex patterns
-                        # If we have more complex patterns, we can handle them here
-                        source_match = re.search(r'([a-h][1-8]).*?([a-h][1-8])', move_notation.lower())
-                        if source_match:
-                            from_sq = source_match.group(1)
-                            to_sq = source_match.group(2)  # Should match dest_sq
+                    # For piece moves like "Nf3", "Bc4+" etc., extract piece and destination
+                    piece_dest_match = re.search(r'^([KQRBN])([a-h][1-8])$', move_notation.lower().replace('+', '').replace('#', ''))
+                    if piece_dest_match:
+                        piece_letter = piece_dest_match.group(1).upper()
+                        to_sq = piece_dest_match.group(2)
 
-                            from_col = ord(from_sq[0]) - ord('a')
-                            from_row = 8 - int(from_sq[1])
-                            from_pos = (from_row, from_col)
+                        # Find the piece on the board that matches the piece type and can move to the destination
+                        for row_idx in range(8):
+                            for col_idx in range(8):
+                                piece = chess_game.get_piece_at(row_idx, col_idx)
+                                if piece and chess_game.is_own_piece(piece, current_player_color):
+                                    # Check if this piece type matches and can move to the destination
+                                    piece_type = piece.upper()[0]  # Get first character: R, N, B, Q, K
+                                    if piece_type == piece_letter:
+                                        # Check if this piece can move to the destination
+                                        temp_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                        if dest_pos in temp_moves:
+                                            from_pos = (row_idx, col_idx)
+                                            if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                                return True, from_pos, dest_pos
+                        return False, None, None  # No valid piece of type can make this move
 
-                            if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
-                                return True, from_pos, dest_pos
+                    # For more complex notation involving capture or source disambiguation
+                    complex_match = re.search(r'^([KQRBN])([a-h])?([1-8])?x?([a-h][1-8])[+#]?$', move_notation.replace('+', '').replace('#', ''))
+                    if complex_match:
+                        piece_letter = complex_match.group(1).upper()
+                        source_file = complex_match.group(2)  # Optional source file
+                        source_rank = complex_match.group(3)  # Optional source rank
+                        to_sq = complex_match.group(4)  # Destination
+
+                        to_col = ord(to_sq[0]) - ord('a')
+                        to_row = 8 - int(to_sq[1])
+                        to_pos = (to_row, to_col)
+
+                        # Find the specific piece that matches and can make this move
+                        valid_pieces = []
+                        for row_idx in range(8):
+                            for col_idx in range(8):
+                                piece = chess_game.get_piece_at(row_idx, col_idx)
+                                if piece and chess_game.is_own_piece(piece, current_player_color):
+                                    piece_type = piece.upper()[0]
+                                    if piece_type == piece_letter:
+                                        # Check if this piece can move to the destination
+                                        temp_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                        if to_pos in temp_moves:
+                                            # Check if it matches source disambiguation if present
+                                            file_ok = not source_file or chr(ord('a') + col_idx) == source_file
+                                            rank_ok = not source_rank or str(8 - row_idx) == source_rank
+                                            if file_ok and rank_ok:
+                                                valid_pieces.append((row_idx, col_idx))
+
+                        # If we found exactly one valid piece, make the move
+                        if len(valid_pieces) == 1:
+                            from_pos = valid_pieces[0]
+                            if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                                return True, from_pos, to_pos
+                        # If multiple pieces could make the move and no disambiguation, return failure
+                        elif len(valid_pieces) > 1:
+                            return False, None, None
+
+                    # For capture notation like "exd5", "Nxg7", etc.
+                    capture_match = re.search(r'^([KQRBN]?)([a-h])?([1-8])?x([a-h][1-8])[+#]?$', move_notation.replace('+', '').replace('#', ''))
+                    if capture_match:
+                        piece_letter = capture_match.group(1).upper()
+                        source_file = capture_match.group(2)  # Optional source file
+                        source_rank = capture_match.group(3)  # Optional source rank
+                        to_sq = capture_match.group(4)  # Destination
+
+                        to_col = ord(to_sq[0]) - ord('a')
+                        to_row = 8 - int(to_sq[1])
+                        to_pos = (to_row, to_col)
+
+                        # Find the piece that matches and can capture at destination
+                        valid_pieces = []
+                        for row_idx in range(8):
+                            for col_idx in range(8):
+                                piece = chess_game.get_piece_at(row_idx, col_idx)
+                                if piece and chess_game.is_own_piece(piece, current_player_color):
+                                    # If piece type specified, check it matches
+                                    piece_type_ok = True
+                                    if piece_letter:
+                                        piece_type = piece.upper()[0]
+                                        piece_type_ok = (piece_type == piece_letter)
+
+                                    if piece_type_ok:
+                                        # Check if this piece can move to capture at destination
+                                        temp_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                        if to_pos in temp_moves:
+                                            # Check if it matches source disambiguation if present
+                                            file_ok = not source_file or chr(ord('a') + col_idx) == source_file
+                                            rank_ok = not source_rank or str(8 - row_idx) == source_rank
+                                            if file_ok and rank_ok:
+                                                valid_pieces.append((row_idx, col_idx))
+
+                        # If we found exactly one valid piece, make the move
+                        if len(valid_pieces) == 1:
+                            from_pos = valid_pieces[0]
+                            if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                                return True, from_pos, to_pos
+                        # If multiple pieces could make the move, return failure
+                        elif len(valid_pieces) > 1:
+                            return False, None, None
 
             # If it's not standard algebraic notation, check if it's in the form "e2 to e4" or "e2-e4" or "e2,e4"
             coord_to_coord_pattern = r'([a-h][1-8])\s*(?:to|[-,])\s*([a-h][1-8])'

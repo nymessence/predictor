@@ -35,6 +35,8 @@ from tic_tac_toe_game import TicTacToeGame
 from rock_paper_scissors_game import RockPaperScissorsGame
 from hangman_game import HangmanGame
 from twenty_one_game import TwentyOneGame
+from number_guessing_game import NumberGuessingGame
+from word_association_game import WordAssociationGame
 
 
 def validate_api_key(args):
@@ -109,6 +111,10 @@ def parse_arguments() -> argparse.Namespace:
                         help='Enable hangman game mode where characters guess letters')
     game_group.add_argument('--twenty-one', action='store_true',
                         help='Enable twenty-one (simplified blackjack) game mode where characters try to reach 21')
+    game_group.add_argument('--number-guessing', action='store_true',
+                        help='Enable number guessing game mode where characters guess a secret number with high/low feedback')
+    game_group.add_argument('--word-association', action='store_true',
+                        help='Enable word association game mode where characters take turns saying related words')
     return parser.parse_args()
 
 
@@ -648,6 +654,107 @@ def main():
             return response_text, "", ""
 
         # Specific function to parse chess move notation
+        def parse_number_guessing_json_response(response_text, character_name):
+            """Parse the JSON response specifically for number guessing, extracting dialogue, number guess, and strategy."""
+            import json
+            import re
+
+            # First try to find JSON within the response
+            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            matches = re.findall(json_pattern, response_text, re.DOTALL)
+
+            if matches:
+                for json_str in matches:
+                    try:
+                        json_clean = json_str.strip()
+                        parsed = json.loads(json_clean)
+
+                        dialogue = parsed.get('dialogue', '')
+                        number = parsed.get('number', '').strip()  # Expected to be a number
+                        strategy = parsed.get('strategy', '') or parsed.get('reasoning', '')
+
+                        if dialogue or number:
+                            return dialogue, number, strategy
+                    except json.JSONDecodeError:
+                        continue  # Try the next match
+
+            # If no JSON found, try to extract number guesses from text
+            # Look for number patterns in game context
+            number_pattern = r'\b(\d{1,3})\b'  # 1-3 digit numbers (for 1-100 range)
+            number_matches = re.findall(number_pattern, response_text)
+
+            # Only capture if in a number guessing context
+            guessing_context = any(keyword in response_text.lower() for keyword in ['guess', 'number', 'pick', 'select', 'secret', 'target'])
+            if guessing_context and number_matches:
+                for num_str in number_matches:
+                    try:
+                        num = int(num_str)
+                        # For number guessing, validate the number is in a reasonable range for the game
+                        if 1 <= num <= 100:  # Assuming standard range
+                            # Extract the sentence containing the number
+                            sentences = re.split(r'[.!?]+', response_text)
+                            for sentence in sentences:
+                                if num_str in sentence:
+                                    # Remove the number from dialogue
+                                    dialogue_text = re.sub(r'\b' + re.escape(num_str) + r'\b', '', response_text).strip()
+                                    dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                                    return dialogue_text, str(num), ""
+                    except ValueError:
+                        continue
+
+            # If no number guess found, return as dialogue only
+            return response_text, "", ""
+
+        def parse_word_association_json_response(response_text, character_name):
+            """Parse JSON response specifically for word association, extracting dialogue, word, and connection."""
+            import json
+            import re
+
+            # First try to find JSON within the response
+            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            matches = re.findall(json_pattern, response_text, re.DOTALL)
+
+            if matches:
+                for json_str in matches:
+                    try:
+                        json_clean = json_str.strip()
+                        parsed = json.loads(json_clean)
+
+                        dialogue = parsed.get('dialogue', '')
+                        word = parsed.get('word', '').strip()
+                        connection = parsed.get('connection', '') or parsed.get('reasoning', '')
+
+                        if dialogue or word:
+                            return dialogue, word, connection
+                    except json.JSONDecodeError:
+                        continue  # Try the next match
+
+            # If no JSON found, try to extract word choices from text
+            # Look for simple word patterns in context
+            word_pattern = r'\b([a-zA-Z]{3,20})\b'  # At least 3 letters up to 20
+            word_matches = re.findall(word_pattern, response_text)
+
+            # Only capture if in a word association context
+            association_context = any(keyword in response_text.lower() for keyword in ['association', 'related', 'connect', 'word', 'think', 'choice', 'next', 'link', 'connection'])
+            if association_context and word_matches:
+                # Find the most contextually relevant word
+                for word_option in word_matches:
+                    # Validate it's not a common non-game word
+                    common_non_game_words = {'the', 'and', 'for', 'are', 'you', 'was', 'had', 'with', 'have', 'this', 'that', 'from', 'they', 'were', 'been', 'their', 'what', 'said', 'went', 'like', 'know', 'want', 'time', 'just', 'about', 'think', 'will', 'would', 'could', 'should', 'also', 'well', 'still', 'even', 'much', 'very', 'many', 'really', 'quite', 'rather', 'never', 'always', 'often', 'usually', 'sometimes', 'here', 'there', 'when', 'where', 'how', 'why', 'who', 'which', 'what', 'than', 'then', 'them', 'these', 'those', 'such', 'each', 'other', 'some', 'any', 'all', 'few', 'little', 'more', 'most', 'own', 'new', 'good', 'first', 'last', 'long', 'little', 'high', 'great', 'small', 'large', 'young', 'old'}
+                    if word_option.lower() not in common_non_game_words and len(word_option) > 2:
+                        # Extract the sentence containing the word
+                        sentences = re.split(r'[.!?]+', response_text)
+                        for sentence in sentences:
+                            if word_option in sentence:
+                                # Remove the word from dialogue
+                                dialogue_text = re.sub(r'\b' + re.escape(word_option) + r'\b', '', response_text).strip()
+                                dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                                return dialogue_text, word_option, ""
+
+            # If no word association found, return as dialogue only
+            return response_text, "", ""
+
+        # Specific function to parse chess move notation
         def parse_move_notation(move_notation, chess_game, current_player_color):
             """Parse algebraic move notation and return the from/to positions."""
             import re
@@ -775,7 +882,7 @@ def main():
         if args.chess and args.max_turns != MAX_TURNS:
             print(f"⚠️  WARNING: --max-turns parameter is not recommended in chess mode as games continue until completion")
             print(f"   Chess games will continue until a winner is determined, regardless of turn count.")
-        elif (args.tic_tac_toe or args.rock_paper_scissors or args.hangman or args.twenty_one) and args.max_turns != MAX_TURNS:
+        elif (args.tic_tac_toe or args.rock_paper_scissors or args.hangman or args.twenty_one or args.number_guessing or args.word_association) and args.max_turns != MAX_TURNS:
             print(f"⚠️  WARNING: --max-turns parameter is not recommended in game modes as games continue until completion")
             print(f"   Games will continue until a winner is determined, regardless of turn count.")
 
@@ -1601,6 +1708,309 @@ Make your decision now.
 
             # After twenty-one mode, update the history variable to save properly
             history = twentyone_history
+
+        elif args.number_guessing:
+            print("🧩🔢 Playing Number Guessing Mode Activated 🔢🧩")
+            print("=" * 80)
+
+            # In number guessing mode, we support 2 characters
+            if len(characters) != 2:
+                print("❌ Number guessing mode requires exactly 2 characters")
+                sys.exit(1)
+
+            # Assign players
+            guesser = characters[0]
+            challenger = characters[1]
+
+            # Initialize number guessing game
+            number_game = NumberGuessingGame(min_num=1, max_num=100)
+            print(f"Secret number has been selected between {number_game.min_num} and {number_game.max_num}.")
+            print(f"Maximum allowed attempts: {number_game.max_attempts}")
+
+            # Initialize conversation history with game context
+            number_history = []
+
+            # Add opening context to history
+            opening_context = f"Starting a number guessing game. {guesser['name']} is guessing the number (1-{number_game.max_num}) while {challenger['name']} provides feedback."
+            number_history.append({'name': 'Narrator', 'content': opening_context})
+            print(f"[TURN 1] Narrator: {opening_context}")
+
+            # Number guessing game loop
+            game_count = 1
+            turn = 1  # Main turn counter
+
+            while not number_game.game_over:
+                print(f"\n{'='*60}")
+                print(f"[NUMBER GUESSING GAME #{game_count}] Current State:")
+                print(f"Number range: {number_game.min_num} - {number_game.max_num}")
+                print(f"Remaining attempts: {number_game.get_remaining_guesses()}")
+                print(f"Previous guesses: {number_game.get_guessed_letters() if hasattr(number_game, 'get_guessed_letters') else 'None yet'}")
+                print(f"Game status: {number_game.get_game_status()}")
+                print('='*60)
+
+                # The guesser makes a guess
+                current_char = guesser
+                other_char = challenger
+
+                print(f"\n[TURN {turn}] {current_char['name']} (making a number guess)")
+
+                try:
+                    # Create game context for the turn, requesting JSON output
+                    number_context = f"""
+Number Guessing Game Context:
+- Number to guess is between {number_game.min_num} and {number_game.max_num}
+- Previous guesses: {number_game.get_guessed_letters() if hasattr(number_game, 'get_guessed_letters') else 'None yet'}
+- Remaining attempts: {number_game.get_remaining_guesses()}
+
+You are playing number guessing. Try to guess the secret number. I'll give you feedback if your guess is too high or too low. Please respond in the following JSON format:
+{{
+  "dialogue": "Your dialogue and thought process about which number to guess",
+  "number": "Your number guess (between {number_game.min_num} and {number_game.max_num})",
+  "strategy": "Why you chose this number"
+}}
+
+Make your guess now.
+                    """.strip()
+
+                    # Generate response with game context
+                    resp = generate_response_adaptive(
+                        current_char, other_char, number_history, turn,
+                        enable_environmental=not args.no_environmental,
+                        similarity_threshold=args.similarity,
+                        verbose=args.verbose,
+                        scenario_context="Playing a number guessing game"
+                    )
+
+                    # Validate response
+                    if not isinstance(resp, str):
+                        resp = str(resp)
+
+                    number_history.append({'name': current_char['name'], 'content': resp})
+                    print(resp)
+
+                    # Parse the JSON response specifically for number guessing
+                    dialogue, number_guess, strategy = parse_number_guessing_json_response(resp, current_char['name'])
+
+                    if dialogue:
+                        print(f"💬 Dialogue: {dialogue}")
+
+                    # Attempt to make the guess if number is provided
+                    if number_guess:
+                        try:
+                            number_value = int(number_guess)
+                            success = number_game.make_guess(number_value)
+                            if success:
+                                print(f"✅ Number '{number_value}' successfully guessed!")
+                                print(f"Feedback: {number_game.make_guess(number_value)}")
+                                if number_game.winner:
+                                    print(f"Game over! Winner: {number_game.winner}")
+                                    break
+                                turn += 1  # Guess was successful, increment turn
+                            else:
+                                print(f"❌ Invalid guess: {number_guess}")
+                                # Add feedback to history
+                                feedback = f"Your number '{number_guess}' was invalid. Please guess a number between {number_game.min_num} and {number_game.max_num}."
+                                number_history.append({'name': 'Referee', 'content': feedback})
+                                turn += 1  # Increment turn anyway
+                        except ValueError:
+                            print(f"❌ Could not parse as number: {number_guess}")
+                            # Add feedback to history
+                            feedback = f"Your choice '{number_guess}' was not a valid number. Please provide a numeric guess."
+                            number_history.append({'name': 'Referee', 'content': feedback})
+                            turn += 1  # Increment turn anyway
+                    else:
+                        print(f"⚠️  No number provided for guess.")
+                        # Add feedback to history
+                        feedback = f"Please provide a valid number to guess in your response."
+                        number_history.append({'name': 'Referee', 'content': feedback})
+                        turn += 1  # Increment turn anyway
+
+                    # Delay before next turn
+                    if not number_game.game_over and turn < args.max_turns:
+                        print(f"\n⏳ Waiting {args.delay} seconds...")
+                        time.sleep(args.delay)
+                    elif number_game.game_over:
+                        break
+
+                except KeyboardInterrupt:
+                    print("\n⚠️  Interrupted by user. Saving...")
+                    break
+
+                except Exception as e:
+                    print(f"\n❌ Error on turn {turn}: {e}")
+                    import traceback
+                    traceback.print_exc()
+
+                    # Generate fallback response
+                    from response_generator import generate_emergency_response
+                    fallback_resp = generate_emergency_response(current_char, other_char, number_history, {}, turn)
+                    number_history.append({'name': current_char['name'], 'content': fallback_resp})
+                    print(fallback_resp)
+                    turn += 1  # Increment turn anyway
+                    continue  # Continue to next iteration
+
+            # Handle game end
+            if number_game.winner == 'Player':
+                game_end_context = f"Game #{game_count} ended. {guesser['name']} guessed the number '{number_game.secret_number}' correctly!"
+                number_history.append({'name': 'Narrator', 'content': game_end_context})
+                print(f"🎉 {guesser['name']} wins! The number was '{number_game.secret_number}'!")
+            else:
+                game_end_context = f"Game #{game_count} ended. {guesser['name']} ran out of attempts. The number was '{number_game.secret_number}'."
+                number_history.append({'name': 'Narrator', 'content': game_end_context})
+                print(f"💀 {guesser['name']} loses! The number was '{number_game.secret_number}'.")
+
+            # After number guessing mode, update the history variable to save properly
+            history = number_history
+
+        elif args.word_association:
+            print("💭🔗 Playing Word Association Mode Activated 🔗💭")
+            print("=" * 80)
+
+            # In word association mode, we support 2 characters
+            if len(characters) != 2:
+                print("❌ Word association mode requires exactly 2 characters")
+                sys.exit(1)
+
+            # Assign players
+            player1 = characters[0]
+            player2 = characters[1]
+
+            # Initialize word association game
+            word_game = WordAssociationGame()
+            print(f"Initial word chain: {word_game.get_word_chain()}")
+            print(f"Current player: {word_game.get_current_player()}")
+
+            # Initialize conversation history with game context
+            word_history = []
+
+            # Add opening context to history
+            opening_context = f"Starting a word association game. {player1['name']} and {player2['name']} will take turns saying words related to the previous word."
+            word_history.append({'name': 'Narrator', 'content': opening_context})
+            print(f"[TURN 1] Narrator: {opening_context}")
+
+            # Word association game loop
+            game_count = 1
+            turn = 1  # Main turn counter
+
+            while not word_game.game_over:
+                print(f"\n{'='*60}")
+                print(f"[WORD ASSOCIATION GAME #{game_count}] Current State:")
+                print(f"Word chain: {word_game.get_word_chain()}")
+                print(f"Last word: {word_game.get_last_word()}")
+                print(f"Current player: {word_game.get_current_player()}")
+                print(f"Game status:\n{word_game.get_game_status()}")
+                print('='*60)
+
+                # Determine who is making the word association
+                current_char = player1 if word_game.current_player == 'Player1' else player2
+                other_char = player2 if word_game.current_player == 'Player1' else player1
+
+                print(f"\n[TURN {turn}] {current_char['name']} (saying a related word)")
+
+                try:
+                    # Create game context for the turn, requesting JSON output
+                    word_context = f"""
+Word Association Game Context:
+- Current word chain: {word_game.get_word_chain()}
+- Last word: {word_game.get_last_word()}
+- Current player: {word_game.get_current_player()}
+
+You are playing word association. Say a word that is semantically related to the last word in the chain. Please respond in the following JSON format:
+{{
+  "dialogue": "Your dialogue and thought process about your word choice",
+  "word": "Your word choice that relates to the previous word",
+  "connection": "How your word connects to the previous word"
+}}
+
+Make your word choice now.
+                    """.strip()
+
+                    # Generate response with game context
+                    resp = generate_response_adaptive(
+                        current_char, other_char, word_history, turn,
+                        enable_environmental=not args.no_environmental,
+                        similarity_threshold=args.similarity,
+                        verbose=args.verbose,
+                        scenario_context="Playing a word association game"
+                    )
+
+                    # Validate response
+                    if not isinstance(resp, str):
+                        resp = str(resp)
+
+                    word_history.append({'name': current_char['name'], 'content': resp})
+                    print(resp)
+
+                    # Parse the JSON response specifically for word association
+                    dialogue, word_choice, connection = parse_game_json_response(resp, current_char['name'])
+
+                    if dialogue:
+                        print(f"💬 Dialogue: {dialogue}")
+
+                    # Submit the word if provided
+                    if word_choice:
+                        success = word_game.submit_word(word_choice, word_game.get_current_player())
+                        if success:
+                            print(f"✅ Word '{word_choice}' successfully submitted!")
+                            print(f"New word chain: {word_game.get_word_chain()}")
+                            if word_game.winner:
+                                print(f"Game over! Winner: {word_game.winner}")
+                                break
+                            turn += 1  # Word was successful, increment turn
+                        else:
+                            print(f"❌ Invalid word submission: {word_choice}")
+                            # Add feedback to history
+                            feedback = f"Your word '{word_choice}' was invalid. Please choose a valid word related to the previous word and avoid repeating words."
+                            word_history.append({'name': 'Referee', 'content': feedback})
+                            turn += 1  # Increment turn anyway
+                    else:
+                        print(f"⚠️  No word provided.")
+                        # Add feedback to history
+                        feedback = f"Please provide a valid word related to the previous word in your response."
+                        word_history.append({'name': 'Referee', 'content': feedback})
+                        turn += 1  # Increment turn anyway
+
+                    # Delay before next turn
+                    if not word_game.game_over and turn < args.max_turns:
+                        print(f"\n⏳ Waiting {args.delay} seconds...")
+                        time.sleep(args.delay)
+                    elif word_game.game_over:
+                        break
+
+                except KeyboardInterrupt:
+                    print("\n⚠️  Interrupted by user. Saving...")
+                    break
+
+                except Exception as e:
+                    print(f"\n❌ Error on turn {turn}: {e}")
+                    import traceback
+                    traceback.print_exc()
+
+                    # Generate fallback response
+                    from response_generator import generate_emergency_response
+                    fallback_resp = generate_emergency_response(current_char, other_char, word_history, {}, turn)
+                    word_history.append({'name': current_char['name'], 'content': fallback_resp})
+                    print(fallback_resp)
+                    turn += 1  # Increment turn anyway
+                    continue  # Continue to next iteration
+
+            # Handle game end
+            if word_game.winner and word_game.winner != 'draw':
+                winner_name = player1['name'] if word_game.winner == 'Player1' else player2['name']
+                game_end_context = f"Game #{game_count} ended. {winner_name} wins after {len(word_game.word_chain)} words!"
+                word_history.append({'name': 'Narrator', 'content': game_end_context})
+                print(f"🎉 {winner_name} wins after {len(word_game.word_chain)} words in the chain!")
+            elif word_game.winner == 'draw':
+                game_end_context = f"Game #{game_count} ended in a draw after reaching maximum chain length."
+                word_history.append({'name': 'Narrator', 'content': game_end_context})
+                print(f"⚖️ Game #{game_count} ended in a draw after reaching the maximum chain length.")
+            else:
+                game_end_context = f"Game #{game_count} ended."
+                word_history.append({'name': 'Narrator', 'content': game_end_context})
+                print(f"🏁 Game #{game_count} ended.")
+
+            # After word association mode, update the history variable to save properly
+            history = word_history
 
         elif args.rock_paper_scissors:
             print("🪨📄✂️ Playing Rock-Paper-Scissors Mode Activated ✂️📄🪨")

@@ -72,24 +72,27 @@ class WordAssociationGame:
         return True
     
     def _is_valid_word(self, word: str) -> bool:
-        """Check if word is valid (non-empty, only letters)."""
-        # Just check if it contains at least one letter and consists of letters/allowed characters
-        return len(word) > 0 and word.replace('-', '').replace("'", "").replace(' ', '').isalnum()
-        
+        """Check if word is valid (non-empty, contains at least one alphabetic character)."""
+        # Check if it contains at least one letter and is mostly alphabetic with possible punctuation
+        if len(word) == 0:
+            return False
+        # Check that the word has at least one alphabetic character and only contains alphanumerics or common separators
+        return any(c.isalpha() for c in word) and all(c.isalnum() or c in "-' " for c in word)
+
     def get_last_word(self) -> Optional[str]:
         """Get the last word in the chain."""
         if self.word_chain:
             return self.word_chain[-1]
         return None
-    
+
     def get_word_chain(self) -> str:
         """Get the current sequence of words."""
         return " -> ".join(self.word_chain)
-    
+
     def get_current_player(self) -> str:
         """Get the current player."""
         return self.current_player
-    
+
     def get_game_status(self) -> str:
         """Get current game status information."""
         status = f"Word Chain: {self.get_word_chain()}\n"
@@ -105,40 +108,40 @@ class WordAssociationGame:
 def test_word_association_game():
     """Test function to verify the word association game works correctly."""
     print("Testing WordAssociationGame class...")
-    
+
     game = WordAssociationGame()
     print(f"Initial status:\n{game.get_game_status()}")
-    
+
     # Test a sequence of valid words
     words = ["happy", "joy", "celebration", "party", "dance", "music"]
-    
+
     for i, word in enumerate(words):
         player = 'Player1' if i % 2 == 0 else 'Player2'
         print(f"\n{player} submits word: {word}")
         success = game.submit_word(word, player)
         print(f"Success: {success}")
         print(f"Status:\n{game.get_game_status()}")
-        
+
         if game.game_over:
             print(f"Game ended! Winner: {game.winner}")
             break
-    
+
     # Test invalid word handling
-    print("\nTesting invalid word submissions...")
+    print("\nTesting invalid word submissions after reset...")
     game.reset_game()
-    
+
     print(f"After reset status:\n{game.get_game_status()}")
-    
+
     print("\nSubmitting invalid word '123':")
     success = game.submit_word('123', 'Player1')
     print(f"Success: {success}")
     print(f"Status:\n{game.get_game_status()}")
-    
+
     print("\nSubmitting valid word 'apple':")
     success = game.submit_word('apple', 'Player1')
     print(f"Success: {success}")
     print(f"Status:\n{game.get_game_status()}")
-    
+
     print("\nSubmitting same word 'apple' again:")
     success = game.submit_word('apple', 'Player2')
     print(f"Success: {success}")

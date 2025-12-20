@@ -968,6 +968,74 @@ def main():
         current_char_index = 1 if len(history) == 0 else len(history) % len(characters)
         other_char_index = 0 if len(history) == 0 else (len(history) - 1) % len(characters)
 
+        # Define token/history management functions
+        def estimate_token_count(text: str) -> int:
+            """Estimate token count by counting words/symbols. Approximation for token limit purposes."""
+            # Simple approximation: count words (typically 1.3-1.5 tokens per word for English)
+            import re
+            words = re.findall(r'\b\w+\b', text)
+            # Using a conservative estimate of ~1.3 tokens per word to approximate GPT tokenization
+            return int(len(words) * 1.3)
+
+        def limit_history_window(full_history: List[dict], max_tokens: int = 1000) -> List[dict]:
+            """
+            Limit the history to a sliding window that fits within token limits.
+            Keeps the most recent entries while ensuring token limit is respected.
+            """
+            if not full_history:
+                return full_history
+
+            # Estimate total tokens in history
+            history_text = " ".join([f"{entry['name']}: {entry['content']}" for entry in full_history])
+            total_estimated_tokens = estimate_token_count(history_text)
+
+            if total_estimated_tokens <= max_tokens:
+                return full_history  # No need to limit if within token budget
+
+            # Start with most recent entries and work backwards to fit within token limit
+            limited_history = []
+            current_tokens = 0
+
+            # Check if first entry is Narrator context and preserve it if possible
+            initial_narrator = None
+            entries_to_process = full_history
+            if full_history and len(full_history) > 0 and full_history[0]['name'] == 'Narrator':
+                initial_context = full_history[0]
+                initial_tokens = estimate_token_count(f"{initial_context['name']}: {initial_context['content']}")
+                if initial_tokens < max_tokens * 0.30:  # Use up to 30% of tokens for initial context
+                    initial_narrator = initial_context
+                    current_tokens = initial_tokens
+                    # Process remaining entries excluding the first narrator entry
+                    entries_to_process = full_history[1:]
+                else:
+                    # Don't preserve narrator if it takes too much space
+                    entries_to_process = full_history[:]
+            else:
+                entries_to_process = full_history[:]
+
+            # Add entries from the end (most recent) backwards until we reach token limit
+            # We'll reverse them later to maintain chronological order
+            temp_entries = []
+            for i in range(len(entries_to_process) - 1, -1, -1):
+                entry = entries_to_process[i]
+                entry_text = f"{entry['name']}: {entry['content']}"
+                entry_tokens = estimate_token_count(entry_text)
+
+                if current_tokens + entry_tokens <= max_tokens:
+                    temp_entries.append(entry)  # Add to temp list, we'll reverse later
+                    current_tokens += entry_tokens
+                else:
+                    break  # Reached token limit
+
+            # Reverse the temporary list to restore chronological order
+            temp_entries.reverse()
+
+            # If we preserved the narrator, add it to the front
+            if initial_narrator:
+                return [initial_narrator] + temp_entries
+            else:
+                return temp_entries
+
         # Determine game mode
         if args.chess:
             print("♔♖♗♕♔♗♖♘ Playing Chess Mode Activated ♘♖♗♔♕♗♖♔")
@@ -1073,9 +1141,12 @@ Make sure your move is legal in the current position. Think through your strateg
                                     relevant_entries.append(entry)
                             lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
 
+                        # Limit history to avoid token overflow while keeping recent context
+                        limited_chess_history = limit_history_window(chess_history)
+
                         # Generate response with chess context
                         resp = generate_response_adaptive(
-                            current_char, other_char, chess_history, turn,
+                            current_char, other_char, limited_chess_history, turn,
                             enable_environmental=not args.no_environmental,
                             similarity_threshold=args.similarity,
                             verbose=args.verbose,
@@ -1268,9 +1339,12 @@ Think through your strategy before responding.
                                     relevant_entries.append(entry)
                             lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
 
+                        # Limit history to avoid token overflow while keeping recent context
+                        limited_ttt_history = limit_history_window(ttt_history)
+
                         # Generate response with game context
                         resp = generate_response_adaptive(
-                            current_char, other_char, ttt_history, turn,
+                            current_char, other_char, limited_ttt_history, turn,
                             enable_environmental=not args.no_environmental,
                             similarity_threshold=args.similarity,
                             verbose=args.verbose,
@@ -1443,9 +1517,12 @@ Make your guess now.
                                 relevant_entries.append(entry)
                         lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
 
+                    # Limit history to avoid token overflow while keeping recent context
+                    limited_hangman_history = limit_history_window(hangman_history)
+
                     # Generate response with game context
                     resp = generate_response_adaptive(
-                        current_char, other_char, hangman_history, turn,
+                        current_char, other_char, limited_hangman_history, turn,
                         enable_environmental=not args.no_environmental,
                         similarity_threshold=args.similarity,
                         verbose=args.verbose,
@@ -1608,9 +1685,12 @@ Make your decision now.
                                 relevant_entries.append(entry)
                         lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry per character
 
+                    # Limit history to avoid token overflow while keeping recent context
+                    limited_twentyone_history = limit_history_window(twentyone_history)
+
                     # Generate response with game context
                     resp = generate_response_adaptive(
-                        current_char, other_char, twentyone_history, turn,
+                        current_char, other_char, limited_twentyone_history, turn,
                         enable_environmental=not args.no_environmental,
                         similarity_threshold=args.similarity,
                         verbose=args.verbose,
@@ -1772,9 +1852,12 @@ You are playing number guessing. Try to guess the secret number. I'll give you f
 Make your guess now.
                     """.strip()
 
+                    # Limit history to avoid token overflow while keeping recent context
+                    limited_number_history = limit_history_window(number_history)
+
                     # Generate response with game context
                     resp = generate_response_adaptive(
-                        current_char, other_char, number_history, turn,
+                        current_char, other_char, limited_number_history, turn,
                         enable_environmental=not args.no_environmental,
                         similarity_threshold=args.similarity,
                         verbose=args.verbose,
@@ -1925,9 +2008,12 @@ You are playing word association. Say a word that is semantically related to the
 Make your word choice now.
                     """.strip()
 
+                    # Limit history to avoid token overflow while keeping recent context
+                    limited_word_history = limit_history_window(word_history)
+
                     # Generate response with game context
                     resp = generate_response_adaptive(
-                        current_char, other_char, word_history, turn,
+                        current_char, other_char, limited_word_history, turn,
                         enable_environmental=not args.no_environmental,
                         similarity_threshold=args.similarity,
                         verbose=args.verbose,

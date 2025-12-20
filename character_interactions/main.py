@@ -1112,19 +1112,19 @@ Make sure your move is legal in the current position. Think through your strateg
                                     # Add feedback to history
                                     feedback = f"Your move '{move_notation}' was invalid or illegal. Please try again with a valid chess move from the current position."
                                     chess_history.append({'name': 'Referee', 'content': feedback})
-                                    turn += 1  # Increment turn anyway
+                                    # DON'T increment turn - same player gets another chance to move
                             else:
                                 print(f"❌ Could not parse move notation: {move_notation}")
                                 # Add feedback to history
                                 feedback = f"I couldn't parse the move '{move_notation}'. Please provide a valid chess move in algebraic notation."
                                 chess_history.append({'name': 'Referee', 'content': feedback})
-                                turn += 1  # No valid move, increment turn
+                                # DON'T increment turn - same player gets another chance to move
                         else:
                             print(f"⚠️  No move provided. Current player: {chess_game.current_player}")
                             # Add feedback to history
                             feedback = f"Please provide a valid chess move in your response."
                             chess_history.append({'name': 'Referee', 'content': feedback})
-                            turn += 1  # No move provided, increment turn
+                            # DON'T increment turn - same player gets another chance to move
 
                         # Delay before next turn
                         if not chess_game.game_over and turn < args.max_turns:  # We should still respect the max turns as a safety
@@ -1147,7 +1147,7 @@ Make sure your move is legal in the current position. Think through your strateg
                         fallback_resp = generate_emergency_response(current_char, other_char, chess_history, {}, turn)
                         chess_history.append({'name': current_char['name'], 'content': fallback_resp})
                         print(fallback_resp)
-                        turn += 1  # Increment turn anyway
+                        # DON'T increment turn - same player gets another chance due to error
                         continue  # Continue to next iteration
 
                 # Handle game end
@@ -1307,19 +1307,19 @@ Think through your strategy before responding.
                                     # Add feedback to history
                                     feedback = f"Your move at position ({row}, {col}) was invalid or occupied. Please try again with a valid empty position."
                                     ttt_history.append({'name': 'Referee', 'content': feedback})
-                                    turn += 1  # Increment turn anyway
+                                    # DON'T increment turn - same player gets another chance to move
                             else:
                                 print(f"❌ Could not parse move notation: {move_notation}")
                                 # Add feedback to history
                                 feedback = f"I couldn't parse the move '{move_notation}'. Please provide a valid move in format [row, col] where row and col are 0-2."
                                 ttt_history.append({'name': 'Referee', 'content': feedback})
-                                turn += 1  # No valid move, increment turn
+                                # DON'T increment turn - same player gets another chance to move
                         else:
                             print(f"⚠️  No move provided. Current player: {ttt_game.current_player}")
                             # Add feedback to history
                             feedback = f"Please provide a valid move in your response."
                             ttt_history.append({'name': 'Referee', 'content': feedback})
-                            turn += 1  # No move provided, increment turn
+                            # DON'T increment turn - same player gets another chance to move
 
                         # Delay before next turn
                         if not ttt_game.game_over and turn < args.max_turns:
@@ -1342,7 +1342,7 @@ Think through your strategy before responding.
                         fallback_resp = generate_emergency_response(current_char, other_char, ttt_history, {}, turn)
                         ttt_history.append({'name': current_char['name'], 'content': fallback_resp})
                         print(fallback_resp)
-                        turn += 1  # Increment turn anyway
+                        # DON'T increment turn - same player gets another chance due to error
                         continue  # Continue to next iteration
 
                 # Handle game end
@@ -1482,13 +1482,13 @@ Make your guess now.
                             # Add feedback to history
                             feedback = f"Your guess '{letter_guess}' was invalid. Please guess a single letter that hasn't been guessed yet."
                             hangman_history.append({'name': 'Referee', 'content': feedback})
-                            turn += 1  # Increment turn anyway
+                            # DON'T increment turn - same player gets another chance to move
                     else:
                         print(f"⚠️  No letter provided for guess.")
                         # Add feedback to history
                         feedback = f"Please provide a valid letter to guess in your response."
                         hangman_history.append({'name': 'Referee', 'content': feedback})
-                        turn += 1  # No letter provided, increment turn
+                        # DON'T increment turn - same player gets another chance to move
 
                     # Add delay before next turn
                     if not hangman_game.game_over and turn < args.max_turns:
@@ -1659,13 +1659,13 @@ Make your decision now.
                             # Add feedback to history
                             feedback = f"Your action '{action_choice}' was invalid. Please choose 'hit' or 'stand'."
                             twentyone_history.append({'name': 'Referee', 'content': feedback})
-                            turn += 1  # Invalid action, return incremented turn
+                            # DON'T increment turn - same player gets another chance to move
                     else:
                         print(f"⚠️  No action provided.")
                         # Add feedback to history
                         feedback = f"Please provide a valid action ('hit' or 'stand') in your response."
                         twentyone_history.append({'name': 'Referee', 'content': feedback})
-                        turn += 1  # No action provided, increment turn
+                        # DON'T increment turn - same player gets another chance to move
 
                     # Add delay before next turn
                     if not twentyone_game.game_over and turn < args.max_turns:
@@ -1688,7 +1688,7 @@ Make your decision now.
                     fallback_resp = generate_emergency_response(current_char, other_char, twentyone_history, {}, turn)
                     twentyone_history.append({'name': current_char['name'], 'content': fallback_resp})
                     print(fallback_resp)
-                    turn += 1  # Increment turn anyway
+                    # DON'T increment turn - same player gets another chance due to error
                     continue  # Continue to next iteration
 
             # Handle game end
@@ -1846,7 +1846,7 @@ Make your guess now.
                     fallback_resp = generate_emergency_response(current_char, other_char, number_history, {}, turn)
                     number_history.append({'name': current_char['name'], 'content': fallback_resp})
                     print(fallback_resp)
-                    turn += 1  # Increment turn anyway
+                    # DON'T increment turn - same player gets another chance due to error
                     continue  # Continue to next iteration
 
             # Handle game end
@@ -1991,7 +1991,7 @@ Make your word choice now.
                     fallback_resp = generate_emergency_response(current_char, other_char, word_history, {}, turn)
                     word_history.append({'name': current_char['name'], 'content': fallback_resp})
                     print(fallback_resp)
-                    turn += 1  # Increment turn anyway
+                    # DON'T increment turn - same player gets another chance due to error
                     continue  # Continue to next iteration
 
             # Handle game end

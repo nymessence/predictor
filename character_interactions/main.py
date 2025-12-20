@@ -37,6 +37,8 @@ from hangman_game import HangmanGame
 from twenty_one_game import TwentyOneGame
 from number_guessing_game import NumberGuessingGame
 from word_association_game import WordAssociationGame
+from connect_four_game import ConnectFourGame
+from uno_game import UnoGame
 
 
 def validate_api_key(args):
@@ -115,6 +117,10 @@ def parse_arguments() -> argparse.Namespace:
                         help='Enable number guessing game mode where characters guess a secret number with high/low feedback')
     game_group.add_argument('--word-association', action='store_true',
                         help='Enable word association game mode where characters take turns saying related words')
+    game_group.add_argument('--connect-four', action='store_true',
+                        help='Enable connect-four game mode where characters try to connect four discs in a row')
+    game_group.add_argument('--uno', action='store_true',
+                        help='Enable uno card game mode where characters match colors or values')
     return parser.parse_args()
 
 
@@ -882,7 +888,7 @@ def main():
         if args.chess and args.max_turns != MAX_TURNS:
             print(f"⚠️  WARNING: --max-turns parameter is not recommended in chess mode as games continue until completion")
             print(f"   Chess games will continue until a winner is determined, regardless of turn count.")
-        elif (args.tic_tac_toe or args.rock_paper_scissors or args.hangman or args.twenty_one or args.number_guessing or args.word_association) and args.max_turns != MAX_TURNS:
+        elif (args.tic_tac_toe or args.rock_paper_scissors or args.hangman or args.twenty_one or args.number_guessing or args.word_association or args.connect_four or args.uno) and args.max_turns != MAX_TURNS:
             print(f"⚠️  WARNING: --max-turns parameter is not recommended in game modes as games continue until completion")
             print(f"   Games will continue until a winner is determined, regardless of turn count.")
 
@@ -2097,6 +2103,523 @@ Make your word choice now.
 
             # After word association mode, update the history variable to save properly
             history = word_history
+
+        elif args.connect_four:
+            print("🔴🟡🔵 Playing Connect-Four Mode Activated 🔵🟡🔴")
+            print("=" * 80)
+
+            # In connect-four mode, we only support 2 characters
+            if len(characters) != 2:
+                print("❌ Connect-four mode requires exactly 2 characters")
+                sys.exit(1)
+
+            # Assign players to red and yellow
+            player1 = characters[0]
+            player2 = characters[1]
+            player1['cf_symbol'] = 'R'  # Red disc
+            player2['cf_symbol'] = 'Y'  # Yellow disc
+
+            # Initialize connect-four game
+            connect_four_game = ConnectFourGame()
+            print("Initial Connect-Four Board:")
+            print(connect_four_game.print_board())
+
+            # Initialize conversation history with game context
+            connect_four_history = []
+
+            # Add opening context to history
+            opening_context = f"Starting a game of connect-four. {player_red['name']} is playing as red (R), and {player_yellow['name']} is playing as yellow (Y)."
+            connect_four_history.append({'name': 'Narrator', 'content': opening_context})
+            print(f"[TURN 1] Narrator: {opening_context}")
+
+            # Connect-four game loop
+            game_count = 1
+            turn = 1  # Main turn counter
+
+            while True:
+                print(f"\n{'='*80}")
+                print(f"CONNECT-FOUR GAME #{game_count}")
+                print('='*80)
+
+                # Reset game for each game (in case of draws)
+                connect_four_game = ConnectFourGame()
+
+                # Add game start context to history
+                game_start_context = f"Starting connect-four game #{game_count}. {player_red['name']} (red) vs {player_yellow['name']} (yellow)."
+                connect_four_history.append({'name': 'Narrator', 'content': game_start_context})
+                print(f"[TURN {turn}] Narrator: {game_start_context}")
+                turn += 1
+
+                # Start the connect-four game loop
+                cf_turn = 1
+                while not connect_four_game.game_over:
+                    print(f"\n{'='*60}")
+                    print(f"[CONNECT-FOUR TURN {cf_turn}] Board Position:")
+                    print(connect_four_game.print_board())
+                    print(f"Current Player: {connect_four_game.current_player}")
+                    print('='*60)
+
+                    # Determine who is making the move
+                    if connect_four_game.current_player == 'red':
+                        current_char = player1
+                        other_char = player2
+                    else:
+                        current_char = player2
+                        other_char = player1
+
+                    print(f"\n[TURN {turn}] {current_char['name']} (playing as {connect_four_game.current_player})")
+
+                    try:
+                        # Create game context for the turn, requesting JSON output
+                        cf_context = f"""
+Connect-Four Game Context:
+- Current Board Position:
+{connect_four_game.print_board()}
+
+- Current Player: {connect_four_game.current_player}
+- Your symbol: {current_char['cf_symbol']}
+
+You are playing connect-four. It's your turn to drop a disc in a column (0-6). Please respond in the following JSON format:
+{{
+  "dialogue": "Your dialogue and thought process about which column to choose",
+  "column": "Your chosen column to drop your disc in (0-6)",
+  "strategy": "Why you chose this column"
+}}
+
+Think through your strategy before responding.
+                        """.strip()
+
+                        # Extract lorebook entries based on game context keywords
+                        lorebook_entries = []
+                        game_scenario = "Playing a game of connect-four"
+                        from character_loader import extract_lorebook_entries
+                        # Search for keywords in game scenario that match character lorebooks
+                        scenario_keywords = game_scenario.lower().split()
+                        for char in [current_char]:
+                            entries = extract_lorebook_entries(char['raw_data'], connect_four_history, max_entries=2)
+                            # Filter entries by scenario relevance
+                            relevant_entries = []
+                            for entry in entries:
+                                if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
+                                    relevant_entries.append(entry)
+                            lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry
+
+                        # Generate response with game context
+                        resp = generate_response_adaptive(
+                            current_char, other_char, connect_four_history, turn,
+                            enable_environmental=not args.no_environmental,
+                            similarity_threshold=args.similarity,
+                            verbose=args.verbose,
+                            scenario_context="Playing a game of connect-four",
+                            lorebook_entries=lorebook_entries if lorebook_entries else None
+                        )
+
+                        # Validate response
+                        if not isinstance(resp, str):
+                            resp = str(resp)
+
+                        connect_four_history.append({'name': current_char['name'], 'content': resp})
+                        print(resp)
+
+                        # Parse the JSON response specifically for connect-four
+                        import json
+                        import re
+
+                        # First try to find JSON within the response
+                        json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+                        matches = re.findall(json_pattern, resp, re.DOTALL)
+
+                        dialogue = ""
+                        column_choice = None
+                        strategy = ""
+
+                        for json_str in matches:
+                            try:
+                                json_clean = json_str.strip()
+                                parsed = json.loads(json_clean)
+
+                                dialogue = parsed.get('dialogue', '')
+                                column_choice = parsed.get('column', '')
+                                strategy = parsed.get('strategy', '')
+
+                                if dialogue or column_choice:
+                                    break
+                            except json.JSONDecodeError:
+                                continue  # Try the next match
+
+                        if dialogue:
+                            print(f"💬 Dialogue: {dialogue}")
+
+                        # Attempt to make the move if column is provided
+                        if column_choice:
+                            try:
+                                # Try to extract the column number from the choice
+                                if isinstance(column_choice, str):
+                                    # Handle string representations
+                                    import re
+                                    col_matches = re.findall(r'[0-6]', column_choice)
+                                    if col_matches:
+                                        col_num = int(col_matches[0])
+                                    else:
+                                        # Try parsing if column_choice is like "column 3", etc.
+                                        col_matches = re.findall(r'column.*?([0-6])', column_choice, re.IGNORECASE)
+                                        if col_matches:
+                                            col_num = int(col_matches[0])
+                                        elif re.search(r'first|0', column_choice.lower()):
+                                            col_num = 0
+                                        elif re.search(r'second|1', column_choice.lower()):
+                                            col_num = 1
+                                        elif re.search(r'third|2', column_choice.lower()):
+                                            col_num = 2
+                                        elif re.search(r'fourth|3', column_choice.lower()):
+                                            col_num = 3
+                                        elif re.search(r'fifth|4', column_choice.lower()):
+                                            col_num = 4
+                                        elif re.search(r'sixth|5', column_choice.lower()):
+                                            col_num = 5
+                                        elif re.search(r'seventh|6', column_choice.lower()):
+                                            col_num = 6
+                                        else:
+                                            col_num = None
+                                elif isinstance(column_choice, int):
+                                    col_num = column_choice
+                                else:
+                                    col_num = None
+
+                                if col_num is not None and 0 <= col_num <= 6:
+                                    success = connect_four_game.make_move(col_num)
+                                    if success:
+                                        print(f"✅ Disc dropped successfully in column {col_num}!")
+                                        print(f"New board:\n{connect_four_game.print_board()}")
+                                        if connect_four_game.winner:
+                                            print(f"Game over! Winner: {connect_four_game.winner}")
+                                        turn += 1  # Move was successful, increment turn
+                                        cf_turn += 1  # Also increment cf turn
+                                    else:
+                                        print(f"❌ Move failed - invalid column: {col_num} (may be full or out of bounds)")
+                                        # Add feedback to history
+                                        feedback = f"Your choice of column {col_num} was invalid. Please select a valid column (0-6) that has space."
+                                        connect_four_history.append({'name': 'Referee', 'content': feedback})
+                                        turn += 1  # Increment turn anyway
+                                else:
+                                    print(f"❌ Invalid column choice: {column_choice}")
+                                    # Add feedback to history
+                                    feedback = f"Your column choice '{column_choice}' was invalid. Please select a valid column number (0-6)."
+                                    connect_four_history.append({'name': 'Referee', 'content': feedback})
+                                    turn += 1  # Increment turn anyway
+                            except ValueError:
+                                print(f"❌ Could not parse column choice: {column_choice}")
+                                # Add feedback to history
+                                feedback = f"I couldn't parse the column '{column_choice}'. Please provide a valid column number (0-6)."
+                                connect_four_history.append({'name': 'Referee', 'content': feedback})
+                                turn += 1  # Increment turn anyway
+                        else:
+                            print(f"⚠️  No column provided for disc drop.")
+                            # Add feedback to history
+                            feedback = f"Please provide a valid column number (0-6) to drop your disc in."
+                            connect_four_history.append({'name': 'Referee', 'content': feedback})
+                            turn += 1  # Increment turn anyway
+
+                        # Delay before next turn
+                        if not connect_four_game.game_over and turn < args.max_turns:
+                            print(f"\n⏳ Waiting {args.delay} seconds...")
+                            time.sleep(args.delay)
+                        elif connect_four_game.game_over:
+                            break
+
+                    except KeyboardInterrupt:
+                        print("\n⚠️  Interrupted by user. Saving...")
+                        break
+
+                    except Exception as e:
+                        print(f"\n❌ Error on turn {turn}: {e}")
+                        import traceback
+                        traceback.print_exc()
+
+                        # Generate fallback response
+                        from response_generator import generate_emergency_response
+                        fallback_resp = generate_emergency_response(current_char, other_char, connect_four_history, {}, turn)
+                        connect_four_history.append({'name': current_char['name'], 'content': fallback_resp})
+                        print(fallback_resp)
+                        turn += 1  # Increment turn anyway
+                        continue  # Continue to next iteration
+
+                # Handle game end
+                if connect_four_game.winner == 'draw':
+                    game_end_context = f"Game #{game_count} ended in a draw. Starting a new game..."
+                    connect_four_history.append({'name': 'Narrator', 'content': game_end_context})
+                    print(f"🏆 Game #{game_count} ended in a draw. Starting a new game...")
+                    game_count += 1
+                    continue  # Continue to next game
+                else:
+                    winner_name = player1['name'] if connect_four_game.winner == 'red' else player2['name']
+                    game_end_context = f"Game #{game_count} ended. {winner_name} wins!"
+                    connect_four_history.append({'name': 'Narrator', 'content': game_end_context})
+                    print(f"🏆 Game #{game_count} ended. {winner_name} wins!")
+                    print(f"Final board position:\n{connect_four_game.print_board()}")
+                    break  # End the overall game loop
+
+            # After connect-four mode, update the history variable to save properly
+            history = connect_four_history
+
+        elif args.uno:
+            print("🃏🌈 Playing Uno Mode Activated 🌈🃏")
+            print("=" * 80)
+
+            # In uno mode, we support 2 characters
+            if len(characters) != 2:
+                print("❌ Uno mode requires exactly 2 characters")
+                sys.exit(1)
+
+            # Assign players
+            player1 = characters[0]
+            player2 = characters[1]
+
+            # Initialize uno game
+            uno_game = UnoGame()
+
+            # Initialize conversation history with game context
+            uno_history = []
+
+            # Add opening context to history
+            opening_context = f"Starting a game of Uno. {player1['name']} vs {player2['name']}."
+            uno_history.append({'name': 'Narrator', 'content': opening_context})
+            print(f"[TURN 1] Narrator: {opening_context}")
+            print(f"Initial top card: {uno_game.print_top_card()}")
+
+            # Uno game - multiple rounds until there's a decisive winner
+            game_count = 1
+            turn = 1  # Main turn counter
+
+            while True:
+                print(f"\n{'='*80}")
+                print(f"UNO GAME #{game_count}")
+                print('='*80)
+
+                # Reset for the game
+                uno_game.reset_game()
+
+                # Add game start context to history
+                game_start_context = f"Starting Uno game #{game_count}. {player1['name']} vs {player2['name']}."
+                uno_history.append({'name': 'Narrator', 'content': game_start_context})
+                print(f"[TURN {turn}] Narrator: {game_start_context}")
+                print(f"Starting top card: {uno_game.print_top_card()}")
+                print(f"Player hands sizes: {player1['name']} has {len(uno_game.get_current_player_hand())} cards, {player2['name']} has {len(uno_game.get_other_player_hand_size()) if uno_game.current_player == 'Player1' else len(uno_game.get_current_player_hand())} cards")
+                turn += 1
+
+                # Start the uno game loop
+                uno_round = 1
+                while not uno_game.game_over:
+                    print(f"\n{'='*60}")
+                    print(f"[UNO ROUND {uno_round}] Current State:")
+                    print(f"Top card: {uno_game.print_top_card()}")
+                    print(f"Current Player: {uno_game.current_player}")
+                    print(f"Other Player hand size: {uno_game.get_other_player_hand_size()}")
+                    print(f"Deck size: {len(uno_game.deck.cards)}")
+                    print('='*60)
+
+                    # Determine who is making the move
+                    current_char = player1 if uno_game.current_player == 'Player1' else player2
+                    other_char = player2 if uno_game.current_player == 'Player1' else player1
+
+                    print(f"\n[TURN {turn}] {current_char['name']} (playing as {uno_game.current_player})")
+
+                    try:
+                        # Create game context for the turn, requesting JSON output
+                        uno_context = f"""
+Uno Game Context:
+- Top card: {uno_game.print_top_card()}
+- Current Player: {uno_game.current_player}
+- Your hand: {uno_game.get_hand_for_player(uno_game.current_player)}
+- Opponent's hand size: {uno_game.get_other_player_hand_size()}
+
+You are playing Uno. Choose a card from your hand that matches the top card's color or value, or draw a card if you can't play. Please respond in the following JSON format:
+{{
+  "dialogue": "Your dialogue and thought process about your choice",
+  "action": "Your action: either 'play: [index]' to play a card (where index is the position in your hand) or 'draw' to draw a card",
+  "reasoning": "Why you made this choice"
+}}
+
+Think through your strategy before responding.
+                        """.strip()
+
+                        # Extract lorebook entries based on game context keywords
+                        lorebook_entries = []
+                        game_scenario = "Playing a game of uno"
+                        from character_loader import extract_lorebook_entries
+                        # Search for keywords in game scenario that match character lorebooks
+                        scenario_keywords = game_scenario.lower().split()
+                        for char in [current_char]:
+                            entries = extract_lorebook_entries(char['raw_data'], uno_history, max_entries=2)
+                            # Filter entries by scenario relevance
+                            relevant_entries = []
+                            for entry in entries:
+                                if any(keyword in entry.lower() for keyword in scenario_keywords if len(keyword) > 3):
+                                    relevant_entries.append(entry)
+                            lorebook_entries.extend(relevant_entries[:1])  # Add at most 1 relevant entry
+
+                        # Generate response with game context
+                        resp = generate_response_adaptive(
+                            current_char, other_char, uno_history, turn,
+                            enable_environmental=not args.no_environmental,
+                            similarity_threshold=args.similarity,
+                            verbose=args.verbose,
+                            scenario_context="Playing a game of uno",
+                            lorebook_entries=lorebook_entries if lorebook_entries else None
+                        )
+
+                        # Validate response
+                        if not isinstance(resp, str):
+                            resp = str(resp)
+
+                        uno_history.append({'name': current_char['name'], 'content': resp})
+                        print(resp)
+
+                        # Parse the JSON response for Uno
+                        import json
+                        import re
+
+                        # First try to find JSON within the response
+                        json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+                        matches = re.findall(json_pattern, resp, re.DOTALL)
+
+                        dialogue = ""
+                        action_choice = ""
+                        reasoning = ""
+
+                        for json_str in matches:
+                            try:
+                                json_clean = json_str.strip()
+                                parsed = json.loads(json_clean)
+
+                                dialogue = parsed.get('dialogue', '')
+                                action_choice = parsed.get('action', '')
+                                reasoning = parsed.get('reasoning', '')
+
+                                if dialogue or action_choice:
+                                    break
+                            except json.JSONDecodeError:
+                                continue  # Try the next match
+
+                        if dialogue:
+                            print(f"💬 Dialogue: {dialogue}")
+
+                        # Process the action if provided
+                        if action_choice:
+                            action_lower = action_choice.lower().strip()
+
+                            if 'draw' in action_lower:
+                                # Draw a card
+                                draw_success = uno_game.draw_card()
+                                if draw_success:
+                                    print(f"✅ {current_char['name']} drew a card")
+                                    turn += 1  # Action was successful, increment turn
+                                    uno_round += 1  # Also increment round
+                                else:
+                                    print(f"❌ Draw failed - deck may be empty")
+                                    # Add feedback to history
+                                    feedback = f"Drawing a card failed. Please try to make a valid move if possible."
+                                    uno_history.append({'name': 'Referee', 'content': feedback})
+                                    turn += 1  # Increment turn anyway
+                            elif 'play' in action_lower:
+                                # Extract card index from action like "play: [1]"
+                                import re
+                                index_match = re.search(r'play.*?([0-9]+)', action_lower)
+                                if index_match:
+                                    try:
+                                        card_idx = int(index_match.group(1))
+                                        current_hand_size = len(uno_game.get_current_player_hand())
+                                        if 0 <= card_idx < current_hand_size:
+                                            # Check if this card can be played
+                                            hand = uno_game.get_current_player_hand()
+                                            card_to_play = hand[card_idx]
+
+                                            if uno_game.can_play_card(card_to_play):
+                                                play_success = uno_game.play_card(card_idx)
+                                                if play_success:
+                                                    print(f"✅ {current_char['name']} played card: {card_to_play} from index {card_idx}")
+                                                    print(f"New top card: {uno_game.print_top_card()}")
+                                                    if uno_game.winner:
+                                                        print(f"Game over! Winner: {uno_game.winner}")
+                                                    turn += 1  # Move was successful, increment turn
+                                                    uno_round += 1  # Also increment round
+                                                else:
+                                                    print(f"❌ Play failed - invalid card at index {card_idx}")
+                                                    # Add feedback to history
+                                                    feedback = f"The card at index {card_idx} could not be played. Please try a different card or draw instead."
+                                                    uno_history.append({'name': 'Referee', 'content': feedback})
+                                                    turn += 1  # Increment turn anyway
+                                            else:
+                                                print(f"❌ Card {card_idx} cannot be played on current top card")
+                                                # Add feedback to history
+                                                feedback = f"The card at index {card_idx} does not match the top card. Please select a compatible card or draw a new card."
+                                                uno_history.append({'name': 'Referee', 'content': feedback})
+                                                turn += 1  # Increment turn anyway
+                                    except ValueError:
+                                        print(f"❌ Could not parse card index from action: {action_choice}")
+                                        # Add feedback to history
+                                        feedback = f"I couldn't parse the card index from '{action_choice}'. Please provide a valid index of a card to play or 'draw'."
+                                        uno_history.append({'name': 'Referee', 'content': feedback})
+                                        turn += 1  # Increment turn anyway
+                                else:
+                                    print(f"❌ Could not extract card index from action: {action_choice}")
+                                    # Add feedback to history
+                                    feedback = f"I couldn't determine which card to play from '{action_choice}'. Please specify an index to play or 'draw'."
+                                    uno_history.append({'name': 'Referee', 'content': feedback})
+                                    turn += 1  # Increment turn anyway
+                            else:
+                                print(f"❌ Invalid action: {action_choice}. Must be 'play: [index]' or 'draw'.")
+                                # Add feedback to history
+                                feedback = f"Your action '{action_choice}' was invalid. Please 'play: [index]' to play a card or 'draw' to draw a card."
+                                uno_history.append({'name': 'Referee', 'content': feedback})
+                                turn += 1  # Increment turn anyway
+                        else:
+                            print(f"⚠️  No action provided.")
+                            # Add feedback to history
+                            feedback = f"Please provide a valid action ('play: [index]' to play a card or 'draw' to draw a card) in your response."
+                            uno_history.append({'name': 'Referee', 'content': feedback})
+                            turn += 1  # Increment turn anyway
+
+                        # Delay before next turn
+                        if not uno_game.game_over and turn < args.max_turns:
+                            print(f"\n⏳ Waiting {args.delay} seconds...")
+                            time.sleep(args.delay)
+                        elif uno_game.game_over:
+                            break
+
+                    except KeyboardInterrupt:
+                        print("\n⚠️  Interrupted by user. Saving...")
+                        break
+
+                    except Exception as e:
+                        print(f"\n❌ Error on turn {turn}: {e}")
+                        import traceback
+                        traceback.print_exc()
+
+                        # Generate fallback response
+                        from response_generator import generate_emergency_response
+                        fallback_resp = generate_emergency_response(current_char, other_char, uno_history, {}, turn)
+                        uno_history.append({'name': current_char['name'], 'content': fallback_resp})
+                        print(fallback_resp)
+                        turn += 1  # Increment turn anyway
+                        continue  # Continue to next iteration
+
+                # Handle game end
+                if uno_game.winner == 'draw':
+                    game_end_context = f"Game #{game_count} ended in a draw. Starting a new game..."
+                    uno_history.append({'name': 'Narrator', 'content': game_end_context})
+                    print(f"🏆 Game #{game_count} ended in a draw. Starting a new game...")
+                    game_count += 1
+                    continue  # Continue to next game
+                else:
+                    winner_name = player1['name'] if uno_game.winner == 'Player1' else player2['name']
+                    game_end_context = f"Game #{game_count} ended. {winner_name} wins!"
+                    uno_history.append({'name': 'Narrator', 'content': game_end_context})
+                    print(f"🏆 Game #{game_count} ended. {winner_name} wins!")
+                    break  # End the overall game loop
+
+            # After Uno mode, update the history variable to save properly
+            history = uno_history
 
         elif args.rock_paper_scissors:
             print("🪨📄✂️ Playing Rock-Paper-Scissors Mode Activated ✂️📄🪨")

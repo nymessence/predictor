@@ -116,6 +116,57 @@ uv run --active character_interactions/main.py "character_interactions/json/nya_
 uv run --active character_interactions/main.py "character_interactions/json/nya_elyria.json" "character_interactions/json/empress_azalea.json" --chess --delay 3 --similarity 0.7 --api-endpoint "https://api.openai.com/v1" --model "gpt-4" --api-key $OPENAI_API_KEY -o "chess_game_output.json"
 ```
 
+### Tic-Tac-Toe Game
+```bash
+uv run --active character_interactions/main.py "character_interactions/json/nya_elyria.json" "character_interactions/json/empress_azalea.json" --tic-tac-toe --delay 3 --similarity 0.7 --api-endpoint "https://api.openai.com/v1" --model "gpt-4" --api-key $OPENAI_API_KEY -o "ttt_game_output.json"
+```
+
+### Rock-Paper-Scissors Game
+```bash
+uv run --active character_interactions/main.py "character_interactions/json/nya_elyria.json" "character_interactions/json/empress_azalea.json" --rock-paper-scissors --delay 2 --similarity 0.6 --api-endpoint "https://api.openai.com/v1" --model "gpt-4" --api-key $OPENAI_API_KEY -o "rps_game_output.json"
+```
+
+### Hangman Game
+```bash
+uv run --active character_interactions/main.py "character_interactions/json/nya_elyria.json" "character_interactions/json/empress_azalea.json" --hangman --delay 3 --similarity 0.65 --api-endpoint "https://api.openai.com/v1" --model "gpt-4" --api-key $OPENAI_API_KEY -o "hangman_game_output.json"
+```
+
+### Twenty-One Game
+```bash
+uv run --active character_interactions/main.py "character_interactions/json/nya_elyria.json" "character_interactions/json/empress_azalea.json" --twenty-one --delay 4 --similarity 0.7 --api-endpoint "https://api.openai.com/v1" --model "gpt-4" --api-key $OPENAI_API_KEY -o "twentyone_game_output.json"
+```
+
+## How Game Modes Work
+
+### Chess Mode
+1. **Character Assignment**: The first character specified is assigned as white, the second as black
+2. **Board Display**: The initial chess board is displayed at the start of each game
+3. **Turn Structure**: Characters take turns based on the current player (white moves first)
+4. **Move Description**: Characters describe their thought process and intended move
+5. **Move Extraction**: The system parses the character's response to extract the chess move
+6. **Move Validation**: The move is validated against the current board position
+7. **Move Execution**: Valid moves are applied to the board
+8. **Game Continuation**: Play continues until a winning position is reached
+9. **Draw Handling**: If a game ends in a draw, a new game begins automatically
+10. **Winner Declaration**: When a game ends with a winner, the result is announced
+
+### Tic-Tac-Toe Mode
+1. **Character Assignment**: The first character specified is assigned as X, the second as O
+2. **Board Display**: The initial 3x3 board is displayed at the start of each game
+3. **Turn Structure**: Characters take alternating turns (X moves first)
+4. **Move Description**: Characters describe their thought process and intended position
+5. **Position Extraction**: The system parses the character's response to extract the position [row, col]
+6. **Position Validation**: The move is validated against the current board position (must be empty)
+7. **Move Execution**: Valid moves are applied to the board
+8. **Game Continuation**: Play continues until a winning pattern is achieved or board is full
+9. **Draw Handling**: If a game ends in a draw, a new game begins automatically
+10. **Winner Declaration**: When a game ends with a winner, the result is announced
+
+### Rock-Paper-Scissors Mode
+1. **Character Assignment**: Two characters participate as Player1 and Player2
+2. **Choice Description**: Characters describe their thought process and intended choice
+3. **Choice Extraction**: The system parses the character's response to extract the choice (rock/paper/scissors)
+
 ## How Game Modes Work
 
 ### Chess Mode
@@ -154,22 +205,29 @@ uv run --active character_interactions/main.py "character_interactions/json/nya_
 9. **Winner Declaration**: When a round ends with a decisive winner, the result is announced
 
 ### Hangman Mode
-1. **Character Assignment**: First character guesses letters, second provides commentary/hints
-2. **Word Selection**: Random word is selected from predefined list
-3. **Initial Display**: Word is shown as blanks (e.g. "_ _ _ _ _")
+1. **Character Assignment**: First character guesses letters, second character can provide hints/comments
+2. **Word Selection**: Random word is selected from predefined word list
+3. **Initial Display**: Word is shown as blanks (e.g. _ _ _ _ _) with guessed letters revealed
 4. **Letter Description**: Characters describe their thought process and letter guess
 5. **Letter Extraction**: The system parses the character's response to extract the letter
 6. **Letter Validation**: The letter is validated as a single alphabetic character not yet guessed
 7. **Result Processing**: Letter is checked against the secret word and board updated
 8. **Game Continuation**: Play continues until word is guessed or incorrect guesses are exhausted
 9. **Draw/Loss Handling**: If player exhausts allowed incorrect guesses, new game begins automatically
-10. **Winner Declaration**: When a game ends with the word guessed correctly, the result is announced
+10. **Winner Declaration**: When a game ends with the word correctly guessed, the result is announced
 
 ### Twenty-One Mode
 1. **Character Assignment**: First character is player, second acts as dealer/AI reference
-2. **Initial Deal**: Both player and dealer receive 2 cards
+2. **Initial Deal**: Both player and dealer receive initial cards
 3. **Hand Display**: Player's hand and dealer's visible card are displayed
 4. **Action Description**: Characters describe their thought process and decision (hit/stand)
+5. **Action Extraction**: The system parses the character's response to extract the action
+6. **Action Validation**: The action is validated as 'hit' or 'stand'
+7. **Action Execution**: Valid actions are processed according to game rules
+8. **Game Continuation**: Play continues until player busts, stands, reaches 21, or dealer finishes
+9. **Draw Handling**: If applicable, new round begins automatically
+10. **Winner Declaration**: When a round ends with a winner, the result is announced
+
 5. **Action Extraction**: The system parses the character's response to extract the action
 6. **Action Validation**: The action is validated as 'hit' or 'stand'
 7. **Action Execution**: Valid actions are processed according to game rules
@@ -341,6 +399,29 @@ The game implementations include:
 - Dealer AI following standard rules (hit on 16, stand on 17+)
 - Bust and win/loss determination
 
+## Token Management System
+
+The system implements a sliding window mechanism to prevent conversation history from growing too large and causing token overflow issues or repetitive loops:
+
+- **Estimation**: Uses approximate token counting to estimate history length
+- **Sliding Window**: Keeps most recent interactions while respecting token limits
+- **Context Preservation**: Maintains initial game context (Narrator entries) when possible
+- **Chronological Order**: Ensures history flows chronologically even when truncated
+- **Repetitive Loop Prevention**: Prevents the AI from falling into repetitive patterns due to context exhaustion
+
+### How Token Management Works:
+1. **History Estimation**: Estimates token count based on word count approximation
+2. **Limit Check**: Determines if history exceeds reasonable token limits (default: 1000 tokens)
+3. **Window Application**: Applies sliding window to preserve most recent entries
+4. **Order Maintenance**: Maintains chronological order of preserved entries
+5. **Context Priority**: Prioritizes initial game context and recent interactions
+
+### Benefits:
+- **Prevents Overflow**: Keeps conversation within token limits for API requests
+- **Maintains Coherence**: Recent context is preserved for game understanding
+- **Reduces Loops**: Eliminates repetitive patterns that occur with oversized history
+- **Performance Boost**: Reduces unnecessary context length for faster responses
+
 ## Troubleshooting
 
 ### Common Issues
@@ -370,6 +451,11 @@ The game implementations include:
 - **Bust detection**: System identifies hands exceeding 21 points
 - **Ace value handling**: Aces properly counted as 1 or 11
 - **Strategy validation**: Hit/stand decisions must follow game rules
+
+#### Token Management Issues:
+- **History truncation**: Conversations may be shortened if they exceed token limits
+- **Context preservation**: Important initial context is maintained even when history is truncated
+- **Chronological flow**: Order of events is preserved in the shortened history
 
 ### Performance Tips
 

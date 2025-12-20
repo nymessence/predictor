@@ -451,6 +451,19 @@ def main():
                         dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                         return dialogue_text, potential_move, ""
 
+            # Look for "from X to Y" patterns which are the most explicit move intentions
+            from_to_pattern = r'from\s+([a-h][1-8])\s+to\s+([a-h][1-8])'
+            from_to_matches = re.findall(from_to_pattern, response_text, re.IGNORECASE)
+            if from_to_matches:
+                # The AI explicitly stated a from-to move, which is the most intentional
+                for from_sq, to_sq in from_to_matches:
+                    # Format as combined coordinate for chess move processing
+                    move_val = f"{from_sq}{to_sq}"
+                    # Create a targeted dialogue removal to avoid removing other coordinates
+                    dialogue_text = re.sub(r'from\s+' + re.escape(from_sq) + r'\s+to\s+' + re.escape(to_sq), '', response_text, flags=re.IGNORECASE).strip()
+                    dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                    return dialogue_text, move_val, ""
+
             # If no intent-found moves, look for broader chess notation patterns
             chess_pattern = r'\b([a-h][1-8]|[KQRBN][a-h][1-8]|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?[a-h][1-8][+#]?|O-O(?:-O)?)\b'
             potential_moves = re.findall(chess_pattern, response_text, re.IGNORECASE)

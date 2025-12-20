@@ -430,9 +430,28 @@ def main():
                         continue  # Try the next match
 
             # If no JSON found, extract chess-specific moves from plain text
-            # Only look for valid chess notation in the response
+            # Only look for valid chess notation in the response with intent indicators
 
-            # Look for chess moves in standard notation: e4, Nf3, exd5, Bxf7+, etc.
+            # Look for moves in contexts that suggest intent: "I will move to", "my move is", "I choose", etc.
+            intent_patterns = [
+                r'(?:move|go|advance|play|choose)\s+(?:to\s+)?([a-h][1-8])',  # "move to e5", "go e5", "play e5"
+                r'(?:my\s+)?(?:move|play|choice)\s+(?:is\s+|to\s+)?(?:\w+\s+)?([a-h][1-8])',  # "move is e5", "my move to e5", etc.
+                r'(?:I\s+)(?:will\s+|am\s+)?(?:(?:move|choose|play)\s+to\s+|move\s+to\s+|choose\s+)?([a-h][1-8])',  # "I will move to e5", "I choose e5", etc.
+                r'(?:I.*?)(?:make|do|will.*?)(?:move|play|choice).*?([a-h][1-8])',  # "I'm making a move to e5", etc.
+            ]
+
+            # Look for intent first
+            for intent_pattern in intent_patterns:
+                intent_matches = re.findall(intent_pattern, response_text, re.IGNORECASE)
+                for potential_move in intent_matches:
+                    # Validate that it's a proper square notation
+                    if re.match(r'^[a-h][1-8]$', potential_move):
+                        # Remove just this specific move from the dialogue
+                        dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
+                        dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                        return dialogue_text, potential_move, ""
+
+            # If no intent-found moves, look for broader chess notation patterns
             chess_pattern = r'\b([a-h][1-8]|[KQRBN][a-h][1-8]|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?[a-h][1-8][+#]?|O-O(?:-O)?)\b'
             potential_moves = re.findall(chess_pattern, response_text, re.IGNORECASE)
 
@@ -442,9 +461,10 @@ def main():
             has_chess_context = any(term.lower() in response_text.lower() for term in chess_context_terms)
 
             # Only return as a move if it's a valid chess notation AND appears in a chess context
-            for potential_move in potential_moves:
+            # Try moves from the end of the list first (more likely to be the new intended moves)
+            for potential_move in reversed(potential_moves):
                 if has_chess_context:
-                    # Clean the dialogue by removing the move reference
+                    # Remove just this specific move from the dialogue
                     dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                     dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                     return dialogue_text, potential_move, ""
@@ -463,6 +483,128 @@ def main():
 
             # If no chess-specific move found, return as dialogue only
             return response_text, "", ""
+
+        def parse_move_notation(move_notation, chess_game, current_player_color):
+            """Parse algebraic move notation and return the from/to positions."""
+            import re
+
+            if not move_notation:
+                return False, None, None
+
+            move_notation = move_notation.strip()
+
+            # If move notation is empty, return failure
+            if not move_notation:
+                return False, None, None
+
+            # Handle castling notation first
+            if move_notation.lower() in ['o-o', '0-0']:  # Kingside castling
+                # For white: king from (7,4) to (7,6), rook from (7,7) to (7,5)
+                # For black: king from (0,4) to (0,6), rook from (0,7) to (0,5)
+                row = 7 if current_player_color == 'white' else 0
+                from_pos = (row, 4)  # King start position for castling
+                to_pos = (row, 6)   # King end position for kingside castling
+
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
+
+            elif move_notation.lower() in ['o-o-o', '0-0-0']:  # Queenside castling
+                # For white: king from (7,4) to (7,2), rook from (7,0) to (7,3)
+                # For black: king from (0,4) to (0,2), rook from (0,0) to (0,3)
+                row = 7 if current_player_color == 'white' else 0
+                from_pos = (row, 4)  # King start position for castling
+                to_pos = (row, 2)   # King end position for queenside castling
+
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
+
+            # Handle coordinate format "e2e4" (source to destination)
+            coord_format_pattern = r'^([a-h][1-8])([a-h][1-8])$'
+            coord_match = re.match(coord_format_pattern, move_notation.lower())
+            if coord_match:
+                from_sq = coord_match.group(1)
+                to_sq = coord_match.group(2)
+
+                from_col = ord(from_sq[0]) - ord('a')
+                from_row = 8 - int(from_sq[1])
+                to_col = ord(to_sq[0]) - ord('a')
+                to_row = 8 - int(to_sq[1])
+
+                from_pos = (from_row, from_col)
+                to_pos = (to_row, to_col)
+
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
+
+            # Handle standard chess notation: e4, Nf3, exd5, Bxf7+, etc.
+            # Check if the move looks like proper chess notation
+            chess_pattern = r'^([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][KQRBN]?[+#]?)$'
+            if re.match(chess_pattern, move_notation.lower()):
+                # Standard algebraic notation processing
+                # Extract destination square (last 2 characters that look like a square)
+                dest_match = re.search(r'([a-h][1-8])$', move_notation.lower())
+                if dest_match:
+                    dest_sq = dest_match.group(1)
+                    dest_col = ord(dest_sq[0]) - ord('a')
+                    dest_row = 8 - int(dest_sq[1])
+                    dest_pos = (dest_row, dest_col)
+
+                    # If the notation is just a destination square (like 'e4'), try to find the piece that can move there
+                    if len(move_notation.strip()) == 2:  # Simple notation like 'e4'
+                        # Find all pieces of current player's color that can move to this destination
+                        for row_idx in range(8):
+                            for col_idx in range(8):
+                                piece = chess_game.get_piece_at(row_idx, col_idx)
+                                if piece and chess_game.is_own_piece(piece, current_player_color):
+                                    # Check if this piece can move to the destination
+                                    temp_moves = chess_game._get_piece_valid_moves(row_idx, col_idx)
+                                    if dest_pos in temp_moves:
+                                        from_pos = (row_idx, col_idx)
+                                        if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                            return True, from_pos, dest_pos
+                        return False, None, None  # No valid piece can make this move
+
+                    # For more complex notation, try to extract source info
+                    else:
+                        # Look for source square in the notation (e.g., "e2e4", "d7d8Q", etc.) - but this is for more complex patterns
+                        # If we have more complex patterns, we can handle them here
+                        source_match = re.search(r'([a-h][1-8]).*?([a-h][1-8])', move_notation.lower())
+                        if source_match:
+                            from_sq = source_match.group(1)
+                            to_sq = source_match.group(2)  # Should match dest_sq
+
+                            from_col = ord(from_sq[0]) - ord('a')
+                            from_row = 8 - int(from_sq[1])
+                            from_pos = (from_row, from_col)
+
+                            if chess_game.is_move_legal(from_pos, dest_pos, current_player_color):
+                                return True, from_pos, dest_pos
+
+            # If it's not standard algebraic notation, check if it's in the form "e2 to e4" or "e2-e4" or "e2,e4"
+            coord_to_coord_pattern = r'([a-h][1-8])\s*(?:to|[-,])\s*([a-h][1-8])'
+            match = re.search(coord_to_coord_pattern, move_notation, re.IGNORECASE)
+            if match:
+                from_sq = match.group(1).lower()
+                to_sq = match.group(2).lower()
+
+                # Convert to coordinates
+                from_col = ord(from_sq[0]) - ord('a')
+                from_row = 8 - int(from_sq[1])
+                to_col = ord(to_sq[0]) - ord('a')
+                to_row = 8 - int(to_sq[1])
+
+                from_pos = (from_row, from_col)
+                to_pos = (to_row, to_col)
+
+                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                    return True, from_pos, to_pos
+                return False, None, None
+
+            # If we couldn't parse it, return failure
+            return False, None, None
 
         def parse_ttt_json_response(response_text, character_name):
             """Parse JSON response specifically for tic-tac-toe, extracting dialogue, move, and board state."""

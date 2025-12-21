@@ -430,29 +430,29 @@ def main():
                         continue  # Try the next match
 
             # If no JSON found, extract chess-specific moves from plain text
-            # Only look for valid chess notation in the response with intent indicators
+            # Only look for valid chess notation in the response with clear intent indicators
 
-            # Look for explicit move indicators in contexts that suggest intent
-            # Prioritize phrases that directly indicate the next move
-            explicit_intent_patterns = [
-                r'(?:my\s+|next\s+)?(?:move|play|choice)\s+(?:is|will\s+be|to)\s+([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "my move is e4", "move will be Nf3", etc.
-                r'(?:I\s+will\s+|I\s+am\s+going\s+to\s+|I\s+should\s+)?(?:move|play|go|choose)\s+(?:to\s+|on\s+)?([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "I will move to e4", "I am going to play Nf3", etc.
-                r'(?:making\s+)?(?:my\s+)?(?:move|play|selection)\s+(?:to|on)\s+([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "making my move to e4", "my selection is Nf3", etc.
+            # Look for moves with explicit action words that indicate immediate intent
+            # These patterns strongly suggest the AI is making a move NOW, not discussing past moves
+            explicit_immediate_patterns = [
+                r'(?:I\s+will\s+move|I\'?ll\s+move|my\s+move\s+is|I\s+move|I\s+should\s+move|I\s+choose\s+to\s+move|I\s+plan\s+to\s+move)\s+(?:to\s+|on\s+)?([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "I will move to e4", "my move is Nf3", etc.
+                r'(?:I\s+am\s+making|I\'?m\s+making|I\s+am\s+playing|I\'?m\s+playing)\s+(?:my\s+move\s+to|a\s+move\s+to|this\s+move\s+to|my\s+choice\s+of)\s+([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "I am making my move to e4", etc.
+                r'(?:Now\s+I\s+will|Now,\s+I\s+|For\s+this\s+move|For\s+my\s+move\s+I\'?ll|My\s+intended\s+move\s+is)\s+([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "Now I will Nf3", etc.
             ]
 
-            # Check for explicit intent first
-            for pattern in explicit_intent_patterns:
+            # Check for explicit immediate intent first
+            for pattern in explicit_immediate_patterns:
                 matches = re.findall(pattern, response_text, re.IGNORECASE)
                 for potential_move in matches:
                     # Validate that it looks like chess notation
-                    if re.match(r'^[KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?$', potential_move, re.IGNORECASE):
-                        # Remove just this specific move from the dialogue
+                    if re.match(r'^[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?$', potential_move, re.IGNORECASE):
+                        # Remove just this specific move reference from the dialogue
                         dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                         dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                         return dialogue_text, potential_move, ""
 
             # Look for "from X to Y" patterns which are explicit move intentions
-            from_to_pattern = r'(?:move\s+from|from|going\s+from)\s+([a-h][1-8])\s+(?:to|on|toward)\s+([a-h][1-8])'
+            from_to_pattern = r'(?:move\s+from|from|I\s+move\s+from)\s+([a-h][1-8])\s+(?:to|on|toward|I\s+move\s+to)\s+([a-h][1-8])'
             from_to_matches = re.findall(from_to_pattern, response_text, re.IGNORECASE)
             if from_to_matches:
                 # The AI explicitly stated a from-to move, which is the most intentional
@@ -460,57 +460,67 @@ def main():
                     # Format as combined coordinate for chess move processing
                     move_value = f"{from_sq}{to_sq}"
                     # Create a targeted dialogue removal to avoid removing other coordinates
-                    dialogue_text = re.sub(r'(?:move\s+from|from|going\s+from)\s+' + re.escape(from_sq) + r'\s+(?:to|on|toward)\s+' + re.escape(to_sq), '', response_text, flags=re.IGNORECASE).strip()
+                    dialogue_text = re.sub(r'(?:move\s+from|from|I\s+move\s+from)\s+' + re.escape(from_sq) + r'\s+(?:to|on|toward|I\s+move\s+to)\s+' + re.escape(to_sq), '', response_text, flags=re.IGNORECASE).strip()
                     dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                     return dialogue_text, move_value, ""
 
-            # Next, look for patterns where the move is mentioned after indicating it's the actual move
-            # "For my move, I will play Nf3", "My move: e4", etc.
-            move_statement_patterns = [
-                r'(?:for\s+my\s+move|my\s+move|I\s+play|I\s+choose|i\s+move|my\s+choice)\s*[,:]\s*([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "for my move: e4", "I play Nf3"
-                r'(?:move|play|choosing|going\s+with)\s*[is:]\s*([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "move is e4", "choosing Nf3"
+            # Look for move patterns in contexts that indicate the AI is responding with their move NOW
+            current_move_patterns = [
+                r'(?:In\s+response|In\s+reply|My\s+response|My\s+next\s+move|My\s+turn|It\'?s\s+my\s+turn|On\s+my\s+turn|My\s+move|This\s+turn|This\s+round|This\s+game)\s+(?:is|will\s+be|to|should\s+be)\s+([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "In response I will Nf3", "My move is e4", etc.
+                r'(?:For\s+this\s+turn|For\s+this\s+move|For\s+now|Currently|Currently,\s+I|Right\s+now|Right\s+now,\s+I|At\s+this\s+moment)\s+([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "For this turn, I'll e4", etc.
             ]
 
-            for pattern in move_statement_patterns:
+            # Check current move patterns
+            for pattern in current_move_patterns:
                 matches = re.findall(pattern, response_text, re.IGNORECASE)
                 for potential_move in matches:
                     # Validate that it looks like chess notation
-                    if re.match(r'^[KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?$', potential_move, re.IGNORECASE):
-                        # Remove just this specific move from the dialogue
+                    if re.match(r'^[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?$', potential_move, re.IGNORECASE):
+                        # Remove just this specific move reference from the dialogue
                         dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                         dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                         return dialogue_text, potential_move, ""
 
-            # Finally, if no explicit intent found, look for unambiguous chess notation with strong context
-            # Avoid extracting chess terms from examples like "it would be written as Nc6"
-            chess_pattern = r'\b([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)\b'
+            # Finally, if no explicit intent found, look for unambiguous chess notation in clear game contexts
+            # Avoid extracting chess terms from discussion contexts like "circling around" or "without saying"
+            chess_pattern = r'\b([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[KQRBN]?[a-h][1-8]|[a-h][1-8]|O-O(?:-O)?)\b'
             potential_moves = re.findall(chess_pattern, response_text, re.IGNORECASE)
 
-            # Filter potential moves to avoid example contexts
-            # Avoid phrases like "written as [move]", "like [move]", "as [move]", etc.
+            # Filter potential moves to avoid discussion contexts
+            # Avoid phrases like "circling around", "without saying", "important without", etc. that have no game context
             filtered_moves = []
             for potential_move in potential_moves:
-                # Create pattern to detect if this move appears in an example context
-                example_context_pattern = rf'(?:written\s+as|like|similar\s+to|for\s+example|such\s+as|would\s+be|should\s+be|as|move\s+is\s+like)\s+{re.escape(potential_move)}'
-                following_context_pattern = rf'{re.escape(potential_move)}\s+(?:to\s+illustrate|for\s+example|as\s+an\s+example|to\s+clarify)'
+                # Skip if the move appears in a discussion context that doesn't indicate intention
+                discussion_contexts = [
+                    rf'(?:circling\s+around\s+something|without\s+saying|without\s+saying\s+it|without|without\s+saying\s+it\s+directly|something\s+important\s+without|important\s+without|saying\s+it\s+directly|something\s+important|important|directly|directly\.\s*$)',
+                    rf'(?:feel\s+like|like\s+we\'?re|like\s+)',
+                    rf'(?:This\s+is\s+strange\.[^.]*){re.escape(potential_move)}',  # "This is strange. [move]" - usually not an intended move
+                    rf'{re.escape(potential_move)}[^.!?]*?(?:important|strange|without|circle|around)'  # Move followed by discussion words
+                ]
 
-                contains_example_context = (
-                    re.search(example_context_pattern, response_text, re.IGNORECASE) or
-                    re.search(following_context_pattern, response_text, re.IGNORECASE)
+                is_in_discussion_context = any(
+                    re.search(context_pattern, response_text, re.IGNORECASE)
+                    for context_pattern in discussion_contexts
                 )
 
-                # Only include if NOT in example context
-                if not contains_example_context:
+                # Only include if NOT in a discussion/non-intent context
+                if not is_in_discussion_context:
                     filtered_moves.append(potential_move)
 
-            # Look for context terms that suggest this is a chess-related response
-            chess_context_terms = ['chess', 'move', 'play', 'go', 'advance', 'position', 'strategy', 'game', 'board', 'castle', 'capture', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'turn', 'response', 'choice', 'action']
-            has_chess_context = any(term.lower() in response_text.lower() for term in chess_context_terms)
+            # Look for strong chess game context terms that indicate this is a move-making response
+            strong_chess_terms = [
+                'making a move', 'choosing', 'my move', 'I move', 'I play', 'I choose',
+                'for this turn', 'this move', 'my turn to move', 'response move',
+                'will move to', 'to move to', 'going to play', 'I play', 'I select',
+                'my response is', 'in this position', 'on the board',
+                'I will play', 'I intend to move', 'my intended move', 'on my turn'
+            ]
+            has_strong_chess_context = any(term.lower() in response_text.lower() for term in strong_chess_terms)
 
-            # Only return as a move if it's in a chess context and not in example context
+            # Only return as a move if it's in a clear game-making context and not in discussion context
             for potential_move in reversed(filtered_moves):  # Try from the end (most recent mentions first)
-                if has_chess_context:
-                    # Remove just this specific move from the dialogue
+                if has_strong_chess_context:
+                    # Remove just this specific move reference from the dialogue
                     dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                     dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                     return dialogue_text, potential_move, ""
@@ -1553,6 +1563,12 @@ Make sure your move is legal in the current position. Think through your strateg
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
 
+                        # Track consecutive failed moves to prevent infinite loops
+                        if not hasattr(chess_game, 'consecutive_failed_moves'):
+                            chess_game.consecutive_failed_moves = {'white': 0, 'black': 0}
+                        if not hasattr(chess_game, 'last_failed_move'):
+                            chess_game.last_failed_move = {'white': '', 'black': ''}
+
                         # Attempt to make the chess move if notation is provided
                         if move_notation:
                             # Try to parse the move notation
@@ -1564,24 +1580,54 @@ Make sure your move is legal in the current position. Think through your strateg
                                     print(f"✅ Move successfully made: {chess_game.move_history[-1] if chess_game.move_history else move_notation}")
                                     turn += 1  # Move was successful, increment turn
                                     chess_turn += 1  # Also increment chess turn
+                                    # Reset consecutive failed moves for this player
+                                    chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                    chess_game.last_failed_move[current_char['chess_color']] = ''
                                 else:
                                     print(f"❌ Move failed - illegal move attempted: {move_notation}")
                                     # Add feedback to history
                                     feedback = f"Your move '{move_notation}' was invalid or illegal. Please try again with a valid chess move from the current position."
                                     chess_history.append({'name': 'Referee', 'content': feedback})
-                                    # DON'T increment turn - same player gets another chance to move
+                                    # Increment consecutive failed moves counter
+                                    chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
+                                    chess_game.last_failed_move[current_char['chess_color']] = move_notation
+                                    # If too many consecutive failures, force move to other player to prevent infinite loops
+                                    if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 3:
+                                        print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times. Moving to next player to prevent infinite loop.")
+                                        turn += 1  # Force increment to prevent infinite loops
+                                        chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                        chess_game.last_failed_move[current_char['chess_color']] = ''
+                                    # Otherwise, same player gets another chance (don't increment turn)
                             else:
                                 print(f"❌ Could not parse move notation: {move_notation}")
                                 # Add feedback to history
                                 feedback = f"I couldn't parse the move '{move_notation}'. Please provide a valid chess move in algebraic notation."
                                 chess_history.append({'name': 'Referee', 'content': feedback})
-                                # DON'T increment turn - same player gets another chance to move
+                                # Increment consecutive failed moves counter
+                                chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
+                                chess_game.last_failed_move[current_char['chess_color']] = move_notation
+                                # If too many consecutive failures or the same move is repeated, force move to other player
+                                if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 3 or move_notation == chess_game.last_failed_move[current_char['chess_color']]:
+                                    print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times or repeated the same invalid move. Moving to next player to prevent infinite loop.")
+                                    turn += 1  # Force increment to prevent infinite loops
+                                    chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                    chess_game.last_failed_move[current_char['chess_color']] = ''
+                                # Otherwise, same player gets another chance (don't increment turn)
                         else:
                             print(f"⚠️  No move provided. Current player: {chess_game.current_player}")
                             # Add feedback to history
                             feedback = f"Please provide a valid chess move in your response."
                             chess_history.append({'name': 'Referee', 'content': feedback})
-                            # DON'T increment turn - same player gets another chance to move
+                            # Increment consecutive failed moves counter
+                            chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
+                            chess_game.last_failed_move[current_char['chess_color']] = ''
+                            # If too many consecutive failures, force move to other player
+                            if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 3:
+                                print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times. Moving to next player to prevent infinite loop.")
+                                turn += 1  # Force increment to prevent infinite loops
+                                chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                chess_game.last_failed_move[current_char['chess_color']] = ''
+                            # Otherwise, same player gets another chance (don't increment turn)
 
                         # Delay before next turn
                         if not chess_game.game_over and turn < args.max_turns:  # We should still respect the max turns as a safety
@@ -1746,15 +1792,40 @@ Think through your strategy before responding.
                         print(resp)
 
                         # Parse the JSON response
-                        dialogue, move_notation, board_state = parse_rps_json_response(resp, current_char['name'])
+                        dialogue, move_notation, board_state = parse_ttt_json_response(resp, current_char['name'])
 
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
 
+                        # Track consecutive failed moves to prevent infinite loops
+                        if not hasattr(ttt_game, 'consecutive_failed_moves'):
+                            ttt_game.consecutive_failed_moves = {'X': 0, 'O': 0}
+                        if not hasattr(ttt_game, 'last_failed_move'):
+                            ttt_game.last_failed_move = {'X': '', 'O': ''}
+
+                        # Determine current player symbol for tracking
+                        current_symbol = current_char.get('ttt_symbol', 'X' if current_char == player_x else 'O')
+
                         # Attempt to make the move if notation is provided
                         if move_notation:
                             # Parse the move notation (should be in format like [0, 2], "0,2", "0 2", etc.)
-                            row, col = parse_ttt_move(move_notation)
+                            import re
+                            # Try to extract row, col from the move_notation
+                            row, col = None, None
+
+                            # Look for [row, col] format
+                            match = re.search(r'\[([0-2])\s*,\s*([0-2])\]', move_notation)
+                            if not match:
+                                # Look for (row, col) format
+                                match = re.search(r'\(([0-2])\s*,\s*([0-2])\)', move_notation)
+                            if not match:
+                                # Look for "row, col" or "row col" format with numbers 0-2
+                                nums = re.findall(r'[0-2]', move_notation)
+                                if len(nums) >= 2:
+                                    row, col = int(nums[0]), int(nums[1])
+
+                            if match:
+                                row, col = int(match.group(1)), int(match.group(2))
 
                             if row is not None and col is not None:
                                 success = ttt_game.make_move(row, col)
@@ -1762,24 +1833,49 @@ Think through your strategy before responding.
                                     print(f"✅ Move successfully made: {row}, {col}")
                                     turn += 1  # Move was successful, increment turn
                                     ttt_turn += 1  # Also increment tic-tac-toe turn
+                                    # Reset consecutive failed moves for this player
+                                    ttt_game.consecutive_failed_moves[current_symbol] = 0
+                                    ttt_game.last_failed_move[current_symbol] = ''
                                 else:
                                     print(f"❌ Move failed - invalid move attempted: {row}, {col} (position may be occupied or out of bounds)")
                                     # Add feedback to history
                                     feedback = f"Your move at position ({row}, {col}) was invalid or occupied. Please try again with a valid empty position."
                                     ttt_history.append({'name': 'Referee', 'content': feedback})
-                                    # DON'T increment turn - same player gets another chance to move
+                                    # Increment consecutive failed moves counter
+                                    ttt_game.consecutive_failed_moves[current_symbol] += 1
+                                    ttt_game.last_failed_move[current_symbol] = f"{row},{col}"
+                                    # If too many consecutive failures, force move to other player to prevent infinite loops
+                                    if ttt_game.consecutive_failed_moves[current_symbol] >= 3:
+                                        print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times. Moving to next player to prevent infinite loop.")
+                                        turn += 1  # Force increment to prevent infinite loops
+                                        ttt_game.consecutive_failed_moves[current_symbol] = 0
+                                        ttt_game.last_failed_move[current_symbol] = ''
+                                    # Otherwise, same player gets another chance (don't increment turn)
                             else:
                                 print(f"❌ Could not parse move notation: {move_notation}")
                                 # Add feedback to history
                                 feedback = f"I couldn't parse the move '{move_notation}'. Please provide a valid move in format [row, col] where row and col are 0-2."
                                 ttt_history.append({'name': 'Referee', 'content': feedback})
-                                # DON'T increment turn - same player gets another chance to move
+                                # Increment consecutive failed moves counter
+                                ttt_game.consecutive_failed_moves[current_symbol] += 1
+                                ttt_game.last_failed_move[current_symbol] = move_notation
+                                # If too many consecutive failures or the same move is repeated, force move to other player
+                                if ttt_game.consecutive_failed_moves[current_symbol] >= 3 or move_notation == ttt_game.last_failed_move[current_symbol]:
+                                    print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times or repeated the same invalid move. Moving to next player to prevent infinite loop.")
+                                    turn += 1  # Force increment to prevent infinite loops
+                                    ttt_game.consecutive_failed_moves[current_symbol] = 0
+                                    ttt_game.last_failed_move[current_symbol] = ''
+                                # Otherwise, same player gets another chance (don't increment turn)
                         else:
                             print(f"⚠️  No move provided. Current player: {ttt_game.current_player}")
                             # Add feedback to history
                             feedback = f"Please provide a valid move in your response."
                             ttt_history.append({'name': 'Referee', 'content': feedback})
-                            # DON'T increment turn - same player gets another chance to move
+                            # Increment consecutive failed moves counter
+                            ttt_game.consecutive_failed_moves[current_symbol] = 0  # Reset on no move provided since they're being prompted to make one
+                            ttt_game.last_failed_move[current_symbol] = ''
+                            # For no move cases, always increment turn to prevent infinite loops (this forces them to try to make a move)
+                            turn += 1
 
                         # Delay before next turn
                         if not ttt_game.game_over and turn < args.max_turns:
@@ -1929,6 +2025,12 @@ Make your guess now.
                     if dialogue:
                         print(f"💬 Dialogue: {dialogue}")
 
+                    # Track consecutive failed moves to prevent infinite loops
+                    if not hasattr(hangman_game, 'consecutive_failed_guesses'):
+                        hangman_game.consecutive_failed_guesses = 0
+                    if not hasattr(hangman_game, 'last_failed_guess'):
+                        hangman_game.last_failed_guess = ''
+
                     # Attempt to make the guess if letter is provided
                     if letter_guess:
                         success = hangman_game.guess_letter(letter_guess)
@@ -1940,18 +2042,38 @@ Make your guess now.
                             else:
                                 print(f"Letter '{letter_guess}' was not in the word. Remaining incorrect guesses: {hangman_game.get_remaining_guesses()}")
                             turn += 1  # Guess was successful, increment turn
+                            # Reset consecutive failed guesses
+                            hangman_game.consecutive_failed_guesses = 0
+                            hangman_game.last_failed_guess = ''
                         else:
                             print(f"❌ Guess failed - invalid letter: {letter_guess}")
                             # Add feedback to history
                             feedback = f"Your guess '{letter_guess}' was invalid. Please guess a single letter that hasn't been guessed yet."
                             hangman_history.append({'name': 'Referee', 'content': feedback})
-                            # DON'T increment turn - same player gets another chance to move
+                            # Increment consecutive failed guesses counter
+                            hangman_game.consecutive_failed_guesses += 1
+                            hangman_game.last_failed_guess = letter_guess
+                            # If too many consecutive failures, force move to prevent infinite loops
+                            if hangman_game.consecutive_failed_guesses >= 3:
+                                print(f"⚠️  {current_char['name']} has failed to make a valid guess 3 times. Moving to next turn to prevent infinite loop.")
+                                turn += 1  # Force increment to prevent infinite loops
+                                hangman_game.consecutive_failed_guesses = 0
+                                hangman_game.last_failed_guess = ''
+                            # Otherwise, same player gets another chance (don't increment turn)
                     else:
                         print(f"⚠️  No letter provided for guess.")
                         # Add feedback to history
                         feedback = f"Please provide a valid letter to guess in your response."
                         hangman_history.append({'name': 'Referee', 'content': feedback})
-                        # DON'T increment turn - same player gets another chance to move
+                        # Increment consecutive failed guesses counter
+                        hangman_game.consecutive_failed_guesses += 1
+                        # If too many consecutive failures, force move to prevent infinite loops
+                        if hangman_game.consecutive_failed_guesses >= 3:
+                            print(f"⚠️  {current_char['name']} has failed to make a valid guess 3 times. Moving to next turn to prevent infinite loop.")
+                            turn += 1  # Force increment to prevent infinite loops
+                            hangman_game.consecutive_failed_guesses = 0
+                            hangman_game.last_failed_guess = ''
+                        # Otherwise, same player gets another chance (don't increment turn)
 
                     # Add delay before next turn
                     if not hangman_game.game_over and turn < args.max_turns:
@@ -2120,18 +2242,78 @@ Make your decision now.
                             print(f"Dealer reveals full hand: {twentyone_game.get_dealer_hand_str(hide_first=False)}")
                             print(f"Dealer's score: {twentyone_game.get_dealer_score()}")
                             turn += 1  # Action was successful, increment turn
+                        # Track consecutive failed moves to prevent infinite loops
+                        if not hasattr(twentyone_game, 'consecutive_failed_actions'):
+                            twentyone_game.consecutive_failed_actions = 0
+                        if not hasattr(twentyone_game, 'last_failed_action'):
+                            twentyone_game.last_failed_action = ''
+
+                        if action_choice:
+                            action_choice = action_choice.lower().strip()
+                            if action_choice in ['hit', 'h']:
+                                success = twentyone_game.player_hit()
+                                if success:
+                                    print(f"✅ Player hits and draws a card!")
+                                    print(f"New hand: {twentyone_game.get_player_hand_str()}")
+                                    print(f"New score: {twentyone_game.get_player_score()}")
+
+                                    # Check if player busted
+                                    if twentyone_game.get_player_score() > 21:
+                                        print(f"💀 Player busted with score {twentyone_game.get_player_score()}!")
+
+                                    turn += 1  # Action was successful, increment turn
+                                    # Reset consecutive failed actions
+                                    twentyone_game.consecutive_failed_actions = 0
+                                    twentyone_game.last_failed_action = ''
+                                else:
+                                    print(f"❌ Hit action failed - game may be over or invalid state.")
+                                    # Increment consecutive failed actions counter
+                                    twentyone_game.consecutive_failed_actions += 1
+                                    twentyone_game.last_failed_action = action_choice
+                                    # If too many consecutive failures, force move to prevent infinite loops
+                                    if twentyone_game.consecutive_failed_actions >= 3:
+                                        print(f"⚠️  {current_char['name']} has failed to make a valid action 3 times. Moving to next turn to prevent infinite loop.")
+                                        turn += 1  # Force increment to prevent infinite loops
+                                        twentyone_game.consecutive_failed_actions = 0
+                                        twentyone_game.last_failed_action = ''
+                            elif action_choice in ['stand', 's']:
+                                twentyone_game.player_stand()
+                                print(f"✅ Player stands with score {twentyone_game.get_player_score()}")
+                                print(f"Dealer reveals full hand: {twentyone_game.get_dealer_hand_str(hide_first=False)}")
+                                print(f"Dealer's score: {twentyone_game.get_dealer_score()}")
+                                turn += 1  # Action was successful, increment turn
+                                # Reset consecutive failed actions
+                                twentyone_game.consecutive_failed_actions = 0
+                                twentyone_game.last_failed_action = ''
+                            else:
+                                print(f"❌ Invalid action: {action_choice}. Must be 'hit' or 'stand'.")
+                                # Add feedback to history
+                                feedback = f"Your action '{action_choice}' was invalid. Please choose 'hit' or 'stand'."
+                                twentyone_history.append({'name': 'Referee', 'content': feedback})
+                                # Increment consecutive failed actions counter
+                                twentyone_game.consecutive_failed_actions += 1
+                                twentyone_game.last_failed_action = action_choice
+                                # If too many consecutive failures, force move to prevent infinite loops
+                                if twentyone_game.consecutive_failed_actions >= 3:
+                                    print(f"⚠️  {current_char['name']} has failed to make a valid action 3 times. Moving to next turn to prevent infinite loop.")
+                                    turn += 1  # Force increment to prevent infinite loops
+                                    twentyone_game.consecutive_failed_actions = 0
+                                    twentyone_game.last_failed_action = ''
+                                # Otherwise, same player gets another chance (don't increment turn)
                         else:
-                            print(f"❌ Invalid action: {action_choice}. Must be 'hit' or 'stand'.")
+                            print(f"⚠️  No action provided.")
                             # Add feedback to history
-                            feedback = f"Your action '{action_choice}' was invalid. Please choose 'hit' or 'stand'."
+                            feedback = f"Please provide a valid action ('hit' or 'stand') in your response."
                             twentyone_history.append({'name': 'Referee', 'content': feedback})
-                            # DON'T increment turn - same player gets another chance to move
-                    else:
-                        print(f"⚠️  No action provided.")
-                        # Add feedback to history
-                        feedback = f"Please provide a valid action ('hit' or 'stand') in your response."
-                        twentyone_history.append({'name': 'Referee', 'content': feedback})
-                        # DON'T increment turn - same player gets another chance to move
+                            # Increment consecutive failed actions counter
+                            twentyone_game.consecutive_failed_actions += 1
+                            # If too many consecutive failures, force move to prevent infinite loops
+                            if twentyone_game.consecutive_failed_actions >= 3:
+                                print(f"⚠️  {current_char['name']} has failed to make a valid action 3 times. Moving to next turn to prevent infinite loop.")
+                                turn += 1  # Force increment to prevent infinite loops
+                                twentyone_game.consecutive_failed_actions = 0
+                                twentyone_game.last_failed_action = ''
+                            # Otherwise, same player gets another chance (don't increment turn)
 
                     # Add delay before next turn
                     if not twentyone_game.game_over and turn < args.max_turns:

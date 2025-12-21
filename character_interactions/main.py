@@ -664,14 +664,39 @@ def main():
                                             if file_ok and rank_ok:
                                                 valid_pieces.append((row_idx, col_idx))
 
-                        # If we found exactly one valid piece, make the move
-                        if len(valid_pieces) == 1:
-                            from_pos = valid_pieces[0]
-                            if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
-                                return True, from_pos, to_pos
-                        # If multiple pieces could make the move and no disambiguation, return failure
-                        elif len(valid_pieces) > 1:
-                            return False, None, None
+                        # Check for context clues indicating this is a reference to a previous move vs. a new move
+                        # If the AI is asking opponent to counter their move, that's referencing, not making a new move
+                        reference_indicators = [
+                            r'(?:how\s+will\s+you\s+|you\s+will\s+|how\s+can\s+you\s+|will\s+you\s+|you\s+should\s+|you\s+need\s+to\s+)counter',
+                            r'(?:how\s+will\s+you\s+|you\s+will\s+|how\s+can\s+you\s+|will\s+you\s+|you\s+should\s+|you\s+need\s+to\s+)respond\s+to',
+                            r'(?:against\s+my\s+|in\s+response\s+to\s+my\s+|to\s+counter\s+my\s+|my\s+move\s+was|my\s+last\s+move)',
+                            r'(?:my\s+move\s+is\s+|\s+\d+\.\s+[KQRBN]?[a-h]?[1-8]?[a-h][1-8]\s+)',  # Captures "my move is [notation]" or "[number]. [notation]"
+                            r'(?:in\s+the\s+position\s+after\s+|following\s+|after\s+my\s+|my\s+previous)',
+                            r'(?:as\s+I\s+played|as\s+I\s+moved|like\s+I\s+played|like\s+I\s+did|like\s+my\s+move)',
+                        ]
+
+                        is_reference = any(
+                            re.search(pattern, response_text, re.IGNORECASE)
+                            for pattern in reference_indicators
+                        )
+
+                        # Only process as new move if it's NOT a reference to historical moves
+                        if not is_reference:
+                            # If we found exactly one valid piece, make the move
+                            if len(valid_pieces) == 1:
+                                from_pos = valid_pieces[0]
+                                if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                                    return True, from_pos, to_pos
+                            # If multiple pieces could make the move without disambiguation, return failure
+                            elif len(valid_pieces) > 1:
+                                # Try to resolve with additional disambiguation if available
+                                for from_pos in valid_pieces:
+                                    if chess_game.is_move_legal(from_pos, to_pos, current_player_color):
+                                        return True, from_pos, to_pos
+                                return False, None, None
+                        else:
+                            # This looks like a reference to a previous move, not a new move
+                            return False, None, None  # Don't process historical references as new moves
 
                     # For capture notation like "exd5", "Nxg7", etc.
                     capture_match = re.search(r'^([KQRBN]?)([a-h])?([1-8])?x([a-h][1-8])[+#]?$', move_notation.replace('+', '').replace('#', ''))

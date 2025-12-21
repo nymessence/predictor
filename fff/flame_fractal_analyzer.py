@@ -62,27 +62,28 @@ def extract_parameters_for_images(interesting_images, base_dir):
     Extract parameters for interesting images.
     """
     interesting_with_params = []
-    
+
     for img_info in interesting_images:
         filename = img_info['filename']
         # Find corresponding parameter file
         param_filename = filename.replace('.png', '_params.json')
         param_path = Path(base_dir) / param_filename
-        
+
         if param_path.exists():
             try:
                 with open(param_path, 'r') as f:
                     params = json.load(f)
-                
+
                 # Add parameters to image info
-                img_info['parameters'] = params
-                img_info['seed'] = params.get('seed', 'unknown')
-                interesting_with_params.append(img_info)
+                img_info_copy = img_info.copy()  # Don't modify original dict
+                img_info_copy['parameters'] = params
+                img_info_copy['seed'] = params.get('seed', 'unknown')
+                interesting_with_params.append(img_info_copy)
             except Exception as e:
                 print(f"Error loading parameters for {param_filename}: {e}")
         else:
             print(f"Parameter file not found for {filename}")
-    
+
     return interesting_with_params
 
 
@@ -91,10 +92,10 @@ def perturb_parameters(params, perturbation_factor=0.1):
     Create slightly perturbed parameters from existing ones.
     """
     import random
-    
-    new_params = {'transforms': [], 'seed': f"perturbed_{params['seed']}"}
-    
-    # Copy over basic parameters
+
+    new_params = {'transforms': [], 'seed': f"perturbed_{params.get('seed', 'unknown')}_{random.randint(1000, 9999)}"}
+
+    # Copy over basic parameters with perturbations
     for key in ['num_points', 'gamma', 'brightness', 'contrast', 'hue_rotation']:
         if key in params:
             val = params[key]
@@ -109,20 +110,21 @@ def perturb_parameters(params, perturbation_factor=0.1):
             else:
                 new_params[key] = val
         else:
-            # Use defaults
+            # Use defaults if not in original params
             if key == 'num_points':
-                new_params[key] = 2000000
+                new_params[key] = random.randint(1000000, 5000000)
             elif key == 'gamma':
-                new_params[key] = 2.0
+                new_params[key] = random.uniform(1.0, 4.0)
             elif key == 'brightness':
-                new_params[key] = 1.0
+                new_params[key] = random.uniform(0.5, 2.0)
             elif key == 'contrast':
-                new_params[key] = 1.0
+                new_params[key] = random.uniform(0.5, 2.0)
             elif key == 'hue_rotation':
                 new_params[key] = random.uniform(0.0, 360.0)
-    
+
     # Perturb transforms
-    for transform in params['transforms']:
+    transforms = params.get('transforms', [])
+    for transform in transforms:
         new_transform = {}
         for key in ['a', 'b', 'c', 'd', 'e', 'f', 'color', 'weight']:
             if key in transform:
@@ -139,31 +141,29 @@ def perturb_parameters(params, perturbation_factor=0.1):
             else:
                 # Set default values for missing keys
                 if key in ['a', 'b', 'c', 'd', 'e', 'f']:
-                    new_transform[key] = random.uniform(-1.0, 1.0)
+                    new_transform[key] = random.uniform(-1.5, 1.5)
                 elif key == 'color':
                     new_transform[key] = random.uniform(0.0, 1.0)
                 elif key == 'weight':
-                    new_transform[key] = random.uniform(0.5, 1.5)
-        
+                    new_transform[key] = random.uniform(0.5, 2.0)
+
         # For variations, apply similar logic
-        if 'variations' in transform:
-            new_variations = {}
-            for var_name, weight in transform['variations'].items():
-                if isinstance(weight, (int, float)):
-                    if isinstance(weight, int):
-                        perturbation = int(random.uniform(-abs(weight)*perturbation_factor, abs(weight)*perturbation_factor))
-                        new_variations[var_name] = max(0, weight + perturbation)  # Ensure non-negative
-                    else:  # float
-                        perturbation = random.uniform(-abs(weight)*perturbation_factor, abs(weight)*perturbation_factor)
-                        new_variations[var_name] = max(0, weight + perturbation)  # Ensure non-negative
-                else:
-                    new_variations[var_name] = weight
-            new_transform['variations'] = new_variations
-        else:
-            new_transform['variations'] = {}
-        
+        variations = transform.get('variations', {})
+        new_variations = {}
+        for var_name, weight in variations.items():
+            if isinstance(weight, (int, float)):
+                if isinstance(weight, int):
+                    perturbation = int(random.uniform(-abs(weight)*perturbation_factor, abs(weight)*perturbation_factor))
+                    new_variations[var_name] = max(0, weight + perturbation)  # Ensure non-negative
+                else:  # float
+                    perturbation = random.uniform(-abs(weight)*perturbation_factor, abs(weight)*perturbation_factor)
+                    new_variations[var_name] = max(0.0, weight + perturbation)  # Ensure non-negative
+            else:
+                new_variations[var_name] = weight
+        new_transform['variations'] = new_variations
+
         new_params['transforms'].append(new_transform)
-    
+
     return new_params
 
 
@@ -171,41 +171,40 @@ def generate_second_dataset(interesting_param_sets, output_dir, num_per_interest
     """
     Generate a second dataset using refined/perturbed parameters.
     """
-    import uuid
-    
+    import random
+
     # Create output directory
     Path(output_dir).mkdir(parents=True, exist_ok=True)
-    
-    print(f"Generating {len(interesting_param_sets) * num_per_interesting} renders for second dataset...")
-    
+
+    print(f"Generating {len(interesting_param_sets) * num_per_interesting} refined renders for second dataset...")
+
     all_new_params = []
-    
+
     for orig_params in interesting_param_sets:
         for i in range(num_per_interesting):
-            new_seed = f"refined_{orig_params['seed']}_{i}"
             new_params = perturb_parameters(orig_params, 0.15)  # Slightly larger perturbation
-            new_params['seed'] = new_seed
-            
+            new_params['original_filename'] = orig_params.get('filename', 'unknown')
+            new_params['variation_index'] = i
             all_new_params.append(new_params)
-    
+
     # Save all new parameter sets to a file (so they can be used by the generator)
     params_file = Path(output_dir) / "refined_parameters.json"
     with open(params_file, 'w') as f:
         json.dump(all_new_params, f, indent=2)
-    
+
     print(f"Saved {len(all_new_params)} refined parameter sets to {params_file}")
     return all_new_params
 
 
-def create_documentation_report(interesting_with_params, output_path):
+def create_analysis_report(interesting_with_params, output_path):
     """
-    Create detailed documentation about the findings.
+    Create detailed analysis report about the findings.
     """
     report_content = f"""
 # Flame Fractal Analysis Report
 
 ## Summary
-Analyzed {len(interesting_with_params)} potentially interesting flame fractals from a larger dataset.
+Analyzed classified images to identify {len(interesting_with_params)} potentially interesting flame fractals from the dataset.
 
 ## Interesting Categories Found
 - Jewelry/Pendant-like: Images with ornamental, crystalline, or gem-like qualities
@@ -217,22 +216,22 @@ Analyzed {len(interesting_with_params)} potentially interesting flame fractals f
 ## Top Examples
 
 """
-    
+
     for i, img in enumerate(interesting_with_params[:20]):  # Show top 20
         category = []
-        if img['is_jewelry_like']: category.append('jewelry')
-        if img['is_nature_like']: category.append('nature')
-        if img['is_cosmic_like']: category.append('cosmic')
-        if img['is_symmetric']: category.append('symmetric')
-        if img['is_complex']: category.append('complex')
-        
+        if img.get('is_jewelry_like'): category.append('jewelry-like')
+        if img.get('is_nature_like'): category.append('nature/organic')
+        if img.get('is_cosmic_like'): category.append('cosmic/nebula')
+        if img.get('is_symmetric'): category.append('symmetric/geometric')
+        if img.get('is_complex'): category.append('complex/chaotic')
+
         report_content += f"### Image {i+1}: {img['filename']}\n"
         report_content += f"- **Categories**: {', '.join(category)}\n"
         report_content += f"- **Description**: {img['description']}\n\n"
-    
+
     with open(output_path, 'w') as f:
         f.write(report_content)
-    
+
     print(f"Analysis report saved to {output_path}")
 
 
@@ -251,18 +250,18 @@ def main():
     
     # Extract parameters for interesting images
     interesting_with_params = extract_parameters_for_images(interesting_images, args.input_base_dir)
-    
+
     print(f"Found parameters for {len(interesting_with_params)} interesting images")
-    
+
     # Extract just the parameter dictionaries
     interesting_param_dicts = [img['parameters'] for img in interesting_with_params]
-    
+
     # Generate second dataset with perturbed parameters
     refined_params = generate_second_dataset(interesting_param_dicts, args.output_refined_params_dir, args.refine_count)
-    
+
     # Create analysis report
-    create_documentation_report(interesting_with_params, args.output_report)
-    
+    create_analysis_report(interesting_with_params, args.output_report)
+
     print("Analysis and parameter refinement complete!")
 
 

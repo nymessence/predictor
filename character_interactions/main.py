@@ -432,50 +432,83 @@ def main():
             # If no JSON found, extract chess-specific moves from plain text
             # Only look for valid chess notation in the response with intent indicators
 
-            # Look for moves in contexts that suggest intent: "I will move to", "my move is", "I choose", etc.
-            intent_patterns = [
-                r'(?:move|go|advance|play|choose)\s+(?:to\s+)?([a-h][1-8])',  # "move to e5", "go e5", "play e5"
-                r'(?:my\s+)?(?:move|play|choice)\s+(?:is\s+|to\s+)?(?:\w+\s+)?([a-h][1-8])',  # "move is e5", "my move to e5", etc.
-                r'(?:I\s+)(?:will\s+|am\s+)?(?:(?:move|choose|play)\s+to\s+|move\s+to\s+|choose\s+)?([a-h][1-8])',  # "I will move to e5", "I choose e5", etc.
-                r'(?:I.*?)(?:make|do|will.*?)(?:move|play|choice).*?([a-h][1-8])',  # "I'm making a move to e5", etc.
+            # Look for explicit move indicators in contexts that suggest intent
+            # Prioritize phrases that directly indicate the next move
+            explicit_intent_patterns = [
+                r'(?:my\s+|next\s+)?(?:move|play|choice)\s+(?:is|will\s+be|to)\s+([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "my move is e4", "move will be Nf3", etc.
+                r'(?:I\s+will\s+|I\s+am\s+going\s+to\s+|I\s+should\s+)?(?:move|play|go|choose)\s+(?:to\s+|on\s+)?([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "I will move to e4", "I am going to play Nf3", etc.
+                r'(?:making\s+)?(?:my\s+)?(?:move|play|selection)\s+(?:to|on)\s+([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "making my move to e4", "my selection is Nf3", etc.
             ]
 
-            # Look for intent first
-            for intent_pattern in intent_patterns:
-                intent_matches = re.findall(intent_pattern, response_text, re.IGNORECASE)
-                for potential_move in intent_matches:
-                    # Validate that it's a proper square notation
-                    if re.match(r'^[a-h][1-8]$', potential_move):
+            # Check for explicit intent first
+            for pattern in explicit_intent_patterns:
+                matches = re.findall(pattern, response_text, re.IGNORECASE)
+                for potential_move in matches:
+                    # Validate that it looks like chess notation
+                    if re.match(r'^[KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?$', potential_move, re.IGNORECASE):
                         # Remove just this specific move from the dialogue
                         dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
                         dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
                         return dialogue_text, potential_move, ""
 
-            # Look for "from X to Y" patterns which are the most explicit move intentions
-            from_to_pattern = r'from\s+([a-h][1-8])\s+to\s+([a-h][1-8])'
+            # Look for "from X to Y" patterns which are explicit move intentions
+            from_to_pattern = r'(?:move\s+from|from|going\s+from)\s+([a-h][1-8])\s+(?:to|on|toward)\s+([a-h][1-8])'
             from_to_matches = re.findall(from_to_pattern, response_text, re.IGNORECASE)
             if from_to_matches:
                 # The AI explicitly stated a from-to move, which is the most intentional
                 for from_sq, to_sq in from_to_matches:
                     # Format as combined coordinate for chess move processing
-                    move_val = f"{from_sq}{to_sq}"
+                    move_value = f"{from_sq}{to_sq}"
                     # Create a targeted dialogue removal to avoid removing other coordinates
-                    dialogue_text = re.sub(r'from\s+' + re.escape(from_sq) + r'\s+to\s+' + re.escape(to_sq), '', response_text, flags=re.IGNORECASE).strip()
+                    dialogue_text = re.sub(r'(?:move\s+from|from|going\s+from)\s+' + re.escape(from_sq) + r'\s+(?:to|on|toward)\s+' + re.escape(to_sq), '', response_text, flags=re.IGNORECASE).strip()
                     dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
-                    return dialogue_text, move_val, ""
+                    return dialogue_text, move_value, ""
 
-            # If no intent-found moves, look for broader chess notation patterns
-            chess_pattern = r'\b([a-h][1-8]|[KQRBN][a-h][1-8]|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?[a-h][1-8][+#]?|O-O(?:-O)?)\b'
+            # Next, look for patterns where the move is mentioned after indicating it's the actual move
+            # "For my move, I will play Nf3", "My move: e4", etc.
+            move_statement_patterns = [
+                r'(?:for\s+my\s+move|my\s+move|I\s+play|I\s+choose|i\s+move|my\s+choice)\s*[,:]\s*([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "for my move: e4", "I play Nf3"
+                r'(?:move|play|choosing|going\s+with)\s*[is:]\s*([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "move is e4", "choosing Nf3"
+            ]
+
+            for pattern in move_statement_patterns:
+                matches = re.findall(pattern, response_text, re.IGNORECASE)
+                for potential_move in matches:
+                    # Validate that it looks like chess notation
+                    if re.match(r'^[KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?$', potential_move, re.IGNORECASE):
+                        # Remove just this specific move from the dialogue
+                        dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
+                        dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                        return dialogue_text, potential_move, ""
+
+            # Finally, if no explicit intent found, look for unambiguous chess notation with strong context
+            # Avoid extracting chess terms from examples like "it would be written as Nc6"
+            chess_pattern = r'\b([KQRBN]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)\b'
             potential_moves = re.findall(chess_pattern, response_text, re.IGNORECASE)
 
-            # Filter to ensure these look like actual chess moves (not just any coordinate in text)
+            # Filter potential moves to avoid example contexts
+            # Avoid phrases like "written as [move]", "like [move]", "as [move]", etc.
+            filtered_moves = []
+            for potential_move in potential_moves:
+                # Create pattern to detect if this move appears in an example context
+                example_context_pattern = rf'(?:written\s+as|like|similar\s+to|for\s+example|such\s+as|would\s+be|should\s+be|as|move\s+is\s+like)\s+{re.escape(potential_move)}'
+                following_context_pattern = rf'{re.escape(potential_move)}\s+(?:to\s+illustrate|for\s+example|as\s+an\s+example|to\s+clarify)'
+
+                contains_example_context = (
+                    re.search(example_context_pattern, response_text, re.IGNORECASE) or
+                    re.search(following_context_pattern, response_text, re.IGNORECASE)
+                )
+
+                # Only include if NOT in example context
+                if not contains_example_context:
+                    filtered_moves.append(potential_move)
+
             # Look for context terms that suggest this is a chess-related response
-            chess_context_terms = ['chess', 'move', 'play', 'go', 'advance', 'position', 'strategy', 'game', 'board', 'castle', 'capture', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn']
+            chess_context_terms = ['chess', 'move', 'play', 'go', 'advance', 'position', 'strategy', 'game', 'board', 'castle', 'capture', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'turn', 'response', 'choice', 'action']
             has_chess_context = any(term.lower() in response_text.lower() for term in chess_context_terms)
 
-            # Only return as a move if it's a valid chess notation AND appears in a chess context
-            # Try moves from the end of the list first (more likely to be the new intended moves)
-            for potential_move in reversed(potential_moves):
+            # Only return as a move if it's in a chess context and not in example context
+            for potential_move in reversed(filtered_moves):  # Try from the end (most recent mentions first)
                 if has_chess_context:
                     # Remove just this specific move from the dialogue
                     dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()

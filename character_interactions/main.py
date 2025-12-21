@@ -1594,6 +1594,8 @@ Make sure your move is legal in the current position. Think through your strateg
                                     # If too many consecutive failures, force move to other player to prevent infinite loops
                                     if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 3:
                                         print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times. Moving to next player to prevent infinite loop.")
+                                        # ALSO switch the current player in the chess game object to ensure the game state progresses correctly
+                                        chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
                                         turn += 1  # Force increment to prevent infinite loops
                                         chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                         chess_game.last_failed_move[current_char['chess_color']] = ''
@@ -1609,6 +1611,8 @@ Make sure your move is legal in the current position. Think through your strateg
                                 # If too many consecutive failures or the same move is repeated, force move to other player
                                 if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 3 or move_notation == chess_game.last_failed_move[current_char['chess_color']]:
                                     print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times or repeated the same invalid move. Moving to next player to prevent infinite loop.")
+                                    # ALSO switch the current player in the chess game object to ensure the game state progresses correctly
+                                    chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
                                     turn += 1  # Force increment to prevent infinite loops
                                     chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                     chess_game.last_failed_move[current_char['chess_color']] = ''
@@ -1624,6 +1628,8 @@ Make sure your move is legal in the current position. Think through your strateg
                             # If too many consecutive failures, force move to other player
                             if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 3:
                                 print(f"⚠️  {current_char['name']} has failed to make a valid move 3 times. Moving to next player to prevent infinite loop.")
+                                # ALSO switch the current player in the chess game object to ensure the game state progresses correctly
+                                chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
                                 turn += 1  # Force increment to prevent infinite loops
                                 chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                 chess_game.last_failed_move[current_char['chess_color']] = ''

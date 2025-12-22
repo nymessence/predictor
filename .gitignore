@@ -1,6 +1,5 @@
 /venv
 /.venv
 /__pycache__
-fff/renders_1/*
 character_interactions/json/*.json
 autonomous_research/**/*

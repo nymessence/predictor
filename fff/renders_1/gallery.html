@@ -43,8 +43,8 @@
         }
 
         .gallery-container {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
             justify-content: center;
             max-width: 1600px;
@@ -103,19 +103,6 @@
             transform: translateY(0);
         }
 
-        .tooltip h3 {
-            color: #4cc9f0;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-
-        .tooltip p {
-            margin: 2px 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
         .fractal-id {
             position: absolute;
             top: 5px;
@@ -128,34 +115,40 @@
             z-index: 5;
         }
 
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        #pageInfo {
+            padding: 10px 15px;
+            background: #e6e6e6;
+            color: #333;
+            border-radius: 4px;
+        }
+
         footer {
             text-align: center;
             margin-top: 40px;
             padding: 20px;
             color: #a0a0c0;
             font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .fractal-card {
-                width: 150px;
-                height: 150px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .fractal-card {
-                width: 130px;
-                height: 130px;
-            }
-            
-            h1 {
-                font-size: 1.7rem;
-            }
         }
     </style>
 </head>
@@ -164,7 +157,7 @@
         <h1>Flame Fractal Gallery</h1>
         <p class="subtitle">Explore the intricate patterns of flame fractals. Hover over any image to view the algorithm parameters used to generate it. Each fractal is a unique combination of mathematical functions and transformations creating beautiful, intricate patterns.</p>
         <div id="loadingIndicator" style="display: none; text-align: center; padding: 20px;">
-            <p>Loading fractals... <span id="progressCount">0</span>/<span id="totalCount">500</span></p>
+            <p>Loading fractals... <span id="progressCount">0</span>/<span id="totalCount">3204</span></p>
             <div style="width: 100%; max-width: 500px; height: 20px; background: #333; border-radius: 10px; margin: 10px auto; overflow: hidden;">
                 <div id="progressBar" style="height: 100%; background: linear-gradient(90deg, #4361ee, #4cc9f0); width: 0%; transition: width 0.3s;"></div>
             </div>
@@ -175,17 +168,17 @@
         <!-- Fractal images will be inserted here by JavaScript -->
     </div>
 
-    <div class="pagination-controls" style="display: flex; justify-content: center; margin: 20px 0; gap: 10px;">
-        <button id="prevPage" disabled style="padding: 10px 15px; background: #4361ee; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
-        <div id="pageInfo" style="padding: 10px 15px; background: #e6e6e6; color: #333; border-radius: 4px;">Page 1 of 65</div>
-        <button id="nextPage" style="padding: 10px 15px; background: #4361ee; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+    <div class="pagination-controls">
+        <button id="prevPage" disabled>Previous</button>
+        <div id="pageInfo">Page 1 of 65</div>
+        <button id="nextPage">Next</button>
     </div>
 
     <footer>
         <p>Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory | Total: 3204 fractals</p>
-        <p style="text-align: center; margin-top: 10px; font-size: 0.9em; color: #a0a0c0;">
+        <p style="margin-top: 10px; font-size: 0.9em; color: #a0a0c0;">
             <strong>Note:</strong> For best experience and to see parameters, serve this directory with a local web server.
-            Run "python server.py" in this directory and open http://localhost:8000/gallery.html in your browser.
+            Run "python -m http.server 8000" in this directory and open http://localhost:8000/gallery.html in your browser.
         </p>
     </footer>
 
@@ -213,15 +206,12 @@
             // Function to load parameter JSON for a specific fractal
             async function loadParams(fractalId) {
                 try {
-                    // Try to fetch the JSON file
                     const response = await fetch(`fractal_${String(fractalId).padStart(5, '0')}_params.json`);
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     return await response.json();
                 } catch (error) {
-                    // If fetch fails (likely due to CORS when opening file:// directly), return null
-                    // The user will see "parameters not available" but we'll at least have tried
                     console.error(`Error loading params for fractal ${fractalId}:`, error.message);
                     return null;
                 }
@@ -363,13 +353,27 @@
                 }
             });
 
+            // Function to scan for the total number of fractal files dynamically
+            async function updateTotalFractalCount() {
+                // Try to update the count based on actual file count (fallback to existing if API unavailable)
+                try {
+                    // Since we can't reliably count files from browser due to security restrictions,
+                    // we'll update the count if we get better info during operation
+                    const response = await fetch('.');
+                    if (response.ok) {
+                        // This is just a placeholder - in practice we'd need a backend endpoint
+                        // for now, stick with the known count
+                    }
+                } catch (error) {
+                    // Use default count if we can't dynamically update
+                    console.log("Using default fractal count");
+                }
+            }
+
             // Initialize the gallery
+            updateTotalFractalCount(); // Try to update fractal count
             createFractalCards();
         });
     </script>
-
-    <footer>
-        <p>Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory | Showing 500 of 3204 total fractals</p>
-    </footer>
 </body>
 </html>

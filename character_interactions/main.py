@@ -570,6 +570,30 @@ def main():
                     dialogue_text = sentence_matches[0].strip()
                     return dialogue_text, move_val, ""
 
+            # Look for moves in formats like "15. Qd3" or "Move 15: e4" which indicate current turn intent
+            numbered_move_pattern = r'(?:Move|move|#)\s*(?:[0-9]+\s*[\.:]?\s*)?([KQRBN]?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|O-O(?:-O)?)'
+            numbered_matches = re.findall(numbered_move_pattern, response_text, re.IGNORECASE)
+            if numbered_matches:
+                for potential_move in numbered_matches:
+                    if re.match(r'^[KQRBN]?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|O-O(?:-O)?$', potential_move, re.IGNORECASE):
+                        # Remove just this specific numbered move reference from the dialogue
+                        numbered_pattern_to_remove = r'(?:Move|move|#)\s*[0-9]*\s*[\.:]?\s*' + re.escape(potential_move)
+                        dialogue_text = re.sub(numbered_pattern_to_remove, '', response_text, re.IGNORECASE).strip()
+                        dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                        return dialogue_text, potential_move, ""
+
+            # Look for bold/italic formatting like **e4** or *Nf3* which often indicate moves
+            bold_move_pattern = r'\*{1,2}([KQRBN]?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|O-O(?:-O)?)\*{1,2}'
+            bold_matches = re.findall(bold_move_pattern, response_text, re.IGNORECASE)
+            if bold_matches:
+                for potential_move in bold_matches:
+                    if re.match(r'^[KQRBN]?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|O-O(?:-O)?$', potential_move, re.IGNORECASE):
+                        # Remove just this specific bold move reference from the dialogue
+                        bold_pattern_to_remove = r'\*{1,2}' + re.escape(potential_move) + r'\*{1,2}'
+                        dialogue_text = re.sub(bold_pattern_to_remove, '', response_text, re.IGNORECASE).strip()
+                        dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
+                        return dialogue_text, potential_move, ""
+
             # If no chess-specific move found, return as dialogue only
             return response_text, "", ""
 
@@ -1535,32 +1559,42 @@ def main():
                     print(f"\n[TURN {turn}] {current_char['name']} (playing as {chess_game.current_player})")
 
                     try:
-                        # Create chess context for the turn, requesting JSON output
+                        # Create chess context for the turn, requesting explicit JSON output
                         chess_context = f"""
-URGENT CHESS GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
-- Current Board Position:
+CRITICAL CHESS GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT BOARD POSITION:
 {chess_game.print_board()}
 
+GAME STATE:
 - Move History: {' '.join(chess_game.move_history)}
 - Current Player: {chess_game.current_player}
-- Your color: {current_char['chess_color']}
+- Your Color: {current_char['chess_color']}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR MOVE WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
-  "dialogue": "Your dialogue and thought process about the chess position",
-  "move": "The chess move in algebraic notation ONLY (e.g., 'e4', 'Nf3', 'O-O', 'exd5', etc.)",
-  "board_state": "A visual representation of the board after your move (only include if this is your move)"
+  "dialogue": "Your dialogue and thought process about the position",
+  "move": "YOUR CHESS MOVE IN ALGEBRAIC NOTATION ONLY (e.g., 'e4', 'Nf3', 'O-O', 'exd5')",
+  "board_state": "Board visualization after your move (optional)"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE BOTH "dialogue" AND "move" FIELDS
-2. THE "move" FIELD MUST CONTAIN ONLY VALID CHESS NOTATION
-3. DO NOT WRITE MOVE IN NARRATIVE FORM LIKE "I move e4" OR "**e4**"
-4. USE ONLY ALGEBRAIC NOTATION: 'e4', 'Nf3', 'O-O', 'exd5', etc.
-5. MAKE SURE YOUR MOVE IS LEGAL IN THE CURRENT POSITION
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "move", "board_state"
+2. THE "move" FIELD MUST CONTAIN EXCLUSIVELY VALID ALGEBRAIC NOTATION
+3. DO NOT WRAP MOVES IN ASTERISKS, BOLD TEXT, OR NARRATIVE FORM
+4. DO NOT SAY "My move is e4" OR "**e4**" OR "I will play e4"
+5. PUT ONLY THE MOVE NOTATION IN THE "move" FIELD: 'e4', 'Nf3', 'O-O', etc.
+6. YOUR MOVE MUST BE LEGAL IN THE CURRENT BOARD POSITION
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
-Think through your strategy before responding.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "I plan to control the center with this developing move",
+  "move": "Nf3",
+  "board_state": "[board visualization]"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER MOVE NOTATION WILL STALL THE GAME.
+Think and plan your strategy before responding.
                         """.strip()
 
                         # Extract lorebook entries based on game context keywords
@@ -1793,31 +1827,41 @@ Think through your strategy before responding.
                     print(f"\n[TURN {turn}] {current_char['name']} (playing as {ttt_game.current_player})")
 
                     try:
-                        # Create game context for the turn, requesting JSON output
+                        # Create game context for the turn, requesting explicit JSON output
                         ttt_context = f"""
-URGENT TIC-TAC-TOE GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
-- Current Board Position:
+CRITICAL TIC-TAC-TOE GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT BOARD POSITION:
 {ttt_game.print_board()}
 
+GAME STATE:
 - Current Player: {ttt_game.current_player}
-- Your symbol: {current_char['ttt_symbol']}
+- Your Symbol: {current_char['ttt_symbol']}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR MOVE WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
   "dialogue": "Your dialogue and thought process about the game position",
-  "move": "The move in format (row, col) where row and col are 0-2 (e.g., [0, 2] for top right)",
-  "board_state": "A visual representation of the board after your move (only include if this is your move)"
+  "move": "THE MOVE IN [ROW, COL] FORMAT ONLY (e.g., [0, 2] for top-right, [1, 1] for center)",
+  "board_state": "Board visualization after your move (optional)"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE BOTH "dialogue" AND "move" FIELDS
-2. THE "move" FIELD MUST BE IN FORMAT [ROW, COL] WHERE ROW AND COL ARE NUMBERS 0-2
-3. DO NOT WRITE MOVE IN NARRATIVE FORM LIKE "I move to [0, 2]" OR "**[0,2]**"
-4. USE ONLY NUMERIC FORMAT: [0, 2], [1, 1], [2, 0], etc.
-5. MAKE SURE YOUR MOVE IS ON AN EMPTY POSITION
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "move", "board_state"
+2. THE "move" FIELD MUST BE EXCLUSIVELY IN [ROW, COL] FORMAT WITH NUMBERS 0-2
+3. DO NOT WRAP COORDINATES IN ASTERISKS, BOLD TEXT, OR NARRATIVE FORM
+4. DO NOT SAY "I move to [0,2]" OR "[0,2]" (without brackets) OR "**[0,2]**"
+5. PUT ONLY THE COORDINATE IN BRACKETS IN THE "move" FIELD: '[0, 2]', '[1, 1]', '[2, 0]', etc.
+6. YOUR MOVE MUST BE ON AN UNOCCUPIED POSITION OF THE BOARD
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
-Think through your strategy before responding.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "I plan to take the center position to control the game",
+  "move": "[1, 1]",
+  "board_state": "[board visualization after move]"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER [ROW, COL] COORDINATES WILL STALL THE GAME.
+Think and plan your strategy before responding.
                         """.strip()
 
                         # Extract lorebook entries based on game context keywords
@@ -2038,31 +2082,41 @@ Think through your strategy before responding.
                 print(f"\n[TURN {turn}] {current_char['name']} (making a letter guess)")
 
                 try:
-                    # Create game context for the turn, requesting JSON output
+                    # Create game context for the turn, requesting explicit JSON output
                     hangman_context = f"""
-URGENT HANGMAN GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
+CRITICAL HANGMAN GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT GAME STATE:
 - Current word: {hangman_game.get_current_display()}
 - Guessed letters: {hangman_game.get_guessed_letters()}
 - Remaining incorrect guesses: {hangman_game.get_remaining_guesses()}
 - Hangman status:
 {hangman_game.get_hangman_status()}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR GUESS WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
   "dialogue": "Your dialogue and thought process about which letter to guess",
-  "letter": "The single letter you want to guess (e.g., 'e')",
+  "letter": "YOUR LETTER GUESS (single lowercase letter a-z only)",
   "reasoning": "Why you chose this letter"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "letter", AND "reasoning"
-2. THE "letter" FIELD MUST CONTAIN ONLY A SINGLE LETTER FROM A-Z
-3. DO NOT WRITE LETTER IN NARRATIVE FORM LIKE "I guess 'e'" OR "**e**"
-4. USE ONLY LOWERCASE LETTER: 'a', 'b', 'c', etc.
-5. DO NOT REPEAT LETTERS YOU HAVE ALREADY GUESSED
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "letter", "reasoning"
+2. THE "letter" FIELD MUST CONTAIN EXCLUSIVELY A SINGLE LOWERCASE LETTER a-z
+3. DO NOT WRAP LETTER IN ASTERISKS, QUOTES, OR NARRATIVE FORM
+4. DO NOT SAY "I guess 'e'" OR "'e'" OR "**e**" OR "letter 'e'"
+5. PUT ONLY THE RAW LETTER IN THE "letter" FIELD: 'a', 'b', 'c', etc.
+6. DO NOT REPEAT LETTERS THAT ARE ALREADY IN {hangman_game.get_guessed_letters()}
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
-Make your guess now.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "I think the letter 'e' is likely to be in the word based on frequency analysis",
+  "letter": "e",
+  "reasoning": "E is the most common letter in English words"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER SINGLE LETTER WILL STALL THE GAME.
+Make your letter guess now.
                     """.strip()
 
                     # Extract lorebook entries based on game context keywords
@@ -2251,29 +2305,39 @@ Make your guess now.
                 print(f"\n[TURN {turn}] {current_char['name']} (deciding to hit or stand)")
 
                 try:
-                    # Create game context for the turn, requesting JSON output
+                    # Create game context for the turn, requesting explicit JSON output
                     twentyone_context = f"""
-URGENT TWENTY-ONE GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
+CRITICAL TWENTY-ONE GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT GAME STATE:
 - Your hand: {twentyone_game.get_player_hand_str()}
 - Your score: {twentyone_game.get_player_score()}
 - Dealer's visible card: {twentyone_game.get_dealer_hand_str(hide_first=True)}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR DECISION WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
   "dialogue": "Your dialogue and thought process about your decision",
-  "action": "Your decision: 'hit' to take another card or 'stand' to keep current hand",
+  "action": "YOUR ACTION ('hit' for another card or 'stand' to hold current hand)",
   "reasoning": "Why you made this decision"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "action", AND "reasoning"
-2. THE "action" FIELD MUST BE EXACTLY 'hit' OR 'stand' (lowercase)
-3. DO NOT WRITE IN NARRATIVE FORM LIKE "I decide to hit" OR "**hit**"
-4. USE ONLY LOWERCASE: 'hit' or 'stand'
-5. MAKE SURE YOUR CHOICE IS LOGICAL BASED ON YOUR SCORE AND DEALER'S CARD
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "action", "reasoning"
+2. THE "action" FIELD MUST CONTAIN EXCLUSIVELY 'hit' OR 'stand' (lowercase only)
+3. DO NOT WRAP ACTION IN ASTERISKS, QUOTES, OR NARRATIVE FORM
+4. DO NOT SAY "I decide to hit" OR "I will stand" OR "**hit**" OR "**stand**"
+5. PUT ONLY THE RAW ACTION IN THE "action" FIELD: 'hit' or 'stand'
+6. MAKE SURE YOUR CHOICE IS STRATEGICALLY SOUND GIVEN YOUR SCORE AND DEALER'S CARD
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
-Make your decision now.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "Given my current score of 17 and the dealer's visible card, I will proceed conservatively",
+  "action": "stand",
+  "reasoning": "Standing is the safest option given I'm close to 21 and the dealer's card suggests a possible strong hand"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER 'hit'/'stand' ACTION WILL STALL THE GAME.
+Make your strategic decision now.
                     """.strip()
 
                     # Extract lorebook entries based on game context keywords
@@ -2510,29 +2574,39 @@ Make your decision now.
                 print(f"\n[TURN {turn}] {current_char['name']} (making a number guess)")
 
                 try:
-                    # Create game context for the turn, requesting JSON output
+                    # Create game context for the turn, requesting explicit JSON output
                     number_context = f"""
-URGENT NUMBER GUESSING GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
+CRITICAL NUMBER GUESSING GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT GAME STATE:
 - Number to guess is between {number_game.min_num} and {number_game.max_num}
 - Previous guesses: {number_game.get_guessed_letters() if hasattr(number_game, 'get_guessed_letters') else 'None yet'}
 - Remaining attempts: {number_game.get_remaining_guesses()}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR GUESS WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
   "dialogue": "Your dialogue and thought process about which number to guess",
-  "number": "Your number guess (between {number_game.min_num} and {number_game.max_num})",
+  "number": "YOUR NUMBER GUESS (integer between {number_game.min_num} and {number_game.max_num} only)",
   "strategy": "Why you chose this number"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "number", AND "strategy"
-2. THE "number" FIELD MUST CONTAIN ONLY DIGITS FROM THE RANGE {number_game.min_num}-{number_game.max_num}
-3. DO NOT WRITE GUESS IN NARRATIVE FORM LIKE "I guess 42" OR "**42**"
-4. USE ONLY PLAIN NUMERIC FORM: '42', '50', '17', etc.
-5. DO NOT REPEAT NUMBERS YOU HAVE ALREADY GUESSED
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "number", "strategy"
+2. THE "number" FIELD MUST CONTAIN EXCLUSIVELY A VALID INTEGER IN THE RANGE {number_game.min_num}-{number_game.max_num}
+3. DO NOT WRAP NUMBER IN ASTERISKS, QUOTES, OR NARRATIVE FORM
+4. DO NOT SAY "I guess 42" OR "42" (without quotes) OR "**42**" OR "number 42"
+5. PUT ONLY THE RAW NUMBER IN THE "number" FIELD: '42', '50', '17', etc. (as digits)
+6. DO NOT REPEAT ANY NUMBER FROM {number_game.get_guessed_letters() if hasattr(number_game, 'get_guessed_letters') else '[]'}
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
-Make your guess now.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "Based on the remaining range and previous guesses, I believe the middle value offers the best information",
+  "number": "50",
+  "strategy": "Binary search approach to eliminate half the possibilities"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER INTEGER GUESS WILL STALL THE GAME.
+Make your numerical guess now.
                     """.strip()
 
                     # Limit history to avoid token overflow while keeping recent context
@@ -2674,29 +2748,39 @@ Make your guess now.
                 print(f"\n[TURN {turn}] {current_char['name']} (saying a related word)")
 
                 try:
-                    # Create game context for the turn, requesting JSON output
+                    # Create game context for the turn, requesting explicit JSON output
                     word_context = f"""
-URGENT WORD ASSOCIATION GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
+CRITICAL WORD ASSOCIATION GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT GAME STATE:
 - Current word chain: {word_game.get_word_chain()}
 - Last word: {word_game.get_last_word()}
 - Current player: {word_game.get_current_player()}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR WORD WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
   "dialogue": "Your dialogue and thought process about your word choice",
-  "word": "Your word choice that relates to the previous word",
+  "word": "YOUR SINGULAR RELATED WORD (single lowercase word only)",
   "connection": "How your word connects to the previous word"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "word", AND "connection"
-2. THE "word" FIELD MUST CONTAIN ONLY A SINGLE WORD (NO PHRASES OR SENTENCES)
-3. DO NOT WRITE WORD IN NARRATIVE FORM LIKE "I choose the word 'apple'" OR "**apple**"
-4. USE ONLY LOWERCASE LETTERS: 'apple', 'happy', 'running', etc.
-5. MAKE SURE YOUR WORD CONNECTS SEMANTICALLY TO THE PREVIOUS WORD IN THE CHAIN
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "word", "connection"
+2. THE "word" FIELD MUST CONTAIN EXCLUSIVELY ONE SINGLE WORD (not a phrase or sentence)
+3. DO NOT WRAP WORD IN ASTERISKS, QUOTES, OR NARRATIVE FORM
+4. DO NOT SAY "I choose the word 'apple'" OR "**apple**" OR "'apple'" OR "the word 'apple'"
+5. PUT ONLY THE RAW LOWERCASE WORD IN THE "word" FIELD: 'apple', 'happy', 'running', etc.
+6. ENSURE YOUR WORD HAS A CLEAR SEMANTIC CONNECTION TO "{word_game.get_last_word() or 'the concept'}"
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
-Make your word choice now.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "Considering the previous word's meaning and related concepts, I select this word",
+  "word": "ocean",
+  "connection": "It relates to water, waves, and sea which connects to the previous concept"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER SINGULAR LOWERCASE WORD WILL STALL THE GAME.
+Make your word association now.
                     """.strip()
 
                     # Limit history to avoid token overflow while keeping recent context
@@ -2855,30 +2939,40 @@ Make your word choice now.
                     print(f"\n[TURN {turn}] {current_char['name']} (playing as {connect_four_game.current_player})")
 
                     try:
-                        # Create game context for the turn, requesting JSON output
+                        # Create game context for the turn, requesting explicit JSON output
                         cf_context = f"""
-URGENT CONNECT-FOUR GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
-- Current Board Position:
+CRITICAL CONNECT-FOUR GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT BOARD POSITION:
 {connect_four_game.print_board()}
 
+GAME STATE:
 - Current Player: {connect_four_game.current_player}
-- Your symbol: {current_char['cf_symbol']}
+- Your Symbol: {current_char['cf_symbol']}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR MOVE WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
   "dialogue": "Your dialogue and thought process about which column to choose",
-  "column": "Your chosen column to drop your disc in (0-6)",
+  "column": "YOUR COLUMN CHOICE (single digit 0-6 only)",
   "strategy": "Why you chose this column"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "column", AND "strategy"
-2. THE "column" FIELD MUST BE A SINGLE DIGIT FROM 0-6
-3. DO NOT WRITE COLUMN IN NARRATIVE FORM LIKE "I choose column 3" OR "**3**"
-4. USE ONLY A SINGLE NUMBER: '0', '1', '2', '3', '4', '5', or '6'
-5. MAKE SURE THE COLUMN HAS SPACE FOR YOUR DISC (IS NOT FULL)
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "column", "strategy"
+2. THE "column" FIELD MUST CONTAIN EXCLUSIVELY A SINGLE DIGIT: 0, 1, 2, 3, 4, 5, OR 6
+3. DO NOT WRAP COLUMN IN ASTERISKS, QUOTES, OR NARRATIVE FORM
+4. DO NOT SAY "I choose column 3" OR "column 3" OR "**3**" OR "number 3"
+5. PUT ONLY THE RAW DIGIT IN THE "column" FIELD: '0', '1', '2', '3', '4', '5', OR '6'
+6. VERIFY THE COLUMN HAS AVAILABLE SPACE (IS NOT FULL)
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "I am analyzing the board state to determine optimal positioning",
+  "column": "3",
+  "strategy": "This column provides the best opportunity for forming a four-in-a-row"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER SINGLE DIGIT COLUMN WILL STALL THE GAME.
 Think through your strategy before responding.
                         """.strip()
 
@@ -3118,30 +3212,40 @@ Think through your strategy before responding.
                     print(f"\n[TURN {turn}] {current_char['name']} (playing as {uno_game.current_player})")
 
                     try:
-                        # Create game context for the turn, requesting JSON output
+                        # Create game context for the turn, requesting explicit JSON output
                         uno_context = f"""
-URGENT UNO GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
+CRITICAL UNO GAME INSTRUCTIONS - YOU MUST FOLLOW THE EXACT JSON FORMAT BELOW OR THE GAME WILL STALL:
+
+CURRENT GAME STATE:
 - Top card: {uno_game.print_top_card()}
 - Current Player: {uno_game.current_player}
 - Your hand: {uno_game.get_hand_for_player(uno_game.current_player)}
 - Opponent's hand size: {uno_game.get_other_player_hand_size()}
 
-YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR ACTION WILL BE REJECTED:
+YOU MUST RESPOND IN EXACTLY THIS JSON FORMAT (NO EXCEPTIONS):
 {{
   "dialogue": "Your dialogue and thought process about your choice",
-  "action": "Your action: either '[index]' to play a card (where index is the position in your hand, starting from 0) or 'draw' to draw a card",
+  "action": "YOUR ACTION (either '[index]' for card index or 'draw')",
   "reasoning": "Why you made this choice"
 }}
 
-CRITICAL REQUIREMENTS:
-1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "action", AND "reasoning"
-2. THE "action" FIELD MUST BE EITHER A NUMBER INDEX (e.g., '2' for third card) OR THE WORD 'draw'
-3. DO NOT WRITE ACTIONS IN NARRATIVE FORM LIKE "I play card at index 2" OR "I draw a card"
-4. IF PLAYING A CARD: JUST USE THE INDEX NUMBER AS A STRING (e.g., '0', '1', '2', etc.)
-5. IF DRAWING: JUST USE THE WORD 'draw' (lowercase)
-6. MAKE SURE THE CARD YOU PLAY MATCHES THE TOP CARD'S COLOR OR VALUE
+ABSOLUTELY CRITICAL REQUIREMENTS:
+1. PROVIDE EXACTLY THE THREE FIELDS: "dialogue", "action", "reasoning"
+2. THE "action" FIELD MUST BE EXCLUSIVELY EITHER A NUMBER INDEX (like '0', '1', '2') OR THE WORD 'draw'
+3. DO NOT WRAP ACTION IN QUOTES, ASTERISKS, OR NARRATIVE FORM
+4. DO NOT SAY "I play card at index 2" OR "I draw a card" OR "card 2" OR "**2**"
+5. FOR PLAYING: USE ONLY THE INDEX NUMBER AS STRING: '0', '1', '2', etc.
+6. FOR DRAWING: USE ONLY THE WORD: 'draw' (lowercase)
+7. VERIFY YOUR PLAYED CARD MATCHES TOP CARD'S COLOR OR VALUE
 
-FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
+EXAMPLE CORRECT RESPONSE:
+{{
+  "dialogue": "Looking at my hand, I see several options but this card best continues my strategy",
+  "action": "2",
+  "reasoning": "Card at index 2 matches the top card's color and advances my strategy"
+}}
+
+FAILURE TO USE EXACT JSON FORMAT WITH PROPER INDEX OR 'draw' WILL STALL THE GAME.
 Think through your strategy before responding.
                         """.strip()
 

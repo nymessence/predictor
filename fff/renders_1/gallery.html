@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flame Fractal Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e6e6e6;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4cc9f0, #4361ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a0a0c0;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .fractal-card {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #0f0f1f;
+        }
+
+        .fractal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4), 0 0 20px rgba(76, 201, 240, 0.4);
+            z-index: 10;
+        }
+
+        .fractal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .fractal-card:hover .fractal-image {
+            transform: scale(1.05);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 10px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            overflow-y: auto;
+            max-height: 150px;
+            z-index: 20;
+            border-top: 1px solid #4cc9f0;
+        }
+
+        .fractal-card:hover .tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tooltip h3 {
+            color: #4cc9f0;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .tooltip p {
+            margin: 2px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fractal-id {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #4cc9f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            z-index: 5;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #a0a0c0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .fractal-card {
+                width: 150px;
+                height: 150px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fractal-card {
+                width: 130px;
+                height: 130px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flame Fractal Gallery</h1>
+        <p class="subtitle">Explore the intricate patterns of flame fractals. Hover over any image to view the algorithm parameters used to generate it. Each fractal is a unique combination of mathematical functions and transformations creating beautiful, intricate patterns.</p>
+        <div id="loadingIndicator" style="display: none; text-align: center; padding: 20px;">
+            <p>Loading fractals... <span id="progressCount">0</span>/<span id="totalCount">500</span></p>
+            <div style="width: 100%; max-width: 500px; height: 20px; background: #333; border-radius: 10px; margin: 10px auto; overflow: hidden;">
+                <div id="progressBar" style="height: 100%; background: linear-gradient(90deg, #4361ee, #4cc9f0); width: 0%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="gallery-container" id="gallery">
+        <!-- Fractal images will be inserted here by JavaScript -->
+    </div>
+
+    <footer>
+        <p>Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory</p>
+    </footer>
+
+    <script>
+        // This script will dynamically load fractal images and their associated parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuration - the number of fractals to display
+            const totalFractals = 500; // Adjust this number based on how many fractals you want to display (out of 3204 total)
+            
+            // Function to load parameter JSON for a specific fractal
+            async function loadParams(fractalId) {
+                try {
+                    const response = await fetch(`fractal_${String(fractalId).padStart(5, '0')}_params.json`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Error loading params for fractal ${fractalId}:`, error);
+                    return null;
+                }
+            }
+            
+            // Function to generate tooltip content from parameters
+            function generateTooltip(params, id) {
+                if (!params) {
+                    return `<h3>Fractal ${id}</h3><p>Parameters not available</p>`;
+                }
+
+                let content = `<h3>Fractal ${id}</h3>`;
+
+                // Handle the actual structure from the JSON files
+                if (params.seed) content += `<p><strong>Seed:</strong> ${params.seed.substring(0, 8)}...</p>`;
+
+                if (params.params) {
+                    const p = params.params;
+
+                    if (p.num_points) content += `<p><strong>Points:</strong> ${p.num_points.toLocaleString()}</p>`;
+                    if (p.gamma) content += `<p><strong>Gamma:</strong> ${p.gamma.toFixed(2)}</p>`;
+                    if (p.brightness) content += `<p><strong>Brightness:</strong> ${p.brightness}</p>`;
+                    if (p.hue_rotation) content += `<p><strong>Hue Rotation:</strong> ${p.hue_rotation.toFixed(2)}</p>`;
+                    if (p.transforms) content += `<p><strong>Transforms:</strong> ${p.transforms.length} functions</p>`;
+                }
+
+                return content;
+            }
+            
+            // Function to create and append fractal cards
+            async function createFractalCards() {
+                const gallery = document.getElementById('gallery');
+                const loadingIndicator = document.getElementById('loadingIndicator');
+                const progressCount = document.getElementById('progressCount');
+                const totalCount = document.getElementById('totalCount');
+                const progressBar = document.getElementById('progressBar');
+
+                totalCount.textContent = totalFractals;
+                loadingIndicator.style.display = 'block'; // Show loading indicator
+
+                // Process fractals in batches to avoid blocking the UI
+                const batchSize = 10; // Process 10 fractals at a time
+                for (let batchStart = 0; batchStart < totalFractals; batchStart += batchSize) {
+                    const batchEnd = Math.min(batchStart + batchSize, totalFractals);
+
+                    // Process current batch
+                    for (let i = batchStart; i < batchEnd; i++) {
+                        // Create card element
+                        const card = document.createElement('div');
+                        card.className = 'fractal-card';
+
+                        // Create fractal ID element
+                        const idElement = document.createElement('div');
+                        idElement.className = 'fractal-id';
+                        idElement.textContent = `#${String(i).padStart(5, '0')}`;
+                        card.appendChild(idElement);
+
+                        // Create image element
+                        const img = document.createElement('img');
+                        img.className = 'fractal-image';
+                        img.src = `fractal_${String(i).padStart(5, '0')}.png`;
+                        img.alt = `Fractal ${String(i).padStart(5, '0')}`;
+                        img.loading = 'lazy'; // Lazy loading for performance
+
+                        // On error, show a placeholder or hide the image
+                        img.onerror = function() {
+                            this.style.display = 'none';
+                            const placeholder = document.createElement('div');
+                            placeholder.style.display = 'flex';
+                            placeholder.style.alignItems = 'center';
+                            placeholder.style.justifyContent = 'center';
+                            placeholder.style.height = '100%';
+                            placeholder.style.backgroundColor = '#222';
+                            placeholder.style.color = '#666';
+                            placeholder.textContent = 'Image not available';
+                            card.appendChild(placeholder);
+                        };
+
+                        card.appendChild(img);
+
+                        // Create tooltip element
+                        const tooltip = document.createElement('div');
+                        tooltip.className = 'tooltip';
+                        tooltip.innerHTML = `<h3>Loading...</h3>`; // Initial loading state
+                        card.appendChild(tooltip);
+
+                        // Add the card to the gallery
+                        gallery.appendChild(card);
+
+                        // Load parameters and update tooltip
+                        try {
+                            const params = await loadParams(i);
+                            tooltip.innerHTML = generateTooltip(params, String(i).padStart(5, '0'));
+                        } catch (error) {
+                            console.error(`Failed to load parameters for fractal ${i}:`, error);
+                            tooltip.innerHTML = `<h3>Fractal ${String(i).padStart(5, '0')}</h3><p>Parameters not available</p>`;
+                        }
+
+                        // Update progress
+                        const progress = ((i + 1) / totalFractals) * 100;
+                        progressCount.textContent = i + 1;
+                        progressBar.style.width = `${progress}%`;
+                    }
+
+                    // Yield control back to browser to prevent UI freezing
+                    await new Promise(resolve => setTimeout(resolve, 1));
+                }
+
+                // Hide loading indicator when done
+                loadingIndicator.style.display = 'none';
+            }
+
+            // Start creating the fractal cards
+            createFractalCards();
+        });
+    </script>
+
+    <footer>
+        <p>Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory | Showing 500 of 3204 total fractals</p>
+    </footer>
+</body>
+</html>

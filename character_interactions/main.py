@@ -169,16 +169,27 @@ def load_conversation_from_file(resume_file: str) -> list:
 
 
 def setup_output_file(character_names: list, output_arg: str = None) -> str:
-    """Setup output filename"""
+    """Setup output filename preserving directory path"""
     if output_arg:
         output_file = output_arg
     else:
         # Create a filename with all character names
-        clean_names = [re.sub(r'[<>:"/\\|?* ]', '_', name) for name in character_names]
+        clean_names = [re.sub(r'[<>:"\\|?* ]', '_', name) for name in character_names]  # Don't replace / in names
         output_file = f"{'_&_'.join(clean_names)}_conversation.json"
 
-    # Sanitize filename
-    output_file = re.sub(r'[<>:"/\\|?* ]', '_', output_file)
+    # Split path and filename to handle them separately
+    dir_path = os.path.dirname(output_file)
+    file_name = os.path.basename(output_file)
+
+    # Sanitize only the filename, not the directory path
+    sanitized_filename = re.sub(r'[<>:"\\|?* ]', '_', file_name)
+
+    # Reconstruct path preserving directory separators
+    if dir_path:
+        output_file = os.path.join(dir_path, sanitized_filename)
+    else:
+        output_file = sanitized_filename
+
     return output_file
 
 
@@ -190,10 +201,32 @@ def save_conversation(history: list, output_file: str):
             'turn': i+1,
             'name': h['name'],
             'content': h['content']
-        } for i, h in enumerate(history) if isinstance(h, dict) and h.get('name') and h.get('content')], 
+        } for i, h in enumerate(history) if isinstance(h, dict) and h.get('name') and h.get('content')],
         f, indent=4, ensure_ascii=False)
     print(f"✅ Conversation saved to {output_file}")
     print(f"📊 Total turns: {len(history)}")
+
+
+def save_conversation_periodic(history: list, output_file: str, turn: int):
+    """Save conversation periodically during the game"""
+    try:
+        # Create autosave filename
+        dir_path = os.path.dirname(output_file)
+        file_name = os.path.basename(output_file)
+        name_part, ext = os.path.splitext(file_name)
+        autosave_file = os.path.join(dir_path, f"{name_part}_autosave_{turn}{ext}")
+
+        with open(autosave_file, 'w', encoding='utf-8') as f:
+            json.dump([{
+                'turn': i+1,
+                'name': h['name'],
+                'content': h['content']
+            } for i, h in enumerate(history) if isinstance(h, dict) and h.get('name') and h.get('content')],
+            f, indent=4, ensure_ascii=False)
+        # Only print for debugging - don't clutter output
+        # print(f"🔄 Autosaved to {autosave_file}")
+    except Exception as e:
+        print(f"⚠️  Auto-save failed: {e}")
 
 
 def print_final_analysis(history: list, similarity_threshold: float):
@@ -1635,6 +1668,10 @@ Make sure your move is legal in the current position. Think through your strateg
                                 chess_game.last_failed_move[current_char['chess_color']] = ''
                             # Otherwise, same player gets another chance (don't increment turn)
 
+                        # Periodic save every 10 turns
+                        if turn % 10 == 0:
+                            save_conversation_periodic(chess_history, output_file, turn)
+
                         # Delay before next turn
                         if not chess_game.game_over and turn < args.max_turns:  # We should still respect the max turns as a safety
                             print(f"\n⏳ Waiting {args.delay} seconds...")
@@ -1656,6 +1693,11 @@ Make sure your move is legal in the current position. Think through your strateg
                         fallback_resp = generate_emergency_response(current_char, other_char, chess_history, {}, turn)
                         chess_history.append({'name': current_char['name'], 'content': fallback_resp})
                         print(fallback_resp)
+
+                        # Periodic save every 10 turns even in exception cases
+                        if turn % 10 == 0:
+                            save_conversation_periodic(chess_history, output_file, turn)
+
                         # DON'T increment turn - same player gets another chance due to error
                         continue  # Continue to next iteration
 
@@ -1883,6 +1925,10 @@ Think through your strategy before responding.
                             # For no move cases, always increment turn to prevent infinite loops (this forces them to try to make a move)
                             turn += 1
 
+                        # Periodic save every 10 turns
+                        if turn % 10 == 0:
+                            save_conversation_periodic(ttt_history, output_file, turn)
+
                         # Delay before next turn
                         if not ttt_game.game_over and turn < args.max_turns:
                             print(f"\n⏳ Waiting {args.delay} seconds...")
@@ -1904,6 +1950,11 @@ Think through your strategy before responding.
                         fallback_resp = generate_emergency_response(current_char, other_char, ttt_history, {}, turn)
                         ttt_history.append({'name': current_char['name'], 'content': fallback_resp})
                         print(fallback_resp)
+
+                        # Periodic save every 10 turns even in exception cases
+                        if turn % 10 == 0:
+                            save_conversation_periodic(ttt_history, output_file, turn)
+
                         # DON'T increment turn - same player gets another chance due to error
                         continue  # Continue to next iteration
 
@@ -2081,6 +2132,10 @@ Make your guess now.
                             hangman_game.last_failed_guess = ''
                         # Otherwise, same player gets another chance (don't increment turn)
 
+                    # Periodic save every 10 turns
+                    if turn % 10 == 0:
+                        save_conversation_periodic(hangman_history, output_file, turn)
+
                     # Add delay before next turn
                     if not hangman_game.game_over and turn < args.max_turns:
                         print(f"\n⏳ Waiting {args.delay} seconds...")
@@ -2102,6 +2157,11 @@ Make your guess now.
                     fallback_resp = generate_emergency_response(current_char, other_char, hangman_history, {}, turn)
                     hangman_history.append({'name': current_char['name'], 'content': fallback_resp})
                     print(fallback_resp)
+
+                    # Periodic save every 10 turns even in exception cases
+                    if turn % 10 == 0:
+                        save_conversation_periodic(hangman_history, output_file, turn)
+
                     turn += 1  # Increment turn anyway
                     continue  # Continue to next iteration
 
@@ -2321,6 +2381,10 @@ Make your decision now.
                                 twentyone_game.last_failed_action = ''
                             # Otherwise, same player gets another chance (don't increment turn)
 
+                    # Periodic save every 10 turns
+                    if turn % 10 == 0:
+                        save_conversation_periodic(twentyone_history, output_file, turn)
+
                     # Add delay before next turn
                     if not twentyone_game.game_over and turn < args.max_turns:
                         print(f"\n⏳ Waiting {args.delay} seconds...")
@@ -2342,6 +2406,11 @@ Make your decision now.
                     fallback_resp = generate_emergency_response(current_char, other_char, twentyone_history, {}, turn)
                     twentyone_history.append({'name': current_char['name'], 'content': fallback_resp})
                     print(fallback_resp)
+
+                    # Periodic save every 10 turns even in exception cases
+                    if turn % 10 == 0:
+                        save_conversation_periodic(twentyone_history, output_file, turn)
+
                     # DON'T increment turn - same player gets another chance due to error
                     continue  # Continue to next iteration
 
@@ -3334,6 +3403,10 @@ Think through your strategy before responding.
                     other_char_index = current_char_index
                     current_char_index = (current_char_index + 1) % len(characters)
 
+                    # Periodic save every 10 turns
+                    if turn % 10 == 0:
+                        save_conversation_periodic(history, output_file, turn)
+
                     # Delay before next turn
                     if turn < args.max_turns:
                         print(f"\n⏳ Waiting {args.delay} seconds...")
@@ -3357,6 +3430,11 @@ Think through your strategy before responding.
                     # Switch characters (cycle through all characters)
                     other_char_index = current_char_index
                     current_char_index = (current_char_index + 1) % len(characters)
+
+                    # Periodic save every 10 turns even in exception cases
+                    if turn % 10 == 0:
+                        save_conversation_periodic(history, output_file, turn)
+
                     continue
 
         # Save conversation and analyze

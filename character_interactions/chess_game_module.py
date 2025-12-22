@@ -287,41 +287,44 @@ class ChessGame:
             
             # Castling moves
             if not self.is_in_check(player):
+                # Define opponent for castling check
+                opponent = 'black' if player == 'white' else 'white'
+
                 # Kingside castling
                 if self.castling_rights[f'{player}_kingside']:
                     # Check if squares are empty and not attacked
                     rook_col = 7
                     king_col = 4
                     rook_row = 7 if piece.isupper() else 0
-                    
-                    if (self.board[row][5] is None and 
+
+                    if (self.board[row][5] is None and
                         self.board[row][6] is None and
-                        self.board[rook_row][rook_col] and 
+                        self.board[rook_row][rook_col] and
                         self.board[rook_row][rook_col].lower() == 'r' and
                         self.is_own_piece(self.board[rook_row][rook_col], player)):
-                        
+
                         # Check that squares are not attacked
                         if (not self.is_square_attacked(row, 5, opponent) and
                             not self.is_square_attacked(row, 6, opponent)):
                             moves.append((row, 6))  # Kingside castle
-                
-                # Queenside castling  
+
+                # Queenside castling
                 if self.castling_rights[f'{player}_queenside']:
                     rook_row = 7 if piece.isupper() else 0
                     rook_col = 0
-                    
-                    if (self.board[row][1] is None and 
-                        self.board[row][2] is None and 
+
+                    if (self.board[row][1] is None and
+                        self.board[row][2] is None and
                         self.board[row][3] is None and
-                        self.board[rook_row][rook_col] and 
+                        self.board[rook_row][rook_col] and
                         self.board[rook_row][rook_col].lower() == 'r' and
                         self.is_own_piece(self.board[rook_row][rook_col], player)):
-                        
+
                         # Check that squares are not attacked
                         if (not self.is_square_attacked(row, 2, opponent) and
                             not self.is_square_attacked(row, 3, opponent)):
                             moves.append((row, 2))  # Queenside castle
-        
+
         return moves
     
     def get_valid_moves(self, player: str) -> List[Tuple[Tuple[int, int], Tuple[int, int]]]:

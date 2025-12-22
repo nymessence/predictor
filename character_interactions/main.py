@@ -1537,7 +1537,7 @@ def main():
                     try:
                         # Create chess context for the turn, requesting JSON output
                         chess_context = f"""
-Chess Game Context:
+URGENT CHESS GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Current Board Position:
 {chess_game.print_board()}
 
@@ -1545,14 +1545,22 @@ Chess Game Context:
 - Current Player: {chess_game.current_player}
 - Your color: {current_char['chess_color']}
 
-You are playing chess. It's your turn to make a move. Please respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR MOVE WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about the chess position",
-  "move": "The chess move in algebraic notation (e.g., 'e4', 'Nf3', 'O-O', 'exd5', etc.)",
+  "move": "The chess move in algebraic notation ONLY (e.g., 'e4', 'Nf3', 'O-O', 'exd5', etc.)",
   "board_state": "A visual representation of the board after your move (only include if this is your move)"
 }}
 
-Make sure your move is legal in the current position. Think through your strategy before responding.
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE BOTH "dialogue" AND "move" FIELDS
+2. THE "move" FIELD MUST CONTAIN ONLY VALID CHESS NOTATION
+3. DO NOT WRITE MOVE IN NARRATIVE FORM LIKE "I move e4" OR "**e4**"
+4. USE ONLY ALGEBRAIC NOTATION: 'e4', 'Nf3', 'O-O', 'exd5', etc.
+5. MAKE SURE YOUR MOVE IS LEGAL IN THE CURRENT POSITION
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
+Think through your strategy before responding.
                         """.strip()
 
                         # Extract lorebook entries based on game context keywords
@@ -1787,20 +1795,28 @@ Make sure your move is legal in the current position. Think through your strateg
                     try:
                         # Create game context for the turn, requesting JSON output
                         ttt_context = f"""
-Tic-Tac-Toe Game Context:
+URGENT TIC-TAC-TOE GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Current Board Position:
 {ttt_game.print_board()}
 
 - Current Player: {ttt_game.current_player}
 - Your symbol: {current_char['ttt_symbol']}
 
-You are playing tic-tac-toe. It's your turn to make a move. Please respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR MOVE WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about the game position",
   "move": "The move in format (row, col) where row and col are 0-2 (e.g., [0, 2] for top right)",
   "board_state": "A visual representation of the board after your move (only include if this is your move)"
 }}
 
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE BOTH "dialogue" AND "move" FIELDS
+2. THE "move" FIELD MUST BE IN FORMAT [ROW, COL] WHERE ROW AND COL ARE NUMBERS 0-2
+3. DO NOT WRITE MOVE IN NARRATIVE FORM LIKE "I move to [0, 2]" OR "**[0,2]**"
+4. USE ONLY NUMERIC FORMAT: [0, 2], [1, 1], [2, 0], etc.
+5. MAKE SURE YOUR MOVE IS ON AN EMPTY POSITION
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
 Think through your strategy before responding.
                         """.strip()
 
@@ -2024,20 +2040,28 @@ Think through your strategy before responding.
                 try:
                     # Create game context for the turn, requesting JSON output
                     hangman_context = f"""
-Hangman Game Context:
+URGENT HANGMAN GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Current word: {hangman_game.get_current_display()}
 - Guessed letters: {hangman_game.get_guessed_letters()}
 - Remaining incorrect guesses: {hangman_game.get_remaining_guesses()}
 - Hangman status:
 {hangman_game.get_hangman_status()}
 
-You are playing hangman. Guess a single letter to uncover the secret word. Respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR GUESS WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about which letter to guess",
   "letter": "The single letter you want to guess (e.g., 'e')",
   "reasoning": "Why you chose this letter"
 }}
 
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "letter", AND "reasoning"
+2. THE "letter" FIELD MUST CONTAIN ONLY A SINGLE LETTER FROM A-Z
+3. DO NOT WRITE LETTER IN NARRATIVE FORM LIKE "I guess 'e'" OR "**e**"
+4. USE ONLY LOWERCASE LETTER: 'a', 'b', 'c', etc.
+5. DO NOT REPEAT LETTERS YOU HAVE ALREADY GUESSED
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
 Make your guess now.
                     """.strip()
 
@@ -2229,18 +2253,26 @@ Make your guess now.
                 try:
                     # Create game context for the turn, requesting JSON output
                     twentyone_context = f"""
-Twenty-One Game Context:
+URGENT TWENTY-ONE GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Your hand: {twentyone_game.get_player_hand_str()}
 - Your score: {twentyone_game.get_player_score()}
 - Dealer's visible card: {twentyone_game.get_dealer_hand_str(hide_first=True)}
 
-You are playing twenty-one (simplified blackjack). Decide to hit (take another card) or stand (keep current hand). Respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR DECISION WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about your decision",
   "action": "Your decision: 'hit' to take another card or 'stand' to keep current hand",
   "reasoning": "Why you made this decision"
 }}
 
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "action", AND "reasoning"
+2. THE "action" FIELD MUST BE EXACTLY 'hit' OR 'stand' (lowercase)
+3. DO NOT WRITE IN NARRATIVE FORM LIKE "I decide to hit" OR "**hit**"
+4. USE ONLY LOWERCASE: 'hit' or 'stand'
+5. MAKE SURE YOUR CHOICE IS LOGICAL BASED ON YOUR SCORE AND DEALER'S CARD
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
 Make your decision now.
                     """.strip()
 
@@ -2480,18 +2512,26 @@ Make your decision now.
                 try:
                     # Create game context for the turn, requesting JSON output
                     number_context = f"""
-Number Guessing Game Context:
+URGENT NUMBER GUESSING GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Number to guess is between {number_game.min_num} and {number_game.max_num}
 - Previous guesses: {number_game.get_guessed_letters() if hasattr(number_game, 'get_guessed_letters') else 'None yet'}
 - Remaining attempts: {number_game.get_remaining_guesses()}
 
-You are playing number guessing. Try to guess the secret number. I'll give you feedback if your guess is too high or too low. Please respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR GUESS WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about which number to guess",
   "number": "Your number guess (between {number_game.min_num} and {number_game.max_num})",
   "strategy": "Why you chose this number"
 }}
 
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "number", AND "strategy"
+2. THE "number" FIELD MUST CONTAIN ONLY DIGITS FROM THE RANGE {number_game.min_num}-{number_game.max_num}
+3. DO NOT WRITE GUESS IN NARRATIVE FORM LIKE "I guess 42" OR "**42**"
+4. USE ONLY PLAIN NUMERIC FORM: '42', '50', '17', etc.
+5. DO NOT REPEAT NUMBERS YOU HAVE ALREADY GUESSED
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
 Make your guess now.
                     """.strip()
 
@@ -2636,18 +2676,26 @@ Make your guess now.
                 try:
                     # Create game context for the turn, requesting JSON output
                     word_context = f"""
-Word Association Game Context:
+URGENT WORD ASSOCIATION GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Current word chain: {word_game.get_word_chain()}
 - Last word: {word_game.get_last_word()}
 - Current player: {word_game.get_current_player()}
 
-You are playing word association. Say a word that is semantically related to the last word in the chain. Please respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR WORD WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about your word choice",
   "word": "Your word choice that relates to the previous word",
   "connection": "How your word connects to the previous word"
 }}
 
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "word", AND "connection"
+2. THE "word" FIELD MUST CONTAIN ONLY A SINGLE WORD (NO PHRASES OR SENTENCES)
+3. DO NOT WRITE WORD IN NARRATIVE FORM LIKE "I choose the word 'apple'" OR "**apple**"
+4. USE ONLY LOWERCASE LETTERS: 'apple', 'happy', 'running', etc.
+5. MAKE SURE YOUR WORD CONNECTS SEMANTICALLY TO THE PREVIOUS WORD IN THE CHAIN
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
 Make your word choice now.
                     """.strip()
 
@@ -2809,20 +2857,28 @@ Make your word choice now.
                     try:
                         # Create game context for the turn, requesting JSON output
                         cf_context = f"""
-Connect-Four Game Context:
+URGENT CONNECT-FOUR GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Current Board Position:
 {connect_four_game.print_board()}
 
 - Current Player: {connect_four_game.current_player}
 - Your symbol: {current_char['cf_symbol']}
 
-You are playing connect-four. It's your turn to drop a disc in a column (0-6). Please respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR MOVE WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about which column to choose",
   "column": "Your chosen column to drop your disc in (0-6)",
   "strategy": "Why you chose this column"
 }}
 
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "column", AND "strategy"
+2. THE "column" FIELD MUST BE A SINGLE DIGIT FROM 0-6
+3. DO NOT WRITE COLUMN IN NARRATIVE FORM LIKE "I choose column 3" OR "**3**"
+4. USE ONLY A SINGLE NUMBER: '0', '1', '2', '3', '4', '5', or '6'
+5. MAKE SURE THE COLUMN HAS SPACE FOR YOUR DISC (IS NOT FULL)
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
 Think through your strategy before responding.
                         """.strip()
 
@@ -3064,19 +3120,28 @@ Think through your strategy before responding.
                     try:
                         # Create game context for the turn, requesting JSON output
                         uno_context = f"""
-Uno Game Context:
+URGENT UNO GAME INSTRUCTIONS - FOLLOW THIS FORMAT OR GAME WILL STALL:
 - Top card: {uno_game.print_top_card()}
 - Current Player: {uno_game.current_player}
 - Your hand: {uno_game.get_hand_for_player(uno_game.current_player)}
 - Opponent's hand size: {uno_game.get_other_player_hand_size()}
 
-You are playing Uno. Choose a card from your hand that matches the top card's color or value, or draw a card if you can't play. Please respond in the following JSON format:
+YOU MUST RESPOND IN THIS EXACT JSON FORMAT OR YOUR ACTION WILL BE REJECTED:
 {{
   "dialogue": "Your dialogue and thought process about your choice",
-  "action": "Your action: either 'play: [index]' to play a card (where index is the position in your hand) or 'draw' to draw a card",
+  "action": "Your action: either '[index]' to play a card (where index is the position in your hand, starting from 0) or 'draw' to draw a card",
   "reasoning": "Why you made this choice"
 }}
 
+CRITICAL REQUIREMENTS:
+1. YOU MUST PROVIDE ALL THREE FIELDS: "dialogue", "action", AND "reasoning"
+2. THE "action" FIELD MUST BE EITHER A NUMBER INDEX (e.g., '2' for third card) OR THE WORD 'draw'
+3. DO NOT WRITE ACTIONS IN NARRATIVE FORM LIKE "I play card at index 2" OR "I draw a card"
+4. IF PLAYING A CARD: JUST USE THE INDEX NUMBER AS A STRING (e.g., '0', '1', '2', etc.)
+5. IF DRAWING: JUST USE THE WORD 'draw' (lowercase)
+6. MAKE SURE THE CARD YOU PLAY MATCHES THE TOP CARD'S COLOR OR VALUE
+
+FAILURE TO FOLLOW THESE EXACT INSTRUCTIONS WILL CAUSE THE GAME TO STALL.
 Think through your strategy before responding.
                         """.strip()
 

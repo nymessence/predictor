@@ -183,6 +183,10 @@
 
     <footer>
         <p>Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory | Total: 3204 fractals</p>
+        <p style="text-align: center; margin-top: 10px; font-size: 0.9em; color: #a0a0c0;">
+            <strong>Note:</strong> For best experience and to see parameters, serve this directory with a local web server.
+            Run "python server.py" in this directory and open http://localhost:8000/gallery.html in your browser.
+        </p>
     </footer>
 
     <script>
@@ -209,14 +213,16 @@
             // Function to load parameter JSON for a specific fractal
             async function loadParams(fractalId) {
                 try {
+                    // Try to fetch the JSON file
                     const response = await fetch(`fractal_${String(fractalId).padStart(5, '0')}_params.json`);
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                    const data = await response.json();
-                    return data;
+                    return await response.json();
                 } catch (error) {
-                    console.error(`Error loading params for fractal ${fractalId}:`, error);
+                    // If fetch fails (likely due to CORS when opening file:// directly), return null
+                    // The user will see "parameters not available" but we'll at least have tried
+                    console.error(`Error loading params for fractal ${fractalId}:`, error.message);
                     return null;
                 }
             }

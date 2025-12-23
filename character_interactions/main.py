@@ -861,53 +861,39 @@ def main():
             import json
             import re
 
-            # First try to find JSON within the response
-            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            # First and ONLY try: Look for properly formatted JSON with BOTH required fields
+            json_pattern = r'(\{[^{}]*("dialogue"|\'dialogue\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*,?[^{}]*("move"|\'move\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*\})'
             matches = re.findall(json_pattern, response_text, re.DOTALL)
 
             if matches:
-                for json_str in matches:
+                for match_tuple in matches:
                     try:
-                        json_clean = json_str.strip()
+                        json_clean = match_tuple[0].strip()
                         parsed = json.loads(json_clean)
 
                         dialogue = parsed.get('dialogue', '')
                         move = parsed.get('move', '').strip()  # Expected to be rock, paper, or scissors
                         reasoning = parsed.get('reasoning', '')
 
-                        if dialogue or move:
-                            return dialogue, move, reasoning
+                        # Validate that BOTH required fields are present and non-empty
+                        if dialogue.strip() and move.strip():
+                            # Validate the move is a valid RPS choice
+                            valid_choices = ['rock', 'paper', 'scissors', 'r', 'p', 's']
+                            if move.lower() in valid_choices:
+                                normalized_move = move.lower()
+                                if normalized_move in ['r', 'rock']:
+                                    normalized_move = 'rock'
+                                elif normalized_move in ['p', 'paper']:
+                                    normalized_move = 'paper'
+                                elif normalized_move in ['s', 'scissors']:
+                                    normalized_move = 'scissors'
+                                return dialogue, normalized_move, reasoning
                     except json.JSONDecodeError:
                         continue  # Try the next match
 
-            # If no JSON found, try to extract rock-paper-scissors specific choices
-            # Look for keywords: rock, paper, scissors, or their abbreviations
-            rps_pattern = r'\b(rock|paper|scissors|r|p|s)\b'
-            rps_matches = re.findall(rps_pattern, response_text, re.IGNORECASE)
-
-            if rps_matches:
-                for choice in rps_matches:
-                    # Normalize the choice
-                    normalized_choice = choice.lower()
-                    if normalized_choice in ['r', 'rock']:
-                        final_choice = 'rock'
-                    elif normalized_choice in ['p', 'paper']:
-                        final_choice = 'paper'
-                    elif normalized_choice in ['s', 'scissors']:
-                        final_choice = 'scissors'
-                    else:
-                        continue  # Skip unrecognized matches
-
-                    # Extract the sentence containing the choice
-                    sentences = re.split(r'[.!?]+', response_text)
-                    for sentence in sentences:
-                        if choice.lower() in sentence.lower():
-                            # Remove the choice word from dialogue
-                            dialogue_text = re.sub(r'\b' + re.escape(choice) + r'\b', '', response_text, re.IGNORECASE).strip()
-                            dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
-                            return dialogue_text, final_choice, ""
-
-            # If no rps-specific choice found, return as dialogue only
+            # CRITICAL: If no valid JSON found with both required fields, return no move
+            # This forces the game to recognize that the AI didn't follow the required format
+            # and will trigger the safeguards to advance to the next player
             return response_text, "", ""
 
         def parse_hangman_json_response(response_text, character_name):

@@ -1625,12 +1625,86 @@ Think carefully and respond in the EXACT JSON format specified above.
                         if not hasattr(chess_game, 'last_failed_move'):
                             chess_game.last_failed_move = {'white': '', 'black': ''}
 
-                        # CRITICAL: Validate both required elements exist - enforce JSON contract
-                        if not dialogue or not move_notation:
+                        # ENFORCEMENT: Only accept properly formatted JSON with both required fields
+                        move_was_processed = False
+
+                        if not (dialogue and move_notation):
                             print(f"⚠️  CRITICAL: No valid JSON with both 'dialogue' and 'move' fields provided")
-                            # Add contract enforcement feedback to history
+                            # Add contract enforcement feedback
                             feedback = f"CONTRACT VIOLATION: You MUST provide a properly formatted JSON response with both 'dialogue' and 'move' fields. Format: {{\"dialogue\": \"your thoughts\", \"move\": \"e4\", \"board_state\": \"optional\"}}. Failure to comply results in turn advancement without move processing."
                             chess_history.append({'name': 'Referee', 'content': feedback})
+
+                            # Track consecutive format violations
+                            chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
+                            chess_game.last_failed_move[current_char['chess_color']] = 'INVALID_FORMAT'
+
+                            # If too many violations, advance to next player
+                            if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2:
+                                print(f"⚠️  {current_char['name']} has violated the format {chess_game.consecutive_failed_moves[current_char['chess_color']]} times. Moving to next player.")
+                                chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                                turn += 1
+                                move_was_processed = True
+                                chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                chess_game.last_failed_move[current_char['chess_color']] = ''
+                            else:
+                                # Same player gets another chance but turn advances anyway
+                                turn += 1
+                        else:
+                            # Both fields exist, attempt to make the move
+                            move_was_processed = False
+
+                            # Parse and attempt the move
+                            success, from_pos, to_pos = parse_move_notation(move_notation, chess_game, current_char['chess_color'])
+
+                            if success and from_pos and to_pos:
+                                move_success = chess_game.make_move(from_pos, to_pos)
+                                if move_success:
+                                    print(f"✅ Move successfully made: {chess_game.move_history[-1] if chess_game.move_history else move_notation}")
+                                    turn += 1
+                                    chess_turn += 1
+                                    move_was_processed = True
+                                    chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                    chess_game.last_failed_move[current_char['chess_color']] = ''
+                                else:
+                                    print(f"❌ Move failed - illegal move: {move_notation}")
+                                    feedback = f"Your move '{move_notation}' was illegal. Provide valid JSON: {{\"dialogue\": \"text\", \"move\": \"e4\"}}"
+                                    chess_history.append({'name': 'Referee', 'content': feedback})
+
+                                    chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
+                                    chess_game.last_failed_move[current_char['chess_color']] = move_notation
+
+                                    if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2:
+                                        print(f"⚠️  {current_char['name']} has failed to make valid moves. Moving to next player.")
+                                        chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                                        turn += 1
+                                        move_was_processed = True
+                                        chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                        chess_game.last_failed_move[current_char['chess_color']] = ''
+                            else:
+                                print(f"❌ Could not parse move: {move_notation}")
+                                feedback = f"Could not parse move '{move_notation}'. Use proper JSON: {{\"dialogue\": \"text\", \"move\": \"e4\"}}"
+                                chess_history.append({'name': 'Referee', 'content': feedback})
+
+                                chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
+                                chess_game.last_failed_move[current_char['chess_color']] = move_notation
+
+                                if (chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2 or
+                                    move_notation == chess_game.last_failed_move[current_char['chess_color']]):
+                                    print(f"⚠️  {current_char['name']} has failed repeatedly. Moving to next player.")
+                                    chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                                    turn += 1
+                                    move_was_processed = True
+                                    chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                    chess_game.last_failed_move[current_char['chess_color']] = ''
+
+                        # CRITICAL SAFEGUARD: If no move was processed during this turn, force advancement anyway
+                        # This prevents the game from getting stuck due to persistent parsing issues
+                        if not move_was_processed and turn >= 2:
+                            print(f"⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.")
+                            # Switch the current player in the chess game for next iteration
+                            chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                            turn += 1
+                            move_was_processed = True
 
                             # Increment consecutive failed moves counter for format violations
                             chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
@@ -1703,7 +1777,6 @@ Think carefully and respond in the EXACT JSON format specified above.
                                     move_was_processed = True
                                     chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                     chess_game.last_failed_move[current_char['chess_color']] = ''
-                        else:
                             print(f"⚠️  No move provided in required JSON format. Current player: {chess_game.current_player}")
                             # Add feedback to history
                             feedback = f"You MUST provide a valid chess move in the proper JSON format: {{\"dialogue\": \"your thoughts\", \"move\": \"e4\", \"board_state\": \"optional\"}}. Your response must include both 'dialogue' and 'move' fields in JSON format."

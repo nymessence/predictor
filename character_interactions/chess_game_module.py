@@ -30,6 +30,10 @@ class ChessGame:
         self.en_passant_target = None  # Square where en passant is possible
         self.halfmove_clock = 0  # For 50-move rule
         self.fullmove_number = 1  # Track total moves
+
+        # For deadlock detection and prevention
+        self.last_positions = []  # Track recent positions to detect cycles
+        self.position_cycle_threshold = 3  # Max repeats before forcing change
         
     def _create_initial_board(self) -> List[List[Optional[str]]]:
         """

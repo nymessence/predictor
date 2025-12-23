@@ -1549,11 +1549,67 @@ Think carefully and respond in the EXACT JSON format specified above.
                         chess_history.append({'name': current_char['name'], 'content': resp})
                         print(resp)
 
-                        # Parse the JSON response
-                        dialogue, move_notation, board_state = parse_chess_json_response(resp, current_char['name'])
+                        # Parse the JSON response - CRITICAL that we get both dialogue and move
+                        import json
+                        import re
 
+                        # First try to extract JSON using regex patterns
+                        json_pattern = r'\{[^{}]*("dialogue"[^{}]*:[^{},]*[^{}]*("move")[^{}]*:[^{},]*[^{}]*)\}'
+                        json_matches = re.findall(json_pattern, resp, re.DOTALL)
+
+                        dialogue = ""
+                        move_notation = ""
+                        board_state = ""
+
+                        # Find a properly formatted JSON with both dialogue and move fields
+                        for json_str in resp.split('\n'):
+                            # Look for JSON-like structure
+                            if '{' in json_str and '}' in json_str:
+                                # Try to extract potential JSON
+                                potential_json = re.search(r'\{.*\}', json_str)
+                                if potential_json:
+                                    try:
+                                        parsed_json = json.loads(potential_json.group(0))
+                                        if 'dialogue' in parsed_json and 'move' in parsed_json:
+                                            dialogue = parsed_json['dialogue']
+                                            move_notation = parsed_json['move'].strip()
+                                            board_state = parsed_json.get('board_state', parsed_json.get('game_state', ''))
+                                            break  # Found a valid JSON with required fields
+                                    except json.JSONDecodeError:
+                                        continue
+
+                        # If still no proper JSON found, try to identify if response has both parts separately
+                        if not dialogue and not move_notation:
+                            # Check if the response contains both dialogue and move elements, even if not in JSON
+                            # Look for typical move patterns: words like "e4", "Nf3", "O-O", etc.
+                            move_pattern = r'([KQRBN]?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|O-O(?:-O)?)'
+                            potential_moves = re.findall(move_pattern, resp)
+
+                            # If we find a potential move and the response is mostly about strategy/chess,
+                            # assign the whole response as dialogue and attempt to extract move
+                            if potential_moves:
+                                # Assume first potential move is the intended move
+                                extracted_move = potential_moves[0]
+
+                                # Check if the response context suggests chess
+                                chess_indicators = ['chess', 'move', 'position', 'game', 'strategy', 'king', 'queen', 'rook', 'pawn']
+                                has_chess_context = any(indicator in resp.lower() for indicator in chess_indicators)
+
+                                if has_chess_context:
+                                    dialogue = resp.replace(extracted_move, '').strip()
+                                    dialogue = re.sub(r'\s+', ' ', dialogue)
+                                    move_notation = extracted_move
+
+                        # CRITICAL: Validate that we have both required elements
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
+                        else:
+                            print(f"⚠️  No dialogue extracted from response")
+
+                        if move_notation:
+                            print(f"🔍 Move detected: {move_notation}")
+                        else:
+                            print(f"⚠️  No move detected in response")
 
                         # Track consecutive failed moves to prevent infinite loops
                         if not hasattr(chess_game, 'consecutive_failed_moves'):

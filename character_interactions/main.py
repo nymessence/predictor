@@ -1352,6 +1352,10 @@ def main():
         if "openrouter" in args.api_endpoint.lower():
             if not hasattr(config, 'OPENROUTER_API_KEY') or config.OPENROUTER_API_KEY != api_key:
                 config.OPENROUTER_API_KEY = api_key
+
+        # Update API client module with runtime configuration
+        from api_client import update_config
+        update_config(args.api_endpoint, api_key, args.model)
         
         # Validate files
         validate_character_files(args)
@@ -1586,15 +1590,27 @@ ABSOLUTELY CRITICAL REQUIREMENTS:
 5. PUT ONLY THE MOVE NOTATION IN THE "move" FIELD: 'e4', 'Nf3', 'O-O', etc.
 6. YOUR MOVE MUST BE LEGAL IN THE CURRENT BOARD POSITION
 
-EXAMPLE CORRECT RESPONSE:
+EXAMPLE OF CORRECT FORMAT:
 {{
-  "dialogue": "I plan to control the center with this developing move",
+  "dialogue": "I'm planning to develop my knight and control the center",
   "move": "Nf3",
   "board_state": "[board visualization]"
 }}
 
-FAILURE TO USE EXACT JSON FORMAT WITH PROPER MOVE NOTATION WILL STALL THE GAME.
-Think and plan your strategy before responding.
+EXAMPLES OF INCORRECT FORMATS THAT WILL BE REJECTED:
+- Just saying "e4" in narrative text
+- Writing "**e4**" or "***e4***"
+- Saying "My move is e4" without proper JSON
+- Providing only dialogue without move field
+- Any format that does not match exact JSON specification above
+
+VIOLATION OF JSON FORMAT RULES WILL RESULT IN:
+- Turn immediately passed to opponent
+- No credit given for narrative text provided
+- Your turn will be skipped until proper JSON format is used
+- Up to 3 format violations allowed before automatic forfeit
+
+Think carefully and respond in the EXACT JSON format specified above.
                         """.strip()
 
                         # Extract lorebook entries based on game context keywords
@@ -1853,15 +1869,28 @@ ABSOLUTELY CRITICAL REQUIREMENTS:
 5. PUT ONLY THE COORDINATE IN BRACKETS IN THE "move" FIELD: '[0, 2]', '[1, 1]', '[2, 0]', etc.
 6. YOUR MOVE MUST BE ON AN UNOCCUPIED POSITION OF THE BOARD
 
-EXAMPLE CORRECT RESPONSE:
+EXAMPLE OF CORRECT FORMAT:
 {{
-  "dialogue": "I plan to take the center position to control the game",
+  "dialogue": "I'm planning to take the center position to control the game",
   "move": "[1, 1]",
-  "board_state": "[board visualization after move]"
+  "board_state": "[board visualization]"
 }}
 
-FAILURE TO USE EXACT JSON FORMAT WITH PROPER [ROW, COL] COORDINATES WILL STALL THE GAME.
-Think and plan your strategy before responding.
+EXAMPLES OF INCORRECT FORMATS THAT WILL BE REJECTED:
+- Just saying "[1, 1]" in narrative text
+- Writing "**[1,1]**" or "[[1,1]]"
+- Saying "I move to [1,1]" without proper JSON
+- Providing only dialogue without move field
+- Using non-numeric coordinates like "[a,b]" or "[one, one]"
+- Any format that does not match exact JSON specification above
+
+VIOLATION OF JSON FORMAT RULES WILL RESULT IN:
+- Turn immediately passed to opponent
+- No credit given for narrative text provided
+- Your turn will be skipped until proper JSON format is used
+- Up to 3 format violations allowed before automatic forfeit
+
+Think carefully and respond in the EXACT JSON format specified above.
                         """.strip()
 
                         # Extract lorebook entries based on game context keywords
@@ -2108,14 +2137,29 @@ ABSOLUTELY CRITICAL REQUIREMENTS:
 5. PUT ONLY THE RAW LETTER IN THE "letter" FIELD: 'a', 'b', 'c', etc.
 6. DO NOT REPEAT LETTERS THAT ARE ALREADY IN {hangman_game.get_guessed_letters()}
 
-EXAMPLE CORRECT RESPONSE:
+EXAMPLE OF CORRECT FORMAT:
 {{
   "dialogue": "I think the letter 'e' is likely to be in the word based on frequency analysis",
   "letter": "e",
   "reasoning": "E is the most common letter in English words"
 }}
 
-FAILURE TO USE EXACT JSON FORMAT WITH PROPER SINGLE LETTER WILL STALL THE GAME.
+EXAMPLES OF INCORRECT FORMATS THAT WILL BE REJECTED:
+- Just saying "e" in narrative text
+- Writing "**e**" or "*e*" or "'e'" (without JSON structure)
+- Saying "I guess 'e'" without proper JSON structure
+- Providing only dialogue without letter field
+- Using uppercase letters like "E" instead of lowercase "e"
+- Including multiple letters like "ae" or words like "hello"
+- Any format that does not match exact JSON specification above
+
+VIOLATION OF JSON FORMAT RULES WILL RESULT IN:
+- Turn immediately passed to next player
+- No credit given for narrative text provided
+- Your turn will be skipped until proper JSON format is used
+- Up to 3 format violations allowed before automatic forfeit
+
+Think carefully and respond in the EXACT JSON format specified above.
 Make your letter guess now.
                     """.strip()
 
@@ -2329,14 +2373,29 @@ ABSOLUTELY CRITICAL REQUIREMENTS:
 5. PUT ONLY THE RAW ACTION IN THE "action" FIELD: 'hit' or 'stand'
 6. MAKE SURE YOUR CHOICE IS STRATEGICALLY SOUND GIVEN YOUR SCORE AND DEALER'S CARD
 
-EXAMPLE CORRECT RESPONSE:
+EXAMPLE OF CORRECT FORMAT:
 {{
   "dialogue": "Given my current score of 17 and the dealer's visible card, I will proceed conservatively",
   "action": "stand",
   "reasoning": "Standing is the safest option given I'm close to 21 and the dealer's card suggests a possible strong hand"
 }}
 
-FAILURE TO USE EXACT JSON FORMAT WITH PROPER 'hit'/'stand' ACTION WILL STALL THE GAME.
+EXAMPLES OF INCORRECT FORMATS THAT WILL BE REJECTED:
+- Just saying "hit" or "stand" in narrative text
+- Writing "**hit**" or "*stand*" or "I'll hit" (without JSON structure)
+- Saying "I choose to stand" without proper JSON format
+- Providing only dialogue without action field
+- Using uppercase like "HIT" or "STAND" instead of lowercase "hit"/"stand"
+- Using variants like "hit me" or "stay" instead of exactly "hit"/"stand"
+- Any format that does not match exact JSON specification above
+
+VIOLATION OF JSON FORMAT RULES WILL RESULT IN:
+- Turn immediately passed to next player
+- No credit given for narrative text provided
+- Your turn will be skipped until proper JSON format is used
+- Up to 3 format violations allowed before automatic forfeit
+
+Think carefully and respond in the EXACT JSON format specified above.
 Make your strategic decision now.
                     """.strip()
 
@@ -2598,14 +2657,29 @@ ABSOLUTELY CRITICAL REQUIREMENTS:
 5. PUT ONLY THE RAW NUMBER IN THE "number" FIELD: '42', '50', '17', etc. (as digits)
 6. DO NOT REPEAT ANY NUMBER FROM {number_game.get_guessed_letters() if hasattr(number_game, 'get_guessed_letters') else '[]'}
 
-EXAMPLE CORRECT RESPONSE:
+EXAMPLE OF CORRECT FORMAT:
 {{
   "dialogue": "Based on the remaining range and previous guesses, I believe the middle value offers the best information",
   "number": "50",
   "strategy": "Binary search approach to eliminate half the possibilities"
 }}
 
-FAILURE TO USE EXACT JSON FORMAT WITH PROPER INTEGER GUESS WILL STALL THE GAME.
+EXAMPLES OF INCORRECT FORMATS THAT WILL BE REJECTED:
+- Just saying "50" in narrative text
+- Writing "**50**" or "*50*" or "I guess 50" (without JSON structure)
+- Saying "My guess is 50" without proper JSON format
+- Providing only dialogue without number field
+- Using non-numeric guesses like "fifty" instead of "50"
+- Including multiple numbers like "40-50" or ranges like "between 40 and 50"
+- Any format that does not match exact JSON specification above
+
+VIOLATION OF JSON FORMAT RULES WILL RESULT IN:
+- Turn immediately passed to next player
+- No credit given for narrative text provided
+- Your turn will be skipped until proper JSON format is used
+- Up to 3 format violations allowed before automatic forfeit
+
+Think carefully and respond in the EXACT JSON format specified above.
 Make your numerical guess now.
                     """.strip()
 
@@ -2772,14 +2846,30 @@ ABSOLUTELY CRITICAL REQUIREMENTS:
 5. PUT ONLY THE RAW LOWERCASE WORD IN THE "word" FIELD: 'apple', 'happy', 'running', etc.
 6. ENSURE YOUR WORD HAS A CLEAR SEMANTIC CONNECTION TO "{word_game.get_last_word() or 'the concept'}"
 
-EXAMPLE CORRECT RESPONSE:
+EXAMPLE OF CORRECT FORMAT:
 {{
   "dialogue": "Considering the previous word's meaning and related concepts, I select this word",
   "word": "ocean",
   "connection": "It relates to water, waves, and sea which connects to the previous concept"
 }}
 
-FAILURE TO USE EXACT JSON FORMAT WITH PROPER SINGULAR LOWERCASE WORD WILL STALL THE GAME.
+EXAMPLES OF INCORRECT FORMATS THAT WILL BE REJECTED:
+- Just saying "ocean" in narrative text without JSON structure
+- Writing "**ocean**" or "*ocean*" or "the word 'ocean'" (without proper JSON)
+- Saying "I choose the word ocean" without proper JSON structure
+- Providing only dialogue without word field
+- Using capitalized words like "Ocean" instead of lowercase "ocean"
+- Including phrases or multiple words like "blue ocean" or "ocean water"
+- Using numbers or special characters in the word field
+- Any format that does not match exact JSON specification above
+
+VIOLATION OF JSON FORMAT RULES WILL RESULT IN:
+- Turn immediately passed to next player
+- No credit given for narrative text provided
+- Your turn will be skipped until proper JSON format is used
+- Up to 3 format violations allowed before automatic forfeit
+
+Think carefully and respond in the EXACT JSON format specified above.
 Make your word association now.
                     """.strip()
 
@@ -2965,14 +3055,30 @@ ABSOLUTELY CRITICAL REQUIREMENTS:
 5. PUT ONLY THE RAW DIGIT IN THE "column" FIELD: '0', '1', '2', '3', '4', '5', OR '6'
 6. VERIFY THE COLUMN HAS AVAILABLE SPACE (IS NOT FULL)
 
-EXAMPLE CORRECT RESPONSE:
+EXAMPLE OF CORRECT FORMAT:
 {{
   "dialogue": "I am analyzing the board state to determine optimal positioning",
   "column": "3",
   "strategy": "This column provides the best opportunity for forming a four-in-a-row"
 }}
 
-FAILURE TO USE EXACT JSON FORMAT WITH PROPER SINGLE DIGIT COLUMN WILL STALL THE GAME.
+EXAMPLES OF INCORRECT FORMATS THAT WILL BE REJECTED:
+- Just saying "3" in narrative text without JSON structure
+- Writing "**3**" or "*3*" or "column 3" (without proper JSON format)
+- Saying "I choose column 3" without proper JSON structure
+- Providing only dialogue without column field
+- Using non-numeric columns like "three" instead of "3"
+- Using values outside the range 0-6 like "7", "8", etc.
+- Including multiple values or complex expressions like "[3]" or "column 3 please"
+- Any format that does not match exact JSON specification above
+
+VIOLATION OF JSON FORMAT RULES WILL RESULT IN:
+- Turn immediately passed to opponent
+- No credit given for narrative text provided
+- Your turn will be skipped until proper JSON format is used
+- Up to 3 format violations allowed before automatic forfeit
+
+Think carefully and respond in the EXACT JSON format specified above.
 Think through your strategy before responding.
                         """.strip()
 

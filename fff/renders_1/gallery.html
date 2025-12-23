@@ -189,11 +189,14 @@
             let totalFractals = 3204; // Default fallback value
             const fractalsPerPage = 50; // Number of fractals to show per page
             let currentPage = 1;
+            let totalPages = Math.ceil(totalFractals / fractalsPerPage); // Calculate total pages based on total fractals
 
             // Function to count fractal files by attempting to fetch them sequentially
             async function countTotalFractals() {
                 let count = 0;
-                while (true) {
+                // Set a reasonable upper limit to avoid infinite loops
+                const maxExpected = 10000; // Upper limit for fractal files
+                while (count < maxExpected) {
                     try {
                         const response = await fetch(`fractal_${String(count).padStart(5, '0')}.png`, { method: 'HEAD' });
                         if (response.ok) {
@@ -211,7 +214,7 @@
 
             // Update page information display
             function updatePageInfo() {
-                const totalPages = Math.ceil(totalFractals / fractalsPerPage);
+                totalPages = Math.ceil(totalFractals / fractalsPerPage); // Recalculate total pages based on actual count
                 document.getElementById('totalCount').textContent = totalFractals;
                 document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
 
@@ -220,6 +223,9 @@
                 if (footer) {
                     footer.textContent = `Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory | Total: ${totalFractals} fractals`;
                 }
+
+                // Also update pagination controls
+                updatePaginationControls();
             }
 
             // Dynamically determine the actual number of fractals
@@ -392,25 +398,7 @@
                 }
             });
 
-            // Function to scan for the total number of fractal files dynamically
-            async function updateTotalFractalCount() {
-                // Try to update the count based on actual file count (fallback to existing if API unavailable)
-                try {
-                    // Since we can't reliably count files from browser due to security restrictions,
-                    // we'll update the count if we get better info during operation
-                    const response = await fetch('.');
-                    if (response.ok) {
-                        // This is just a placeholder - in practice we'd need a backend endpoint
-                        // for now, stick with the known count
-                    }
-                } catch (error) {
-                    // Use default count if we can't dynamically update
-                    console.log("Using default fractal count");
-                }
-            }
-
             // Initialize the gallery
-            updateTotalFractalCount(); // Try to update fractal count
             createFractalCards();
         });
     </script>

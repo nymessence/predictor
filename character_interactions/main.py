@@ -1660,6 +1660,9 @@ Think carefully and respond in the EXACT JSON format specified above.
                         if not hasattr(chess_game, 'last_failed_move'):
                             chess_game.last_failed_move = {'white': '', 'black': ''}
 
+                        # Track if a real move was successfully processed in this turn
+                        move_was_processed = False
+
                         # Attempt to make the chess move if notation is provided
                         if move_notation:
                             # Try to parse the move notation
@@ -1671,60 +1674,71 @@ Think carefully and respond in the EXACT JSON format specified above.
                                     print(f"✅ Move successfully made: {chess_game.move_history[-1] if chess_game.move_history else move_notation}")
                                     turn += 1  # Move was successful, increment turn
                                     chess_turn += 1  # Also increment chess turn
+                                    move_was_processed = True
                                     # Reset consecutive failed moves for this player
                                     chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                     chess_game.last_failed_move[current_char['chess_color']] = ''
                                 else:
                                     print(f"❌ Move failed - illegal move attempted: {move_notation}")
                                     # Add feedback to history
-                                    feedback = f"Your move '{move_notation}' was invalid or illegal. Please try again with a valid chess move from the current position."
+                                    feedback = f"Your move '{move_notation}' was invalid or illegal. Please try again with a valid chess move from the current position. REMEMBER: You must respond in proper JSON format with both 'dialogue' and 'move' fields."
                                     chess_history.append({'name': 'Referee', 'content': feedback})
                                     # Increment consecutive failed moves counter
                                     chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
                                     chess_game.last_failed_move[current_char['chess_color']] = move_notation
-                                    # If too many consecutive failures, force move to other player to prevent infinite loops (REDUCED TO 2 FOR FASTER ADVANCEMENT)
-                                    if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2:  # Changed from 3 to 2
+                                    # If too many consecutive failures, force move to other player to prevent infinite loops
+                                    if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2:
                                         print(f"⚠️  {current_char['name']} has failed to make a valid move {chess_game.consecutive_failed_moves[current_char['chess_color']]} times. Moving to next player to prevent infinite loop.")
                                         # ALSO switch the current player in the chess game object to ensure the game state progresses correctly
                                         chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
                                         turn += 1  # Force increment to prevent infinite loops
+                                        move_was_processed = True
                                         chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                         chess_game.last_failed_move[current_char['chess_color']] = ''
-                                    # Otherwise, same player gets another chance (don't increment turn)
                             else:
                                 print(f"❌ Could not parse move notation: {move_notation}")
                                 # Add feedback to history
-                                feedback = f"I couldn't parse the move '{move_notation}'. Please provide a valid chess move in algebraic notation."
+                                feedback = f"I couldn't parse the move '{move_notation}'. Please provide a valid chess move in algebraic notation. REMEMBER: You must respond in proper JSON format with both 'dialogue' and 'move' fields."
                                 chess_history.append({'name': 'Referee', 'content': feedback})
                                 # Increment consecutive failed moves counter
                                 chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
                                 chess_game.last_failed_move[current_char['chess_color']] = move_notation
-                                # If too many consecutive failures or the same move is repeated, force move to other player (REDUCED TO 2 FOR FASTER ADVANCEMENT)
-                                if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2 or move_notation == chess_game.last_failed_move[current_char['chess_color']]:  # Changed from 3 to 2
+                                # If too many consecutive failures or the same move is repeated, force move to other player
+                                if (chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2 or
+                                    move_notation == chess_game.last_failed_move[current_char['chess_color']]):
                                     print(f"⚠️  {current_char['name']} has failed to make a valid move {chess_game.consecutive_failed_moves[current_char['chess_color']]} times or repeated the same invalid move. Moving to next player to prevent infinite loop.")
                                     # ALSO switch the current player in the chess game object to ensure the game state progresses correctly
                                     chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
                                     turn += 1  # Force increment to prevent infinite loops
+                                    move_was_processed = True
                                     chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                     chess_game.last_failed_move[current_char['chess_color']] = ''
-                                # Otherwise, same player gets another chance (don't increment turn)
                         else:
-                            print(f"⚠️  No move provided. Current player: {chess_game.current_player}")
+                            print(f"⚠️  No move provided in required JSON format. Current player: {chess_game.current_player}")
                             # Add feedback to history
-                            feedback = f"Please provide a valid chess move in your response."
+                            feedback = f"You MUST provide a valid chess move in the proper JSON format: {{\"dialogue\": \"your thoughts\", \"move\": \"e4\", \"board_state\": \"optional\"}}. Your response must include both 'dialogue' and 'move' fields in JSON format."
                             chess_history.append({'name': 'Referee', 'content': feedback})
                             # Increment consecutive failed moves counter
                             chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
                             chess_game.last_failed_move[current_char['chess_color']] = ''
-                            # If too many consecutive failures, force move to other player (REDUCED TO 2 FOR FASTER ADVANCEMENT)
-                            if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2:  # Changed from 3 to 2
+                            # If too many consecutive failures, force move to other player
+                            if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2:
                                 print(f"⚠️  {current_char['name']} has failed to make a valid move {chess_game.consecutive_failed_moves[current_char['chess_color']]} times. Moving to next player to prevent infinite loop.")
                                 # ALSO switch the current player in the chess game object to ensure the game state progresses correctly
                                 chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
                                 turn += 1  # Force increment to prevent infinite loops
+                                move_was_processed = True
                                 chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                 chess_game.last_failed_move[current_char['chess_color']] = ''
-                            # Otherwise, same player gets another chance (don't increment turn)
+
+                        # CRITICAL SAFEGUARD: If no move was processed, we MUST force turn advancement anyway
+                        # This prevents the game from getting stuck due to parsing issues or other problems
+                        if not move_was_processed and turn >= 2:  # Require at least 1 successful move before forcing
+                            print(f"⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.")
+                            # Switch the current player in the chess game for the next iteration
+                            chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                            turn += 1  # Force increment to break potential infinite loop
+                            move_was_processed = True
 
                         # Periodic save every 10 turns
                         if turn % 10 == 0:

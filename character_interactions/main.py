@@ -439,45 +439,40 @@ def main():
 
         # Game-specific JSON parsing functions to avoid cross-game pattern contamination
         def parse_chess_json_response(response_text, character_name):
-            """Parse JSON response specifically for chess, extracting dialogue, move, and board state."""
+            """Parse JSON response specifically for chess, extracting dialogue, move, and board state.
+            STRICT MODE: Only accepts properly formatted JSON with required fields."""
             import json
             import re
 
-            # First try to find JSON within the response
-            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            # First and ONLY try: Look for properly formatted JSON with BOTH required fields
+            # Find JSON that has both dialogue and move fields as required
+            json_pattern = r'(\{[^{}]*("dialogue"|\'dialogue\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*,?[^{}]*("move"|\'move\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*\})'
             matches = re.findall(json_pattern, response_text, re.DOTALL)
 
-            if matches:
-                for json_str in matches:
-                    try:
-                        json_clean = json_str.strip()
-                        parsed = json.loads(json_clean)
+            # Process potential JSON matches
+            for match_tuple in matches:
+                # Extract the actual JSON string (first element of the tuple)
+                json_str = match_tuple[0].strip()
 
-                        dialogue = parsed.get('dialogue', '')
-                        move = parsed.get('move', '').strip()
-                        board_state = parsed.get('board_state', '') or parsed.get('game_state', '')
+                try:
+                    # Try to parse the JSON string
+                    parsed = json.loads(json_str)
 
-                        if dialogue or move:
-                            return dialogue, move, board_state
-                    except json.JSONDecodeError:
-                        continue  # Try the next match
+                    # Extract required fields
+                    dialogue = parsed.get('dialogue', '')
+                    move = parsed.get('move', '').strip()
+                    board_state = parsed.get('board_state', '') or parsed.get('game_state', '')
 
-            # If no JSON found, extract chess-specific moves from plain text
-            # Only look for valid chess notation in the response with clear intent indicators
+                    # Validate that both required fields are present and non-empty
+                    # This is critical: both dialogue AND move must have meaningful content
+                    if dialogue.strip() and move.strip():
+                        return dialogue.strip(), move.strip(), board_state.strip()
 
-            # Look for moves with explicit action words that indicate immediate intent
-            # These patterns strongly suggest the AI is making a move NOW, not discussing past moves
-            explicit_immediate_patterns = [
-                r'(?:I\s+will\s+move|I\'?ll\s+move|my\s+move\s+is|I\s+move|I\s+should\s+move|I\s+choose\s+to\s+move|I\s+plan\s+to\s+move)\s+(?:to\s+|on\s+)?([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "I will move to e4", "my move is Nf3", etc.
-                r'(?:I\s+am\s+making|I\'?m\s+making|I\s+am\s+playing|I\'?m\s+playing)\s+(?:my\s+move\s+to|a\s+move\s+to|this\s+move\s+to|my\s+choice\s+of)\s+([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "I am making my move to e4", etc.
-                r'(?:Now\s+I\s+will|Now,\s+I\s+|For\s+this\s+move|For\s+my\s+move\s+I\'?ll|My\s+intended\s+move\s+is)\s+([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)',  # "Now I will Nf3", etc.
-            ]
+                except json.JSONDecodeError:
+                    # If JSON parsing fails, continue to try next match
+                    continue
 
-            # Check for explicit immediate intent first
-            for pattern in explicit_immediate_patterns:
-                matches = re.findall(pattern, response_text, re.IGNORECASE)
-                for potential_move in matches:
-                    # Validate that it looks like chess notation
+            # CRITICAL: If no valid JSON found with both required fields, return no move
                     if re.match(r'^[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?$', potential_move, re.IGNORECASE):
                         # Remove just this specific move reference from the dialogue
                         dialogue_text = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', response_text).strip()
@@ -836,43 +831,29 @@ def main():
             import json
             import re
 
-            # First try to find JSON within the response
-            json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+            # First and ONLY try: Look for properly formatted JSON with BOTH required fields
+            json_pattern = r'(\{[^{}]*("dialogue"|\'dialogue\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*,?[^{}]*("move"|\'move\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*\})'
             matches = re.findall(json_pattern, response_text, re.DOTALL)
 
             if matches:
-                for json_str in matches:
+                for match_tuple in matches:
                     try:
-                        json_clean = json_str.strip()
+                        json_clean = match_tuple[0].strip()
                         parsed = json.loads(json_clean)
 
                         dialogue = parsed.get('dialogue', '')
                         move = parsed.get('move', '').strip()
                         board_state = parsed.get('board_state', '') or parsed.get('game_state', '')
 
-                        if dialogue or move:
+                        # Validate that BOTH required fields are present and non-empty
+                        if dialogue.strip() and move.strip():
                             return dialogue, move, board_state
                     except json.JSONDecodeError:
                         continue  # Try the next match
 
-            # If no JSON found, try to extract tic-tac-toe specific moves
-            # Look for [row, col] format like [0,2], (0, 2), etc.
-            ttt_pattern = r'[([:\s]*([0-2])\s*[,;\s]\s*([0-2])[)\]:\s]*'
-            ttt_matches = re.findall(ttt_pattern, response_text)
-
-            if ttt_matches:
-                for _, row, col in ttt_matches:  # Fix for tuple unpacking with the group pattern
-                    # Extract the sentence containing the move
-                    sentences = re.split(r'[.!?]+', response_text)
-                    move_val = f"[{row}, {col}]"
-                    for sentence in sentences:
-                        if row in sentence and col in sentence:
-                            # Remove the move from dialogue
-                            dialogue_text = re.sub(ttt_pattern, '', response_text).strip()
-                            dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
-                            return dialogue_text, move_val, ""
-
-            # If no ttt-specific move found, return as dialogue only
+            # CRITICAL: If no valid JSON found with both required fields, return no move
+            # This forces the game to recognize that the AI didn't follow the required format
+            # and will trigger the safeguards to advance to the next player
             return response_text, "", ""
 
         def parse_rps_json_response(response_text, character_name):
@@ -953,25 +934,9 @@ def main():
                     except json.JSONDecodeError:
                         continue  # Try the next match
 
-            # If no JSON found, try to extract hangman letter guesses
-            # Look for single letter patterns in the context of hangman
-            # Enhanced to only capture letters in hangman-specific context
-            context_clues = ['guess', 'letter', 'think', 'try', 'pick', 'select', 'word', 'hangman']
-            has_context = any(clue in response_text.lower() for clue in context_clues)
-
-            if has_context:
-                # Look for single capital letters or single lowercase letters in context
-                letter_pattern = r'\b([a-zA-Z])\b'
-                letter_matches = re.findall(letter_pattern, response_text)
-
-                for letter in letter_matches:
-                    if len(letter) == 1 and letter.isalpha():
-                        # Remove the letter from dialogue
-                        dialogue_text = re.sub(r'\b' + re.escape(letter) + r'\b', '', response_text).strip()
-                        dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
-                        return dialogue_text, letter.lower(), ""
-
-            # If no hangman-specific letter found, return as dialogue only
+            # CRITICAL: If no valid JSON found with both required fields, return no letter
+            # This forces the game to recognize that the AI didn't follow the required format
+            # and will trigger the safeguards to advance to the next player
             return response_text, "", ""
 
         def parse_twentyone_json_response(response_text, character_name):
@@ -998,32 +963,9 @@ def main():
                     except json.JSONDecodeError:
                         continue  # Try the next match
 
-            # If no JSON found, try to extract twenty-one specific actions
-            # Look for keywords: hit, stand, or their context
-            twentyone_pattern = r'\b(hit|stand|h|s)\b'
-            action_matches = re.findall(twentyone_pattern, response_text, re.IGNORECASE)
-
-            if action_matches:
-                for action in action_matches:
-                    # Normalize the action
-                    normalized_action = action.lower()
-                    if normalized_action in ['h', 'hit']:
-                        final_action = 'hit'
-                    elif normalized_action in ['s', 'stand']:
-                        final_action = 'stand'
-                    else:
-                        continue  # Skip unrecognized matches
-
-                    # Extract the sentence containing the action
-                    sentences = re.split(r'[.!?]+', response_text)
-                    for sentence in sentences:
-                        if normalized_action in sentence.lower():
-                            # Remove the action from dialogue
-                            dialogue_text = re.sub(r'\b' + re.escape(action) + r'\b', '', response_text, re.IGNORECASE).strip()
-                            dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
-                            return dialogue_text, final_action, ""
-
-            # If no twenty-one specific action found, return as dialogue only
+            # CRITICAL: If no valid JSON found with both required fields, return no action
+            # This forces the game to recognize that the AI didn't follow the required format
+            # and will trigger the safeguards to advance to the next player
             return response_text, "", ""
 
         # Specific function to parse chess move notation
@@ -1046,36 +988,15 @@ def main():
                         number = parsed.get('number', '').strip()  # Expected to be a number
                         strategy = parsed.get('strategy', '') or parsed.get('reasoning', '')
 
-                        if dialogue or number:
+                        # Validate that BOTH required fields are present and non-empty
+                        if dialogue.strip() and number.strip():
                             return dialogue, number, strategy
                     except json.JSONDecodeError:
                         continue  # Try the next match
 
-            # If no JSON found, try to extract number guesses from text
-            # Look for number patterns in game context
-            number_pattern = r'\b(\d{1,3})\b'  # 1-3 digit numbers (for 1-100 range)
-            number_matches = re.findall(number_pattern, response_text)
-
-            # Only capture if in a number guessing context
-            guessing_context = any(keyword in response_text.lower() for keyword in ['guess', 'number', 'pick', 'select', 'secret', 'target'])
-            if guessing_context and number_matches:
-                for num_str in number_matches:
-                    try:
-                        num = int(num_str)
-                        # For number guessing, validate the number is in a reasonable range for the game
-                        if 1 <= num <= 100:  # Assuming standard range
-                            # Extract the sentence containing the number
-                            sentences = re.split(r'[.!?]+', response_text)
-                            for sentence in sentences:
-                                if num_str in sentence:
-                                    # Remove the number from dialogue
-                                    dialogue_text = re.sub(r'\b' + re.escape(num_str) + r'\b', '', response_text).strip()
-                                    dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
-                                    return dialogue_text, str(num), ""
-                    except ValueError:
-                        continue
-
-            # If no number guess found, return as dialogue only
+            # CRITICAL: If no valid JSON found with both required fields, return no number
+            # This forces the game to recognize that the AI didn't follow the required format
+            # and will trigger the safeguards to advance to the next player
             return response_text, "", ""
 
         def parse_word_association_json_response(response_text, character_name):
@@ -1102,29 +1023,9 @@ def main():
                     except json.JSONDecodeError:
                         continue  # Try the next match
 
-            # If no JSON found, try to extract word choices from text
-            # Look for simple word patterns in context
-            word_pattern = r'\b([a-zA-Z]{3,20})\b'  # At least 3 letters up to 20
-            word_matches = re.findall(word_pattern, response_text)
-
-            # Only capture if in a word association context
-            association_context = any(keyword in response_text.lower() for keyword in ['association', 'related', 'connect', 'word', 'think', 'choice', 'next', 'link', 'connection'])
-            if association_context and word_matches:
-                # Find the most contextually relevant word
-                for word_option in word_matches:
-                    # Validate it's not a common non-game word
-                    common_non_game_words = {'the', 'and', 'for', 'are', 'you', 'was', 'had', 'with', 'have', 'this', 'that', 'from', 'they', 'were', 'been', 'their', 'what', 'said', 'went', 'like', 'know', 'want', 'time', 'just', 'about', 'think', 'will', 'would', 'could', 'should', 'also', 'well', 'still', 'even', 'much', 'very', 'many', 'really', 'quite', 'rather', 'never', 'always', 'often', 'usually', 'sometimes', 'here', 'there', 'when', 'where', 'how', 'why', 'who', 'which', 'what', 'than', 'then', 'them', 'these', 'those', 'such', 'each', 'other', 'some', 'any', 'all', 'few', 'little', 'more', 'most', 'own', 'new', 'good', 'first', 'last', 'long', 'little', 'high', 'great', 'small', 'large', 'young', 'old'}
-                    if word_option.lower() not in common_non_game_words and len(word_option) > 2:
-                        # Extract the sentence containing the word
-                        sentences = re.split(r'[.!?]+', response_text)
-                        for sentence in sentences:
-                            if word_option in sentence:
-                                # Remove the word from dialogue
-                                dialogue_text = re.sub(r'\b' + re.escape(word_option) + r'\b', '', response_text).strip()
-                                dialogue_text = re.sub(r'\s+', ' ', dialogue_text).strip()
-                                return dialogue_text, word_option, ""
-
-            # If no word association found, return as dialogue only
+            # CRITICAL: If no valid JSON found with both required fields, return no word
+            # This forces the game to recognize that the AI didn't follow the required format
+            # and will trigger the safeguards to advance to the next player
             return response_text, "", ""
 
         # Specific function to parse chess move notation
@@ -3042,6 +2943,12 @@ Make your word association now.
 
                     print(f"\n[TURN {turn}] {current_char['name']} (playing as {connect_four_game.current_player})")
 
+                    # Track consecutive failed moves to prevent infinite loops
+                    if not hasattr(connect_four_game, 'consecutive_failed_moves'):
+                        connect_four_game.consecutive_failed_moves = {'R': 0, 'Y': 0}
+                    if not hasattr(connect_four_game, 'last_failed_move'):
+                        connect_four_game.last_failed_move = {'R': '', 'Y': ''}
+
                     try:
                         # Create game context for the turn, requesting explicit JSON output
                         cf_context = f"""
@@ -3132,24 +3039,25 @@ Think through your strategy before responding.
                         import json
                         import re
 
-                        # First try to find JSON within the response
-                        json_pattern = r'\{[^{}]*\}'  # Non-greedy match for JSON objects
+                        # First and ONLY try: Look for properly formatted JSON with required fields
+                        json_pattern = r'(\{[^{}]*("dialogue"|\'dialogue\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*,?[^{}]*("column"|\'column\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*\})'
                         matches = re.findall(json_pattern, resp, re.DOTALL)
 
                         dialogue = ""
                         column_choice = None
                         strategy = ""
 
-                        for json_str in matches:
+                        for match_tuple in matches:
                             try:
-                                json_clean = json_str.strip()
+                                json_clean = match_tuple[0].strip()
                                 parsed = json.loads(json_clean)
 
                                 dialogue = parsed.get('dialogue', '')
                                 column_choice = parsed.get('column', '')
                                 strategy = parsed.get('strategy', '')
 
-                                if dialogue or column_choice:
+                                # Validate that BOTH required fields are present and non-empty
+                                if dialogue.strip() and column_choice is not None:
                                     break
                             except json.JSONDecodeError:
                                 continue  # Try the next match
@@ -3157,41 +3065,64 @@ Think through your strategy before responding.
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
 
-                        # Attempt to make the move if column is provided
+                        # Track if a real move was successfully processed in this turn
+                        move_was_processed = False
+
+                        # Determine the current player's symbol for tracking
+                        current_symbol = current_char.get('cf_symbol', 'R' if connect_four_game.current_player == 'red' else 'Y')
+
+                        # Attempt to make the move if column is provided in proper JSON format
                         if column_choice:
                             try:
                                 # Try to extract the column number from the choice
+                                col_num = None
                                 if isinstance(column_choice, str):
-                                    # Handle string representations
+                                    # Handle string representations with strict validation
+                                    col_choice_clean = column_choice.strip()
+                                    # Only accept pure numeric column values or properly quoted numbers
                                     import re
-                                    col_matches = re.findall(r'[0-6]', column_choice)
-                                    if col_matches:
-                                        col_num = int(col_matches[0])
+                                    single_digit_match = re.match(r'^["\']?([0-6])["\']?$', col_choice_clean)
+                                    if single_digit_match:
+                                        col_num = int(single_digit_match.group(1))
                                     else:
-                                        # Try parsing if column_choice is like "column 3", etc.
-                                        col_matches = re.findall(r'column.*?([0-6])', column_choice, re.IGNORECASE)
-                                        if col_matches:
-                                            col_num = int(col_matches[0])
-                                        elif re.search(r'first|0', column_choice.lower()):
-                                            col_num = 0
-                                        elif re.search(r'second|1', column_choice.lower()):
-                                            col_num = 1
-                                        elif re.search(r'third|2', column_choice.lower()):
-                                            col_num = 2
-                                        elif re.search(r'fourth|3', column_choice.lower()):
-                                            col_num = 3
-                                        elif re.search(r'fifth|4', column_choice.lower()):
-                                            col_num = 4
-                                        elif re.search(r'sixth|5', column_choice.lower()):
-                                            col_num = 5
-                                        elif re.search(r'seventh|6', column_choice.lower()):
-                                            col_num = 6
-                                        else:
-                                            col_num = None
-                                elif isinstance(column_choice, int):
+                                        # If it's not a single digit format, it's invalid
+                                        print(f"❌ Column choice format invalid: {column_choice}")
+                                        # Add feedback to history
+                                        feedback = f"Your column choice '{column_choice}' was invalid format. Please provide EXACTLY a single digit (0-6) in the 'column' field of your JSON."
+                                        connect_four_history.append({'name': 'Referee', 'content': feedback})
+                                        # Increment consecutive failed moves counter
+                                        connect_four_game.consecutive_failed_moves[current_symbol] += 1
+                                        connect_four_game.last_failed_move[current_symbol] = column_choice
+                                        # If too many consecutive failures, force move to other player to prevent infinite loops
+                                        if connect_four_game.consecutive_failed_moves[current_symbol] >= 2:
+                                            print(f"⚠️  {current_char['name']} has failed to make a valid move {connect_four_game.consecutive_failed_moves[current_symbol]} times. Moving to next player to prevent infinite loop.")
+                                            # ALSO switch the current player in the connect-four game object to ensure the game state progresses correctly
+                                            connect_four_game.current_player = 'yellow' if connect_four_game.current_player == 'red' else 'red'
+                                            turn += 1  # Force increment to prevent infinite loops
+                                            connect_four_game.consecutive_failed_moves[current_symbol] = 0
+                                            connect_four_game.last_failed_move[current_symbol] = ''
+                                            move_was_processed = True
+                                        # Otherwise, same player gets another chance (don't increment turn)
+                                elif isinstance(column_choice, int) and 0 <= column_choice <= 6:
                                     col_num = column_choice
                                 else:
-                                    col_num = None
+                                    print(f"❌ Invalid column choice: {column_choice}")
+                                    # Add feedback to history
+                                    feedback = f"Your column choice '{column_choice}' was invalid. Please select a valid column number (0-6)."
+                                    connect_four_history.append({'name': 'Referee', 'content': feedback})
+                                    # Increment consecutive failed moves counter
+                                    connect_four_game.consecutive_failed_moves[current_symbol] += 1
+                                    connect_four_game.last_failed_move[current_symbol] = str(column_choice)  # Convert to string for tracking
+                                    # If too many consecutive failures, force move to other player to prevent infinite loops
+                                    if connect_four_game.consecutive_failed_moves[current_symbol] >= 2:
+                                        print(f"⚠️  {current_char['name']} has failed to make a valid move {connect_four_game.consecutive_failed_moves[current_symbol]} times. Moving to next player to prevent infinite loop.")
+                                        # ALSO switch the current player in the connect-four game object to ensure the game state progresses correctly
+                                        connect_four_game.current_player = 'yellow' if connect_four_game.current_player == 'red' else 'red'
+                                        turn += 1  # Force increment to prevent infinite loops
+                                        connect_four_game.consecutive_failed_moves[current_symbol] = 0
+                                        connect_four_game.last_failed_move[current_symbol] = ''
+                                        move_was_processed = True
+                                    # Otherwise, same player gets another chance (don't increment turn)
 
                                 if col_num is not None and 0 <= col_num <= 6:
                                     success = connect_four_game.make_move(col_num)
@@ -3202,30 +3133,87 @@ Think through your strategy before responding.
                                             print(f"Game over! Winner: {connect_four_game.winner}")
                                         turn += 1  # Move was successful, increment turn
                                         cf_turn += 1  # Also increment cf turn
+                                        # Reset consecutive failed moves for this player
+                                        connect_four_game.consecutive_failed_moves[current_symbol] = 0
+                                        connect_four_game.last_failed_move[current_symbol] = ''
+                                        move_was_processed = True
                                     else:
                                         print(f"❌ Move failed - invalid column: {col_num} (may be full or out of bounds)")
                                         # Add feedback to history
                                         feedback = f"Your choice of column {col_num} was invalid. Please select a valid column (0-6) that has space."
                                         connect_four_history.append({'name': 'Referee', 'content': feedback})
-                                        turn += 1  # Increment turn anyway
+                                        # Increment consecutive failed moves counter
+                                        connect_four_game.consecutive_failed_moves[current_symbol] += 1
+                                        connect_four_game.last_failed_move[current_symbol] = str(col_num)
+                                        # If too many consecutive failures, force move to other player to prevent infinite loops
+                                        if connect_four_game.consecutive_failed_moves[current_symbol] >= 2:
+                                            print(f"⚠️  {current_char['name']} has failed to make a valid move {connect_four_game.consecutive_failed_moves[current_symbol]} times. Moving to next player to prevent infinite loop.")
+                                            # ALSO switch the current player in the connect-four game object to ensure the game state progresses correctly
+                                            connect_four_game.current_player = 'yellow' if connect_four_game.current_player == 'red' else 'red'
+                                            turn += 1  # Force increment to prevent infinite loops
+                                            connect_four_game.consecutive_failed_moves[current_symbol] = 0
+                                            connect_four_game.last_failed_move[current_symbol] = ''
+                                        # Otherwise, same player gets another chance (don't increment turn)
                                 else:
                                     print(f"❌ Invalid column choice: {column_choice}")
                                     # Add feedback to history
                                     feedback = f"Your column choice '{column_choice}' was invalid. Please select a valid column number (0-6)."
                                     connect_four_history.append({'name': 'Referee', 'content': feedback})
-                                    turn += 1  # Increment turn anyway
-                            except ValueError:
-                                print(f"❌ Could not parse column choice: {column_choice}")
+                                    # Increment consecutive failed moves counter
+                                    connect_four_game.consecutive_failed_moves[current_symbol] += 1
+                                    connect_four_game.last_failed_move[current_symbol] = str(column_choice)
+                                    # If too many consecutive failures, force move to other player to prevent infinite loops
+                                    if connect_four_game.consecutive_failed_moves[current_symbol] >= 2:
+                                        print(f"⚠️  {current_char['name']} has failed to make a valid move {connect_four_game.consecutive_failed_moves[current_symbol]} times. Moving to next player to prevent infinite loop.")
+                                        # ALSO switch the current player in the connect-four game object to ensure the game state progresses correctly
+                                        connect_four_game.current_player = 'yellow' if connect_four_game.current_player == 'red' else 'red'
+                                        turn += 1  # Force increment to prevent infinite loops
+                                        connect_four_game.consecutive_failed_moves[current_symbol] = 0
+                                        connect_four_game.last_failed_move[current_symbol] = ''
+                                    # Otherwise, same player gets another chance (don't increment turn)
+                            except ValueError as e:
+                                print(f"❌ Could not parse column choice: {column_choice}, error: {e}")
                                 # Add feedback to history
-                                feedback = f"I couldn't parse the column '{column_choice}'. Please provide a valid column number (0-6)."
+                                feedback = f"I couldn't parse the column '{column_choice}'. Please provide a valid column number (0-6). REMEMBER: You must respond in proper JSON format with both 'dialogue' and 'column' fields."
                                 connect_four_history.append({'name': 'Referee', 'content': feedback})
-                                turn += 1  # Increment turn anyway
+                                # Increment consecutive failed moves counter
+                                connect_four_game.consecutive_failed_moves[current_symbol] += 1
+                                connect_four_game.last_failed_move[current_symbol] = str(column_choice)
+                                # If too many consecutive failures, force move to other player to prevent infinite loops
+                                if connect_four_game.consecutive_failed_moves[current_symbol] >= 2:
+                                    print(f"⚠️  {current_char['name']} has failed to make a valid move {connect_four_game.consecutive_failed_moves[current_symbol]} times. Moving to next player to prevent infinite loop.")
+                                    # ALSO switch the current player in the connect-four game object to ensure the game state progresses correctly
+                                    connect_four_game.current_player = 'yellow' if connect_four_game.current_player == 'red' else 'red'
+                                    turn += 1  # Force increment to prevent infinite loops
+                                    connect_four_game.consecutive_failed_moves[current_symbol] = 0
+                                    connect_four_game.last_failed_move[current_symbol] = ''
+                                # Otherwise, same player gets another chance (don't increment turn)
                         else:
-                            print(f"⚠️  No column provided for disc drop.")
+                            print(f"⚠️  No column provided in required JSON format. Current player: {connect_four_game.current_player}")
                             # Add feedback to history
-                            feedback = f"Please provide a valid column number (0-6) to drop your disc in."
+                            feedback = f"You MUST provide a valid column number in the proper JSON format: {{\"dialogue\": \"your thoughts\", \"column\": \"3\", \"strategy\": \"your reasoning\"}}. Your response must include both 'dialogue' and 'column' fields in JSON format."
                             connect_four_history.append({'name': 'Referee', 'content': feedback})
-                            turn += 1  # Increment turn anyway
+                            # Increment consecutive failed moves counter
+                            connect_four_game.consecutive_failed_moves[current_symbol] += 1
+                            connect_four_game.last_failed_move[current_symbol] = ''
+                            # If too many consecutive failures, force move to other player to prevent infinite loops
+                            if connect_four_game.consecutive_failed_moves[current_symbol] >= 2:
+                                print(f"⚠️  {current_char['name']} has failed to make a valid move {connect_four_game.consecutive_failed_moves[current_symbol]} times. Moving to next player to prevent infinite loop.")
+                                # ALSO switch the current player in the connect-four game object to ensure the game state progresses correctly
+                                connect_four_game.current_player = 'yellow' if connect_four_game.current_player == 'red' else 'red'
+                                turn += 1  # Force increment to prevent infinite loops
+                                connect_four_game.consecutive_failed_moves[current_symbol] = 0
+                                connect_four_game.last_failed_move[current_symbol] = ''
+                            # Otherwise, same player gets another chance (don't increment turn)
+
+                        # CRITICAL SAFEGUARD: If no real move was processed, we MUST force turn advancement anyway
+                        # This prevents the game from getting stuck due to parsing issues or other problems
+                        if not move_was_processed:
+                            print(f"⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.")
+                            # Switch the current player in the connect-four game for the next iteration
+                            connect_four_game.current_player = 'yellow' if connect_four_game.current_player == 'red' else 'red'
+                            turn += 1  # Force increment to break potential infinite loop
+                            move_was_processed = True
 
                         # Delay before next turn
                         if not connect_four_game.game_over and turn < args.max_turns:

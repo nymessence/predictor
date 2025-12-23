@@ -1780,14 +1780,47 @@ Think carefully and respond in the EXACT JSON format specified above.
                                 chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
                                 chess_game.last_failed_move[current_char['chess_color']] = ''
 
-                        # CRITICAL SAFEGUARD: If no move was processed, we MUST force turn advancement anyway
+                        # CRITICAL SAFEGUARD: If no move was processed, we MUST make an actual move anyway
                         # This prevents the game from getting stuck due to parsing issues or other problems
                         if not move_was_processed and turn >= 2:  # Require at least 1 successful move before forcing
-                            print(f"⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.")
-                            # Switch the current player in the chess game for the next iteration
-                            chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
-                            turn += 1  # Force increment to break potential infinite loop
-                            move_was_processed = True
+                            print(f"⚠️  CRITICAL: No move was processed. Making a random legal move to advance the game.")
+                            # Instead of just switching the current player, make a real move on the board
+                            # Find all legal moves for the current player
+                            legal_moves = []
+                            for from_row in range(8):
+                                for from_col in range(8):
+                                    from_pos = (from_row, from_col)
+                                    piece = chess_game.board[from_row][from_col]
+                                    if piece and piece.startswith(current_char['chess_color'][0]):
+                                        # Get all valid moves for this piece
+                                        valid_destinations = chess_game._get_piece_valid_moves(from_pos)
+                                        for dest in valid_destinations:
+                                            legal_moves.append((from_pos, dest))
+
+                            if legal_moves:
+                                # Make a random legal move for the current player
+                                import random
+                                from_pos, to_pos = random.choice(legal_moves)
+                                move_success = chess_game.make_move(from_pos, to_pos)
+                                if move_success:
+                                    print(f"🎲 Random legal move made: {chess_game.move_history[-1] if chess_game.move_history else f'{from_pos}->{to_pos}'}")
+                                    turn += 1  # Move was successful, increment turn
+                                    chess_turn += 1  # Also increment chess turn
+                                    # Reset consecutive failed moves for this player
+                                    chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                    chess_game.last_failed_move[current_char['chess_color']] = ''
+                                else:
+                                    # If even random move fails, force player switch to prevent infinite loops
+                                    print(f"⚠️  Even random move failed. Switching player to prevent infinite loop.")
+                                    chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                                    turn += 1  # Force increment to prevent infinite loops
+                                    move_was_processed = True
+                            else:
+                                # No legal moves available, game might be in checkmate/stalemate
+                                print(f"⚠️  No legal moves available for {current_char['name']}. Switching player.")
+                                chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                                turn += 1  # Force increment to prevent infinite loops
+                                move_was_processed = True
 
                         # Periodic save every 10 turns
                         if turn % 10 == 0:

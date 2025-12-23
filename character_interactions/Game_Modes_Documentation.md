@@ -463,6 +463,28 @@ The system implements a sliding window mechanism to prevent conversation history
 - Adjust delay settings based on your API rate limits
 - Monitor conversation length as games with multiple rounds can become lengthy
 
+## JSON Format Requirements (Critical!)
+
+### Mandatory Format Structure
+All game modes now require strict adherence to the specified JSON format. Failure to follow the exact format will result in move rejection and may cause the game to stall:
+
+Each game mode requires its specific JSON format:
+- **Chess**: `{"dialogue": "...", "move": "e4", "board_state": "..."}`
+- **Tic-Tac-Toe**: `{"dialogue": "...", "move": "[1,1]", "board_state": "..."}`
+- **Rock-Paper-Scissors**: `{"dialogue": "...", "choice": "rock", "strategy": "..."}`
+- **Hangman**: `{"dialogue": "...", "letter": "e", "reasoning": "..."}`
+- **Twenty-One**: `{"dialogue": "...", "action": "hit", "reasoning": "..."}`
+- **Number Guessing**: `{"dialogue": "...", "number": "42", "strategy": "..."}`
+- **Word Association**: `{"dialogue": "...", "word": "ocean", "connection": "..."}`
+- **Connect Four**: `{"dialogue": "...", "column": "3", "strategy": "..."}`
+- **Uno**: `{"dialogue": "...", "action": "3", "reasoning": "..."}`
+
+### Anti-Repetition Safeguards
+- **After 3 consecutive invalid moves/choices**, turn automatically advances to prevent infinite loops
+- **Format requirement enforcement** with specific error messages
+- **Progressive penalties** for repeated format violations
+- **Automatic recovery** mechanisms for stalled games
+
 ## Future Enhancements
 
 Potential improvements to the game modes could include:

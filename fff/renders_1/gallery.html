@@ -120,6 +120,7 @@
             justify-content: center;
             margin: 20px 0;
             gap: 10px;
+            align-items: center;
         }
 
         button {
@@ -157,7 +158,7 @@
         <h1>Flame Fractal Gallery</h1>
         <p class="subtitle">Explore the intricate patterns of flame fractals. Hover over any image to view the algorithm parameters used to generate it. Each fractal is a unique combination of mathematical functions and transformations creating beautiful, intricate patterns.</p>
         <div id="loadingIndicator" style="display: none; text-align: center; padding: 20px;">
-            <p>Loading fractals... <span id="progressCount">0</span>/<span id="totalCount">3204</span></p>
+            <p>Loading fractals... <span id="progressCount">0</span>/<span id="totalCount">0</span></p>
             <div style="width: 100%; max-width: 500px; height: 20px; background: #333; border-radius: 10px; margin: 10px auto; overflow: hidden;">
                 <div id="progressBar" style="height: 100%; background: linear-gradient(90deg, #4361ee, #4cc9f0); width: 0%; transition: width 0.3s;"></div>
             </div>
@@ -170,12 +171,12 @@
 
     <div class="pagination-controls">
         <button id="prevPage" disabled>Previous</button>
-        <div id="pageInfo">Page 1 of 65</div>
+        <div id="pageInfo">Page 1 of 1</div>
         <button id="nextPage">Next</button>
     </div>
 
     <footer>
-        <p>Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory | Total: 3204 fractals</p>
+        <p>Flame Fractal Generator | Rendering Gallery | Created with Python and Chaos Theory | Total: 0 fractals</p>
         <p style="margin-top: 10px; font-size: 0.9em; color: #a0a0c0;">
             <strong>Note:</strong> For best experience and to see parameters, serve this directory with a local web server.
             Run "python -m http.server 8000" in this directory and open http://localhost:8000/gallery.html in your browser.
@@ -248,57 +249,18 @@
             const nextPageBtn = document.getElementById('nextPage');
             const pageInfo = document.getElementById('pageInfo');
 
-            // Function to load parameter JSON for a specific fractal
-            async function loadParams(fractalId) {
-                try {
-                    const response = await fetch(`fractal_${String(fractalId).padStart(5, '0')}_params.json`);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return await response.json();
-                } catch (error) {
-                    console.error(`Error loading params for fractal ${fractalId}:`, error.message);
-                    return null;
-                }
-            }
-
-            // Function to generate tooltip content from parameters
-            function generateTooltip(params, id) {
-                if (!params) {
-                    return `<h3>Fractal ${id}</h3><p>Parameters not found</p>`;
-                }
-
-                let content = `<h3>Fractal ${id}</h3>`;
-
-                // Handle the actual structure from the JSON files
-                if (params.seed) content += `<p><strong>Seed:</strong> ${params.seed.substring(0, 8)}...</p>`;
-
-                if (params.params) {
-                    const p = params.params;
-
-                    if (p.num_points) content += `<p><strong>Points:</strong> ${p.num_points.toLocaleString()}</p>`;
-                    if (p.gamma) content += `<p><strong>Gamma:</strong> ${p.gamma.toFixed(2)}</p>`;
-                    if (p.brightness) content += `<p><strong>Brightness:</strong> ${p.brightness}</p>`;
-                    if (p.hue_rotation) content += `<p><strong>Hue Rotation:</strong> ${p.hue_rotation.toFixed(2)}</p>`;
-                    if (p.transforms) content += `<p><strong>Transforms:</strong> ${p.transforms.length} functions</p>`;
-                } else {
-                    content += `<p><strong>Data:</strong> Invalid format</p>`;
-                }
-
-                return content;
-            }
-
             // Function to create and append fractal cards for current page
             async function createFractalCards() {
                 // Clear current gallery
                 gallery.innerHTML = '';
-
+                
                 // Calculate start and end indices for current page
                 const startIndex = (currentPage - 1) * fractalsPerPage;
                 const endIndex = Math.min(startIndex + fractalsPerPage, totalFractals);
 
-                loadingIndicator.style.display = 'block'; // Show loading indicator
-                progressCount.textContent = 0;
+                // Show loading indicator
+                loadingIndicator.style.display = 'block';
+                progressCount.textContent = '0';
                 progressBar.style.width = '0%';
 
                 // Process fractals in batches to avoid blocking the UI
@@ -344,16 +306,40 @@
                         // Create tooltip element
                         const tooltip = document.createElement('div');
                         tooltip.className = 'tooltip';
-                        tooltip.innerHTML = `<h3>Loading...</h3>`; // Initial loading state
+                        tooltip.innerHTML = '<h3>Loading...</h3>'; // Initial loading state
                         card.appendChild(tooltip);
 
                         // Add the card to the gallery
                         gallery.appendChild(card);
 
-                        // Load parameters and update tooltip
+                        // Try to load parameters and update tooltip
                         try {
-                            const params = await loadParams(i);
-                            tooltip.innerHTML = generateTooltip(params, String(i).padStart(5, '0'));
+                            const response = await fetch(`fractal_${String(i).padStart(5, '0')}_params.json`);
+                            if (response.ok) {
+                                const params = await response.json();
+                                
+                                // Generate tooltip content from parameters
+                                let content = `<h3>Fractal ${String(i).padStart(5, '0')}</h3>`;
+                                
+                                if (params && typeof params === 'object') {
+                                    if (params.seed) {
+                                        content += `<p><strong>Seed:</strong> ${params.seed.substring(0, 8)}...</p>`;
+                                    }
+                                    if (params.params) {
+                                        const p = params.params;
+                                        
+                                        if (p.num_points) content += `<p><strong>Points:</strong> ${p.num_points.toLocaleString()}</p>`;
+                                        if (p.gamma) content += `<p><strong>Gamma:</strong> ${p.gamma.toFixed(2)}</p>`;
+                                        if (p.brightness) content += `<p><strong>Brightness:</strong> ${p.brightness}</p>`;
+                                        if (p.hue_rotation) content += `<p><strong>Hue Rotation:</strong> ${p.hue_rotation.toFixed(2)}</p>`;
+                                        if (p.transforms) content += `<p><strong>Transforms:</strong> ${p.transforms.length} functions</p>`;
+                                    }
+                                }
+                                
+                                tooltip.innerHTML = content;
+                            } else {
+                                tooltip.innerHTML = `<h3>Fractal ${String(i).padStart(5, '0')}</h3><p>Parameters not available</p>`;
+                            }
                         } catch (error) {
                             console.error(`Failed to load parameters for fractal ${i}:`, error);
                             tooltip.innerHTML = `<h3>Fractal ${String(i).padStart(5, '0')}</h3><p>Parameters not available</p>`;
@@ -366,19 +352,19 @@
                     }
 
                     // Yield control back to browser to prevent UI freezing
-                    await new Promise(resolve => setTimeout(resolve, 1));
+                    await new Promise(resolve => setTimeout(resolve, 10));
                 }
 
                 // Hide loading indicator when done
                 loadingIndicator.style.display = 'none';
-
+                
                 // Update pagination controls
                 updatePaginationControls();
             }
 
             // Function to update pagination controls
             function updatePaginationControls() {
-                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+                document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
                 prevPageBtn.disabled = currentPage === 1;
                 nextPageBtn.disabled = currentPage === totalPages;
             }

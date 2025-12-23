@@ -48,7 +48,19 @@ def generate_response_adaptive(current: Dict, other: Dict, history: List[Dict],
         # Add scenario context to system prompt
         scenario_text = f"\nCUSTOM SCENARIO CONTEXT:\n{scenario_context}"
         system_prompt += scenario_text
-        
+
+        # SPECIAL ENFORCING: If scenario involves a structured game, emphasize JSON requirements
+        game_modes = ['chess', 'tic-tac-toe', 'hangman', 'twenty-one', 'rock-paper-scissors', 'connect-four', 'uno', 'number guessing', 'word association']
+        if any(mode in scenario_context.lower() for mode in game_modes):
+            json_enforcement = """
+            CRITICAL: You are in a structured game mode. You MUST respond in the required JSON format.
+            For chess: {"dialogue": "your thoughts", "move": "e4", "board_state": "visualization after move"}
+            For tic-tac-toe: {"dialogue": "your thoughts", "move": "[row, col]", "board_state": "visualization after move"}
+            For other games: follow the specific JSON structure required for that game.
+            FAILURE TO USE PROPER JSON FORMAT WILL RESULT IN TURN ADVANCEMENT WITHOUT YOUR MOVE BEING PROCESSED.
+            """
+            system_prompt += json_enforcement
+
         # Enforce scenario constraints
         system_prompt = enforce_scenario_constraints(system_prompt, scenario_context, current['name'])
     

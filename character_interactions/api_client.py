@@ -5,12 +5,27 @@ API client with retry logic and error handling
 import time
 from typing import Optional, List
 from openai import OpenAI
-from config import BASE_URL, API_KEY, MODEL_NAME, API_ERROR_MAX_RETRIES, DELAY_SECONDS
+from config import API_ERROR_MAX_RETRIES, DELAY_SECONDS
+
+# Global variables to hold runtime configuration (will be updated by main)
+BASE_URL = "https://api.llm7.io/v1"  # Default
+API_KEY = None
+MODEL_NAME = "magistral-small-2509"  # Default
 
 
 def get_client():
     """Get OpenAI client with current configuration"""
+    # Use global configuration that is overridden at runtime
+    global BASE_URL, API_KEY, MODEL_NAME
     return OpenAI(base_url=BASE_URL, api_key=API_KEY)
+
+
+def update_config(base_url, api_key, model_name):
+    """Update the API configuration at runtime"""
+    global BASE_URL, API_KEY, MODEL_NAME
+    BASE_URL = base_url
+    API_KEY = api_key
+    MODEL_NAME = model_name
 
 
 def make_api_call(prompt: str, max_tokens: int = 150, temperature: float = 0.7, 

@@ -6,12 +6,12 @@ Response generation with adaptive anti-repetition strategies
 import random
 from typing import Dict, List, Optional
 from openai import OpenAI
-from config import BASE_URL, API_KEY, MODEL_NAME, DELAY_SECONDS
+from config import DELAY_SECONDS  # Only import fixed config items
 from context_builder import build_context_adaptive
 from repitition_detector import detect_repetition_patterns
 from environmental_triggers import generate_environmental_trigger
 from character_loader import extract_lorebook_entries
-from api_client import get_client
+from api_client import get_client, update_config
 from scenario_adapter import enforce_scenario_constraints, check_scenario_consistency
 
 
@@ -95,8 +95,11 @@ def generate_response_adaptive(current: Dict, other: Dict, history: List[Dict],
     # Make API call
     try:
         client = get_client()
+        # Import the runtime model name from api_client
+        from api_client import MODEL_NAME as RUNTIME_MODEL_NAME
+
         resp = client.chat.completions.create(
-            model=MODEL_NAME,
+            model=RUNTIME_MODEL_NAME,
             messages=[{"role": "user", "content": full_prompt}],
             max_tokens=350,
             temperature=temperature,

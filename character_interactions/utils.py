@@ -8,11 +8,11 @@ import re
 from typing import Optional, List, Dict
 from openai import OpenAI
 from difflib import SequenceMatcher
-from config import BASE_URL, API_KEY, MODEL_NAME, API_ERROR_MAX_RETRIES, DELAY_SECONDS
+from config import API_ERROR_MAX_RETRIES, DELAY_SECONDS  # Only import fixed configs
+from api_client import get_client, BASE_URL, API_KEY, MODEL_NAME
 
 
-# Initialize client
-client = OpenAI(base_url=BASE_URL, api_key=API_KEY)
+# Client will be obtained dynamically using get_client()
 
 
 def calculate_similarity(text1: str, text2: str) -> float:
@@ -157,31 +157,33 @@ def remove_repetitive_phrases(text: str, history: List[Dict], threshold: float =
     return result if result.strip() else text
 
 
-def make_api_call(prompt: str, max_tokens: int = 150, temperature: float = 0.7, 
+def make_api_call(prompt: str, max_tokens: int = 150, temperature: float = 0.7,
                  stop: Optional[List[str]] = None, verbose: bool = False) -> str:
     """Generic API call with delay and comprehensive error handling"""
     for attempt in range(API_ERROR_MAX_RETRIES):
         try:
             if verbose and attempt > 0:
                 print(f"🔄 API retry attempt {attempt + 1}/{API_ERROR_MAX_RETRIES}")
-            
+
+            # Get the current client with updated configuration
+            client = get_client()
             resp = client.chat.completions.create(
-                model=MODEL_NAME,
+                model=MODEL_NAME,  # Use runtime model name
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=max_tokens,
                 temperature=temperature,
                 stop=stop
             )
             content = resp.choices[0].message.content.strip()
-            
+
             # Apply delay after successful API call
             if DELAY_SECONDS > 0:
                 if verbose:
                     print(f"⏳ Waiting {DELAY_SECONDS} seconds after API call...")
                 time.sleep(DELAY_SECONDS)
-                
+
             return content
-            
+
         except Exception as e:
             error_msg = str(e)[:150]
             print(f"⚠️  API error (attempt {attempt + 1}): {error_msg}")
@@ -189,5 +191,5 @@ def make_api_call(prompt: str, max_tokens: int = 150, temperature: float = 0.7,
                 time.sleep(1.5 ** attempt)
             else:
                 raise
-    
+
     return "I'm having trouble responding right now. Please try again."

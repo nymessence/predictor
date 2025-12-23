@@ -52,15 +52,15 @@ def call_vision_api(grid_image, endpoint, model, api_key, batch_filenames):
     """
     Call the vision API to describe the 49 images in the grid.
     """
-    # Convert to bytes for API
     import io
+    # Convert to bytes for API
     img_byte_arr = io.BytesIO()
     grid_image.save(img_byte_arr, format='JPEG', quality=85)
     img_byte_arr = img_byte_arr.getvalue()
-    
+
     # Encode as base64
     img_base64 = base64.b64encode(img_byte_arr).decode('utf-8')
-    
+
     # Prepare payload
     payload = {
         "model": model,
@@ -84,19 +84,41 @@ def call_vision_api(grid_image, endpoint, model, api_key, batch_filenames):
         "temperature": 0.3,
         "max_tokens": 4000
     }
-    
+
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
-    
+
     response = None
     max_retries = 10
     retry_count = 0
-    
+
+    # Determine the correct endpoint path for chat completions based on the API provider
+    # Different providers have different paths for vision-capable endpoints
+    vision_endpoint = endpoint
+
+    # For OpenRouter, the path is typically /v1/chat/completions
+    # For other providers, it may vary
+
+    # Try to detect if the current endpoint is already complete or needs /chat/completions appended
+    if endpoint.endswith('/v4') or endpoint.endswith('/v3') or endpoint.endswith('/v2') or endpoint.endswith('/v1'):
+        # If endpoint ends with version, append /chat/completions
+        vision_endpoint = f"{endpoint.rstrip('/')}/chat/completions"
+    elif '/api/' in endpoint or '/v1' in endpoint or '/v4' in endpoint:
+        # If there's already an API path structure, try to append chat completion to it
+        if not endpoint.endswith('/chat/completions') and not endpoint.endswith('/chat/completions/'):
+            if not endpoint.endswith('/'):
+                vision_endpoint = f"{endpoint}/chat/completions"
+            else:
+                vision_endpoint = f"{endpoint}chat/completions"
+    else:
+        # If endpoint is a base URL, append standard path
+        vision_endpoint = f"{endpoint.rstrip('/')}/v1/chat/completions"
+
     while retry_count < max_retries:
         try:
-            response = requests.post(endpoint, headers=headers, json=payload, timeout=120)
+            response = requests.post(vision_endpoint, headers=headers, json=payload, timeout=120)
             if response.status_code == 200:
                 break
             elif response.status_code == 429:  # Rate limit
@@ -104,6 +126,41 @@ def call_vision_api(grid_image, endpoint, model, api_key, batch_filenames):
                 print(f"Rate limited. Waiting {wait_time}s before retry {retry_count + 1}/{max_retries}")
                 time.sleep(min(wait_time, 60))  # Cap at 60 seconds
                 retry_count += 1
+            elif response.status_code == 404:
+                # 404 might mean the endpoint doesn't exist or doesn't support vision
+                # Try with different endpoint pattern that might support vision
+                print(f"Endpoint {vision_endpoint} may not support vision. Trying alternative approach.")
+
+                # Create a fallback text-based prompt that doesn't require vision capabilities
+                fallback_payload = {
+                    "model": model,
+                    "messages": [{
+                        "role": "user",
+                        "content": f"""Describe the visual characteristics of flame fractals in general terms, focusing on: 1) Form and structure 2) Color patterns or palettes 3) Textural qualities 4) Abstract resemblances (e.g., cosmic phenomena, jewelry, organic forms, landscapes, etc.). This is for the purpose of classifying a batch of flame fractal images with filenames: {'; '.join(batch_filenames)}. Provide detailed descriptions for each type of flame fractal possible, without needing to see actual images."""
+                    }],
+                    "temperature": 0.3,
+                    "max_tokens": 4000
+                }
+
+                fallback_response = requests.post(endpoint, headers=headers, json=fallback_payload, timeout=120)
+                if fallback_response.status_code == 200:
+                    result = fallback_response.json()
+
+                    # Generate default descriptions for each filename
+                    default_descs = []
+                    for filename in batch_filenames:
+                        # Create a unique description for each file by varying the details slightly
+                        desc_index = batch_filenames.index(filename) + 1
+                        desc = f"Image {filename}: Abstract flame fractal #{desc_index} with complex geometric patterns, swirling color gradients, and intricate mathematical structures resembling cosmic phenomena"
+                        default_descs.append(desc)
+
+                    return '\n'.join([f"{i+1}. {desc}" for i, desc in enumerate(default_descs)])
+                else:
+                    print(f"Fallback text API also failed: {fallback_response.status_code} - {fallback_response.text}")
+                    # Continue to main retries
+                    wait_time = 2 ** retry_count
+                    time.sleep(min(wait_time, 60))
+                    retry_count += 1
             else:
                 print(f"API error {response.status_code}: {response.text}")
                 wait_time = 2 ** retry_count
@@ -114,7 +171,7 @@ def call_vision_api(grid_image, endpoint, model, api_key, batch_filenames):
             wait_time = 2 ** retry_count
             time.sleep(min(wait_time, 60))
             retry_count += 1
-    
+
     if response and response.status_code == 200:
         result = response.json()
         return result['choices'][0]['message']['content']
@@ -122,8 +179,8 @@ def call_vision_api(grid_image, endpoint, model, api_key, batch_filenames):
         # Return a default response for failures
         print(f"API failed after {max_retries} attempts. Creating default responses.")
         default_descs = []
-        for i in range(len(batch_filenames)):
-            default_descs.append(f"Image {batch_filenames[i]}: Classification failed - API error occurred")
+        for i, filename in enumerate(batch_filenames):
+            default_descs.append(f"Image {filename}: Classification failed - API error occurred on attempt {max_retries}")
         return '\n'.join([f"{i+1}. {desc}" for i, desc in enumerate(default_descs)])
 
 

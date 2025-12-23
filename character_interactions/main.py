@@ -1585,22 +1585,75 @@ Think carefully and respond in the EXACT JSON format specified above.
                             move_pattern = r'([KQRBN]?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|O-O(?:-O)?)'
                             potential_moves = re.findall(move_pattern, resp)
 
-                            # If we find a potential move and the response is mostly about strategy/chess,
-                            # assign the whole response as dialogue and attempt to extract move
+                            # If we find a potential move and the response is in a chess context,
+                            # extract the move and use the rest as dialogue
                             if potential_moves:
-                                # Assume first potential move is the intended move
-                                extracted_move = potential_moves[0]
+                                # Look for moves in contexts that indicate immediate intent (not historical reference)
+                                # Check if the move appears in phrases that suggest the AI is making a move NOW
+                                for potential_move in potential_moves:
+                                    # Contexts that indicate an immediate move action
+                                    immediate_contexts = [
+                                        r'(?:I\s+will\s+move|I\s+move|I\s+should\s+move|I\s+plan\s+to|my\s+move\s+is|I\s+choose\s+to\s+move|I\s+make\s+the\s+move|I\s+decide\s+to|I\s+play|I\s+play\s+to|I\s+go\s+with|I\s+go\s+for|my\s+move\s+this\s+turn|this\s+turn\s+I\s+|now\s+I\s+)',
+                                        # Also check for explicit move number indicators like "1. e4" or "My move: e4"
+                                        rf'(?:move\s+\d+\s*[:.]\s*|My\s+move[:.]?\s+|Move[:.]?\s+\d+\s*[:.]\s*){re.escape(potential_move)}',
+                                        rf'(?:\d+\.\s*)?{re.escape(potential_move)}\s+(?:is|will\s+be|should\s+be|is\s+my|is\s+the)'
+                                    ]
 
-                                # Check if the response context suggests chess
-                                chess_indicators = ['chess', 'move', 'position', 'game', 'strategy', 'king', 'queen', 'rook', 'pawn']
-                                has_chess_context = any(indicator in resp.lower() for indicator in chess_indicators)
+                                    for context_pattern in immediate_contexts:
+                                        if re.search(context_pattern, resp, re.IGNORECASE):
+                                            dialogue = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', resp).strip()
+                                            dialogue = re.sub(r'\s+', ' ', dialogue).strip()
+                                            move_notation = potential_move
+                                            break
+                                    if move_notation:  # Break outer loop if we found a move
+                                        break
 
-                                if has_chess_context:
-                                    dialogue = resp.replace(extracted_move, '').strip()
-                                    dialogue = re.sub(r'\s+', ' ', dialogue)
-                                    move_notation = extracted_move
+                                # Only use fallback if no contextual indicator was found but there's a likely move
+                                if not move_notation and len(potential_moves) > 0:
+                                    # Check for clear chess game context words in the response
+                                    chess_indicators = ['chess', 'game', 'position', 'board', 'king', 'queen', 'rook', 'pawn', 'bishop', 'knight', 'move', 'strategy']
+                                    has_chess_context = any(indicator in resp.lower() for indicator in chess_indicators)
+
+                                    # Look for discussion vs move-intent words to differentiate
+                                    discussion_words = ['circling', 'around', 'without', 'saying', 'important', 'like', 'think', 'consider', 'perhaps', 'maybe', 'might', 'could', 'seems', 'appears', 'feels', 'seem', 'appear', 'feel']
+                                    has_discussion = any(word in resp.lower() for word in discussion_words)
+
+                                    # Only extract move if chess context is strong and discussion is weak
+                                    if has_chess_context and not has_discussion:
+                                        extracted_move = potential_moves[0]  # Use first move found
+                                        dialogue = resp.replace(extracted_move, '').strip()
+                                        dialogue = re.sub(r'\s+', ' ', dialogue).strip()
+                                        move_notation = extracted_move
 
                         # CRITICAL: Validate that we have both required elements
+                        # If no dialogue was extracted via JSON but we have a response, extract and parse for moves
+                        if not dialogue:
+                            # Use the full response as dialogue and try to extract moves from it
+                            dialogue = resp
+
+                        # Try to extract move from the dialogue if no JSON move was found
+                        if not move_notation and dialogue:
+                            # Enhanced move extraction from text
+                            import re
+                            # Look for potential chess moves in the dialogue
+                            potential_moves = re.findall(r'\b([KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|[a-h][1-8]|O-O(?:-O)?)\b', dialogue)
+
+                            # Use first potential move that seems to be in a move-making context
+                            for potential_move in potential_moves:
+                                # Check if this potential move is in a context that suggests it's an immediate move
+                                # Look for words that indicate the current move
+                                if re.search(r'(?:I\s+will|my\s+move|move\s+is|I\s+move|I\s+play|I\s+choose|playing|dropping|placing|advancing|moving|going\s+to|making)\s+(?:the\s+move|a\s+move|my\s+move|to|on)\s*' + re.escape(potential_move) + r'\b', dialogue, re.IGNORECASE):
+                                    move_notation = potential_move
+                                    break
+                                elif re.search(r'\b(?:move|play|go)\s+' + re.escape(potential_move) + r'\b', dialogue, re.IGNORECASE):
+                                    move_notation = potential_move
+                                    break
+
+                            # If we found a move in the dialogue, extract just the dialogue part without the move
+                            if move_notation:
+                                dialogue = re.sub(r'\b' + re.escape(move_notation) + r'\b', '', dialogue).strip()
+                                dialogue = re.sub(r'\s+', ' ', dialogue).strip()
+
                         if dialogue:
                             print(f"💬 Dialogue: {dialogue}")
                         else:

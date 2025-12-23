@@ -1549,81 +1549,43 @@ Think carefully and respond in the EXACT JSON format specified above.
                         chess_history.append({'name': current_char['name'], 'content': resp})
                         print(resp)
 
-                        # Parse the JSON response - CRITICAL that we get both dialogue and move
+                        # Parse the JSON response - ENFORCE the exact JSON format or the game stalls
                         import json
                         import re
 
-                        # First try to extract JSON using regex patterns
-                        json_pattern = r'\{[^{}]*("dialogue"[^{}]*:[^{},]*[^{}]*("move")[^{}]*:[^{},]*[^{}]*)\}'
-                        json_matches = re.findall(json_pattern, resp, re.DOTALL)
-
+                        # ENFORCEMENT: Only accept properly formatted JSON with BOTH required fields
                         dialogue = ""
                         move_notation = ""
                         board_state = ""
 
-                        # Find a properly formatted JSON with both dialogue and move fields
-                        for json_str in resp.split('\n'):
-                            # Look for JSON-like structure
-                            if '{' in json_str and '}' in json_str:
-                                # Try to extract potential JSON
-                                potential_json = re.search(r'\{.*\}', json_str)
-                                if potential_json:
-                                    try:
-                                        parsed_json = json.loads(potential_json.group(0))
-                                        if 'dialogue' in parsed_json and 'move' in parsed_json:
-                                            dialogue = parsed_json['dialogue']
-                                            move_notation = parsed_json['move'].strip()
-                                            board_state = parsed_json.get('board_state', parsed_json.get('game_state', ''))
-                                            break  # Found a valid JSON with required fields
-                                    except json.JSONDecodeError:
-                                        continue
+                        # Look for JSON objects in the response
+                        json_pattern = r'(\{[^{}]*("dialogue"|\'dialogue\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*,*[^{}]*("move"|\'move\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*\})'
+                        matches = re.findall(json_pattern, resp, re.DOTALL)
 
-                        # If still no proper JSON found, try to identify if response has both parts separately
-                        if not dialogue and not move_notation:
-                            # Check if the response contains both dialogue and move elements, even if not in JSON
-                            # Look for typical move patterns: words like "e4", "Nf3", "O-O", etc.
-                            move_pattern = r'([KQRBN]?[a-h][1-8]|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8][+#]?|O-O(?:-O)?)'
-                            potential_moves = re.findall(move_pattern, resp)
+                        # Process JSON matches looking for both required fields
+                        for match_tuple in matches:
+                            try:
+                                json_str = match_tuple[0].strip()
+                                parsed_json = json.loads(json_str)
 
-                            # If we find a potential move and the response is in a chess context,
-                            # extract the move and use the rest as dialogue
-                            if potential_moves:
-                                # Look for moves in contexts that indicate immediate intent (not historical reference)
-                                # Check if the move appears in phrases that suggest the AI is making a move NOW
-                                for potential_move in potential_moves:
-                                    # Contexts that indicate an immediate move action
-                                    immediate_contexts = [
-                                        r'(?:I\s+will\s+move|I\s+move|I\s+should\s+move|I\s+plan\s+to|my\s+move\s+is|I\s+choose\s+to\s+move|I\s+make\s+the\s+move|I\s+decide\s+to|I\s+play|I\s+play\s+to|I\s+go\s+with|I\s+go\s+for|my\s+move\s+this\s+turn|this\s+turn\s+I\s+|now\s+I\s+)',
-                                        # Also check for explicit move number indicators like "1. e4" or "My move: e4"
-                                        rf'(?:move\s+\d+\s*[:.]\s*|My\s+move[:.]?\s+|Move[:.]?\s+\d+\s*[:.]\s*){re.escape(potential_move)}',
-                                        rf'(?:\d+\.\s*)?{re.escape(potential_move)}\s+(?:is|will\s+be|should\s+be|is\s+my|is\s+the)'
-                                    ]
+                                # CRITICAL: Both fields must exist and be non-empty
+                                dialogue_val = parsed_json.get('dialogue', '')
+                                move_val = parsed_json.get('move', '').strip()
 
-                                    for context_pattern in immediate_contexts:
-                                        if re.search(context_pattern, resp, re.IGNORECASE):
-                                            dialogue = re.sub(r'\b' + re.escape(potential_move) + r'\b', '', resp).strip()
-                                            dialogue = re.sub(r'\s+', ' ', dialogue).strip()
-                                            move_notation = potential_move
-                                            break
-                                    if move_notation:  # Break outer loop if we found a move
-                                        break
+                                if dialogue_val.strip() and move_val.strip():
+                                    dialogue = dialogue_val.strip()
+                                    move_notation = move_val.strip()
+                                    board_state = parsed_json.get('board_state', parsed_json.get('game_state', ''))
+                                    break  # Found valid JSON with required fields
+                            except json.JSONDecodeError:
+                                continue  # Try next potential JSON
 
-                                # Only use fallback if no contextual indicator was found but there's a likely move
-                                if not move_notation and len(potential_moves) > 0:
-                                    # Check for clear chess game context words in the response
-                                    chess_indicators = ['chess', 'game', 'position', 'board', 'king', 'queen', 'rook', 'pawn', 'bishop', 'knight', 'move', 'strategy']
-                                    has_chess_context = any(indicator in resp.lower() for indicator in chess_indicators)
-
-                                    # Look for discussion vs move-intent words to differentiate
-                                    discussion_words = ['circling', 'around', 'without', 'saying', 'important', 'like', 'think', 'consider', 'perhaps', 'maybe', 'might', 'could', 'seems', 'appears', 'feels', 'seem', 'appear', 'feel']
-                                    has_discussion = any(word in resp.lower() for word in discussion_words)
-
-                                    # Only extract move if chess context is strong and discussion is weak
-                                    if has_chess_context and not has_discussion:
-                                        extracted_move = potential_moves[0]  # Use first move found
-                                        dialogue = resp.replace(extracted_move, '').strip()
-                                        dialogue = re.sub(r'\s+', ' ', dialogue).strip()
-                                        move_notation = extracted_move
+                        # ENFORCEMENT: If no valid JSON found with both required fields, do NOT extract from plain text
+                        # This enforces the strict contract - AI must provide proper JSON or move fails
+                        if not (dialogue and move_notation):
+                            dialogue = ""
+                            move_notation = ""
+                            board_state = ""
 
                         # CRITICAL: Validate that we have both required elements
                         # If no dialogue was extracted via JSON but we have a response, extract and parse for moves
@@ -1649,20 +1611,13 @@ Think carefully and respond in the EXACT JSON format specified above.
                                     move_notation = potential_move
                                     break
 
-                            # If we found a move in the dialogue, extract just the dialogue part without the move
-                            if move_notation:
-                                dialogue = re.sub(r'\b' + re.escape(move_notation) + r'\b', '', dialogue).strip()
-                                dialogue = re.sub(r'\s+', ' ', dialogue).strip()
-
-                        if dialogue:
+                        # ENFORCEMENT: Strict validation that both required elements exist
+                        if dialogue and move_notation:
                             print(f"💬 Dialogue: {dialogue}")
-                        else:
-                            print(f"⚠️  No dialogue extracted from response")
-
-                        if move_notation:
                             print(f"🔍 Move detected: {move_notation}")
                         else:
-                            print(f"⚠️  No move detected in response")
+                            print(f"❌ No valid JSON with both 'dialogue' and 'move' fields found")
+                            print(f"⚠️  CRITICAL: Proper JSON format required: {{\"dialogue\": \"text\", \"move\": \"e4\"}}")
 
                         # Track consecutive failed moves to prevent infinite loops
                         if not hasattr(chess_game, 'consecutive_failed_moves'):
@@ -1670,29 +1625,54 @@ Think carefully and respond in the EXACT JSON format specified above.
                         if not hasattr(chess_game, 'last_failed_move'):
                             chess_game.last_failed_move = {'white': '', 'black': ''}
 
-                        # Track if a real move was successfully processed in this turn
-                        move_was_processed = False
+                        # CRITICAL: Validate both required elements exist - enforce JSON contract
+                        if not dialogue or not move_notation:
+                            print(f"⚠️  CRITICAL: No valid JSON with both 'dialogue' and 'move' fields provided")
+                            # Add contract enforcement feedback to history
+                            feedback = f"CONTRACT VIOLATION: You MUST provide a properly formatted JSON response with both 'dialogue' and 'move' fields. Format: {{\"dialogue\": \"your thoughts\", \"move\": \"e4\", \"board_state\": \"optional\"}}. Failure to comply results in turn advancement without move processing."
+                            chess_history.append({'name': 'Referee', 'content': feedback})
 
-                        # Attempt to make the chess move if notation is provided
-                        if move_notation:
-                            # Try to parse the move notation
-                            success, from_pos, to_pos = parse_move_notation(move_notation, chess_game, current_char['chess_color'])
+                            # Increment consecutive failed moves counter for format violations
+                            chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
+                            chess_game.last_failed_move[current_char['chess_color']] = 'INVALID_FORMAT'
 
-                            if success and from_pos and to_pos:
-                                move_success = chess_game.make_move(from_pos, to_pos)
-                                if move_success:
-                                    print(f"✅ Move successfully made: {chess_game.move_history[-1] if chess_game.move_history else move_notation}")
-                                    turn += 1  # Move was successful, increment turn
-                                    chess_turn += 1  # Also increment chess turn
-                                    move_was_processed = True
-                                    # Reset consecutive failed moves for this player
-                                    chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
-                                    chess_game.last_failed_move[current_char['chess_color']] = ''
-                                else:
-                                    print(f"❌ Move failed - illegal move attempted: {move_notation}")
-                                    # Add feedback to history
-                                    feedback = f"Your move '{move_notation}' was invalid or illegal. Please try again with a valid chess move from the current position. REMEMBER: You must respond in proper JSON format with both 'dialogue' and 'move' fields."
-                                    chess_history.append({'name': 'Referee', 'content': feedback})
+                            # ENFORCEMENT: If too many format violations, advance to next player to prevent infinite loops
+                            if chess_game.consecutive_failed_moves[current_char['chess_color']] >= 2:  # Reduce to 2 for faster recovery
+                                print(f"⚠️  {current_char['name']} has violated the JSON format requirement {chess_game.consecutive_failed_moves[current_char['chess_color']]} times. Moving to next player to prevent infinite loop.")
+                                # ALSO switch the current player in the chess game object to ensure the game state progresses correctly
+                                chess_game.current_player = 'black' if chess_game.current_player == 'white' else 'white'
+                                turn += 1  # Force increment to prevent infinite loops
+                                move_was_processed = True
+                                chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                chess_game.last_failed_move[current_char['chess_color']] = ''
+                            else:
+                                # Same player gets another chance but turn advances anyway to prevent infinite loop
+                                move_was_processed = False
+                                turn += 1
+                        else:
+                            # Track if a real move was successfully processed in this turn
+                            move_was_processed = False
+
+                            # Attempt to make the chess move if notation is provided (it should be if we passed validation)
+                            if move_notation:
+                                # Try to parse the move notation
+                                success, from_pos, to_pos = parse_move_notation(move_notation, chess_game, current_char['chess_color'])
+
+                                if success and from_pos and to_pos:
+                                    move_success = chess_game.make_move(from_pos, to_pos)
+                                    if move_success:
+                                        print(f"✅ Move successfully made: {chess_game.move_history[-1] if chess_game.move_history else move_notation}")
+                                        turn += 1  # Move was successful, increment turn
+                                        chess_turn += 1  # Also increment chess turn
+                                        move_was_processed = True
+                                        # Reset consecutive failed moves for this player
+                                        chess_game.consecutive_failed_moves[current_char['chess_color']] = 0
+                                        chess_game.last_failed_move[current_char['chess_color']] = ''
+                                    else:
+                                        print(f"❌ Move failed - illegal move attempted: {move_notation}")
+                                        # Add feedback to history
+                                        feedback = f"Your move '{move_notation}' was invalid or illegal. Please try again with a valid chess move from the current position. REMEMBER: You must respond in proper JSON format with both 'dialogue' and 'move' fields."
+                                        chess_history.append({'name': 'Referee', 'content': feedback})
                                     # Increment consecutive failed moves counter
                                     chess_game.consecutive_failed_moves[current_char['chess_color']] += 1
                                     chess_game.last_failed_move[current_char['chess_color']] = move_notation

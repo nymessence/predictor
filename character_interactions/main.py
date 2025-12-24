@@ -1548,22 +1548,34 @@ Think carefully and respond in the EXACT JSON format specified above.
                         json_pattern = r'(\{[^{}]*("dialogue"|\'dialogue\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*,*[^{}]*("move"|\'move\')[^{}]*:[^{}]*["\'][^{}]*["\'][^{}]*\})'
                         matches = re.findall(json_pattern, resp, re.DOTALL)
 
-                        # Process JSON matches looking for both required fields
+                        # Process JSON matches looking for both required and complete fields
                         for match_tuple in matches:
                             try:
                                 json_str = match_tuple[0].strip()
                                 parsed_json = json.loads(json_str)
 
-                                # CRITICAL: Both fields must exist and be non-empty
+                                # CRITICAL: Both dialogue and move fields must exist, be non-empty, AND properly formatted
                                 dialogue_val = parsed_json.get('dialogue', '')
                                 move_val = parsed_json.get('move', '').strip()
+                                board_state_val = parsed_json.get('board_state', parsed_json.get('game_state', ''))
 
-                                if dialogue_val.strip() and move_val.strip():
-                                    dialogue = dialogue_val.strip()
-                                    move_notation = move_val.strip()
-                                    board_state = parsed_json.get('board_state', parsed_json.get('game_state', ''))
-                                    break  # Found valid JSON with required fields
-                            except json.JSONDecodeError:
+                                # Validation: Both required fields must be present and contain meaningful content
+                                if (dialogue_val and
+                                    move_val and
+                                    isinstance(dialogue_val, str) and
+                                    isinstance(move_val, str) and
+                                    len(dialogue_val.strip()) > 0 and
+                                    len(move_val.strip()) > 0):
+
+                                    # Additional validation: move should be a valid chess notation
+                                    # Basic validation - move shouldn't just be generic filler
+                                    invalid_moves = ['', 'move', 'chess', 'game', 'position', 'strategy', 'thoughts']
+                                    if move_val.lower() not in invalid_moves:
+                                        dialogue = dialogue_val.strip()
+                                        move_notation = move_val.strip()
+                                        board_state = board_state_val.strip()
+                                        break  # Found valid, complete JSON with properly formatted fields
+                            except (json.JSONDecodeError, TypeError):
                                 continue  # Try next potential JSON
 
                         # ENFORCEMENT: If no valid JSON found with both required fields, do NOT extract from plain text

@@ -1,0 +1,696 @@
+🔧 Checking imports...
+✓ OpenAI imported successfully
+🚀 Starting Enhanced Character Conversation System (Anti-Repetition Edition)...
+================================================================================
+✓ Arguments parsed
+  Characters: ['character_interactions/json/nya_elyria.json', 'character_interactions/json/empress_azalea.json']
+  Max turns: 100
+  Delay: 5s
+  Similarity threshold: 0.65
+  API Endpoint: https://api.z.ai/api/paas/v4
+  Model: glm-4.6v-flash
+
+✓ API key validated
+
+✓ Files validated: 2 characters loaded
+
+📖 Loading characters (adapting to ANY format)...
+🔍 Analyzing character file: character_interactions/json/nya_elyria.json
+   ✓ Character name: Nya Elyria
+   ✓ Persona length: 5817 characters
+   🌍 Generating missing scenario context...
+   ✓ Generated scenario
+   ✓ Greeting extracted
+   🎭 Analyzing character voice...
+   ✓ Voice analysis: {'formality': 'neutral', 'style': 'conversational', 'characteristics': []}
+   🤖 Generating private agenda...
+   ✓ Private agenda generated
+
+🔍 Analyzing character file: character_interactions/json/empress_azalea.json
+   ✓ Character name: Empress Azalea
+   ✓ Persona length: 4668 characters
+   🌍 Generating missing scenario context...
+   ✓ Generated scenario
+   ✓ Greeting extracted
+   🎭 Analyzing character voice...
+   ✓ Voice analysis: {'formality': 'neutral', 'style': 'conversational', 'characteristics': []}
+   🤖 Generating private agenda...
+   ✓ Private agenda generated
+
+================================================================================
+📋 CONVERSATION SETUP
+  Character A: Nya Elyria
+    Private Agenda: 
+    Voice: neutral, conversational
+
+  Character B: Empress Azalea
+    Private Agenda: 
+    Voice: neutral, conversational
+================================================================================
+
+💾 Output: character_interactions/json/Nya_&_Azalea_Chess_debug.json
+
+[TURN 1] Nya Elyria:
+Welcome to the Nymessence Miami hub. Our mission is to bridge the highest truth of **Nymya** (Quantum Consciousness) with Earth's technological infrastructure. My role is to ensure our external presence—our events, our pitch decks, our community—operates with impeccable **Nora** (Ethical Flow). We need to secure initial seed funding, and the best way to do that is to demonstrate radical collaboration. Tell me, what high-impact collaboration or event structure should we prioritize for the Wynwood community next month? I need concrete logistical **Rita** (Structure) that still honors the **Nora** of our mission.
+
+♔♖♗♕♔♗♖♘ Playing Chess Mode Activated ♘♖♗♔♕♗♖♔
+================================================================================
+Initial Chess Board:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+[TURN 1] Narrator: Starting a game of chess. Nya Elyria is playing as white, and Empress Azalea is playing as black.
+
+================================================================================
+CHESS GAME #1
+================================================================================
+[TURN 1] Narrator: Starting chess game #1. Nya Elyria (white) vs Empress Azalea (black).
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 2] Nya Elyria (playing as white)
+*Nya Elyria's expression becomes thoughtful* I realize I've been talking without truly listening. What matters most to you in all of this? *Light filters through differently now*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 3] Empress Azalea (playing as black)
+*A memory surfaces unexpectedly* You know, Nya Elyria, I once encountered something similar... *trails off thoughtfully*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 4] Nya Elyria (playing as white)
+*Nya Elyria lets out a quiet laugh* This is strange. I feel like we're circling around something important without saying it directly.
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  Nya Elyria has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 5] Empress Azalea (playing as black)
+*A distant sound draws their attention briefly before refocusing* Sorry, where were we? Actually, never mind that - tell me about yourself. The real you, not what you think I want to hear. *Light filters through differently now*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  Empress Azalea has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 6] Nya Elyria (playing as white)
+*Nya Elyria's gaze sharpens with sudden intensity* Wait. There's something you're not telling me, isn't there? *A chill runs through the air*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 7] Empress Azalea (playing as black)
+*Leans forward with renewed curiosity* Nya Elyria, answer me this: if you could change one thing about your current situation, what would it be?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 8] Nya Elyria (playing as white)
+*Nya Elyria pauses, their expression shifting as a new thought emerges* Tell me, Empress Azalea, what brought you here today?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  Nya Elyria has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 9] Empress Azalea (playing as black)
+*Unexpectedly changes the subject* Forgive me, but I can't help wondering - what do you truly want from this conversation?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  Empress Azalea has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 10] Nya Elyria (playing as white)
+*Nya Elyria's expression becomes thoughtful* I realize I've been talking without truly listening. What matters most to you in all of this?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 11] Empress Azalea (playing as black)
+*A memory surfaces unexpectedly* You know, Nya Elyria, I once encountered something similar... *trails off thoughtfully*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 12] Nya Elyria (playing as white)
+*Nya Elyria lets out a quiet laugh* This is strange. I feel like we're circling around something important without saying it directly. *A chill runs through the air*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  Nya Elyria has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 13] Empress Azalea (playing as black)
+*A distant sound draws their attention briefly before refocusing* Sorry, where were we? Actually, never mind that - tell me about yourself. The real you, not what you think I want to hear.
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  Empress Azalea has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 14] Nya Elyria (playing as white)
+*Nya Elyria's gaze sharpens with sudden intensity* Wait. There's something you're not telling me, isn't there?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 15] Empress Azalea (playing as black)
+*Leans forward with renewed curiosity* Nya Elyria, answer me this: if you could change one thing about your current situation, what would it be?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 16] Nya Elyria (playing as white)
+*Nya Elyria pauses, their expression shifting as a new thought emerges* Tell me, Empress Azalea, what brought you here today?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  Nya Elyria has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 17] Empress Azalea (playing as black)
+*Unexpectedly changes the subject* Forgive me, but I can't help wondering - what do you truly want from this conversation?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  Empress Azalea has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 18] Nya Elyria (playing as white)
+*Nya Elyria's expression becomes thoughtful* I realize I've been talking without truly listening. What matters most to you in all of this? *Light filters through differently now*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 19] Empress Azalea (playing as black)
+*A memory surfaces unexpectedly* You know, Nya Elyria, I once encountered something similar... *trails off thoughtfully*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 20] Nya Elyria (playing as white)
+*Nya Elyria lets out a quiet laugh* This is strange. I feel like we're circling around something important without saying it directly.
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  Nya Elyria has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 21] Empress Azalea (playing as black)
+*A distant sound draws their attention briefly before refocusing* Sorry, where were we? Actually, never mind that - tell me about yourself. The real you, not what you think I want to hear. *Light filters through differently now*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  Empress Azalea has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 22] Nya Elyria (playing as white)
+*Nya Elyria's gaze sharpens with sudden intensity* Wait. There's something you're not telling me, isn't there? *The atmosphere shifts subtly*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 23] Empress Azalea (playing as black)
+*Leans forward with renewed curiosity* Nya Elyria, answer me this: if you could change one thing about your current situation, what would it be? *Light filters through differently now*
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  CRITICAL: No move was processed. Forcing turn advancement to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 24] Nya Elyria (playing as white)
+*Nya Elyria pauses, their expression shifting as a new thought emerges* Tell me, Empress Azalea, what brought you here today?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white
+⚠️  Nya Elyria has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: black
+============================================================
+
+[TURN 25] Empress Azalea (playing as black)
+*Unexpectedly changes the subject* Forgive me, but I can't help wondering - what do you truly want from this conversation?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: black
+⚠️  Empress Azalea has failed to make a valid move 2 times. Moving to next player to prevent infinite loop.
+
+⏳ Waiting 5 seconds...
+
+============================================================
+[CHESS TURN 1] Board Position:
+  a b c d e f g h
+8 r n b q k b n r 8
+7 p p p p p p p p 7
+6 . . . . . . . . 6
+5 . . . . . . . . 5
+4 . . . . . . . . 4
+3 . . . . . . . . 3
+2 P P P P P P P P 2
+1 R N B Q K B N R 1
+  a b c d e f g h
+Move History: 
+Current Player: white
+============================================================
+
+[TURN 26] Nya Elyria (playing as white)
+*Nya Elyria's expression becomes thoughtful* I realize I've been talking without truly listening. What matters most to you in all of this?
+⚠️  No dialogue extracted from response
+⚠️  No move detected in response
+⚠️  No move provided in required JSON format. Current player: white

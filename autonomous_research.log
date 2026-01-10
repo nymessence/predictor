@@ -300,3 +300,1591 @@
 2026-01-10 01:45:26,131 - WARNING - Candidate 3 generation failed for free_speech in February 2026
 2026-01-10 01:45:41,212 - INFO - Generating prediction for activist_movements in February 2026
 2026-01-10 01:45:41,212 - INFO - Generating candidate 1/3 for activist_movements in February 2026
+2026-01-10 01:46:00,217 - WARNING - Candidate 1 generation failed for activist_movements in February 2026
+2026-01-10 01:46:02,220 - INFO - Generating candidate 2/3 for activist_movements in February 2026
+2026-01-10 01:46:19,198 - INFO - Generating candidate 3/3 for activist_movements in February 2026
+2026-01-10 01:46:56,059 - INFO - Generating prediction for censorship in February 2026
+2026-01-10 01:46:56,060 - INFO - Generating candidate 1/3 for censorship in February 2026
+2026-01-10 01:47:12,018 - INFO - Generating candidate 2/3 for censorship in February 2026
+2026-01-10 01:47:27,330 - WARNING - Candidate 2 generation failed for censorship in February 2026
+2026-01-10 01:47:29,333 - INFO - Generating candidate 3/3 for censorship in February 2026
+2026-01-10 01:48:17,161 - INFO - Generating prediction for geopolitical_rights in February 2026
+2026-01-10 01:48:17,161 - INFO - Generating candidate 1/3 for geopolitical_rights in February 2026
+2026-01-10 01:48:30,585 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 01:48:30,586 - ERROR - Invalid API response: None
+2026-01-10 01:48:30,586 - WARNING - Candidate 1 generation failed for geopolitical_rights in February 2026
+2026-01-10 01:48:32,588 - INFO - Generating candidate 2/3 for geopolitical_rights in February 2026
+2026-01-10 01:48:48,531 - WARNING - Candidate 2 generation failed for geopolitical_rights in February 2026
+2026-01-10 01:48:50,533 - INFO - Generating candidate 3/3 for geopolitical_rights in February 2026
+2026-01-10 01:49:14,646 - WARNING - Candidate 3 generation failed for geopolitical_rights in February 2026
+2026-01-10 01:49:19,648 - INFO - Generating prediction for misc_topics in February 2026
+2026-01-10 01:49:19,649 - INFO - Generating candidate 1/3 for misc_topics in February 2026
+2026-01-10 01:49:35,009 - WARNING - Candidate 1 generation failed for misc_topics in February 2026
+2026-01-10 01:49:37,011 - INFO - Generating candidate 2/3 for misc_topics in February 2026
+2026-01-10 01:50:13,546 - INFO - Generating candidate 3/3 for misc_topics in February 2026
+2026-01-10 01:50:30,206 - WARNING - Candidate 3 generation failed for misc_topics in February 2026
+2026-01-10 01:50:35,209 - INFO - Completed predictions for February 2026
+2026-01-10 01:50:35,216 - INFO - Processing predictions for March 2026
+2026-01-10 01:50:35,216 - INFO - Generating prediction for sustainability in March 2026
+2026-01-10 01:50:35,217 - INFO - Generating candidate 1/3 for sustainability in March 2026
+2026-01-10 01:50:54,644 - INFO - Generating candidate 2/3 for sustainability in March 2026
+2026-01-10 01:51:10,553 - WARNING - Candidate 2 generation failed for sustainability in March 2026
+2026-01-10 01:51:12,555 - INFO - Generating candidate 3/3 for sustainability in March 2026
+2026-01-10 01:51:52,454 - INFO - Generating prediction for quantum_computing in March 2026
+2026-01-10 01:51:52,454 - INFO - Generating candidate 1/3 for quantum_computing in March 2026
+2026-01-10 01:52:12,435 - INFO - Generating candidate 2/3 for quantum_computing in March 2026
+2026-01-10 01:52:42,507 - INFO - Generating candidate 3/3 for quantum_computing in March 2026
+2026-01-10 01:53:31,676 - INFO - Generating prediction for spiritual_movements in March 2026
+2026-01-10 01:53:31,677 - INFO - Generating candidate 1/3 for spiritual_movements in March 2026
+2026-01-10 01:53:55,083 - INFO - Generating candidate 2/3 for spiritual_movements in March 2026
+2026-01-10 01:54:16,584 - INFO - Generating candidate 3/3 for spiritual_movements in March 2026
+2026-01-10 01:54:33,350 - WARNING - Candidate 3 generation failed for spiritual_movements in March 2026
+2026-01-10 01:54:53,489 - INFO - Generating prediction for future_ai in March 2026
+2026-01-10 01:54:53,490 - INFO - Generating candidate 1/3 for future_ai in March 2026
+2026-01-10 01:55:19,317 - INFO - Generating candidate 2/3 for future_ai in March 2026
+2026-01-10 01:55:39,815 - INFO - Generating candidate 3/3 for future_ai in March 2026
+2026-01-10 01:56:09,071 - INFO - Generating prediction for geopolitics in March 2026
+2026-01-10 01:56:09,071 - INFO - Generating candidate 1/3 for geopolitics in March 2026
+2026-01-10 01:56:31,415 - WARNING - Candidate 1 generation failed for geopolitics in March 2026
+2026-01-10 01:56:33,417 - INFO - Generating candidate 2/3 for geopolitics in March 2026
+2026-01-10 01:56:55,590 - WARNING - Candidate 2 generation failed for geopolitics in March 2026
+2026-01-10 01:56:57,592 - INFO - Generating candidate 3/3 for geopolitics in March 2026
+2026-01-10 01:57:18,613 - INFO - Generating prediction for trump_maga in March 2026
+2026-01-10 01:57:18,613 - INFO - Generating candidate 1/3 for trump_maga in March 2026
+2026-01-10 01:57:37,171 - INFO - Generating candidate 2/3 for trump_maga in March 2026
+2026-01-10 01:58:02,066 - INFO - Generating candidate 3/3 for trump_maga in March 2026
+2026-01-10 01:59:02,250 - INFO - Generating prediction for ai_jobs in March 2026
+2026-01-10 01:59:02,250 - INFO - Generating candidate 1/3 for ai_jobs in March 2026
+2026-01-10 01:59:17,581 - WARNING - Candidate 1 generation failed for ai_jobs in March 2026
+2026-01-10 01:59:19,583 - INFO - Generating candidate 2/3 for ai_jobs in March 2026
+2026-01-10 01:59:35,611 - INFO - Generating candidate 3/3 for ai_jobs in March 2026
+2026-01-10 02:00:07,663 - INFO - Generating prediction for ai_global_comparison in March 2026
+2026-01-10 02:00:07,663 - INFO - Generating candidate 1/3 for ai_global_comparison in March 2026
+2026-01-10 02:00:43,646 - INFO - Generating candidate 2/3 for ai_global_comparison in March 2026
+2026-01-10 02:01:01,782 - INFO - Generating candidate 3/3 for ai_global_comparison in March 2026
+2026-01-10 02:01:18,277 - WARNING - Candidate 3 generation failed for ai_global_comparison in March 2026
+2026-01-10 02:01:43,028 - INFO - Generating prediction for cryptocurrency in March 2026
+2026-01-10 02:01:43,028 - INFO - Generating candidate 1/3 for cryptocurrency in March 2026
+2026-01-10 02:02:07,450 - INFO - Generating candidate 2/3 for cryptocurrency in March 2026
+2026-01-10 02:02:26,103 - INFO - Generating candidate 3/3 for cryptocurrency in March 2026
+2026-01-10 02:02:42,695 - WARNING - Candidate 3 generation failed for cryptocurrency in March 2026
+2026-01-10 02:03:00,912 - INFO - Generating prediction for capitalism in March 2026
+2026-01-10 02:03:00,912 - INFO - Generating candidate 1/3 for capitalism in March 2026
+2026-01-10 02:03:20,419 - INFO - Generating candidate 2/3 for capitalism in March 2026
+2026-01-10 02:03:38,900 - INFO - Generating candidate 3/3 for capitalism in March 2026
+2026-01-10 02:03:55,851 - WARNING - Candidate 3 generation failed for capitalism in March 2026
+2026-01-10 02:04:12,209 - INFO - Generating prediction for free_speech in March 2026
+2026-01-10 02:04:12,210 - INFO - Generating candidate 1/3 for free_speech in March 2026
+2026-01-10 02:04:30,254 - INFO - Generating candidate 2/3 for free_speech in March 2026
+2026-01-10 02:04:50,800 - INFO - Generating candidate 3/3 for free_speech in March 2026
+2026-01-10 02:05:23,421 - INFO - Generating prediction for activist_movements in March 2026
+2026-01-10 02:05:23,421 - INFO - Generating candidate 1/3 for activist_movements in March 2026
+2026-01-10 02:05:40,633 - INFO - Generating candidate 2/3 for activist_movements in March 2026
+2026-01-10 02:05:52,598 - INFO - Generating candidate 3/3 for activist_movements in March 2026
+2026-01-10 02:06:34,080 - INFO - Generating prediction for censorship in March 2026
+2026-01-10 02:06:34,080 - INFO - Generating candidate 1/3 for censorship in March 2026
+2026-01-10 02:06:53,982 - INFO - Generating candidate 2/3 for censorship in March 2026
+2026-01-10 02:07:12,744 - INFO - Generating candidate 3/3 for censorship in March 2026
+2026-01-10 02:07:55,091 - INFO - Generating prediction for geopolitical_rights in March 2026
+2026-01-10 02:07:55,091 - INFO - Generating candidate 1/3 for geopolitical_rights in March 2026
+2026-01-10 02:08:17,650 - INFO - Generating candidate 2/3 for geopolitical_rights in March 2026
+2026-01-10 02:08:44,931 - INFO - Generating candidate 3/3 for geopolitical_rights in March 2026
+2026-01-10 02:09:27,668 - INFO - Generating prediction for misc_topics in March 2026
+2026-01-10 02:09:27,668 - INFO - Generating candidate 1/3 for misc_topics in March 2026
+2026-01-10 02:09:43,114 - WARNING - Candidate 1 generation failed for misc_topics in March 2026
+2026-01-10 02:09:45,117 - INFO - Generating candidate 2/3 for misc_topics in March 2026
+2026-01-10 02:10:04,159 - INFO - Generating candidate 3/3 for misc_topics in March 2026
+2026-01-10 02:10:28,770 - INFO - Completed predictions for March 2026
+2026-01-10 02:10:28,770 - INFO - Processing predictions for April 2026
+2026-01-10 02:10:28,770 - INFO - Generating prediction for sustainability in April 2026
+2026-01-10 02:10:28,770 - INFO - Generating candidate 1/3 for sustainability in April 2026
+2026-01-10 02:10:46,225 - WARNING - Candidate 1 generation failed for sustainability in April 2026
+2026-01-10 02:10:48,227 - INFO - Generating candidate 2/3 for sustainability in April 2026
+2026-01-10 02:11:07,169 - INFO - Generating candidate 3/3 for sustainability in April 2026
+2026-01-10 02:11:46,334 - INFO - Generating prediction for quantum_computing in April 2026
+2026-01-10 02:11:46,334 - INFO - Generating candidate 1/3 for quantum_computing in April 2026
+2026-01-10 02:12:03,046 - WARNING - Candidate 1 generation failed for quantum_computing in April 2026
+2026-01-10 02:12:05,048 - INFO - Generating candidate 2/3 for quantum_computing in April 2026
+2026-01-10 02:12:27,169 - WARNING - Candidate 2 generation failed for quantum_computing in April 2026
+2026-01-10 02:12:29,172 - INFO - Generating candidate 3/3 for quantum_computing in April 2026
+2026-01-10 02:12:49,333 - WARNING - Candidate 3 generation failed for quantum_computing in April 2026
+2026-01-10 02:12:54,336 - INFO - Generating prediction for spiritual_movements in April 2026
+2026-01-10 02:12:54,336 - INFO - Generating candidate 1/3 for spiritual_movements in April 2026
+2026-01-10 02:13:16,386 - INFO - Generating candidate 2/3 for spiritual_movements in April 2026
+2026-01-10 02:13:33,377 - WARNING - Candidate 2 generation failed for spiritual_movements in April 2026
+2026-01-10 02:13:35,379 - INFO - Generating candidate 3/3 for spiritual_movements in April 2026
+2026-01-10 02:14:10,779 - INFO - Generating prediction for future_ai in April 2026
+2026-01-10 02:14:10,779 - INFO - Generating candidate 1/3 for future_ai in April 2026
+2026-01-10 02:14:30,223 - INFO - Generating candidate 2/3 for future_ai in April 2026
+2026-01-10 02:14:48,238 - WARNING - Candidate 2 generation failed for future_ai in April 2026
+2026-01-10 02:14:50,240 - INFO - Generating candidate 3/3 for future_ai in April 2026
+2026-01-10 02:15:21,657 - INFO - Generating prediction for geopolitics in April 2026
+2026-01-10 02:15:21,658 - INFO - Generating candidate 1/3 for geopolitics in April 2026
+2026-01-10 02:15:39,213 - WARNING - Candidate 1 generation failed for geopolitics in April 2026
+2026-01-10 02:15:41,215 - INFO - Generating candidate 2/3 for geopolitics in April 2026
+2026-01-10 02:15:59,842 - INFO - Generating candidate 3/3 for geopolitics in April 2026
+2026-01-10 02:16:16,915 - WARNING - Candidate 3 generation failed for geopolitics in April 2026
+2026-01-10 02:16:21,916 - INFO - Generating prediction for trump_maga in April 2026
+2026-01-10 02:16:21,924 - INFO - Generating candidate 1/3 for trump_maga in April 2026
+2026-01-10 02:16:41,134 - INFO - Generating candidate 2/3 for trump_maga in April 2026
+2026-01-10 02:17:00,570 - INFO - Generating candidate 3/3 for trump_maga in April 2026
+2026-01-10 02:17:17,072 - WARNING - Candidate 3 generation failed for trump_maga in April 2026
+2026-01-10 02:17:34,912 - INFO - Generating prediction for ai_jobs in April 2026
+2026-01-10 02:17:34,912 - INFO - Generating candidate 1/3 for ai_jobs in April 2026
+2026-01-10 02:17:54,287 - INFO - Generating candidate 2/3 for ai_jobs in April 2026
+2026-01-10 02:18:11,911 - WARNING - Candidate 2 generation failed for ai_jobs in April 2026
+2026-01-10 02:18:13,914 - INFO - Generating candidate 3/3 for ai_jobs in April 2026
+2026-01-10 02:18:51,944 - INFO - Generating prediction for ai_global_comparison in April 2026
+2026-01-10 02:18:51,945 - INFO - Generating candidate 1/3 for ai_global_comparison in April 2026
+2026-01-10 02:19:12,095 - INFO - Generating candidate 2/3 for ai_global_comparison in April 2026
+2026-01-10 02:19:30,355 - INFO - Generating candidate 3/3 for ai_global_comparison in April 2026
+2026-01-10 02:20:18,208 - INFO - Generating prediction for cryptocurrency in April 2026
+2026-01-10 02:20:18,208 - INFO - Generating candidate 1/3 for cryptocurrency in April 2026
+2026-01-10 02:20:39,421 - INFO - Generating candidate 2/3 for cryptocurrency in April 2026
+2026-01-10 02:20:58,165 - WARNING - Candidate 2 generation failed for cryptocurrency in April 2026
+2026-01-10 02:21:00,168 - INFO - Generating candidate 3/3 for cryptocurrency in April 2026
+2026-01-10 02:21:41,583 - INFO - Generating prediction for capitalism in April 2026
+2026-01-10 02:21:41,584 - INFO - Generating candidate 1/3 for capitalism in April 2026
+2026-01-10 02:22:01,772 - INFO - Generating candidate 2/3 for capitalism in April 2026
+2026-01-10 02:22:30,000 - INFO - Generating candidate 3/3 for capitalism in April 2026
+2026-01-10 02:23:08,332 - INFO - Generating prediction for free_speech in April 2026
+2026-01-10 02:23:08,332 - INFO - Generating candidate 1/3 for free_speech in April 2026
+2026-01-10 02:23:28,756 - INFO - Generating candidate 2/3 for free_speech in April 2026
+2026-01-10 02:23:47,060 - INFO - Generating candidate 3/3 for free_speech in April 2026
+2026-01-10 02:24:35,383 - INFO - Generating prediction for activist_movements in April 2026
+2026-01-10 02:24:35,383 - INFO - Generating candidate 1/3 for activist_movements in April 2026
+2026-01-10 02:25:01,071 - INFO - Generating candidate 2/3 for activist_movements in April 2026
+2026-01-10 02:25:39,002 - INFO - Generating candidate 3/3 for activist_movements in April 2026
+2026-01-10 02:25:57,344 - WARNING - Candidate 3 generation failed for activist_movements in April 2026
+2026-01-10 02:26:18,287 - INFO - Generating prediction for censorship in April 2026
+2026-01-10 02:26:18,287 - INFO - Generating candidate 1/3 for censorship in April 2026
+2026-01-10 02:26:38,622 - INFO - Generating candidate 2/3 for censorship in April 2026
+2026-01-10 02:26:57,166 - WARNING - Candidate 2 generation failed for censorship in April 2026
+2026-01-10 02:26:59,168 - INFO - Generating candidate 3/3 for censorship in April 2026
+2026-01-10 02:27:40,194 - INFO - Generating prediction for geopolitical_rights in April 2026
+2026-01-10 02:27:40,194 - INFO - Generating candidate 1/3 for geopolitical_rights in April 2026
+2026-01-10 02:27:57,225 - WARNING - Candidate 1 generation failed for geopolitical_rights in April 2026
+2026-01-10 02:27:59,227 - INFO - Generating candidate 2/3 for geopolitical_rights in April 2026
+2026-01-10 02:28:30,498 - INFO - Generating candidate 3/3 for geopolitical_rights in April 2026
+2026-01-10 02:29:16,927 - INFO - Generating prediction for misc_topics in April 2026
+2026-01-10 02:29:16,927 - INFO - Generating candidate 1/3 for misc_topics in April 2026
+2026-01-10 02:29:45,226 - INFO - Generating candidate 2/3 for misc_topics in April 2026
+2026-01-10 02:30:06,705 - INFO - Generating candidate 3/3 for misc_topics in April 2026
+2026-01-10 02:30:41,871 - WARNING - Candidate 3 generation failed for misc_topics in April 2026
+2026-01-10 02:30:57,785 - INFO - Completed predictions for April 2026
+2026-01-10 02:30:57,785 - INFO - Processing predictions for May 2026
+2026-01-10 02:30:57,786 - INFO - Generating prediction for sustainability in May 2026
+2026-01-10 02:30:57,786 - INFO - Generating candidate 1/3 for sustainability in May 2026
+2026-01-10 02:31:24,498 - INFO - Generating candidate 2/3 for sustainability in May 2026
+2026-01-10 02:31:41,797 - WARNING - Candidate 2 generation failed for sustainability in May 2026
+2026-01-10 02:31:43,799 - INFO - Generating candidate 3/3 for sustainability in May 2026
+2026-01-10 02:32:25,920 - INFO - Generating prediction for quantum_computing in May 2026
+2026-01-10 02:32:25,920 - INFO - Generating candidate 1/3 for quantum_computing in May 2026
+2026-01-10 02:32:48,551 - INFO - Generating candidate 2/3 for quantum_computing in May 2026
+2026-01-10 02:33:13,152 - INFO - Generating candidate 3/3 for quantum_computing in May 2026
+2026-01-10 02:33:59,664 - INFO - Generating prediction for spiritual_movements in May 2026
+2026-01-10 02:33:59,664 - INFO - Generating candidate 1/3 for spiritual_movements in May 2026
+2026-01-10 02:34:32,282 - INFO - Generating candidate 2/3 for spiritual_movements in May 2026
+2026-01-10 02:34:56,808 - INFO - Generating candidate 3/3 for spiritual_movements in May 2026
+2026-01-10 02:35:38,903 - INFO - Generating prediction for future_ai in May 2026
+2026-01-10 02:35:38,903 - INFO - Generating candidate 1/3 for future_ai in May 2026
+2026-01-10 02:36:13,705 - INFO - Generating candidate 2/3 for future_ai in May 2026
+2026-01-10 02:36:40,940 - INFO - Generating candidate 3/3 for future_ai in May 2026
+2026-01-10 02:37:07,531 - WARNING - Candidate 3 generation failed for future_ai in May 2026
+2026-01-10 02:37:31,465 - INFO - Generating prediction for geopolitics in May 2026
+2026-01-10 02:37:31,465 - INFO - Generating candidate 1/3 for geopolitics in May 2026
+2026-01-10 02:38:02,438 - INFO - Generating candidate 2/3 for geopolitics in May 2026
+2026-01-10 02:38:27,487 - INFO - Generating candidate 3/3 for geopolitics in May 2026
+2026-01-10 02:38:57,739 - INFO - Generating prediction for trump_maga in May 2026
+2026-01-10 02:38:57,740 - INFO - Generating candidate 1/3 for trump_maga in May 2026
+2026-01-10 02:39:21,182 - INFO - Generating candidate 2/3 for trump_maga in May 2026
+2026-01-10 02:39:40,659 - INFO - Generating candidate 3/3 for trump_maga in May 2026
+2026-01-10 02:39:58,444 - WARNING - Candidate 3 generation failed for trump_maga in May 2026
+2026-01-10 02:40:24,392 - INFO - Generating prediction for ai_jobs in May 2026
+2026-01-10 02:40:24,392 - INFO - Generating candidate 1/3 for ai_jobs in May 2026
+2026-01-10 02:40:40,646 - WARNING - Candidate 1 generation failed for ai_jobs in May 2026
+2026-01-10 02:40:42,649 - INFO - Generating candidate 2/3 for ai_jobs in May 2026
+2026-01-10 02:41:04,614 - INFO - Generating candidate 3/3 for ai_jobs in May 2026
+2026-01-10 02:41:23,035 - WARNING - Candidate 3 generation failed for ai_jobs in May 2026
+2026-01-10 02:41:28,040 - INFO - Generating prediction for ai_global_comparison in May 2026
+2026-01-10 02:41:28,047 - INFO - Generating candidate 1/3 for ai_global_comparison in May 2026
+2026-01-10 02:41:54,694 - WARNING - Candidate 1 generation failed for ai_global_comparison in May 2026
+2026-01-10 02:41:56,696 - INFO - Generating candidate 2/3 for ai_global_comparison in May 2026
+2026-01-10 02:42:21,594 - INFO - Generating candidate 3/3 for ai_global_comparison in May 2026
+2026-01-10 02:42:39,208 - WARNING - Candidate 3 generation failed for ai_global_comparison in May 2026
+2026-01-10 02:42:44,211 - INFO - Generating prediction for cryptocurrency in May 2026
+2026-01-10 02:42:44,211 - INFO - Generating candidate 1/3 for cryptocurrency in May 2026
+2026-01-10 02:43:03,651 - INFO - Generating candidate 2/3 for cryptocurrency in May 2026
+2026-01-10 02:43:20,746 - WARNING - Candidate 2 generation failed for cryptocurrency in May 2026
+2026-01-10 02:43:22,749 - INFO - Generating candidate 3/3 for cryptocurrency in May 2026
+2026-01-10 02:43:40,773 - WARNING - Candidate 3 generation failed for cryptocurrency in May 2026
+2026-01-10 02:43:45,776 - INFO - Generating prediction for capitalism in May 2026
+2026-01-10 02:43:45,776 - INFO - Generating candidate 1/3 for capitalism in May 2026
+2026-01-10 02:44:05,495 - INFO - Generating candidate 2/3 for capitalism in May 2026
+2026-01-10 02:44:27,281 - INFO - Generating candidate 3/3 for capitalism in May 2026
+2026-01-10 02:45:00,242 - INFO - Generating prediction for free_speech in May 2026
+2026-01-10 02:45:00,242 - INFO - Generating candidate 1/3 for free_speech in May 2026
+2026-01-10 02:45:19,986 - INFO - Generating candidate 2/3 for free_speech in May 2026
+2026-01-10 02:45:43,896 - INFO - Generating candidate 3/3 for free_speech in May 2026
+2026-01-10 02:46:00,497 - WARNING - Candidate 3 generation failed for free_speech in May 2026
+2026-01-10 02:46:15,018 - INFO - Generating prediction for activist_movements in May 2026
+2026-01-10 02:46:15,018 - INFO - Generating candidate 1/3 for activist_movements in May 2026
+2026-01-10 02:46:33,111 - INFO - Generating candidate 2/3 for activist_movements in May 2026
+2026-01-10 02:46:49,229 - WARNING - Candidate 2 generation failed for activist_movements in May 2026
+2026-01-10 02:46:51,230 - INFO - Generating candidate 3/3 for activist_movements in May 2026
+2026-01-10 02:47:27,484 - INFO - Generating prediction for censorship in May 2026
+2026-01-10 02:47:27,484 - INFO - Generating candidate 1/3 for censorship in May 2026
+2026-01-10 02:47:46,046 - INFO - Generating candidate 2/3 for censorship in May 2026
+2026-01-10 02:48:05,341 - INFO - Generating candidate 3/3 for censorship in May 2026
+2026-01-10 02:48:38,615 - INFO - Generating prediction for geopolitical_rights in May 2026
+2026-01-10 02:48:38,615 - INFO - Generating candidate 1/3 for geopolitical_rights in May 2026
+2026-01-10 02:49:08,051 - INFO - Generating candidate 2/3 for geopolitical_rights in May 2026
+2026-01-10 02:49:26,945 - WARNING - Candidate 2 generation failed for geopolitical_rights in May 2026
+2026-01-10 02:49:28,947 - INFO - Generating candidate 3/3 for geopolitical_rights in May 2026
+2026-01-10 02:49:46,152 - WARNING - Candidate 3 generation failed for geopolitical_rights in May 2026
+2026-01-10 02:49:51,154 - INFO - Generating prediction for misc_topics in May 2026
+2026-01-10 02:49:51,154 - INFO - Generating candidate 1/3 for misc_topics in May 2026
+2026-01-10 02:50:09,871 - INFO - Generating candidate 2/3 for misc_topics in May 2026
+2026-01-10 02:50:29,857 - INFO - Generating candidate 3/3 for misc_topics in May 2026
+2026-01-10 02:51:09,935 - INFO - Completed predictions for May 2026
+2026-01-10 02:51:09,936 - INFO - Processing predictions for June 2026
+2026-01-10 02:51:09,936 - INFO - Generating prediction for sustainability in June 2026
+2026-01-10 02:51:09,936 - INFO - Generating candidate 1/3 for sustainability in June 2026
+2026-01-10 02:51:30,139 - INFO - Generating candidate 2/3 for sustainability in June 2026
+2026-01-10 02:51:47,225 - WARNING - Candidate 2 generation failed for sustainability in June 2026
+2026-01-10 02:51:49,228 - INFO - Generating candidate 3/3 for sustainability in June 2026
+2026-01-10 02:52:10,223 - WARNING - Candidate 3 generation failed for sustainability in June 2026
+2026-01-10 02:52:15,226 - INFO - Generating prediction for quantum_computing in June 2026
+2026-01-10 02:52:15,226 - INFO - Generating candidate 1/3 for quantum_computing in June 2026
+2026-01-10 02:52:38,690 - INFO - Generating candidate 2/3 for quantum_computing in June 2026
+2026-01-10 02:52:55,708 - INFO - Generating candidate 3/3 for quantum_computing in June 2026
+2026-01-10 02:53:42,130 - INFO - Generating prediction for spiritual_movements in June 2026
+2026-01-10 02:53:42,130 - INFO - Generating candidate 1/3 for spiritual_movements in June 2026
+2026-01-10 02:54:08,568 - INFO - Generating candidate 2/3 for spiritual_movements in June 2026
+2026-01-10 02:54:29,860 - INFO - Generating candidate 3/3 for spiritual_movements in June 2026
+2026-01-10 02:55:16,938 - INFO - Generating prediction for future_ai in June 2026
+2026-01-10 02:55:16,939 - INFO - Generating candidate 1/3 for future_ai in June 2026
+2026-01-10 02:55:34,775 - INFO - Generating candidate 2/3 for future_ai in June 2026
+2026-01-10 02:55:53,052 - INFO - Generating candidate 3/3 for future_ai in June 2026
+2026-01-10 02:56:32,748 - INFO - Generating prediction for geopolitics in June 2026
+2026-01-10 02:56:32,748 - INFO - Generating candidate 1/3 for geopolitics in June 2026
+2026-01-10 02:56:58,877 - INFO - Generating candidate 2/3 for geopolitics in June 2026
+2026-01-10 02:57:18,281 - INFO - Generating candidate 3/3 for geopolitics in June 2026
+2026-01-10 02:58:03,688 - INFO - Generating prediction for trump_maga in June 2026
+2026-01-10 02:58:03,689 - INFO - Generating candidate 1/3 for trump_maga in June 2026
+2026-01-10 02:58:23,134 - INFO - Generating candidate 2/3 for trump_maga in June 2026
+2026-01-10 02:58:48,221 - INFO - Generating candidate 3/3 for trump_maga in June 2026
+2026-01-10 02:59:11,766 - WARNING - Candidate 3 generation failed for trump_maga in June 2026
+2026-01-10 02:59:30,017 - INFO - Generating prediction for ai_jobs in June 2026
+2026-01-10 02:59:30,017 - INFO - Generating candidate 1/3 for ai_jobs in June 2026
+2026-01-10 02:59:49,406 - INFO - Generating candidate 2/3 for ai_jobs in June 2026
+2026-01-10 03:00:07,631 - INFO - Generating candidate 3/3 for ai_jobs in June 2026
+2026-01-10 03:00:35,451 - WARNING - Candidate 3 generation failed for ai_jobs in June 2026
+2026-01-10 03:00:52,823 - INFO - Generating prediction for ai_global_comparison in June 2026
+2026-01-10 03:00:52,824 - INFO - Generating candidate 1/3 for ai_global_comparison in June 2026
+2026-01-10 03:01:13,346 - INFO - Generating candidate 2/3 for ai_global_comparison in June 2026
+2026-01-10 03:01:40,282 - INFO - Generating candidate 3/3 for ai_global_comparison in June 2026
+2026-01-10 03:02:20,920 - INFO - Generating prediction for cryptocurrency in June 2026
+2026-01-10 03:02:20,920 - INFO - Generating candidate 1/3 for cryptocurrency in June 2026
+2026-01-10 03:02:48,159 - INFO - Generating candidate 2/3 for cryptocurrency in June 2026
+2026-01-10 03:03:12,304 - INFO - Generating candidate 3/3 for cryptocurrency in June 2026
+2026-01-10 03:04:04,697 - INFO - Generating prediction for capitalism in June 2026
+2026-01-10 03:04:04,697 - INFO - Generating candidate 1/3 for capitalism in June 2026
+2026-01-10 03:04:26,094 - INFO - Generating candidate 2/3 for capitalism in June 2026
+2026-01-10 03:04:48,933 - WARNING - Candidate 2 generation failed for capitalism in June 2026
+2026-01-10 03:04:50,935 - INFO - Generating candidate 3/3 for capitalism in June 2026
+2026-01-10 03:05:24,442 - INFO - Generating prediction for free_speech in June 2026
+2026-01-10 03:05:24,442 - INFO - Generating candidate 1/3 for free_speech in June 2026
+2026-01-10 03:05:44,624 - INFO - Generating candidate 2/3 for free_speech in June 2026
+2026-01-10 03:06:02,770 - INFO - Generating candidate 3/3 for free_speech in June 2026
+2026-01-10 03:06:33,547 - INFO - Generating prediction for activist_movements in June 2026
+2026-01-10 03:06:33,548 - INFO - Generating candidate 1/3 for activist_movements in June 2026
+2026-01-10 03:06:52,481 - INFO - Generating candidate 2/3 for activist_movements in June 2026
+2026-01-10 03:07:15,612 - INFO - Generating candidate 3/3 for activist_movements in June 2026
+2026-01-10 03:07:35,963 - WARNING - Candidate 3 generation failed for activist_movements in June 2026
+2026-01-10 03:08:05,940 - INFO - Generating prediction for censorship in June 2026
+2026-01-10 03:08:05,941 - INFO - Generating candidate 1/3 for censorship in June 2026
+2026-01-10 03:08:40,424 - INFO - Generating candidate 2/3 for censorship in June 2026
+2026-01-10 03:09:05,593 - WARNING - Candidate 2 generation failed for censorship in June 2026
+2026-01-10 03:09:07,595 - INFO - Generating candidate 3/3 for censorship in June 2026
+2026-01-10 03:09:50,787 - INFO - Generating prediction for geopolitical_rights in June 2026
+2026-01-10 03:09:50,787 - INFO - Generating candidate 1/3 for geopolitical_rights in June 2026
+2026-01-10 03:10:11,367 - INFO - Generating candidate 2/3 for geopolitical_rights in June 2026
+2026-01-10 03:10:44,941 - WARNING - Candidate 2 generation failed for geopolitical_rights in June 2026
+2026-01-10 03:10:46,942 - INFO - Generating candidate 3/3 for geopolitical_rights in June 2026
+2026-01-10 03:11:21,729 - INFO - Generating prediction for misc_topics in June 2026
+2026-01-10 03:11:21,729 - INFO - Generating candidate 1/3 for misc_topics in June 2026
+2026-01-10 03:11:50,882 - INFO - Generating candidate 2/3 for misc_topics in June 2026
+2026-01-10 03:12:10,021 - INFO - Generating candidate 3/3 for misc_topics in June 2026
+2026-01-10 03:12:48,936 - INFO - Completed predictions for June 2026
+2026-01-10 03:12:48,936 - INFO - Processing predictions for July 2026
+2026-01-10 03:12:48,936 - INFO - Generating prediction for sustainability in July 2026
+2026-01-10 03:12:48,936 - INFO - Generating candidate 1/3 for sustainability in July 2026
+2026-01-10 03:13:08,006 - WARNING - Candidate 1 generation failed for sustainability in July 2026
+2026-01-10 03:13:10,009 - INFO - Generating candidate 2/3 for sustainability in July 2026
+2026-01-10 03:13:31,949 - INFO - Generating candidate 3/3 for sustainability in July 2026
+2026-01-10 03:13:57,497 - WARNING - Candidate 3 generation failed for sustainability in July 2026
+2026-01-10 03:14:02,499 - INFO - Generating prediction for quantum_computing in July 2026
+2026-01-10 03:14:02,506 - INFO - Generating candidate 1/3 for quantum_computing in July 2026
+2026-01-10 03:14:19,871 - WARNING - Candidate 1 generation failed for quantum_computing in July 2026
+2026-01-10 03:14:21,873 - INFO - Generating candidate 2/3 for quantum_computing in July 2026
+2026-01-10 03:14:40,657 - INFO - Generating candidate 3/3 for quantum_computing in July 2026
+2026-01-10 03:15:18,303 - INFO - Generating prediction for spiritual_movements in July 2026
+2026-01-10 03:15:18,304 - INFO - Generating candidate 1/3 for spiritual_movements in July 2026
+2026-01-10 03:15:40,863 - INFO - Generating candidate 2/3 for spiritual_movements in July 2026
+2026-01-10 03:15:58,654 - WARNING - Candidate 2 generation failed for spiritual_movements in July 2026
+2026-01-10 03:16:00,656 - INFO - Generating candidate 3/3 for spiritual_movements in July 2026
+2026-01-10 03:17:11,866 - INFO - Generating prediction for future_ai in July 2026
+2026-01-10 03:17:11,866 - INFO - Generating candidate 1/3 for future_ai in July 2026
+2026-01-10 03:17:40,161 - INFO - Generating candidate 2/3 for future_ai in July 2026
+2026-01-10 03:18:01,753 - INFO - Generating candidate 3/3 for future_ai in July 2026
+2026-01-10 03:18:48,801 - INFO - Generating prediction for geopolitics in July 2026
+2026-01-10 03:18:48,802 - INFO - Generating candidate 1/3 for geopolitics in July 2026
+2026-01-10 03:19:10,451 - INFO - Generating candidate 2/3 for geopolitics in July 2026
+2026-01-10 03:19:29,075 - INFO - Generating candidate 3/3 for geopolitics in July 2026
+2026-01-10 03:20:08,869 - INFO - Generating prediction for trump_maga in July 2026
+2026-01-10 03:20:08,869 - INFO - Generating candidate 1/3 for trump_maga in July 2026
+2026-01-10 03:20:31,679 - INFO - Generating candidate 2/3 for trump_maga in July 2026
+2026-01-10 03:20:59,581 - INFO - Generating candidate 3/3 for trump_maga in July 2026
+2026-01-10 03:21:49,360 - INFO - Generating prediction for ai_jobs in July 2026
+2026-01-10 03:21:49,360 - INFO - Generating candidate 1/3 for ai_jobs in July 2026
+2026-01-10 03:22:16,092 - INFO - Generating candidate 2/3 for ai_jobs in July 2026
+2026-01-10 03:22:33,902 - WARNING - Candidate 2 generation failed for ai_jobs in July 2026
+2026-01-10 03:22:35,905 - INFO - Generating candidate 3/3 for ai_jobs in July 2026
+2026-01-10 03:23:03,776 - WARNING - Candidate 3 generation failed for ai_jobs in July 2026
+2026-01-10 03:23:08,779 - INFO - Generating prediction for ai_global_comparison in July 2026
+2026-01-10 03:23:08,780 - INFO - Generating candidate 1/3 for ai_global_comparison in July 2026
+2026-01-10 03:23:29,356 - INFO - Generating candidate 2/3 for ai_global_comparison in July 2026
+2026-01-10 03:23:48,301 - WARNING - Candidate 2 generation failed for ai_global_comparison in July 2026
+2026-01-10 03:23:50,304 - INFO - Generating candidate 3/3 for ai_global_comparison in July 2026
+2026-01-10 03:24:36,248 - INFO - Generating prediction for cryptocurrency in July 2026
+2026-01-10 03:24:36,248 - INFO - Generating candidate 1/3 for cryptocurrency in July 2026
+2026-01-10 03:24:59,936 - WARNING - Candidate 1 generation failed for cryptocurrency in July 2026
+2026-01-10 03:25:01,938 - INFO - Generating candidate 2/3 for cryptocurrency in July 2026
+2026-01-10 03:25:25,021 - WARNING - Candidate 2 generation failed for cryptocurrency in July 2026
+2026-01-10 03:25:27,023 - INFO - Generating candidate 3/3 for cryptocurrency in July 2026
+2026-01-10 03:26:00,060 - INFO - Generating prediction for capitalism in July 2026
+2026-01-10 03:26:00,061 - INFO - Generating candidate 1/3 for capitalism in July 2026
+2026-01-10 03:26:23,890 - INFO - Generating candidate 2/3 for capitalism in July 2026
+2026-01-10 03:26:42,644 - INFO - Generating candidate 3/3 for capitalism in July 2026
+2026-01-10 03:27:40,807 - INFO - Generating prediction for free_speech in July 2026
+2026-01-10 03:27:40,807 - INFO - Generating candidate 1/3 for free_speech in July 2026
+2026-01-10 03:28:01,832 - INFO - Generating candidate 2/3 for free_speech in July 2026
+2026-01-10 03:28:20,056 - INFO - Generating candidate 3/3 for free_speech in July 2026
+2026-01-10 03:29:07,161 - INFO - Generating prediction for activist_movements in July 2026
+2026-01-10 03:29:07,161 - INFO - Generating candidate 1/3 for activist_movements in July 2026
+2026-01-10 03:29:30,238 - INFO - Generating candidate 2/3 for activist_movements in July 2026
+2026-01-10 03:29:58,185 - INFO - Generating candidate 3/3 for activist_movements in July 2026
+2026-01-10 03:30:36,042 - INFO - Generating prediction for censorship in July 2026
+2026-01-10 03:30:36,043 - INFO - Generating candidate 1/3 for censorship in July 2026
+2026-01-10 03:30:59,165 - INFO - Generating candidate 2/3 for censorship in July 2026
+2026-01-10 03:31:19,443 - WARNING - Candidate 2 generation failed for censorship in July 2026
+2026-01-10 03:31:21,445 - INFO - Generating candidate 3/3 for censorship in July 2026
+2026-01-10 03:31:55,635 - INFO - Generating prediction for geopolitical_rights in July 2026
+2026-01-10 03:31:55,636 - INFO - Generating candidate 1/3 for geopolitical_rights in July 2026
+2026-01-10 03:32:22,067 - INFO - Generating candidate 2/3 for geopolitical_rights in July 2026
+2026-01-10 03:32:48,334 - WARNING - Candidate 2 generation failed for geopolitical_rights in July 2026
+2026-01-10 03:32:50,336 - INFO - Generating candidate 3/3 for geopolitical_rights in July 2026
+2026-01-10 03:33:26,697 - INFO - Generating prediction for misc_topics in July 2026
+2026-01-10 03:33:26,697 - INFO - Generating candidate 1/3 for misc_topics in July 2026
+2026-01-10 03:34:03,088 - WARNING - Candidate 1 generation failed for misc_topics in July 2026
+2026-01-10 03:34:05,090 - INFO - Generating candidate 2/3 for misc_topics in July 2026
+2026-01-10 03:34:26,260 - INFO - Generating candidate 3/3 for misc_topics in July 2026
+2026-01-10 03:35:27,802 - INFO - Completed predictions for July 2026
+2026-01-10 03:35:27,802 - INFO - Processing predictions for August 2026
+2026-01-10 03:35:27,802 - INFO - Generating prediction for sustainability in August 2026
+2026-01-10 03:35:27,802 - INFO - Generating candidate 1/3 for sustainability in August 2026
+2026-01-10 03:35:46,125 - INFO - Generating candidate 2/3 for sustainability in August 2026
+2026-01-10 03:36:05,965 - WARNING - Candidate 2 generation failed for sustainability in August 2026
+2026-01-10 03:36:07,967 - INFO - Generating candidate 3/3 for sustainability in August 2026
+2026-01-10 03:37:06,234 - INFO - Generating prediction for quantum_computing in August 2026
+2026-01-10 03:37:06,234 - INFO - Generating candidate 1/3 for quantum_computing in August 2026
+2026-01-10 03:37:33,063 - INFO - Generating candidate 2/3 for quantum_computing in August 2026
+2026-01-10 03:38:01,832 - WARNING - Candidate 2 generation failed for quantum_computing in August 2026
+2026-01-10 03:38:03,834 - INFO - Generating candidate 3/3 for quantum_computing in August 2026
+2026-01-10 03:39:03,011 - INFO - Generating prediction for spiritual_movements in August 2026
+2026-01-10 03:39:03,011 - INFO - Generating candidate 1/3 for spiritual_movements in August 2026
+2026-01-10 03:39:23,131 - INFO - Generating candidate 2/3 for spiritual_movements in August 2026
+2026-01-10 03:39:46,746 - WARNING - Candidate 2 generation failed for spiritual_movements in August 2026
+2026-01-10 03:39:48,748 - INFO - Generating candidate 3/3 for spiritual_movements in August 2026
+2026-01-10 03:40:05,917 - WARNING - Candidate 3 generation failed for spiritual_movements in August 2026
+2026-01-10 03:40:10,920 - INFO - Generating prediction for future_ai in August 2026
+2026-01-10 03:40:10,920 - INFO - Generating candidate 1/3 for future_ai in August 2026
+2026-01-10 03:40:39,975 - INFO - Generating candidate 2/3 for future_ai in August 2026
+2026-01-10 03:41:12,252 - INFO - Generating candidate 3/3 for future_ai in August 2026
+2026-01-10 03:41:50,485 - INFO - Generating prediction for geopolitics in August 2026
+2026-01-10 03:41:50,485 - INFO - Generating candidate 1/3 for geopolitics in August 2026
+2026-01-10 03:42:11,581 - INFO - Generating candidate 2/3 for geopolitics in August 2026
+2026-01-10 03:42:38,044 - INFO - Generating candidate 3/3 for geopolitics in August 2026
+2026-01-10 03:43:14,345 - INFO - Generating prediction for trump_maga in August 2026
+2026-01-10 03:43:14,345 - INFO - Generating candidate 1/3 for trump_maga in August 2026
+2026-01-10 03:43:34,772 - INFO - Generating candidate 2/3 for trump_maga in August 2026
+2026-01-10 03:43:54,611 - INFO - Generating candidate 3/3 for trump_maga in August 2026
+2026-01-10 03:44:38,105 - INFO - Generating prediction for ai_jobs in August 2026
+2026-01-10 03:44:38,106 - INFO - Generating candidate 1/3 for ai_jobs in August 2026
+2026-01-10 03:44:57,588 - INFO - Generating candidate 2/3 for ai_jobs in August 2026
+2026-01-10 03:45:22,020 - INFO - Generating candidate 3/3 for ai_jobs in August 2026
+2026-01-10 03:46:09,347 - INFO - Generating prediction for ai_global_comparison in August 2026
+2026-01-10 03:46:09,347 - INFO - Generating candidate 1/3 for ai_global_comparison in August 2026
+2026-01-10 03:46:29,890 - INFO - Generating candidate 2/3 for ai_global_comparison in August 2026
+2026-01-10 03:46:30,323 - WARNING - Received 429, will retry...
+2026-01-10 03:46:30,323 - ERROR - API call failed: Retryable error: 429
+2026-01-10 03:46:30,323 - INFO - Backing off call_api_with_retry(...) for 0.0s (aiohttp.client_exceptions.ClientError: Retryable error: 429)
+2026-01-10 03:46:55,239 - INFO - Generating candidate 3/3 for ai_global_comparison in August 2026
+2026-01-10 03:47:40,951 - INFO - Generating prediction for cryptocurrency in August 2026
+2026-01-10 03:47:40,951 - INFO - Generating candidate 1/3 for cryptocurrency in August 2026
+2026-01-10 03:48:05,204 - INFO - Generating candidate 2/3 for cryptocurrency in August 2026
+2026-01-10 03:48:29,715 - INFO - Generating candidate 3/3 for cryptocurrency in August 2026
+2026-01-10 03:49:27,057 - INFO - Generating prediction for capitalism in August 2026
+2026-01-10 03:49:27,058 - INFO - Generating candidate 1/3 for capitalism in August 2026
+2026-01-10 03:49:53,825 - INFO - Generating candidate 2/3 for capitalism in August 2026
+2026-01-10 03:50:12,822 - INFO - Generating candidate 3/3 for capitalism in August 2026
+2026-01-10 03:51:03,002 - INFO - Generating prediction for free_speech in August 2026
+2026-01-10 03:51:03,002 - INFO - Generating candidate 1/3 for free_speech in August 2026
+2026-01-10 03:51:30,830 - INFO - Generating candidate 2/3 for free_speech in August 2026
+2026-01-10 03:51:49,183 - INFO - Generating candidate 3/3 for free_speech in August 2026
+2026-01-10 03:52:43,767 - INFO - Generating prediction for activist_movements in August 2026
+2026-01-10 03:52:43,767 - INFO - Generating candidate 1/3 for activist_movements in August 2026
+2026-01-10 03:53:11,804 - INFO - Generating candidate 2/3 for activist_movements in August 2026
+2026-01-10 03:53:36,607 - INFO - Generating candidate 3/3 for activist_movements in August 2026
+2026-01-10 03:54:14,007 - INFO - Generating prediction for censorship in August 2026
+2026-01-10 03:54:14,007 - INFO - Generating candidate 1/3 for censorship in August 2026
+2026-01-10 03:54:37,620 - INFO - Generating candidate 2/3 for censorship in August 2026
+2026-01-10 03:55:05,800 - INFO - Generating candidate 3/3 for censorship in August 2026
+2026-01-10 03:55:30,305 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 03:55:30,305 - ERROR - Invalid API response: None
+2026-01-10 03:55:30,305 - WARNING - Candidate 3 generation failed for censorship in August 2026
+2026-01-10 03:55:50,042 - INFO - Generating prediction for geopolitical_rights in August 2026
+2026-01-10 03:55:50,042 - INFO - Generating candidate 1/3 for geopolitical_rights in August 2026
+2026-01-10 03:56:11,059 - WARNING - Candidate 1 generation failed for geopolitical_rights in August 2026
+2026-01-10 03:56:13,061 - INFO - Generating candidate 2/3 for geopolitical_rights in August 2026
+2026-01-10 03:56:31,229 - WARNING - Candidate 2 generation failed for geopolitical_rights in August 2026
+2026-01-10 03:56:33,232 - INFO - Generating candidate 3/3 for geopolitical_rights in August 2026
+2026-01-10 03:56:56,377 - WARNING - Candidate 3 generation failed for geopolitical_rights in August 2026
+2026-01-10 03:57:01,381 - INFO - Generating prediction for misc_topics in August 2026
+2026-01-10 03:57:01,381 - INFO - Generating candidate 1/3 for misc_topics in August 2026
+2026-01-10 03:57:22,951 - INFO - Generating candidate 2/3 for misc_topics in August 2026
+2026-01-10 03:57:40,610 - WARNING - Candidate 2 generation failed for misc_topics in August 2026
+2026-01-10 03:57:42,612 - INFO - Generating candidate 3/3 for misc_topics in August 2026
+2026-01-10 03:58:06,747 - WARNING - Candidate 3 generation failed for misc_topics in August 2026
+2026-01-10 03:58:11,749 - INFO - Completed predictions for August 2026
+2026-01-10 03:58:11,750 - INFO - Processing predictions for September 2026
+2026-01-10 03:58:11,757 - INFO - Generating prediction for sustainability in September 2026
+2026-01-10 03:58:11,757 - INFO - Generating candidate 1/3 for sustainability in September 2026
+2026-01-10 03:58:34,686 - WARNING - Candidate 1 generation failed for sustainability in September 2026
+2026-01-10 03:58:36,688 - INFO - Generating candidate 2/3 for sustainability in September 2026
+2026-01-10 03:59:01,828 - INFO - Generating candidate 3/3 for sustainability in September 2026
+2026-01-10 03:59:44,863 - INFO - Generating prediction for quantum_computing in September 2026
+2026-01-10 03:59:44,863 - INFO - Generating candidate 1/3 for quantum_computing in September 2026
+2026-01-10 04:00:04,595 - INFO - Generating candidate 2/3 for quantum_computing in September 2026
+2026-01-10 04:00:27,584 - INFO - Generating candidate 3/3 for quantum_computing in September 2026
+2026-01-10 04:00:50,217 - WARNING - Candidate 3 generation failed for quantum_computing in September 2026
+2026-01-10 04:01:22,191 - INFO - Generating prediction for spiritual_movements in September 2026
+2026-01-10 04:01:22,192 - INFO - Generating candidate 1/3 for spiritual_movements in September 2026
+2026-01-10 04:01:45,178 - INFO - Generating candidate 2/3 for spiritual_movements in September 2026
+2026-01-10 04:02:15,924 - INFO - Generating candidate 3/3 for spiritual_movements in September 2026
+2026-01-10 04:02:58,261 - INFO - Generating prediction for future_ai in September 2026
+2026-01-10 04:02:58,261 - INFO - Generating candidate 1/3 for future_ai in September 2026
+2026-01-10 04:03:22,158 - INFO - Generating candidate 2/3 for future_ai in September 2026
+2026-01-10 04:03:57,119 - WARNING - Candidate 2 generation failed for future_ai in September 2026
+2026-01-10 04:03:59,122 - INFO - Generating candidate 3/3 for future_ai in September 2026
+2026-01-10 04:04:41,803 - INFO - Generating prediction for geopolitics in September 2026
+2026-01-10 04:04:41,804 - INFO - Generating candidate 1/3 for geopolitics in September 2026
+2026-01-10 04:05:14,332 - INFO - Generating candidate 2/3 for geopolitics in September 2026
+2026-01-10 04:05:32,792 - INFO - Generating candidate 3/3 for geopolitics in September 2026
+2026-01-10 04:06:06,885 - INFO - Generating prediction for trump_maga in September 2026
+2026-01-10 04:06:06,885 - INFO - Generating candidate 1/3 for trump_maga in September 2026
+2026-01-10 04:06:34,158 - WARNING - Candidate 1 generation failed for trump_maga in September 2026
+2026-01-10 04:06:36,160 - INFO - Generating candidate 2/3 for trump_maga in September 2026
+2026-01-10 04:06:59,043 - WARNING - Candidate 2 generation failed for trump_maga in September 2026
+2026-01-10 04:07:01,046 - INFO - Generating candidate 3/3 for trump_maga in September 2026
+2026-01-10 04:07:22,684 - INFO - Generating prediction for ai_jobs in September 2026
+2026-01-10 04:07:22,684 - INFO - Generating candidate 1/3 for ai_jobs in September 2026
+2026-01-10 04:07:48,300 - INFO - Generating candidate 2/3 for ai_jobs in September 2026
+2026-01-10 04:08:06,095 - WARNING - Candidate 2 generation failed for ai_jobs in September 2026
+2026-01-10 04:08:08,097 - INFO - Generating candidate 3/3 for ai_jobs in September 2026
+2026-01-10 04:08:24,143 - WARNING - Candidate 3 generation failed for ai_jobs in September 2026
+2026-01-10 04:08:29,146 - INFO - Generating prediction for ai_global_comparison in September 2026
+2026-01-10 04:08:29,153 - INFO - Generating candidate 1/3 for ai_global_comparison in September 2026
+2026-01-10 04:08:56,682 - INFO - Generating candidate 2/3 for ai_global_comparison in September 2026
+2026-01-10 04:09:29,082 - INFO - Generating candidate 3/3 for ai_global_comparison in September 2026
+2026-01-10 04:10:02,117 - INFO - Generating prediction for cryptocurrency in September 2026
+2026-01-10 04:10:02,117 - INFO - Generating candidate 1/3 for cryptocurrency in September 2026
+2026-01-10 04:10:27,450 - INFO - Generating candidate 2/3 for cryptocurrency in September 2026
+2026-01-10 04:10:46,572 - INFO - Generating candidate 3/3 for cryptocurrency in September 2026
+2026-01-10 04:11:33,958 - INFO - Generating prediction for capitalism in September 2026
+2026-01-10 04:11:33,958 - INFO - Generating candidate 1/3 for capitalism in September 2026
+2026-01-10 04:11:53,404 - INFO - Generating candidate 2/3 for capitalism in September 2026
+2026-01-10 04:12:33,767 - INFO - Generating candidate 3/3 for capitalism in September 2026
+2026-01-10 04:13:21,791 - INFO - Generating prediction for free_speech in September 2026
+2026-01-10 04:13:21,791 - INFO - Generating candidate 1/3 for free_speech in September 2026
+2026-01-10 04:13:40,621 - INFO - Generating candidate 2/3 for free_speech in September 2026
+2026-01-10 04:13:57,019 - INFO - Generating candidate 3/3 for free_speech in September 2026
+2026-01-10 04:14:18,306 - WARNING - Candidate 3 generation failed for free_speech in September 2026
+2026-01-10 04:14:35,010 - INFO - Generating prediction for activist_movements in September 2026
+2026-01-10 04:14:35,011 - INFO - Generating candidate 1/3 for activist_movements in September 2026
+2026-01-10 04:15:09,252 - INFO - Generating candidate 2/3 for activist_movements in September 2026
+2026-01-10 04:15:40,902 - INFO - Generating candidate 3/3 for activist_movements in September 2026
+2026-01-10 04:16:16,903 - INFO - Generating prediction for censorship in September 2026
+2026-01-10 04:16:16,903 - INFO - Generating candidate 1/3 for censorship in September 2026
+2026-01-10 04:16:40,707 - WARNING - Candidate 1 generation failed for censorship in September 2026
+2026-01-10 04:16:42,709 - INFO - Generating candidate 2/3 for censorship in September 2026
+2026-01-10 04:17:20,900 - INFO - Generating candidate 3/3 for censorship in September 2026
+2026-01-10 04:17:59,825 - INFO - Generating prediction for geopolitical_rights in September 2026
+2026-01-10 04:17:59,826 - INFO - Generating candidate 1/3 for geopolitical_rights in September 2026
+2026-01-10 04:18:18,966 - INFO - Generating candidate 2/3 for geopolitical_rights in September 2026
+2026-01-10 04:18:41,568 - INFO - Generating candidate 3/3 for geopolitical_rights in September 2026
+2026-01-10 04:19:15,292 - INFO - Generating prediction for misc_topics in September 2026
+2026-01-10 04:19:15,293 - INFO - Generating candidate 1/3 for misc_topics in September 2026
+2026-01-10 04:19:32,782 - WARNING - Candidate 1 generation failed for misc_topics in September 2026
+2026-01-10 04:19:34,785 - INFO - Generating candidate 2/3 for misc_topics in September 2026
+2026-01-10 04:19:51,055 - WARNING - Candidate 2 generation failed for misc_topics in September 2026
+2026-01-10 04:19:53,057 - INFO - Generating candidate 3/3 for misc_topics in September 2026
+2026-01-10 04:20:22,988 - INFO - Completed predictions for September 2026
+2026-01-10 04:20:22,988 - INFO - Processing predictions for October 2026
+2026-01-10 04:20:22,988 - INFO - Generating prediction for sustainability in October 2026
+2026-01-10 04:20:22,988 - INFO - Generating candidate 1/3 for sustainability in October 2026
+2026-01-10 04:21:02,610 - INFO - Generating candidate 2/3 for sustainability in October 2026
+2026-01-10 04:21:21,340 - INFO - Generating candidate 3/3 for sustainability in October 2026
+2026-01-10 04:22:13,870 - INFO - Generating prediction for quantum_computing in October 2026
+2026-01-10 04:22:13,870 - INFO - Generating candidate 1/3 for quantum_computing in October 2026
+2026-01-10 04:22:33,994 - WARNING - Candidate 1 generation failed for quantum_computing in October 2026
+2026-01-10 04:22:35,996 - INFO - Generating candidate 2/3 for quantum_computing in October 2026
+2026-01-10 04:22:53,586 - INFO - Generating candidate 3/3 for quantum_computing in October 2026
+2026-01-10 04:23:39,340 - INFO - Generating prediction for spiritual_movements in October 2026
+2026-01-10 04:23:39,340 - INFO - Generating candidate 1/3 for spiritual_movements in October 2026
+2026-01-10 04:23:57,502 - INFO - Generating candidate 2/3 for spiritual_movements in October 2026
+2026-01-10 04:24:15,836 - INFO - Generating candidate 3/3 for spiritual_movements in October 2026
+2026-01-10 04:24:49,165 - INFO - Generating prediction for future_ai in October 2026
+2026-01-10 04:24:49,165 - INFO - Generating candidate 1/3 for future_ai in October 2026
+2026-01-10 04:25:10,417 - INFO - Generating candidate 2/3 for future_ai in October 2026
+2026-01-10 04:25:28,136 - INFO - Generating candidate 3/3 for future_ai in October 2026
+2026-01-10 04:26:10,525 - INFO - Generating prediction for geopolitics in October 2026
+2026-01-10 04:26:10,526 - INFO - Generating candidate 1/3 for geopolitics in October 2026
+2026-01-10 04:26:28,336 - WARNING - Candidate 1 generation failed for geopolitics in October 2026
+2026-01-10 04:26:30,338 - INFO - Generating candidate 2/3 for geopolitics in October 2026
+2026-01-10 04:26:48,011 - INFO - Generating candidate 3/3 for geopolitics in October 2026
+2026-01-10 04:27:29,892 - INFO - Generating prediction for trump_maga in October 2026
+2026-01-10 04:27:29,892 - INFO - Generating candidate 1/3 for trump_maga in October 2026
+2026-01-10 04:27:48,766 - INFO - Generating candidate 2/3 for trump_maga in October 2026
+2026-01-10 04:28:07,481 - INFO - Generating candidate 3/3 for trump_maga in October 2026
+2026-01-10 04:28:39,598 - INFO - Generating prediction for ai_jobs in October 2026
+2026-01-10 04:28:39,598 - INFO - Generating candidate 1/3 for ai_jobs in October 2026
+2026-01-10 04:28:59,188 - INFO - Generating candidate 2/3 for ai_jobs in October 2026
+2026-01-10 04:29:28,113 - INFO - Generating candidate 3/3 for ai_jobs in October 2026
+2026-01-10 04:30:08,439 - INFO - Generating prediction for ai_global_comparison in October 2026
+2026-01-10 04:30:08,439 - INFO - Generating candidate 1/3 for ai_global_comparison in October 2026
+2026-01-10 04:30:29,156 - INFO - Generating candidate 2/3 for ai_global_comparison in October 2026
+2026-01-10 04:30:53,239 - INFO - Generating candidate 3/3 for ai_global_comparison in October 2026
+2026-01-10 04:31:27,980 - INFO - Generating prediction for cryptocurrency in October 2026
+2026-01-10 04:31:27,980 - INFO - Generating candidate 1/3 for cryptocurrency in October 2026
+2026-01-10 04:31:49,282 - WARNING - Candidate 1 generation failed for cryptocurrency in October 2026
+2026-01-10 04:31:51,284 - INFO - Generating candidate 2/3 for cryptocurrency in October 2026
+2026-01-10 04:32:11,866 - INFO - Generating candidate 3/3 for cryptocurrency in October 2026
+2026-01-10 04:32:28,500 - WARNING - Candidate 3 generation failed for cryptocurrency in October 2026
+2026-01-10 04:32:33,503 - INFO - Generating prediction for capitalism in October 2026
+2026-01-10 04:32:33,510 - INFO - Generating candidate 1/3 for capitalism in October 2026
+2026-01-10 04:32:52,498 - INFO - Generating candidate 2/3 for capitalism in October 2026
+2026-01-10 04:33:12,837 - INFO - Generating candidate 3/3 for capitalism in October 2026
+2026-01-10 04:33:46,984 - INFO - Generating prediction for free_speech in October 2026
+2026-01-10 04:33:46,984 - INFO - Generating candidate 1/3 for free_speech in October 2026
+2026-01-10 04:34:12,457 - INFO - Generating candidate 2/3 for free_speech in October 2026
+2026-01-10 04:34:29,245 - INFO - Generating candidate 3/3 for free_speech in October 2026
+2026-01-10 04:35:03,686 - INFO - Generating prediction for activist_movements in October 2026
+2026-01-10 04:35:03,686 - INFO - Generating candidate 1/3 for activist_movements in October 2026
+2026-01-10 04:35:21,802 - INFO - Generating candidate 2/3 for activist_movements in October 2026
+2026-01-10 04:35:42,398 - INFO - Generating candidate 3/3 for activist_movements in October 2026
+2026-01-10 04:36:18,444 - INFO - Generating prediction for censorship in October 2026
+2026-01-10 04:36:18,445 - INFO - Generating candidate 1/3 for censorship in October 2026
+2026-01-10 04:36:43,111 - INFO - Generating candidate 2/3 for censorship in October 2026
+2026-01-10 04:37:09,194 - WARNING - Candidate 2 generation failed for censorship in October 2026
+2026-01-10 04:37:11,197 - INFO - Generating candidate 3/3 for censorship in October 2026
+2026-01-10 04:37:50,465 - INFO - Generating prediction for geopolitical_rights in October 2026
+2026-01-10 04:37:50,465 - INFO - Generating candidate 1/3 for geopolitical_rights in October 2026
+2026-01-10 04:38:16,199 - INFO - Generating candidate 2/3 for geopolitical_rights in October 2026
+2026-01-10 04:38:40,790 - INFO - Generating candidate 3/3 for geopolitical_rights in October 2026
+2026-01-10 04:39:14,001 - INFO - Generating prediction for misc_topics in October 2026
+2026-01-10 04:39:14,001 - INFO - Generating candidate 1/3 for misc_topics in October 2026
+2026-01-10 04:39:35,235 - WARNING - Candidate 1 generation failed for misc_topics in October 2026
+2026-01-10 04:39:37,237 - INFO - Generating candidate 2/3 for misc_topics in October 2026
+2026-01-10 04:39:59,306 - INFO - Generating candidate 3/3 for misc_topics in October 2026
+2026-01-10 04:40:30,785 - INFO - Completed predictions for October 2026
+2026-01-10 04:40:30,785 - INFO - Processing predictions for November 2026
+2026-01-10 04:40:30,785 - INFO - Generating prediction for sustainability in November 2026
+2026-01-10 04:40:30,785 - INFO - Generating candidate 1/3 for sustainability in November 2026
+2026-01-10 04:40:50,396 - INFO - Generating candidate 2/3 for sustainability in November 2026
+2026-01-10 04:41:08,981 - INFO - Generating candidate 3/3 for sustainability in November 2026
+2026-01-10 04:41:49,815 - INFO - Generating prediction for quantum_computing in November 2026
+2026-01-10 04:41:49,815 - INFO - Generating candidate 1/3 for quantum_computing in November 2026
+2026-01-10 04:42:11,821 - INFO - Generating candidate 2/3 for quantum_computing in November 2026
+2026-01-10 04:42:41,728 - INFO - Generating candidate 3/3 for quantum_computing in November 2026
+2026-01-10 04:43:24,712 - INFO - Generating prediction for spiritual_movements in November 2026
+2026-01-10 04:43:24,712 - INFO - Generating candidate 1/3 for spiritual_movements in November 2026
+2026-01-10 04:43:49,083 - INFO - Generating candidate 2/3 for spiritual_movements in November 2026
+2026-01-10 04:44:05,787 - WARNING - Candidate 2 generation failed for spiritual_movements in November 2026
+2026-01-10 04:44:07,790 - INFO - Generating candidate 3/3 for spiritual_movements in November 2026
+2026-01-10 04:44:39,905 - INFO - Generating prediction for future_ai in November 2026
+2026-01-10 04:44:39,905 - INFO - Generating candidate 1/3 for future_ai in November 2026
+2026-01-10 04:45:09,790 - WARNING - Candidate 1 generation failed for future_ai in November 2026
+2026-01-10 04:45:11,792 - INFO - Generating candidate 2/3 for future_ai in November 2026
+2026-01-10 04:45:28,674 - WARNING - Candidate 2 generation failed for future_ai in November 2026
+2026-01-10 04:45:30,683 - INFO - Generating candidate 3/3 for future_ai in November 2026
+2026-01-10 04:45:57,357 - INFO - Generating prediction for geopolitics in November 2026
+2026-01-10 04:45:57,357 - INFO - Generating candidate 1/3 for geopolitics in November 2026
+2026-01-10 04:46:20,191 - WARNING - Candidate 1 generation failed for geopolitics in November 2026
+2026-01-10 04:46:22,193 - INFO - Generating candidate 2/3 for geopolitics in November 2026
+2026-01-10 04:46:37,418 - WARNING - Candidate 2 generation failed for geopolitics in November 2026
+2026-01-10 04:46:39,420 - INFO - Generating candidate 3/3 for geopolitics in November 2026
+2026-01-10 04:47:01,767 - INFO - Generating prediction for trump_maga in November 2026
+2026-01-10 04:47:01,767 - INFO - Generating candidate 1/3 for trump_maga in November 2026
+2026-01-10 04:47:19,763 - INFO - Generating candidate 2/3 for trump_maga in November 2026
+2026-01-10 04:47:38,247 - INFO - Generating candidate 3/3 for trump_maga in November 2026
+2026-01-10 04:48:23,758 - INFO - Generating prediction for ai_jobs in November 2026
+2026-01-10 04:48:23,758 - INFO - Generating candidate 1/3 for ai_jobs in November 2026
+2026-01-10 04:48:51,735 - WARNING - Candidate 1 generation failed for ai_jobs in November 2026
+2026-01-10 04:48:53,738 - INFO - Generating candidate 2/3 for ai_jobs in November 2026
+2026-01-10 04:49:11,888 - INFO - Generating candidate 3/3 for ai_jobs in November 2026
+2026-01-10 04:49:50,575 - INFO - Generating prediction for ai_global_comparison in November 2026
+2026-01-10 04:49:50,575 - INFO - Generating candidate 1/3 for ai_global_comparison in November 2026
+2026-01-10 04:50:10,880 - INFO - Generating candidate 2/3 for ai_global_comparison in November 2026
+2026-01-10 04:50:31,088 - INFO - Generating candidate 3/3 for ai_global_comparison in November 2026
+2026-01-10 04:51:14,106 - INFO - Generating prediction for cryptocurrency in November 2026
+2026-01-10 04:51:14,106 - INFO - Generating candidate 1/3 for cryptocurrency in November 2026
+2026-01-10 04:51:33,548 - INFO - Generating candidate 2/3 for cryptocurrency in November 2026
+2026-01-10 04:51:57,927 - INFO - Generating candidate 3/3 for cryptocurrency in November 2026
+2026-01-10 04:52:31,742 - INFO - Generating prediction for capitalism in November 2026
+2026-01-10 04:52:31,742 - INFO - Generating candidate 1/3 for capitalism in November 2026
+2026-01-10 04:52:52,934 - INFO - Generating candidate 2/3 for capitalism in November 2026
+2026-01-10 04:53:16,382 - INFO - Generating candidate 3/3 for capitalism in November 2026
+2026-01-10 04:53:43,496 - INFO - Generating prediction for free_speech in November 2026
+2026-01-10 04:53:43,496 - INFO - Generating candidate 1/3 for free_speech in November 2026
+2026-01-10 04:54:06,442 - INFO - Generating candidate 2/3 for free_speech in November 2026
+2026-01-10 04:54:28,332 - INFO - Generating candidate 3/3 for free_speech in November 2026
+2026-01-10 04:55:07,741 - INFO - Generating prediction for activist_movements in November 2026
+2026-01-10 04:55:07,742 - INFO - Generating candidate 1/3 for activist_movements in November 2026
+2026-01-10 04:55:29,103 - INFO - Generating candidate 2/3 for activist_movements in November 2026
+2026-01-10 04:55:51,078 - INFO - Generating candidate 3/3 for activist_movements in November 2026
+2026-01-10 04:56:33,602 - INFO - Generating prediction for censorship in November 2026
+2026-01-10 04:56:33,603 - INFO - Generating candidate 1/3 for censorship in November 2026
+2026-01-10 04:56:53,174 - INFO - Generating candidate 2/3 for censorship in November 2026
+2026-01-10 04:57:16,677 - INFO - Generating candidate 3/3 for censorship in November 2026
+2026-01-10 04:57:53,539 - INFO - Generating prediction for geopolitical_rights in November 2026
+2026-01-10 04:57:53,540 - INFO - Generating candidate 1/3 for geopolitical_rights in November 2026
+2026-01-10 04:58:12,943 - INFO - Generating candidate 2/3 for geopolitical_rights in November 2026
+2026-01-10 04:58:32,248 - INFO - Generating candidate 3/3 for geopolitical_rights in November 2026
+2026-01-10 04:59:14,142 - INFO - Generating prediction for misc_topics in November 2026
+2026-01-10 04:59:14,142 - INFO - Generating candidate 1/3 for misc_topics in November 2026
+2026-01-10 04:59:31,259 - WARNING - Candidate 1 generation failed for misc_topics in November 2026
+2026-01-10 04:59:33,262 - INFO - Generating candidate 2/3 for misc_topics in November 2026
+2026-01-10 04:59:58,907 - INFO - Generating candidate 3/3 for misc_topics in November 2026
+2026-01-10 05:00:41,528 - INFO - Completed predictions for November 2026
+2026-01-10 05:00:41,528 - INFO - Processing predictions for December 2026
+2026-01-10 05:00:41,528 - INFO - Generating prediction for sustainability in December 2026
+2026-01-10 05:00:41,528 - INFO - Generating candidate 1/3 for sustainability in December 2026
+2026-01-10 05:01:03,327 - INFO - Generating candidate 2/3 for sustainability in December 2026
+2026-01-10 05:01:21,327 - WARNING - Candidate 2 generation failed for sustainability in December 2026
+2026-01-10 05:01:23,330 - INFO - Generating candidate 3/3 for sustainability in December 2026
+2026-01-10 05:01:44,501 - WARNING - Candidate 3 generation failed for sustainability in December 2026
+2026-01-10 05:01:49,504 - INFO - Generating prediction for quantum_computing in December 2026
+2026-01-10 05:01:49,512 - INFO - Generating candidate 1/3 for quantum_computing in December 2026
+2026-01-10 05:02:07,931 - INFO - Generating candidate 2/3 for quantum_computing in December 2026
+2026-01-10 05:02:44,813 - INFO - Generating candidate 3/3 for quantum_computing in December 2026
+2026-01-10 05:03:56,342 - INFO - Generating prediction for spiritual_movements in December 2026
+2026-01-10 05:03:56,342 - INFO - Generating candidate 1/3 for spiritual_movements in December 2026
+2026-01-10 05:04:13,919 - INFO - Generating candidate 2/3 for spiritual_movements in December 2026
+2026-01-10 05:04:34,085 - INFO - Generating candidate 3/3 for spiritual_movements in December 2026
+2026-01-10 05:04:50,843 - WARNING - Candidate 3 generation failed for spiritual_movements in December 2026
+2026-01-10 05:05:09,000 - INFO - Generating prediction for future_ai in December 2026
+2026-01-10 05:05:09,000 - INFO - Generating candidate 1/3 for future_ai in December 2026
+2026-01-10 05:05:27,619 - INFO - Generating candidate 2/3 for future_ai in December 2026
+2026-01-10 05:05:47,151 - INFO - Generating candidate 3/3 for future_ai in December 2026
+2026-01-10 05:06:23,028 - INFO - Generating prediction for geopolitics in December 2026
+2026-01-10 05:06:23,028 - INFO - Generating candidate 1/3 for geopolitics in December 2026
+2026-01-10 05:06:47,676 - INFO - Generating candidate 2/3 for geopolitics in December 2026
+2026-01-10 05:07:05,502 - INFO - Generating candidate 3/3 for geopolitics in December 2026
+2026-01-10 05:07:18,737 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 05:07:18,737 - ERROR - Invalid API response: None
+2026-01-10 05:07:18,737 - WARNING - Candidate 3 generation failed for geopolitics in December 2026
+2026-01-10 05:07:34,379 - INFO - Generating prediction for trump_maga in December 2026
+2026-01-10 05:07:34,379 - INFO - Generating candidate 1/3 for trump_maga in December 2026
+2026-01-10 05:07:50,221 - WARNING - Candidate 1 generation failed for trump_maga in December 2026
+2026-01-10 05:07:52,223 - INFO - Generating candidate 2/3 for trump_maga in December 2026
+2026-01-10 05:08:19,663 - INFO - Generating candidate 3/3 for trump_maga in December 2026
+2026-01-10 05:09:11,107 - INFO - Generating prediction for ai_jobs in December 2026
+2026-01-10 05:09:11,107 - INFO - Generating candidate 1/3 for ai_jobs in December 2026
+2026-01-10 05:09:30,458 - WARNING - Candidate 1 generation failed for ai_jobs in December 2026
+2026-01-10 05:09:32,460 - INFO - Generating candidate 2/3 for ai_jobs in December 2026
+2026-01-10 05:09:51,619 - INFO - Generating candidate 3/3 for ai_jobs in December 2026
+2026-01-10 05:10:28,292 - INFO - Generating prediction for ai_global_comparison in December 2026
+2026-01-10 05:10:28,292 - INFO - Generating candidate 1/3 for ai_global_comparison in December 2026
+2026-01-10 05:10:45,999 - WARNING - Candidate 1 generation failed for ai_global_comparison in December 2026
+2026-01-10 05:10:48,002 - INFO - Generating candidate 2/3 for ai_global_comparison in December 2026
+2026-01-10 05:11:09,178 - INFO - Generating candidate 3/3 for ai_global_comparison in December 2026
+2026-01-10 05:11:52,573 - INFO - Generating prediction for cryptocurrency in December 2026
+2026-01-10 05:11:52,573 - INFO - Generating candidate 1/3 for cryptocurrency in December 2026
+2026-01-10 05:12:08,840 - WARNING - Candidate 1 generation failed for cryptocurrency in December 2026
+2026-01-10 05:12:10,843 - INFO - Generating candidate 2/3 for cryptocurrency in December 2026
+2026-01-10 05:12:35,924 - WARNING - Candidate 2 generation failed for cryptocurrency in December 2026
+2026-01-10 05:12:37,926 - INFO - Generating candidate 3/3 for cryptocurrency in December 2026
+2026-01-10 05:13:04,321 - INFO - Generating prediction for capitalism in December 2026
+2026-01-10 05:13:04,322 - INFO - Generating candidate 1/3 for capitalism in December 2026
+2026-01-10 05:13:38,868 - WARNING - Candidate 1 generation failed for capitalism in December 2026
+2026-01-10 05:13:40,871 - INFO - Generating candidate 2/3 for capitalism in December 2026
+2026-01-10 05:13:59,984 - INFO - Generating candidate 3/3 for capitalism in December 2026
+2026-01-10 05:14:48,164 - INFO - Generating prediction for free_speech in December 2026
+2026-01-10 05:14:48,164 - INFO - Generating candidate 1/3 for free_speech in December 2026
+2026-01-10 05:15:05,736 - WARNING - Candidate 1 generation failed for free_speech in December 2026
+2026-01-10 05:15:07,739 - INFO - Generating candidate 2/3 for free_speech in December 2026
+2026-01-10 05:15:30,637 - INFO - Generating candidate 3/3 for free_speech in December 2026
+2026-01-10 05:16:06,336 - INFO - Generating prediction for activist_movements in December 2026
+2026-01-10 05:16:06,336 - INFO - Generating candidate 1/3 for activist_movements in December 2026
+2026-01-10 05:16:24,223 - INFO - Generating candidate 2/3 for activist_movements in December 2026
+2026-01-10 05:16:42,692 - INFO - Generating candidate 3/3 for activist_movements in December 2026
+2026-01-10 05:17:32,576 - INFO - Generating prediction for censorship in December 2026
+2026-01-10 05:17:32,576 - INFO - Generating candidate 1/3 for censorship in December 2026
+2026-01-10 05:18:22,709 - INFO - Generating candidate 2/3 for censorship in December 2026
+2026-01-10 05:18:40,452 - INFO - Generating candidate 3/3 for censorship in December 2026
+2026-01-10 05:19:19,231 - INFO - Generating prediction for geopolitical_rights in December 2026
+2026-01-10 05:19:19,231 - INFO - Generating candidate 1/3 for geopolitical_rights in December 2026
+2026-01-10 05:19:43,117 - WARNING - Candidate 1 generation failed for geopolitical_rights in December 2026
+2026-01-10 05:19:45,120 - INFO - Generating candidate 2/3 for geopolitical_rights in December 2026
+2026-01-10 05:20:06,477 - INFO - Generating candidate 3/3 for geopolitical_rights in December 2026
+2026-01-10 05:20:56,052 - INFO - Generating prediction for misc_topics in December 2026
+2026-01-10 05:20:56,052 - INFO - Generating candidate 1/3 for misc_topics in December 2026
+2026-01-10 05:21:15,350 - INFO - Generating candidate 2/3 for misc_topics in December 2026
+2026-01-10 05:21:34,665 - INFO - Generating candidate 3/3 for misc_topics in December 2026
+2026-01-10 05:22:46,695 - INFO - Completed predictions for December 2026
+2026-01-10 05:22:46,695 - INFO - Processing predictions for January 2027
+2026-01-10 05:22:46,695 - INFO - Generating prediction for sustainability in January 2027
+2026-01-10 05:22:46,695 - INFO - Generating candidate 1/3 for sustainability in January 2027
+2026-01-10 05:23:06,112 - INFO - Generating candidate 2/3 for sustainability in January 2027
+2026-01-10 05:23:37,306 - INFO - Generating candidate 3/3 for sustainability in January 2027
+2026-01-10 05:24:20,452 - INFO - Generating prediction for quantum_computing in January 2027
+2026-01-10 05:24:20,452 - INFO - Generating candidate 1/3 for quantum_computing in January 2027
+2026-01-10 05:24:56,839 - INFO - Generating candidate 2/3 for quantum_computing in January 2027
+2026-01-10 05:25:15,574 - WARNING - Candidate 2 generation failed for quantum_computing in January 2027
+2026-01-10 05:25:17,576 - INFO - Generating candidate 3/3 for quantum_computing in January 2027
+2026-01-10 05:25:45,899 - WARNING - Candidate 3 generation failed for quantum_computing in January 2027
+2026-01-10 05:25:50,902 - INFO - Generating prediction for spiritual_movements in January 2027
+2026-01-10 05:25:50,909 - INFO - Generating candidate 1/3 for spiritual_movements in January 2027
+2026-01-10 05:26:09,206 - INFO - Generating candidate 2/3 for spiritual_movements in January 2027
+2026-01-10 05:26:28,165 - INFO - Generating candidate 3/3 for spiritual_movements in January 2027
+2026-01-10 05:27:12,948 - INFO - Generating prediction for future_ai in January 2027
+2026-01-10 05:27:12,948 - INFO - Generating candidate 1/3 for future_ai in January 2027
+2026-01-10 05:27:40,977 - INFO - Generating candidate 2/3 for future_ai in January 2027
+2026-01-10 05:28:06,170 - INFO - Generating candidate 3/3 for future_ai in January 2027
+2026-01-10 05:28:51,278 - INFO - Generating prediction for geopolitics in January 2027
+2026-01-10 05:28:51,278 - INFO - Generating candidate 1/3 for geopolitics in January 2027
+2026-01-10 05:29:05,841 - WARNING - Candidate 1 generation failed for geopolitics in January 2027
+2026-01-10 05:29:07,844 - INFO - Generating candidate 2/3 for geopolitics in January 2027
+2026-01-10 05:29:29,093 - WARNING - Candidate 2 generation failed for geopolitics in January 2027
+2026-01-10 05:29:31,095 - INFO - Generating candidate 3/3 for geopolitics in January 2027
+2026-01-10 05:29:51,596 - WARNING - Candidate 3 generation failed for geopolitics in January 2027
+2026-01-10 05:29:56,600 - INFO - Generating prediction for trump_maga in January 2027
+2026-01-10 05:29:56,600 - INFO - Generating candidate 1/3 for trump_maga in January 2027
+2026-01-10 05:30:17,099 - INFO - Generating candidate 2/3 for trump_maga in January 2027
+2026-01-10 05:30:42,614 - INFO - Generating candidate 3/3 for trump_maga in January 2027
+2026-01-10 05:31:19,098 - INFO - Generating prediction for ai_jobs in January 2027
+2026-01-10 05:31:19,098 - INFO - Generating candidate 1/3 for ai_jobs in January 2027
+2026-01-10 05:31:50,077 - INFO - Generating candidate 2/3 for ai_jobs in January 2027
+2026-01-10 05:32:08,814 - INFO - Generating candidate 3/3 for ai_jobs in January 2027
+2026-01-10 05:32:27,358 - WARNING - Candidate 3 generation failed for ai_jobs in January 2027
+2026-01-10 05:32:42,489 - INFO - Generating prediction for ai_global_comparison in January 2027
+2026-01-10 05:32:42,489 - INFO - Generating candidate 1/3 for ai_global_comparison in January 2027
+2026-01-10 05:33:01,723 - INFO - Generating candidate 2/3 for ai_global_comparison in January 2027
+2026-01-10 05:33:23,497 - INFO - Generating candidate 3/3 for ai_global_comparison in January 2027
+2026-01-10 05:34:05,181 - INFO - Generating prediction for cryptocurrency in January 2027
+2026-01-10 05:34:05,181 - INFO - Generating candidate 1/3 for cryptocurrency in January 2027
+2026-01-10 05:34:25,728 - INFO - Generating candidate 2/3 for cryptocurrency in January 2027
+2026-01-10 05:34:55,206 - INFO - Generating candidate 3/3 for cryptocurrency in January 2027
+2026-01-10 05:35:30,906 - INFO - Generating prediction for capitalism in January 2027
+2026-01-10 05:35:30,906 - INFO - Generating candidate 1/3 for capitalism in January 2027
+2026-01-10 05:35:54,185 - INFO - Generating candidate 2/3 for capitalism in January 2027
+2026-01-10 05:36:12,582 - WARNING - Candidate 2 generation failed for capitalism in January 2027
+2026-01-10 05:36:14,584 - INFO - Generating candidate 3/3 for capitalism in January 2027
+2026-01-10 05:36:33,592 - WARNING - Candidate 3 generation failed for capitalism in January 2027
+2026-01-10 05:36:38,594 - INFO - Generating prediction for free_speech in January 2027
+2026-01-10 05:36:38,601 - INFO - Generating candidate 1/3 for free_speech in January 2027
+2026-01-10 05:37:13,876 - WARNING - Candidate 1 generation failed for free_speech in January 2027
+2026-01-10 05:37:15,879 - INFO - Generating candidate 2/3 for free_speech in January 2027
+2026-01-10 05:37:38,402 - INFO - Generating candidate 3/3 for free_speech in January 2027
+2026-01-10 05:37:57,348 - WARNING - Candidate 3 generation failed for free_speech in January 2027
+2026-01-10 05:38:02,351 - INFO - Generating prediction for activist_movements in January 2027
+2026-01-10 05:38:02,358 - INFO - Generating candidate 1/3 for activist_movements in January 2027
+2026-01-10 05:38:21,797 - INFO - Generating candidate 2/3 for activist_movements in January 2027
+2026-01-10 05:38:39,920 - INFO - Generating candidate 3/3 for activist_movements in January 2027
+2026-01-10 05:39:33,374 - INFO - Generating prediction for censorship in January 2027
+2026-01-10 05:39:33,374 - INFO - Generating candidate 1/3 for censorship in January 2027
+2026-01-10 05:39:58,132 - INFO - Generating candidate 2/3 for censorship in January 2027
+2026-01-10 05:40:08,103 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 05:40:08,103 - ERROR - Invalid API response: None
+2026-01-10 05:40:08,103 - WARNING - Candidate 2 generation failed for censorship in January 2027
+2026-01-10 05:40:10,106 - INFO - Generating candidate 3/3 for censorship in January 2027
+2026-01-10 05:40:53,012 - INFO - Generating prediction for geopolitical_rights in January 2027
+2026-01-10 05:40:53,012 - INFO - Generating candidate 1/3 for geopolitical_rights in January 2027
+2026-01-10 05:41:16,761 - INFO - Generating candidate 2/3 for geopolitical_rights in January 2027
+2026-01-10 05:41:35,803 - INFO - Generating candidate 3/3 for geopolitical_rights in January 2027
+2026-01-10 05:42:11,071 - INFO - Generating prediction for misc_topics in January 2027
+2026-01-10 05:42:11,071 - INFO - Generating candidate 1/3 for misc_topics in January 2027
+2026-01-10 05:42:33,535 - INFO - Generating candidate 2/3 for misc_topics in January 2027
+2026-01-10 05:42:50,872 - WARNING - Candidate 2 generation failed for misc_topics in January 2027
+2026-01-10 05:42:52,875 - INFO - Generating candidate 3/3 for misc_topics in January 2027
+2026-01-10 05:43:08,890 - WARNING - Candidate 3 generation failed for misc_topics in January 2027
+2026-01-10 05:43:13,893 - INFO - Completed predictions for January 2027
+2026-01-10 05:43:13,894 - INFO - Processing predictions for February 2027
+2026-01-10 05:43:13,894 - INFO - Generating prediction for sustainability in February 2027
+2026-01-10 05:43:13,894 - INFO - Generating candidate 1/3 for sustainability in February 2027
+2026-01-10 05:43:37,490 - WARNING - Candidate 1 generation failed for sustainability in February 2027
+2026-01-10 05:43:39,492 - INFO - Generating candidate 2/3 for sustainability in February 2027
+2026-01-10 05:44:01,978 - WARNING - Candidate 2 generation failed for sustainability in February 2027
+2026-01-10 05:44:03,980 - INFO - Generating candidate 3/3 for sustainability in February 2027
+2026-01-10 05:44:27,355 - INFO - Generating prediction for quantum_computing in February 2027
+2026-01-10 05:44:27,355 - INFO - Generating candidate 1/3 for quantum_computing in February 2027
+2026-01-10 05:44:44,715 - INFO - Generating candidate 2/3 for quantum_computing in February 2027
+2026-01-10 05:45:09,761 - INFO - Generating candidate 3/3 for quantum_computing in February 2027
+2026-01-10 05:45:50,133 - INFO - Generating prediction for spiritual_movements in February 2027
+2026-01-10 05:45:50,134 - INFO - Generating candidate 1/3 for spiritual_movements in February 2027
+2026-01-10 05:46:18,755 - INFO - Generating candidate 2/3 for spiritual_movements in February 2027
+2026-01-10 05:47:01,740 - INFO - Generating candidate 3/3 for spiritual_movements in February 2027
+2026-01-10 05:47:36,266 - INFO - Generating prediction for future_ai in February 2027
+2026-01-10 05:47:36,267 - INFO - Generating candidate 1/3 for future_ai in February 2027
+2026-01-10 05:47:53,480 - INFO - Generating candidate 2/3 for future_ai in February 2027
+2026-01-10 05:48:12,326 - INFO - Generating candidate 3/3 for future_ai in February 2027
+2026-01-10 05:48:56,557 - INFO - Generating prediction for geopolitics in February 2027
+2026-01-10 05:48:56,557 - INFO - Generating candidate 1/3 for geopolitics in February 2027
+2026-01-10 05:49:01,741 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 05:49:01,749 - ERROR - Invalid API response: None
+2026-01-10 05:49:01,749 - WARNING - Candidate 1 generation failed for geopolitics in February 2027
+2026-01-10 05:49:03,751 - INFO - Generating candidate 2/3 for geopolitics in February 2027
+2026-01-10 05:49:20,387 - WARNING - Candidate 2 generation failed for geopolitics in February 2027
+2026-01-10 05:49:22,389 - INFO - Generating candidate 3/3 for geopolitics in February 2027
+2026-01-10 05:49:46,237 - WARNING - Candidate 3 generation failed for geopolitics in February 2027
+2026-01-10 05:49:51,242 - INFO - Generating prediction for trump_maga in February 2027
+2026-01-10 05:49:51,249 - INFO - Generating candidate 1/3 for trump_maga in February 2027
+2026-01-10 05:50:11,450 - INFO - Generating candidate 2/3 for trump_maga in February 2027
+2026-01-10 05:50:31,264 - INFO - Generating candidate 3/3 for trump_maga in February 2027
+2026-01-10 05:51:10,240 - INFO - Generating prediction for ai_jobs in February 2027
+2026-01-10 05:51:10,240 - INFO - Generating candidate 1/3 for ai_jobs in February 2027
+2026-01-10 05:51:32,249 - INFO - Generating candidate 2/3 for ai_jobs in February 2027
+2026-01-10 05:52:04,778 - INFO - Generating candidate 3/3 for ai_jobs in February 2027
+2026-01-10 05:53:07,392 - INFO - Generating prediction for ai_global_comparison in February 2027
+2026-01-10 05:53:07,392 - INFO - Generating candidate 1/3 for ai_global_comparison in February 2027
+2026-01-10 05:53:41,784 - INFO - Generating candidate 2/3 for ai_global_comparison in February 2027
+2026-01-10 05:54:23,448 - WARNING - Candidate 2 generation failed for ai_global_comparison in February 2027
+2026-01-10 05:54:25,450 - INFO - Generating candidate 3/3 for ai_global_comparison in February 2027
+2026-01-10 05:54:41,926 - WARNING - Candidate 3 generation failed for ai_global_comparison in February 2027
+2026-01-10 05:54:46,929 - INFO - Generating prediction for cryptocurrency in February 2027
+2026-01-10 05:54:46,936 - INFO - Generating candidate 1/3 for cryptocurrency in February 2027
+2026-01-10 05:55:15,874 - INFO - Generating candidate 2/3 for cryptocurrency in February 2027
+2026-01-10 05:55:34,553 - WARNING - Candidate 2 generation failed for cryptocurrency in February 2027
+2026-01-10 05:55:36,556 - INFO - Generating candidate 3/3 for cryptocurrency in February 2027
+2026-01-10 05:56:22,853 - INFO - Generating prediction for capitalism in February 2027
+2026-01-10 05:56:22,853 - INFO - Generating candidate 1/3 for capitalism in February 2027
+2026-01-10 05:56:55,160 - INFO - Generating candidate 2/3 for capitalism in February 2027
+2026-01-10 05:57:21,315 - WARNING - Candidate 2 generation failed for capitalism in February 2027
+2026-01-10 05:57:23,317 - INFO - Generating candidate 3/3 for capitalism in February 2027
+2026-01-10 05:57:39,667 - WARNING - Candidate 3 generation failed for capitalism in February 2027
+2026-01-10 05:57:44,670 - INFO - Generating prediction for free_speech in February 2027
+2026-01-10 05:57:44,677 - INFO - Generating candidate 1/3 for free_speech in February 2027
+2026-01-10 05:58:02,194 - WARNING - Candidate 1 generation failed for free_speech in February 2027
+2026-01-10 05:58:04,196 - INFO - Generating candidate 2/3 for free_speech in February 2027
+2026-01-10 05:58:38,910 - INFO - Generating candidate 3/3 for free_speech in February 2027
+2026-01-10 05:58:59,967 - WARNING - Candidate 3 generation failed for free_speech in February 2027
+2026-01-10 05:59:04,971 - INFO - Generating prediction for activist_movements in February 2027
+2026-01-10 05:59:04,971 - INFO - Generating candidate 1/3 for activist_movements in February 2027
+2026-01-10 05:59:29,284 - INFO - Generating candidate 2/3 for activist_movements in February 2027
+2026-01-10 05:59:45,726 - INFO - Generating candidate 3/3 for activist_movements in February 2027
+2026-01-10 06:00:28,445 - INFO - Generating prediction for censorship in February 2027
+2026-01-10 06:00:28,445 - INFO - Generating candidate 1/3 for censorship in February 2027
+2026-01-10 06:00:47,659 - INFO - Generating candidate 2/3 for censorship in February 2027
+2026-01-10 06:01:09,421 - INFO - Generating candidate 3/3 for censorship in February 2027
+2026-01-10 06:01:43,908 - INFO - Generating prediction for geopolitical_rights in February 2027
+2026-01-10 06:01:43,908 - INFO - Generating candidate 1/3 for geopolitical_rights in February 2027
+2026-01-10 06:02:05,142 - INFO - Generating candidate 2/3 for geopolitical_rights in February 2027
+2026-01-10 06:02:30,390 - INFO - Generating candidate 3/3 for geopolitical_rights in February 2027
+2026-01-10 06:03:07,418 - INFO - Generating prediction for misc_topics in February 2027
+2026-01-10 06:03:07,418 - INFO - Generating candidate 1/3 for misc_topics in February 2027
+2026-01-10 06:03:33,597 - INFO - Generating candidate 2/3 for misc_topics in February 2027
+2026-01-10 06:03:49,444 - WARNING - Candidate 2 generation failed for misc_topics in February 2027
+2026-01-10 06:03:51,446 - INFO - Generating candidate 3/3 for misc_topics in February 2027
+2026-01-10 06:04:13,767 - WARNING - Candidate 3 generation failed for misc_topics in February 2027
+2026-01-10 06:04:18,770 - INFO - Completed predictions for February 2027
+2026-01-10 06:04:18,777 - INFO - Processing predictions for March 2027
+2026-01-10 06:04:18,777 - INFO - Generating prediction for sustainability in March 2027
+2026-01-10 06:04:18,778 - INFO - Generating candidate 1/3 for sustainability in March 2027
+2026-01-10 06:04:39,620 - WARNING - Candidate 1 generation failed for sustainability in March 2027
+2026-01-10 06:04:41,623 - INFO - Generating candidate 2/3 for sustainability in March 2027
+2026-01-10 06:04:59,017 - INFO - Generating candidate 3/3 for sustainability in March 2027
+2026-01-10 06:05:30,664 - INFO - Generating prediction for quantum_computing in March 2027
+2026-01-10 06:05:30,664 - INFO - Generating candidate 1/3 for quantum_computing in March 2027
+2026-01-10 06:05:49,454 - INFO - Generating candidate 2/3 for quantum_computing in March 2027
+2026-01-10 06:06:08,968 - INFO - Generating candidate 3/3 for quantum_computing in March 2027
+2026-01-10 06:06:48,478 - INFO - Generating prediction for spiritual_movements in March 2027
+2026-01-10 06:06:48,478 - INFO - Generating candidate 1/3 for spiritual_movements in March 2027
+2026-01-10 06:07:14,656 - INFO - Generating candidate 2/3 for spiritual_movements in March 2027
+2026-01-10 06:07:41,754 - INFO - Generating candidate 3/3 for spiritual_movements in March 2027
+2026-01-10 06:07:57,889 - WARNING - Candidate 3 generation failed for spiritual_movements in March 2027
+2026-01-10 06:08:15,947 - INFO - Generating prediction for future_ai in March 2027
+2026-01-10 06:08:15,947 - INFO - Generating candidate 1/3 for future_ai in March 2027
+2026-01-10 06:08:34,387 - INFO - Generating candidate 2/3 for future_ai in March 2027
+2026-01-10 06:08:51,984 - WARNING - Candidate 2 generation failed for future_ai in March 2027
+2026-01-10 06:08:53,986 - INFO - Generating candidate 3/3 for future_ai in March 2027
+2026-01-10 06:09:19,736 - WARNING - Candidate 3 generation failed for future_ai in March 2027
+2026-01-10 06:09:24,740 - INFO - Generating prediction for geopolitics in March 2027
+2026-01-10 06:09:24,740 - INFO - Generating candidate 1/3 for geopolitics in March 2027
+2026-01-10 06:09:48,197 - INFO - Generating candidate 2/3 for geopolitics in March 2027
+2026-01-10 06:10:05,824 - INFO - Generating candidate 3/3 for geopolitics in March 2027
+2026-01-10 06:10:55,396 - INFO - Generating prediction for trump_maga in March 2027
+2026-01-10 06:10:55,396 - INFO - Generating candidate 1/3 for trump_maga in March 2027
+2026-01-10 06:11:12,511 - INFO - Generating candidate 2/3 for trump_maga in March 2027
+2026-01-10 06:11:31,050 - INFO - Generating candidate 3/3 for trump_maga in March 2027
+2026-01-10 06:11:46,170 - WARNING - Candidate 3 generation failed for trump_maga in March 2027
+2026-01-10 06:12:08,017 - INFO - Generating prediction for ai_jobs in March 2027
+2026-01-10 06:12:08,017 - INFO - Generating candidate 1/3 for ai_jobs in March 2027
+2026-01-10 06:12:28,922 - WARNING - Candidate 1 generation failed for ai_jobs in March 2027
+2026-01-10 06:12:30,924 - INFO - Generating candidate 2/3 for ai_jobs in March 2027
+2026-01-10 06:12:48,090 - INFO - Generating candidate 3/3 for ai_jobs in March 2027
+2026-01-10 06:13:33,215 - INFO - Generating prediction for ai_global_comparison in March 2027
+2026-01-10 06:13:33,215 - INFO - Generating candidate 1/3 for ai_global_comparison in March 2027
+2026-01-10 06:13:54,121 - INFO - Generating candidate 2/3 for ai_global_comparison in March 2027
+2026-01-10 06:14:12,388 - INFO - Generating candidate 3/3 for ai_global_comparison in March 2027
+2026-01-10 06:14:27,841 - WARNING - Candidate 3 generation failed for ai_global_comparison in March 2027
+2026-01-10 06:14:47,053 - INFO - Generating prediction for cryptocurrency in March 2027
+2026-01-10 06:14:47,054 - INFO - Generating candidate 1/3 for cryptocurrency in March 2027
+2026-01-10 06:15:05,898 - INFO - Generating candidate 2/3 for cryptocurrency in March 2027
+2026-01-10 06:15:22,547 - WARNING - Candidate 2 generation failed for cryptocurrency in March 2027
+2026-01-10 06:15:24,549 - INFO - Generating candidate 3/3 for cryptocurrency in March 2027
+2026-01-10 06:15:43,800 - WARNING - Candidate 3 generation failed for cryptocurrency in March 2027
+2026-01-10 06:15:48,803 - INFO - Generating prediction for capitalism in March 2027
+2026-01-10 06:15:48,810 - INFO - Generating candidate 1/3 for capitalism in March 2027
+2026-01-10 06:16:06,464 - INFO - Generating candidate 2/3 for capitalism in March 2027
+2026-01-10 06:16:26,037 - INFO - Generating candidate 3/3 for capitalism in March 2027
+2026-01-10 06:17:10,759 - INFO - Generating prediction for free_speech in March 2027
+2026-01-10 06:17:10,759 - INFO - Generating candidate 1/3 for free_speech in March 2027
+2026-01-10 06:17:29,419 - INFO - Generating candidate 2/3 for free_speech in March 2027
+2026-01-10 06:17:47,659 - INFO - Generating candidate 3/3 for free_speech in March 2027
+2026-01-10 06:18:21,450 - INFO - Generating prediction for activist_movements in March 2027
+2026-01-10 06:18:21,450 - INFO - Generating candidate 1/3 for activist_movements in March 2027
+2026-01-10 06:18:38,081 - WARNING - Candidate 1 generation failed for activist_movements in March 2027
+2026-01-10 06:18:40,083 - INFO - Generating candidate 2/3 for activist_movements in March 2027
+2026-01-10 06:18:58,435 - INFO - Generating candidate 3/3 for activist_movements in March 2027
+2026-01-10 06:19:33,241 - INFO - Generating prediction for censorship in March 2027
+2026-01-10 06:19:33,242 - INFO - Generating candidate 1/3 for censorship in March 2027
+2026-01-10 06:20:00,482 - INFO - Generating candidate 2/3 for censorship in March 2027
+2026-01-10 06:20:20,686 - INFO - Generating candidate 3/3 for censorship in March 2027
+2026-01-10 06:21:05,194 - INFO - Generating prediction for geopolitical_rights in March 2027
+2026-01-10 06:21:05,194 - INFO - Generating candidate 1/3 for geopolitical_rights in March 2027
+2026-01-10 06:21:23,099 - INFO - Generating candidate 2/3 for geopolitical_rights in March 2027
+2026-01-10 06:21:39,067 - WARNING - Candidate 2 generation failed for geopolitical_rights in March 2027
+2026-01-10 06:21:41,070 - INFO - Generating candidate 3/3 for geopolitical_rights in March 2027
+2026-01-10 06:22:17,525 - INFO - Generating prediction for misc_topics in March 2027
+2026-01-10 06:22:17,525 - INFO - Generating candidate 1/3 for misc_topics in March 2027
+2026-01-10 06:22:41,205 - INFO - Generating candidate 2/3 for misc_topics in March 2027
+2026-01-10 06:23:00,398 - INFO - Generating candidate 3/3 for misc_topics in March 2027
+2026-01-10 06:23:38,778 - INFO - Completed predictions for March 2027
+2026-01-10 06:23:38,778 - INFO - Processing predictions for April 2027
+2026-01-10 06:23:38,778 - INFO - Generating prediction for sustainability in April 2027
+2026-01-10 06:23:38,778 - INFO - Generating candidate 1/3 for sustainability in April 2027
+2026-01-10 06:23:56,365 - INFO - Generating candidate 2/3 for sustainability in April 2027
+2026-01-10 06:24:14,519 - WARNING - Candidate 2 generation failed for sustainability in April 2027
+2026-01-10 06:24:16,521 - INFO - Generating candidate 3/3 for sustainability in April 2027
+2026-01-10 06:24:32,993 - WARNING - Candidate 3 generation failed for sustainability in April 2027
+2026-01-10 06:24:37,996 - INFO - Generating prediction for quantum_computing in April 2027
+2026-01-10 06:24:38,043 - INFO - Generating candidate 1/3 for quantum_computing in April 2027
+2026-01-10 06:25:01,500 - INFO - Generating candidate 2/3 for quantum_computing in April 2027
+2026-01-10 06:25:19,172 - WARNING - Candidate 2 generation failed for quantum_computing in April 2027
+2026-01-10 06:25:21,175 - INFO - Generating candidate 3/3 for quantum_computing in April 2027
+2026-01-10 06:26:08,517 - INFO - Generating prediction for spiritual_movements in April 2027
+2026-01-10 06:26:08,517 - INFO - Generating candidate 1/3 for spiritual_movements in April 2027
+2026-01-10 06:26:24,267 - WARNING - Candidate 1 generation failed for spiritual_movements in April 2027
+2026-01-10 06:26:26,269 - INFO - Generating candidate 2/3 for spiritual_movements in April 2027
+2026-01-10 06:26:44,170 - INFO - Generating candidate 3/3 for spiritual_movements in April 2027
+2026-01-10 06:27:32,620 - INFO - Generating prediction for future_ai in April 2027
+2026-01-10 06:27:32,620 - INFO - Generating candidate 1/3 for future_ai in April 2027
+2026-01-10 06:27:50,728 - INFO - Generating candidate 2/3 for future_ai in April 2027
+2026-01-10 06:28:16,555 - INFO - Generating candidate 3/3 for future_ai in April 2027
+2026-01-10 06:28:55,280 - INFO - Generating prediction for geopolitics in April 2027
+2026-01-10 06:28:55,280 - INFO - Generating candidate 1/3 for geopolitics in April 2027
+2026-01-10 06:29:17,572 - WARNING - Candidate 1 generation failed for geopolitics in April 2027
+2026-01-10 06:29:19,574 - INFO - Generating candidate 2/3 for geopolitics in April 2027
+2026-01-10 06:29:37,733 - INFO - Generating candidate 3/3 for geopolitics in April 2027
+2026-01-10 06:29:56,739 - WARNING - Candidate 3 generation failed for geopolitics in April 2027
+2026-01-10 06:30:01,742 - INFO - Generating prediction for trump_maga in April 2027
+2026-01-10 06:30:01,749 - INFO - Generating candidate 1/3 for trump_maga in April 2027
+2026-01-10 06:30:24,557 - WARNING - Candidate 1 generation failed for trump_maga in April 2027
+2026-01-10 06:30:26,559 - INFO - Generating candidate 2/3 for trump_maga in April 2027
+2026-01-10 06:30:46,260 - INFO - Generating candidate 3/3 for trump_maga in April 2027
+2026-01-10 06:31:15,930 - INFO - Generating prediction for ai_jobs in April 2027
+2026-01-10 06:31:15,930 - INFO - Generating candidate 1/3 for ai_jobs in April 2027
+2026-01-10 06:31:35,093 - INFO - Generating candidate 2/3 for ai_jobs in April 2027
+2026-01-10 06:31:55,013 - WARNING - Candidate 2 generation failed for ai_jobs in April 2027
+2026-01-10 06:31:57,015 - INFO - Generating candidate 3/3 for ai_jobs in April 2027
+2026-01-10 06:32:31,405 - INFO - Generating prediction for ai_global_comparison in April 2027
+2026-01-10 06:32:31,405 - INFO - Generating candidate 1/3 for ai_global_comparison in April 2027
+2026-01-10 06:33:02,621 - INFO - Generating candidate 2/3 for ai_global_comparison in April 2027
+2026-01-10 06:33:24,358 - INFO - Generating candidate 3/3 for ai_global_comparison in April 2027
+2026-01-10 06:33:57,949 - INFO - Generating prediction for cryptocurrency in April 2027
+2026-01-10 06:33:57,950 - INFO - Generating candidate 1/3 for cryptocurrency in April 2027
+2026-01-10 06:34:16,123 - WARNING - Candidate 1 generation failed for cryptocurrency in April 2027
+2026-01-10 06:34:18,125 - INFO - Generating candidate 2/3 for cryptocurrency in April 2027
+2026-01-10 06:34:42,619 - INFO - Generating candidate 3/3 for cryptocurrency in April 2027
+2026-01-10 06:35:02,914 - WARNING - Candidate 3 generation failed for cryptocurrency in April 2027
+2026-01-10 06:35:07,918 - INFO - Generating prediction for capitalism in April 2027
+2026-01-10 06:35:07,918 - INFO - Generating candidate 1/3 for capitalism in April 2027
+2026-01-10 06:35:28,799 - INFO - Generating candidate 2/3 for capitalism in April 2027
+2026-01-10 06:35:49,399 - WARNING - Candidate 2 generation failed for capitalism in April 2027
+2026-01-10 06:35:51,401 - INFO - Generating candidate 3/3 for capitalism in April 2027
+2026-01-10 06:36:29,968 - INFO - Generating prediction for free_speech in April 2027
+2026-01-10 06:36:29,975 - INFO - Generating candidate 1/3 for free_speech in April 2027
+2026-01-10 06:36:51,059 - WARNING - Candidate 1 generation failed for free_speech in April 2027
+2026-01-10 06:36:53,061 - INFO - Generating candidate 2/3 for free_speech in April 2027
+2026-01-10 06:37:09,028 - INFO - Generating candidate 3/3 for free_speech in April 2027
+2026-01-10 06:37:44,903 - INFO - Generating prediction for activist_movements in April 2027
+2026-01-10 06:37:44,903 - INFO - Generating candidate 1/3 for activist_movements in April 2027
+2026-01-10 06:38:08,366 - INFO - Generating candidate 2/3 for activist_movements in April 2027
+2026-01-10 06:38:30,432 - INFO - Generating candidate 3/3 for activist_movements in April 2027
+2026-01-10 06:39:14,785 - INFO - Generating prediction for censorship in April 2027
+2026-01-10 06:39:14,785 - INFO - Generating candidate 1/3 for censorship in April 2027
+2026-01-10 06:39:34,059 - INFO - Generating candidate 2/3 for censorship in April 2027
+2026-01-10 06:39:53,646 - INFO - Generating candidate 3/3 for censorship in April 2027
+2026-01-10 06:40:37,837 - INFO - Generating prediction for geopolitical_rights in April 2027
+2026-01-10 06:40:37,837 - INFO - Generating candidate 1/3 for geopolitical_rights in April 2027
+2026-01-10 06:40:52,698 - WARNING - Candidate 1 generation failed for geopolitical_rights in April 2027
+2026-01-10 06:40:54,700 - INFO - Generating candidate 2/3 for geopolitical_rights in April 2027
+2026-01-10 06:41:01,818 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 06:41:01,818 - ERROR - Invalid API response: None
+2026-01-10 06:41:01,818 - WARNING - Candidate 2 generation failed for geopolitical_rights in April 2027
+2026-01-10 06:41:03,820 - INFO - Generating candidate 3/3 for geopolitical_rights in April 2027
+2026-01-10 06:41:24,714 - INFO - Generating prediction for misc_topics in April 2027
+2026-01-10 06:41:24,714 - INFO - Generating candidate 1/3 for misc_topics in April 2027
+2026-01-10 06:41:43,750 - INFO - Generating candidate 2/3 for misc_topics in April 2027
+2026-01-10 06:42:02,870 - INFO - Generating candidate 3/3 for misc_topics in April 2027
+2026-01-10 06:42:41,410 - INFO - Completed predictions for April 2027
+2026-01-10 06:42:41,410 - INFO - Processing predictions for May 2027
+2026-01-10 06:42:41,410 - INFO - Generating prediction for sustainability in May 2027
+2026-01-10 06:42:41,410 - INFO - Generating candidate 1/3 for sustainability in May 2027
+2026-01-10 06:42:57,576 - WARNING - Candidate 1 generation failed for sustainability in May 2027
+2026-01-10 06:42:59,579 - INFO - Generating candidate 2/3 for sustainability in May 2027
+2026-01-10 06:43:18,313 - INFO - Generating candidate 3/3 for sustainability in May 2027
+2026-01-10 06:43:56,213 - INFO - Generating prediction for quantum_computing in May 2027
+2026-01-10 06:43:56,213 - INFO - Generating candidate 1/3 for quantum_computing in May 2027
+2026-01-10 06:44:14,706 - INFO - Generating candidate 2/3 for quantum_computing in May 2027
+2026-01-10 06:44:32,504 - INFO - Generating candidate 3/3 for quantum_computing in May 2027
+2026-01-10 06:45:23,949 - INFO - Generating prediction for spiritual_movements in May 2027
+2026-01-10 06:45:23,950 - INFO - Generating candidate 1/3 for spiritual_movements in May 2027
+2026-01-10 06:45:42,785 - INFO - Generating candidate 2/3 for spiritual_movements in May 2027
+2026-01-10 06:45:59,307 - WARNING - Candidate 2 generation failed for spiritual_movements in May 2027
+2026-01-10 06:46:01,310 - INFO - Generating candidate 3/3 for spiritual_movements in May 2027
+2026-01-10 06:46:17,265 - WARNING - Candidate 3 generation failed for spiritual_movements in May 2027
+2026-01-10 06:46:22,269 - INFO - Generating prediction for future_ai in May 2027
+2026-01-10 06:46:22,276 - INFO - Generating candidate 1/3 for future_ai in May 2027
+2026-01-10 06:46:53,386 - INFO - Generating candidate 2/3 for future_ai in May 2027
+2026-01-10 06:47:17,366 - INFO - Generating candidate 3/3 for future_ai in May 2027
+2026-01-10 06:47:54,988 - INFO - Generating prediction for geopolitics in May 2027
+2026-01-10 06:47:54,988 - INFO - Generating candidate 1/3 for geopolitics in May 2027
+2026-01-10 06:48:14,217 - INFO - Generating candidate 2/3 for geopolitics in May 2027
+2026-01-10 06:48:32,629 - INFO - Generating candidate 3/3 for geopolitics in May 2027
+2026-01-10 06:48:48,588 - WARNING - Candidate 3 generation failed for geopolitics in May 2027
+2026-01-10 06:49:03,275 - INFO - Generating prediction for trump_maga in May 2027
+2026-01-10 06:49:03,275 - INFO - Generating candidate 1/3 for trump_maga in May 2027
+2026-01-10 06:49:21,243 - INFO - Generating candidate 2/3 for trump_maga in May 2027
+2026-01-10 06:49:38,373 - INFO - Generating candidate 3/3 for trump_maga in May 2027
+2026-01-10 06:50:13,957 - INFO - Generating prediction for ai_jobs in May 2027
+2026-01-10 06:50:13,957 - INFO - Generating candidate 1/3 for ai_jobs in May 2027
+2026-01-10 06:50:32,954 - INFO - Generating candidate 2/3 for ai_jobs in May 2027
+2026-01-10 06:50:52,479 - INFO - Generating candidate 3/3 for ai_jobs in May 2027
+2026-01-10 06:51:24,326 - WARNING - Candidate 3 generation failed for ai_jobs in May 2027
+2026-01-10 06:51:47,808 - INFO - Generating prediction for ai_global_comparison in May 2027
+2026-01-10 06:51:47,809 - INFO - Generating candidate 1/3 for ai_global_comparison in May 2027
+2026-01-10 06:52:11,459 - INFO - Generating candidate 2/3 for ai_global_comparison in May 2027
+2026-01-10 06:52:32,254 - WARNING - Candidate 2 generation failed for ai_global_comparison in May 2027
+2026-01-10 06:52:34,256 - INFO - Generating candidate 3/3 for ai_global_comparison in May 2027
+2026-01-10 06:53:22,782 - INFO - Generating prediction for cryptocurrency in May 2027
+2026-01-10 06:53:22,782 - INFO - Generating candidate 1/3 for cryptocurrency in May 2027
+2026-01-10 06:53:41,879 - INFO - Generating candidate 2/3 for cryptocurrency in May 2027
+2026-01-10 06:53:59,911 - INFO - Generating candidate 3/3 for cryptocurrency in May 2027
+2026-01-10 06:54:52,032 - INFO - Generating prediction for capitalism in May 2027
+2026-01-10 06:54:52,033 - INFO - Generating candidate 1/3 for capitalism in May 2027
+2026-01-10 06:55:08,145 - WARNING - Candidate 1 generation failed for capitalism in May 2027
+2026-01-10 06:55:10,147 - INFO - Generating candidate 2/3 for capitalism in May 2027
+2026-01-10 06:55:43,589 - WARNING - Candidate 2 generation failed for capitalism in May 2027
+2026-01-10 06:55:45,591 - INFO - Generating candidate 3/3 for capitalism in May 2027
+2026-01-10 06:56:08,905 - INFO - Generating prediction for free_speech in May 2027
+2026-01-10 06:56:08,906 - INFO - Generating candidate 1/3 for free_speech in May 2027
+2026-01-10 06:56:32,407 - INFO - Generating candidate 2/3 for free_speech in May 2027
+2026-01-10 06:56:54,351 - INFO - Generating candidate 3/3 for free_speech in May 2027
+2026-01-10 06:57:07,188 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 06:57:07,188 - ERROR - Invalid API response: None
+2026-01-10 06:57:07,188 - WARNING - Candidate 3 generation failed for free_speech in May 2027
+2026-01-10 06:57:29,219 - INFO - Generating prediction for activist_movements in May 2027
+2026-01-10 06:57:29,219 - INFO - Generating candidate 1/3 for activist_movements in May 2027
+2026-01-10 06:57:47,694 - INFO - Generating candidate 2/3 for activist_movements in May 2027
+2026-01-10 06:58:11,287 - INFO - Generating candidate 3/3 for activist_movements in May 2027
+2026-01-10 06:58:52,464 - INFO - Generating prediction for censorship in May 2027
+2026-01-10 06:58:52,465 - INFO - Generating candidate 1/3 for censorship in May 2027
+2026-01-10 06:59:10,692 - INFO - Generating candidate 2/3 for censorship in May 2027
+2026-01-10 06:59:34,202 - INFO - Generating candidate 3/3 for censorship in May 2027
+2026-01-10 07:00:08,904 - INFO - Generating prediction for geopolitical_rights in May 2027
+2026-01-10 07:00:08,905 - INFO - Generating candidate 1/3 for geopolitical_rights in May 2027
+2026-01-10 07:00:27,504 - INFO - Generating candidate 2/3 for geopolitical_rights in May 2027
+2026-01-10 07:00:42,846 - WARNING - Candidate 2 generation failed for geopolitical_rights in May 2027
+2026-01-10 07:00:44,855 - INFO - Generating candidate 3/3 for geopolitical_rights in May 2027
+2026-01-10 07:01:14,374 - INFO - Generating prediction for misc_topics in May 2027
+2026-01-10 07:01:14,374 - INFO - Generating candidate 1/3 for misc_topics in May 2027
+2026-01-10 07:01:34,876 - INFO - Generating candidate 2/3 for misc_topics in May 2027
+2026-01-10 07:01:57,060 - WARNING - Candidate 2 generation failed for misc_topics in May 2027
+2026-01-10 07:01:59,062 - INFO - Generating candidate 3/3 for misc_topics in May 2027
+2026-01-10 07:02:25,063 - WARNING - Candidate 3 generation failed for misc_topics in May 2027
+2026-01-10 07:02:30,066 - INFO - Completed predictions for May 2027
+2026-01-10 07:02:30,073 - INFO - Processing predictions for June 2027
+2026-01-10 07:02:30,074 - INFO - Generating prediction for sustainability in June 2027
+2026-01-10 07:02:30,074 - INFO - Generating candidate 1/3 for sustainability in June 2027
+2026-01-10 07:02:51,061 - INFO - Generating candidate 2/3 for sustainability in June 2027
+2026-01-10 07:03:09,405 - INFO - Generating candidate 3/3 for sustainability in June 2027
+2026-01-10 07:03:36,598 - WARNING - Candidate 3 generation failed for sustainability in June 2027
+2026-01-10 07:03:54,039 - INFO - Generating prediction for quantum_computing in June 2027
+2026-01-10 07:03:54,040 - INFO - Generating candidate 1/3 for quantum_computing in June 2027
+2026-01-10 07:04:18,264 - INFO - Generating candidate 2/3 for quantum_computing in June 2027
+2026-01-10 07:04:40,359 - INFO - Generating candidate 3/3 for quantum_computing in June 2027
+2026-01-10 07:05:11,444 - INFO - Generating prediction for spiritual_movements in June 2027
+2026-01-10 07:05:11,444 - INFO - Generating candidate 1/3 for spiritual_movements in June 2027
+2026-01-10 07:05:29,076 - INFO - Generating candidate 2/3 for spiritual_movements in June 2027
+2026-01-10 07:05:48,528 - INFO - Generating candidate 3/3 for spiritual_movements in June 2027
+2026-01-10 07:06:05,283 - WARNING - Candidate 3 generation failed for spiritual_movements in June 2027
+2026-01-10 07:06:19,191 - INFO - Generating prediction for future_ai in June 2027
+2026-01-10 07:06:19,191 - INFO - Generating candidate 1/3 for future_ai in June 2027
+2026-01-10 07:06:35,537 - WARNING - Candidate 1 generation failed for future_ai in June 2027
+2026-01-10 07:06:37,539 - INFO - Generating candidate 2/3 for future_ai in June 2027
+2026-01-10 07:07:01,605 - INFO - Generating candidate 3/3 for future_ai in June 2027
+2026-01-10 07:07:59,311 - INFO - Generating prediction for geopolitics in June 2027
+2026-01-10 07:07:59,311 - INFO - Generating candidate 1/3 for geopolitics in June 2027
+2026-01-10 07:08:20,178 - INFO - Generating candidate 2/3 for geopolitics in June 2027
+2026-01-10 07:08:46,468 - INFO - Generating candidate 3/3 for geopolitics in June 2027
+2026-01-10 07:09:27,343 - INFO - Generating prediction for trump_maga in June 2027
+2026-01-10 07:09:27,344 - INFO - Generating candidate 1/3 for trump_maga in June 2027
+2026-01-10 07:09:46,463 - INFO - Generating candidate 2/3 for trump_maga in June 2027
+2026-01-10 07:10:05,164 - INFO - Generating candidate 3/3 for trump_maga in June 2027
+2026-01-10 07:10:54,962 - INFO - Generating prediction for ai_jobs in June 2027
+2026-01-10 07:10:54,962 - INFO - Generating candidate 1/3 for ai_jobs in June 2027
+2026-01-10 07:11:18,340 - INFO - Generating candidate 2/3 for ai_jobs in June 2027
+2026-01-10 07:11:37,051 - INFO - Generating candidate 3/3 for ai_jobs in June 2027
+2026-01-10 07:12:17,454 - INFO - Generating prediction for ai_global_comparison in June 2027
+2026-01-10 07:12:17,454 - INFO - Generating candidate 1/3 for ai_global_comparison in June 2027
+2026-01-10 07:12:35,821 - INFO - Generating candidate 2/3 for ai_global_comparison in June 2027
+2026-01-10 07:12:54,874 - INFO - Generating candidate 3/3 for ai_global_comparison in June 2027
+2026-01-10 07:13:34,918 - INFO - Generating prediction for cryptocurrency in June 2027
+2026-01-10 07:13:34,918 - INFO - Generating candidate 1/3 for cryptocurrency in June 2027
+2026-01-10 07:13:56,140 - WARNING - Candidate 1 generation failed for cryptocurrency in June 2027
+2026-01-10 07:13:58,142 - INFO - Generating candidate 2/3 for cryptocurrency in June 2027
+2026-01-10 07:14:17,847 - INFO - Generating candidate 3/3 for cryptocurrency in June 2027
+2026-01-10 07:14:39,029 - WARNING - Candidate 3 generation failed for cryptocurrency in June 2027
+2026-01-10 07:14:44,032 - INFO - Generating prediction for capitalism in June 2027
+2026-01-10 07:14:44,039 - INFO - Generating candidate 1/3 for capitalism in June 2027
+2026-01-10 07:15:01,862 - WARNING - Candidate 1 generation failed for capitalism in June 2027
+2026-01-10 07:15:03,864 - INFO - Generating candidate 2/3 for capitalism in June 2027
+2026-01-10 07:15:26,961 - INFO - Generating candidate 3/3 for capitalism in June 2027
+2026-01-10 07:16:04,966 - INFO - Generating prediction for free_speech in June 2027
+2026-01-10 07:16:04,967 - INFO - Generating candidate 1/3 for free_speech in June 2027
+2026-01-10 07:16:24,369 - INFO - Generating candidate 2/3 for free_speech in June 2027
+2026-01-10 07:16:42,040 - INFO - Generating candidate 3/3 for free_speech in June 2027
+2026-01-10 07:17:20,789 - INFO - Generating prediction for activist_movements in June 2027
+2026-01-10 07:17:20,790 - INFO - Generating candidate 1/3 for activist_movements in June 2027
+2026-01-10 07:17:38,848 - INFO - Generating candidate 2/3 for activist_movements in June 2027
+2026-01-10 07:17:52,885 - INFO - Generating candidate 3/3 for activist_movements in June 2027
+2026-01-10 07:18:32,710 - INFO - Generating prediction for censorship in June 2027
+2026-01-10 07:18:32,711 - INFO - Generating candidate 1/3 for censorship in June 2027
+2026-01-10 07:18:49,363 - WARNING - Candidate 1 generation failed for censorship in June 2027
+2026-01-10 07:18:51,366 - INFO - Generating candidate 2/3 for censorship in June 2027
+2026-01-10 07:19:12,298 - WARNING - Candidate 2 generation failed for censorship in June 2027
+2026-01-10 07:19:14,300 - INFO - Generating candidate 3/3 for censorship in June 2027
+2026-01-10 07:19:44,615 - INFO - Generating prediction for geopolitical_rights in June 2027
+2026-01-10 07:19:44,615 - INFO - Generating candidate 1/3 for geopolitical_rights in June 2027
+2026-01-10 07:20:07,988 - INFO - Generating candidate 2/3 for geopolitical_rights in June 2027
+2026-01-10 07:20:25,917 - INFO - Generating candidate 3/3 for geopolitical_rights in June 2027
+2026-01-10 07:21:01,160 - INFO - Generating prediction for misc_topics in June 2027
+2026-01-10 07:21:01,161 - INFO - Generating candidate 1/3 for misc_topics in June 2027
+2026-01-10 07:21:18,556 - WARNING - Candidate 1 generation failed for misc_topics in June 2027
+2026-01-10 07:21:20,559 - INFO - Generating candidate 2/3 for misc_topics in June 2027
+2026-01-10 07:21:38,328 - INFO - Generating candidate 3/3 for misc_topics in June 2027
+2026-01-10 07:22:09,778 - INFO - Completed predictions for June 2027
+2026-01-10 07:22:09,778 - INFO - Processing predictions for July 2027
+2026-01-10 07:22:09,779 - INFO - Generating prediction for sustainability in July 2027
+2026-01-10 07:22:09,779 - INFO - Generating candidate 1/3 for sustainability in July 2027
+2026-01-10 07:22:29,290 - INFO - Generating candidate 2/3 for sustainability in July 2027
+2026-01-10 07:22:48,241 - WARNING - Candidate 2 generation failed for sustainability in July 2027
+2026-01-10 07:22:50,243 - INFO - Generating candidate 3/3 for sustainability in July 2027
+2026-01-10 07:23:21,604 - WARNING - Candidate 3 generation failed for sustainability in July 2027
+2026-01-10 07:23:26,606 - INFO - Generating prediction for quantum_computing in July 2027
+2026-01-10 07:23:26,613 - INFO - Generating candidate 1/3 for quantum_computing in July 2027
+2026-01-10 07:23:46,946 - INFO - Generating candidate 2/3 for quantum_computing in July 2027
+2026-01-10 07:24:05,751 - INFO - Generating candidate 3/3 for quantum_computing in July 2027
+2026-01-10 07:24:45,336 - INFO - Generating prediction for spiritual_movements in July 2027
+2026-01-10 07:24:45,336 - INFO - Generating candidate 1/3 for spiritual_movements in July 2027
+2026-01-10 07:25:02,886 - WARNING - Candidate 1 generation failed for spiritual_movements in July 2027
+2026-01-10 07:25:04,888 - INFO - Generating candidate 2/3 for spiritual_movements in July 2027
+2026-01-10 07:25:30,897 - INFO - Generating candidate 3/3 for spiritual_movements in July 2027
+2026-01-10 07:25:48,974 - WARNING - Candidate 3 generation failed for spiritual_movements in July 2027
+2026-01-10 07:25:53,978 - INFO - Generating prediction for future_ai in July 2027
+2026-01-10 07:25:53,978 - INFO - Generating candidate 1/3 for future_ai in July 2027
+2026-01-10 07:26:12,856 - INFO - Generating candidate 2/3 for future_ai in July 2027
+2026-01-10 07:26:30,130 - INFO - Generating candidate 3/3 for future_ai in July 2027
+2026-01-10 07:27:07,091 - INFO - Generating prediction for geopolitics in July 2027
+2026-01-10 07:27:07,092 - INFO - Generating candidate 1/3 for geopolitics in July 2027
+2026-01-10 07:27:23,661 - WARNING - Candidate 1 generation failed for geopolitics in July 2027
+2026-01-10 07:27:25,662 - INFO - Generating candidate 2/3 for geopolitics in July 2027
+2026-01-10 07:27:45,115 - INFO - Generating candidate 3/3 for geopolitics in July 2027
+2026-01-10 07:28:02,938 - WARNING - Candidate 3 generation failed for geopolitics in July 2027
+2026-01-10 07:28:07,941 - INFO - Generating prediction for trump_maga in July 2027
+2026-01-10 07:28:07,941 - INFO - Generating candidate 1/3 for trump_maga in July 2027
+2026-01-10 07:28:37,725 - INFO - Generating candidate 2/3 for trump_maga in July 2027
+2026-01-10 07:29:00,378 - INFO - Generating candidate 3/3 for trump_maga in July 2027
+2026-01-10 07:29:33,202 - INFO - Generating prediction for ai_jobs in July 2027
+2026-01-10 07:29:33,202 - INFO - Generating candidate 1/3 for ai_jobs in July 2027
+2026-01-10 07:29:52,873 - INFO - Generating candidate 2/3 for ai_jobs in July 2027
+2026-01-10 07:30:10,400 - INFO - Generating candidate 3/3 for ai_jobs in July 2027
+2026-01-10 07:30:52,144 - INFO - Generating prediction for ai_global_comparison in July 2027
+2026-01-10 07:30:52,144 - INFO - Generating candidate 1/3 for ai_global_comparison in July 2027
+2026-01-10 07:31:10,233 - INFO - Generating candidate 2/3 for ai_global_comparison in July 2027
+2026-01-10 07:31:29,642 - INFO - Generating candidate 3/3 for ai_global_comparison in July 2027
+2026-01-10 07:32:09,773 - INFO - Generating prediction for cryptocurrency in July 2027
+2026-01-10 07:32:09,773 - INFO - Generating candidate 1/3 for cryptocurrency in July 2027
+2026-01-10 07:32:35,859 - INFO - Generating candidate 2/3 for cryptocurrency in July 2027
+2026-01-10 07:32:53,744 - WARNING - Candidate 2 generation failed for cryptocurrency in July 2027
+2026-01-10 07:32:55,747 - INFO - Generating candidate 3/3 for cryptocurrency in July 2027
+2026-01-10 07:33:36,314 - INFO - Generating prediction for capitalism in July 2027
+2026-01-10 07:33:36,314 - INFO - Generating candidate 1/3 for capitalism in July 2027
+2026-01-10 07:33:53,773 - INFO - Generating candidate 2/3 for capitalism in July 2027
+2026-01-10 07:34:16,613 - INFO - Generating candidate 3/3 for capitalism in July 2027
+2026-01-10 07:34:54,742 - INFO - Generating prediction for free_speech in July 2027
+2026-01-10 07:34:54,742 - INFO - Generating candidate 1/3 for free_speech in July 2027
+2026-01-10 07:35:15,683 - INFO - Generating candidate 2/3 for free_speech in July 2027
+2026-01-10 07:35:33,272 - INFO - Generating candidate 3/3 for free_speech in July 2027
+2026-01-10 07:36:07,168 - INFO - Generating prediction for activist_movements in July 2027
+2026-01-10 07:36:07,168 - INFO - Generating candidate 1/3 for activist_movements in July 2027
+2026-01-10 07:36:29,050 - INFO - Generating candidate 2/3 for activist_movements in July 2027
+2026-01-10 07:36:57,991 - INFO - Generating candidate 3/3 for activist_movements in July 2027
+2026-01-10 07:37:35,843 - INFO - Generating prediction for censorship in July 2027
+2026-01-10 07:37:35,843 - INFO - Generating candidate 1/3 for censorship in July 2027
+2026-01-10 07:37:56,339 - INFO - Generating candidate 2/3 for censorship in July 2027
+2026-01-10 07:38:12,732 - WARNING - Candidate 2 generation failed for censorship in July 2027
+2026-01-10 07:38:14,734 - INFO - Generating candidate 3/3 for censorship in July 2027
+2026-01-10 07:38:31,467 - WARNING - Candidate 3 generation failed for censorship in July 2027
+2026-01-10 07:38:36,471 - INFO - Generating prediction for geopolitical_rights in July 2027
+2026-01-10 07:38:36,478 - INFO - Generating candidate 1/3 for geopolitical_rights in July 2027
+2026-01-10 07:38:55,118 - WARNING - Candidate 1 generation failed for geopolitical_rights in July 2027
+2026-01-10 07:38:57,118 - INFO - Generating candidate 2/3 for geopolitical_rights in July 2027
+2026-01-10 07:39:19,592 - INFO - Generating candidate 3/3 for geopolitical_rights in July 2027
+2026-01-10 07:39:40,820 - WARNING - Candidate 3 generation failed for geopolitical_rights in July 2027
+2026-01-10 07:39:45,826 - INFO - Generating prediction for misc_topics in July 2027
+2026-01-10 07:39:45,826 - INFO - Generating candidate 1/3 for misc_topics in July 2027
+2026-01-10 07:39:45,854 - ERROR - API call failed: Server disconnected
+2026-01-10 07:39:45,855 - INFO - Backing off call_api_with_retry(...) for 0.2s (aiohttp.client_exceptions.ServerDisconnectedError: Server disconnected)
+2026-01-10 07:40:07,909 - INFO - Generating candidate 2/3 for misc_topics in July 2027
+2026-01-10 07:40:26,745 - WARNING - Candidate 2 generation failed for misc_topics in July 2027
+2026-01-10 07:40:28,748 - INFO - Generating candidate 3/3 for misc_topics in July 2027
+2026-01-10 07:41:05,756 - INFO - Completed predictions for July 2027
+2026-01-10 07:41:05,756 - INFO - Processing predictions for August 2027
+2026-01-10 07:41:05,756 - INFO - Generating prediction for sustainability in August 2027
+2026-01-10 07:41:05,756 - INFO - Generating candidate 1/3 for sustainability in August 2027
+2026-01-10 07:41:29,930 - WARNING - Candidate 1 generation failed for sustainability in August 2027
+2026-01-10 07:41:31,932 - INFO - Generating candidate 2/3 for sustainability in August 2027
+2026-01-10 07:41:50,641 - WARNING - Candidate 2 generation failed for sustainability in August 2027
+2026-01-10 07:41:52,644 - INFO - Generating candidate 3/3 for sustainability in August 2027
+2026-01-10 07:42:13,404 - INFO - Generating prediction for quantum_computing in August 2027
+2026-01-10 07:42:13,404 - INFO - Generating candidate 1/3 for quantum_computing in August 2027
+2026-01-10 07:42:33,090 - INFO - Generating candidate 2/3 for quantum_computing in August 2027
+2026-01-10 07:42:52,807 - INFO - Generating candidate 3/3 for quantum_computing in August 2027
+2026-01-10 07:43:33,551 - INFO - Generating prediction for spiritual_movements in August 2027
+2026-01-10 07:43:33,551 - INFO - Generating candidate 1/3 for spiritual_movements in August 2027
+2026-01-10 07:43:51,530 - WARNING - Candidate 1 generation failed for spiritual_movements in August 2027
+2026-01-10 07:43:53,533 - INFO - Generating candidate 2/3 for spiritual_movements in August 2027
+2026-01-10 07:44:11,667 - INFO - Generating candidate 3/3 for spiritual_movements in August 2027
+2026-01-10 07:44:47,726 - INFO - Generating prediction for future_ai in August 2027
+2026-01-10 07:44:47,726 - INFO - Generating candidate 1/3 for future_ai in August 2027
+2026-01-10 07:45:05,961 - INFO - Generating candidate 2/3 for future_ai in August 2027
+2026-01-10 07:45:32,423 - INFO - Generating candidate 3/3 for future_ai in August 2027
+2026-01-10 07:46:14,190 - INFO - Generating prediction for geopolitics in August 2027
+2026-01-10 07:46:14,190 - INFO - Generating candidate 1/3 for geopolitics in August 2027
+2026-01-10 07:46:34,073 - INFO - Generating candidate 2/3 for geopolitics in August 2027
+2026-01-10 07:46:51,938 - INFO - Generating candidate 3/3 for geopolitics in August 2027
+2026-01-10 07:47:27,530 - INFO - Generating prediction for trump_maga in August 2027
+2026-01-10 07:47:27,530 - INFO - Generating candidate 1/3 for trump_maga in August 2027
+2026-01-10 07:47:53,142 - INFO - Generating candidate 2/3 for trump_maga in August 2027
+2026-01-10 07:48:11,319 - INFO - Generating candidate 3/3 for trump_maga in August 2027
+2026-01-10 07:48:43,703 - INFO - Generating prediction for ai_jobs in August 2027
+2026-01-10 07:48:43,703 - INFO - Generating candidate 1/3 for ai_jobs in August 2027
+2026-01-10 07:49:03,764 - INFO - Generating candidate 2/3 for ai_jobs in August 2027
+2026-01-10 07:49:24,786 - WARNING - Candidate 2 generation failed for ai_jobs in August 2027
+2026-01-10 07:49:26,788 - INFO - Generating candidate 3/3 for ai_jobs in August 2027
+2026-01-10 07:50:03,119 - INFO - Generating prediction for ai_global_comparison in August 2027
+2026-01-10 07:50:03,119 - INFO - Generating candidate 1/3 for ai_global_comparison in August 2027
+2026-01-10 07:50:23,023 - INFO - Generating candidate 2/3 for ai_global_comparison in August 2027
+2026-01-10 07:50:41,275 - INFO - Generating candidate 3/3 for ai_global_comparison in August 2027
+2026-01-10 07:51:28,478 - INFO - Generating prediction for cryptocurrency in August 2027
+2026-01-10 07:51:28,478 - INFO - Generating candidate 1/3 for cryptocurrency in August 2027
+2026-01-10 07:51:48,570 - INFO - Generating candidate 2/3 for cryptocurrency in August 2027
+2026-01-10 07:52:06,847 - INFO - Generating candidate 3/3 for cryptocurrency in August 2027
+2026-01-10 07:52:44,651 - INFO - Generating prediction for capitalism in August 2027
+2026-01-10 07:52:44,651 - INFO - Generating candidate 1/3 for capitalism in August 2027
+2026-01-10 07:53:00,196 - WARNING - Candidate 1 generation failed for capitalism in August 2027
+2026-01-10 07:53:02,198 - INFO - Generating candidate 2/3 for capitalism in August 2027
+2026-01-10 07:53:20,994 - INFO - Generating candidate 3/3 for capitalism in August 2027
+2026-01-10 07:53:38,125 - WARNING - Candidate 3 generation failed for capitalism in August 2027
+2026-01-10 07:53:43,128 - INFO - Generating prediction for free_speech in August 2027
+2026-01-10 07:53:43,129 - INFO - Generating candidate 1/3 for free_speech in August 2027
+2026-01-10 07:53:59,229 - WARNING - Candidate 1 generation failed for free_speech in August 2027
+2026-01-10 07:54:01,232 - INFO - Generating candidate 2/3 for free_speech in August 2027
+2026-01-10 07:54:18,526 - INFO - Generating candidate 3/3 for free_speech in August 2027
+2026-01-10 07:55:01,315 - INFO - Generating prediction for activist_movements in August 2027
+2026-01-10 07:55:01,315 - INFO - Generating candidate 1/3 for activist_movements in August 2027
+2026-01-10 07:55:20,571 - INFO - Generating candidate 2/3 for activist_movements in August 2027
+2026-01-10 07:55:37,489 - INFO - Generating candidate 3/3 for activist_movements in August 2027
+2026-01-10 07:56:15,201 - INFO - Generating prediction for censorship in August 2027
+2026-01-10 07:56:15,201 - INFO - Generating candidate 1/3 for censorship in August 2027
+2026-01-10 07:56:37,916 - INFO - Generating candidate 2/3 for censorship in August 2027
+2026-01-10 07:57:00,889 - WARNING - Candidate 2 generation failed for censorship in August 2027
+2026-01-10 07:57:02,891 - INFO - Generating candidate 3/3 for censorship in August 2027
+2026-01-10 07:57:38,035 - INFO - Generating prediction for geopolitical_rights in August 2027
+2026-01-10 07:57:38,035 - INFO - Generating candidate 1/3 for geopolitical_rights in August 2027
+2026-01-10 07:58:01,493 - INFO - Generating candidate 2/3 for geopolitical_rights in August 2027
+2026-01-10 07:58:21,436 - INFO - Generating candidate 3/3 for geopolitical_rights in August 2027
+2026-01-10 07:58:53,706 - INFO - Generating prediction for misc_topics in August 2027
+2026-01-10 07:58:53,706 - INFO - Generating candidate 1/3 for misc_topics in August 2027
+2026-01-10 07:59:11,852 - INFO - Generating candidate 2/3 for misc_topics in August 2027
+2026-01-10 07:59:28,461 - WARNING - Candidate 2 generation failed for misc_topics in August 2027
+2026-01-10 07:59:30,463 - INFO - Generating candidate 3/3 for misc_topics in August 2027
+2026-01-10 07:59:47,105 - WARNING - Candidate 3 generation failed for misc_topics in August 2027
+2026-01-10 07:59:52,108 - INFO - Completed predictions for August 2027
+2026-01-10 07:59:52,108 - INFO - Processing predictions for September 2027
+2026-01-10 07:59:52,108 - INFO - Generating prediction for sustainability in September 2027
+2026-01-10 07:59:52,108 - INFO - Generating candidate 1/3 for sustainability in September 2027
+2026-01-10 08:00:21,271 - INFO - Generating candidate 2/3 for sustainability in September 2027
+2026-01-10 08:00:40,772 - INFO - Generating candidate 3/3 for sustainability in September 2027
+2026-01-10 08:01:20,685 - INFO - Generating prediction for quantum_computing in September 2027
+2026-01-10 08:01:20,685 - INFO - Generating candidate 1/3 for quantum_computing in September 2027
+2026-01-10 08:01:45,918 - INFO - Generating candidate 2/3 for quantum_computing in September 2027
+2026-01-10 08:02:04,681 - INFO - Generating candidate 3/3 for quantum_computing in September 2027
+2026-01-10 08:02:55,928 - INFO - Generating prediction for spiritual_movements in September 2027
+2026-01-10 08:02:55,928 - INFO - Generating candidate 1/3 for spiritual_movements in September 2027
+2026-01-10 08:03:13,954 - INFO - Generating candidate 2/3 for spiritual_movements in September 2027
+2026-01-10 08:03:30,690 - WARNING - Candidate 2 generation failed for spiritual_movements in September 2027
+2026-01-10 08:03:32,693 - INFO - Generating candidate 3/3 for spiritual_movements in September 2027
+2026-01-10 08:03:50,840 - WARNING - Candidate 3 generation failed for spiritual_movements in September 2027
+2026-01-10 08:03:55,843 - INFO - Generating prediction for future_ai in September 2027
+2026-01-10 08:03:55,843 - INFO - Generating candidate 1/3 for future_ai in September 2027
+2026-01-10 08:04:20,254 - INFO - Generating candidate 2/3 for future_ai in September 2027
+2026-01-10 08:04:36,523 - WARNING - Candidate 2 generation failed for future_ai in September 2027
+2026-01-10 08:04:38,525 - INFO - Generating candidate 3/3 for future_ai in September 2027
+2026-01-10 08:05:13,358 - INFO - Generating prediction for geopolitics in September 2027
+2026-01-10 08:05:13,359 - INFO - Generating candidate 1/3 for geopolitics in September 2027
+2026-01-10 08:05:34,109 - INFO - Generating candidate 2/3 for geopolitics in September 2027
+2026-01-10 08:05:52,903 - INFO - Generating candidate 3/3 for geopolitics in September 2027
+2026-01-10 08:06:10,046 - WARNING - Candidate 3 generation failed for geopolitics in September 2027
+2026-01-10 08:06:28,710 - INFO - Generating prediction for trump_maga in September 2027
+2026-01-10 08:06:28,710 - INFO - Generating candidate 1/3 for trump_maga in September 2027
+2026-01-10 08:06:47,676 - INFO - Generating candidate 2/3 for trump_maga in September 2027
+2026-01-10 08:07:06,874 - INFO - Generating candidate 3/3 for trump_maga in September 2027
+2026-01-10 08:07:48,910 - INFO - Generating prediction for ai_jobs in September 2027
+2026-01-10 08:07:48,910 - INFO - Generating candidate 1/3 for ai_jobs in September 2027
+2026-01-10 08:08:06,721 - INFO - Generating candidate 2/3 for ai_jobs in September 2027
+2026-01-10 08:08:24,518 - INFO - Generating candidate 3/3 for ai_jobs in September 2027
+2026-01-10 08:09:03,609 - INFO - Generating prediction for ai_global_comparison in September 2027
+2026-01-10 08:09:03,609 - INFO - Generating candidate 1/3 for ai_global_comparison in September 2027
+2026-01-10 08:09:24,219 - WARNING - Candidate 1 generation failed for ai_global_comparison in September 2027
+2026-01-10 08:09:26,221 - INFO - Generating candidate 2/3 for ai_global_comparison in September 2027
+2026-01-10 08:09:44,283 - WARNING - Candidate 2 generation failed for ai_global_comparison in September 2027
+2026-01-10 08:09:46,286 - INFO - Generating candidate 3/3 for ai_global_comparison in September 2027
+2026-01-10 08:10:09,435 - INFO - Generating prediction for cryptocurrency in September 2027
+2026-01-10 08:10:09,435 - INFO - Generating candidate 1/3 for cryptocurrency in September 2027
+2026-01-10 08:10:29,061 - WARNING - Candidate 1 generation failed for cryptocurrency in September 2027
+2026-01-10 08:10:31,063 - INFO - Generating candidate 2/3 for cryptocurrency in September 2027
+2026-01-10 08:10:52,204 - INFO - Generating candidate 3/3 for cryptocurrency in September 2027
+2026-01-10 08:11:08,898 - WARNING - Candidate 3 generation failed for cryptocurrency in September 2027
+2026-01-10 08:11:13,901 - INFO - Generating prediction for capitalism in September 2027
+2026-01-10 08:11:13,902 - INFO - Generating candidate 1/3 for capitalism in September 2027
+2026-01-10 08:11:33,224 - INFO - Generating candidate 2/3 for capitalism in September 2027
+2026-01-10 08:11:50,225 - WARNING - Candidate 2 generation failed for capitalism in September 2027
+2026-01-10 08:11:52,228 - INFO - Generating candidate 3/3 for capitalism in September 2027
+2026-01-10 08:12:26,743 - INFO - Generating prediction for free_speech in September 2027
+2026-01-10 08:12:26,743 - INFO - Generating candidate 1/3 for free_speech in September 2027
+2026-01-10 08:12:46,279 - INFO - Generating candidate 2/3 for free_speech in September 2027
+2026-01-10 08:13:04,260 - WARNING - Candidate 2 generation failed for free_speech in September 2027
+2026-01-10 08:13:06,260 - INFO - Generating candidate 3/3 for free_speech in September 2027
+2026-01-10 08:13:39,138 - INFO - Generating prediction for activist_movements in September 2027
+2026-01-10 08:13:39,138 - INFO - Generating candidate 1/3 for activist_movements in September 2027
+2026-01-10 08:14:06,276 - INFO - Generating candidate 2/3 for activist_movements in September 2027
+2026-01-10 08:14:30,836 - INFO - Generating candidate 3/3 for activist_movements in September 2027
+2026-01-10 08:15:19,039 - INFO - Generating prediction for censorship in September 2027
+2026-01-10 08:15:19,039 - INFO - Generating candidate 1/3 for censorship in September 2027
+2026-01-10 08:15:38,021 - INFO - Generating candidate 2/3 for censorship in September 2027
+2026-01-10 08:15:59,864 - INFO - Generating candidate 3/3 for censorship in September 2027
+2026-01-10 08:16:23,302 - WARNING - Candidate 3 generation failed for censorship in September 2027
+2026-01-10 08:16:40,253 - INFO - Generating prediction for geopolitical_rights in September 2027
+2026-01-10 08:16:40,253 - INFO - Generating candidate 1/3 for geopolitical_rights in September 2027
+2026-01-10 08:17:01,219 - INFO - Generating candidate 2/3 for geopolitical_rights in September 2027
+2026-01-10 08:17:20,786 - INFO - Generating candidate 3/3 for geopolitical_rights in September 2027
+2026-01-10 08:18:04,483 - INFO - Generating prediction for misc_topics in September 2027
+2026-01-10 08:18:04,483 - INFO - Generating candidate 1/3 for misc_topics in September 2027
+2026-01-10 08:18:20,879 - WARNING - Candidate 1 generation failed for misc_topics in September 2027
+2026-01-10 08:18:22,882 - INFO - Generating candidate 2/3 for misc_topics in September 2027
+2026-01-10 08:18:42,518 - INFO - Generating candidate 3/3 for misc_topics in September 2027
+2026-01-10 08:19:17,519 - INFO - Completed predictions for September 2027
+2026-01-10 08:19:17,520 - INFO - Processing predictions for October 2027
+2026-01-10 08:19:17,520 - INFO - Generating prediction for sustainability in October 2027
+2026-01-10 08:19:17,520 - INFO - Generating candidate 1/3 for sustainability in October 2027
+2026-01-10 08:19:40,971 - WARNING - Candidate 1 generation failed for sustainability in October 2027
+2026-01-10 08:19:42,973 - INFO - Generating candidate 2/3 for sustainability in October 2027
+2026-01-10 08:20:00,911 - INFO - Generating candidate 3/3 for sustainability in October 2027
+2026-01-10 08:20:44,813 - INFO - Generating prediction for quantum_computing in October 2027
+2026-01-10 08:20:44,814 - INFO - Generating candidate 1/3 for quantum_computing in October 2027
+2026-01-10 08:21:04,217 - INFO - Generating candidate 2/3 for quantum_computing in October 2027
+2026-01-10 08:21:24,371 - INFO - Generating candidate 3/3 for quantum_computing in October 2027
+2026-01-10 08:22:14,769 - INFO - Generating prediction for spiritual_movements in October 2027
+2026-01-10 08:22:14,769 - INFO - Generating candidate 1/3 for spiritual_movements in October 2027
+2026-01-10 08:22:37,193 - WARNING - Candidate 1 generation failed for spiritual_movements in October 2027
+2026-01-10 08:22:39,195 - INFO - Generating candidate 2/3 for spiritual_movements in October 2027
+2026-01-10 08:22:59,370 - INFO - Generating candidate 3/3 for spiritual_movements in October 2027
+2026-01-10 08:23:27,237 - INFO - Generating prediction for future_ai in October 2027
+2026-01-10 08:23:27,237 - INFO - Generating candidate 1/3 for future_ai in October 2027
+2026-01-10 08:23:45,862 - INFO - Generating candidate 2/3 for future_ai in October 2027
+2026-01-10 08:24:04,318 - WARNING - Candidate 2 generation failed for future_ai in October 2027
+2026-01-10 08:24:06,320 - INFO - Generating candidate 3/3 for future_ai in October 2027
+2026-01-10 08:24:25,473 - WARNING - Candidate 3 generation failed for future_ai in October 2027
+2026-01-10 08:24:30,476 - INFO - Generating prediction for geopolitics in October 2027
+2026-01-10 08:24:30,476 - INFO - Generating candidate 1/3 for geopolitics in October 2027
+2026-01-10 08:24:47,205 - INFO - Generating candidate 2/3 for geopolitics in October 2027
+2026-01-10 08:25:03,650 - WARNING - Candidate 2 generation failed for geopolitics in October 2027
+2026-01-10 08:25:05,652 - INFO - Generating candidate 3/3 for geopolitics in October 2027
+2026-01-10 08:25:52,820 - INFO - Generating prediction for trump_maga in October 2027
+2026-01-10 08:25:52,820 - INFO - Generating candidate 1/3 for trump_maga in October 2027
+2026-01-10 08:26:11,706 - INFO - Generating candidate 2/3 for trump_maga in October 2027
+2026-01-10 08:26:28,926 - INFO - Generating candidate 3/3 for trump_maga in October 2027
+2026-01-10 08:26:58,384 - INFO - Generating prediction for ai_jobs in October 2027
+2026-01-10 08:26:58,384 - INFO - Generating candidate 1/3 for ai_jobs in October 2027
+2026-01-10 08:27:27,107 - INFO - Generating candidate 2/3 for ai_jobs in October 2027
+2026-01-10 08:27:44,223 - INFO - Generating candidate 3/3 for ai_jobs in October 2027
+2026-01-10 08:28:03,236 - WARNING - Candidate 3 generation failed for ai_jobs in October 2027
+2026-01-10 08:28:21,151 - INFO - Generating prediction for ai_global_comparison in October 2027
+2026-01-10 08:28:21,164 - INFO - Generating candidate 1/3 for ai_global_comparison in October 2027
+2026-01-10 08:28:40,542 - INFO - Generating candidate 2/3 for ai_global_comparison in October 2027
+2026-01-10 08:28:59,260 - INFO - Generating candidate 3/3 for ai_global_comparison in October 2027
+2026-01-10 08:29:31,447 - INFO - Generating prediction for cryptocurrency in October 2027
+2026-01-10 08:29:31,447 - INFO - Generating candidate 1/3 for cryptocurrency in October 2027
+2026-01-10 08:29:54,569 - WARNING - Candidate 1 generation failed for cryptocurrency in October 2027
+2026-01-10 08:29:56,571 - INFO - Generating candidate 2/3 for cryptocurrency in October 2027
+2026-01-10 08:30:11,640 - WARNING - Candidate 2 generation failed for cryptocurrency in October 2027
+2026-01-10 08:30:13,642 - INFO - Generating candidate 3/3 for cryptocurrency in October 2027
+2026-01-10 08:30:31,470 - WARNING - Candidate 3 generation failed for cryptocurrency in October 2027
+2026-01-10 08:30:36,476 - INFO - Generating prediction for capitalism in October 2027
+2026-01-10 08:30:36,484 - INFO - Generating candidate 1/3 for capitalism in October 2027
+2026-01-10 08:30:54,411 - INFO - Generating candidate 2/3 for capitalism in October 2027
+2026-01-10 08:31:12,856 - INFO - Generating candidate 3/3 for capitalism in October 2027
+2026-01-10 08:31:46,374 - INFO - Generating prediction for free_speech in October 2027
+2026-01-10 08:31:46,374 - INFO - Generating candidate 1/3 for free_speech in October 2027
+2026-01-10 08:32:05,895 - INFO - Generating candidate 2/3 for free_speech in October 2027
+2026-01-10 08:32:28,131 - WARNING - Candidate 2 generation failed for free_speech in October 2027
+2026-01-10 08:32:30,133 - INFO - Generating candidate 3/3 for free_speech in October 2027
+2026-01-10 08:33:03,041 - INFO - Generating prediction for activist_movements in October 2027
+2026-01-10 08:33:03,041 - INFO - Generating candidate 1/3 for activist_movements in October 2027
+2026-01-10 08:33:24,894 - INFO - Generating candidate 2/3 for activist_movements in October 2027
+2026-01-10 08:33:41,791 - INFO - Generating candidate 3/3 for activist_movements in October 2027
+2026-01-10 08:34:23,204 - INFO - Generating prediction for censorship in October 2027
+2026-01-10 08:34:23,204 - INFO - Generating candidate 1/3 for censorship in October 2027
+2026-01-10 08:34:46,766 - INFO - Generating candidate 2/3 for censorship in October 2027
+2026-01-10 08:35:03,274 - INFO - Generating candidate 3/3 for censorship in October 2027
+2026-01-10 08:35:12,025 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 08:35:12,025 - ERROR - Invalid API response: None
+2026-01-10 08:35:12,025 - WARNING - Candidate 3 generation failed for censorship in October 2027
+2026-01-10 08:35:29,281 - INFO - Generating prediction for geopolitical_rights in October 2027
+2026-01-10 08:35:29,282 - INFO - Generating candidate 1/3 for geopolitical_rights in October 2027
+2026-01-10 08:35:55,194 - INFO - Generating candidate 2/3 for geopolitical_rights in October 2027
+2026-01-10 08:36:12,534 - INFO - Generating candidate 3/3 for geopolitical_rights in October 2027
+2026-01-10 08:36:49,966 - INFO - Generating prediction for misc_topics in October 2027
+2026-01-10 08:36:49,966 - INFO - Generating candidate 1/3 for misc_topics in October 2027
+2026-01-10 08:37:06,356 - WARNING - Candidate 1 generation failed for misc_topics in October 2027
+2026-01-10 08:37:08,358 - INFO - Generating candidate 2/3 for misc_topics in October 2027
+2026-01-10 08:37:25,334 - WARNING - Candidate 2 generation failed for misc_topics in October 2027
+2026-01-10 08:37:27,337 - INFO - Generating candidate 3/3 for misc_topics in October 2027
+2026-01-10 08:37:48,629 - INFO - Completed predictions for October 2027
+2026-01-10 08:37:48,629 - INFO - Processing predictions for November 2027
+2026-01-10 08:37:48,629 - INFO - Generating prediction for sustainability in November 2027
+2026-01-10 08:37:48,629 - INFO - Generating candidate 1/3 for sustainability in November 2027
+2026-01-10 08:38:05,985 - INFO - Generating candidate 2/3 for sustainability in November 2027
+2026-01-10 08:38:25,705 - INFO - Generating candidate 3/3 for sustainability in November 2027
+2026-01-10 08:38:57,235 - INFO - Generating prediction for quantum_computing in November 2027
+2026-01-10 08:38:57,236 - INFO - Generating candidate 1/3 for quantum_computing in November 2027
+2026-01-10 08:39:16,324 - INFO - Generating candidate 2/3 for quantum_computing in November 2027
+2026-01-10 08:39:33,884 - INFO - Generating candidate 3/3 for quantum_computing in November 2027
+2026-01-10 08:40:16,042 - INFO - Generating prediction for spiritual_movements in November 2027
+2026-01-10 08:40:16,042 - INFO - Generating candidate 1/3 for spiritual_movements in November 2027
+2026-01-10 08:40:31,610 - WARNING - Candidate 1 generation failed for spiritual_movements in November 2027
+2026-01-10 08:40:33,612 - INFO - Generating candidate 2/3 for spiritual_movements in November 2027
+2026-01-10 08:40:51,832 - INFO - Generating candidate 3/3 for spiritual_movements in November 2027
+2026-01-10 08:41:17,469 - INFO - Generating prediction for future_ai in November 2027
+2026-01-10 08:41:17,469 - INFO - Generating candidate 1/3 for future_ai in November 2027
+2026-01-10 08:41:37,697 - INFO - Generating candidate 2/3 for future_ai in November 2027
+2026-01-10 08:41:54,230 - INFO - Generating candidate 3/3 for future_ai in November 2027
+2026-01-10 08:42:42,314 - INFO - Generating prediction for geopolitics in November 2027
+2026-01-10 08:42:42,314 - INFO - Generating candidate 1/3 for geopolitics in November 2027
+2026-01-10 08:43:01,673 - INFO - Generating candidate 2/3 for geopolitics in November 2027
+2026-01-10 08:43:20,844 - INFO - Generating candidate 3/3 for geopolitics in November 2027
+2026-01-10 08:43:37,586 - WARNING - Candidate 3 generation failed for geopolitics in November 2027
+2026-01-10 08:43:56,774 - INFO - Generating prediction for trump_maga in November 2027
+2026-01-10 08:43:56,774 - INFO - Generating candidate 1/3 for trump_maga in November 2027
+2026-01-10 08:44:15,096 - WARNING - Candidate 1 generation failed for trump_maga in November 2027
+2026-01-10 08:44:17,099 - INFO - Generating candidate 2/3 for trump_maga in November 2027
+2026-01-10 08:44:41,764 - INFO - Generating candidate 3/3 for trump_maga in November 2027
+2026-01-10 08:45:08,897 - INFO - Generating prediction for ai_jobs in November 2027
+2026-01-10 08:45:08,897 - INFO - Generating candidate 1/3 for ai_jobs in November 2027
+2026-01-10 08:45:28,001 - INFO - Generating candidate 2/3 for ai_jobs in November 2027
+2026-01-10 08:45:46,962 - INFO - Generating candidate 3/3 for ai_jobs in November 2027
+2026-01-10 08:46:02,891 - WARNING - Candidate 3 generation failed for ai_jobs in November 2027
+2026-01-10 08:46:21,275 - INFO - Generating prediction for ai_global_comparison in November 2027
+2026-01-10 08:46:21,275 - INFO - Generating candidate 1/3 for ai_global_comparison in November 2027
+2026-01-10 08:46:40,412 - INFO - Generating candidate 2/3 for ai_global_comparison in November 2027
+2026-01-10 08:47:01,621 - INFO - Generating candidate 3/3 for ai_global_comparison in November 2027
+2026-01-10 08:47:32,201 - INFO - Generating prediction for cryptocurrency in November 2027
+2026-01-10 08:47:32,201 - INFO - Generating candidate 1/3 for cryptocurrency in November 2027
+2026-01-10 08:47:48,426 - WARNING - Candidate 1 generation failed for cryptocurrency in November 2027
+2026-01-10 08:47:50,428 - INFO - Generating candidate 2/3 for cryptocurrency in November 2027
+2026-01-10 08:48:12,189 - INFO - Generating candidate 3/3 for cryptocurrency in November 2027
+2026-01-10 08:48:52,133 - INFO - Generating prediction for capitalism in November 2027
+2026-01-10 08:48:52,133 - INFO - Generating candidate 1/3 for capitalism in November 2027
+2026-01-10 08:49:12,947 - INFO - Generating candidate 2/3 for capitalism in November 2027
+2026-01-10 08:49:31,191 - WARNING - Candidate 2 generation failed for capitalism in November 2027
+2026-01-10 08:49:33,193 - INFO - Generating candidate 3/3 for capitalism in November 2027
+2026-01-10 08:49:51,387 - WARNING - Candidate 3 generation failed for capitalism in November 2027
+2026-01-10 08:49:56,390 - INFO - Generating prediction for free_speech in November 2027
+2026-01-10 08:49:56,390 - INFO - Generating candidate 1/3 for free_speech in November 2027
+2026-01-10 08:50:36,434 - INFO - Generating candidate 2/3 for free_speech in November 2027
+2026-01-10 08:50:58,000 - INFO - Generating candidate 3/3 for free_speech in November 2027
+2026-01-10 08:51:34,078 - INFO - Generating prediction for activist_movements in November 2027
+2026-01-10 08:51:34,078 - INFO - Generating candidate 1/3 for activist_movements in November 2027
+2026-01-10 08:51:52,681 - INFO - Generating candidate 2/3 for activist_movements in November 2027
+2026-01-10 08:52:15,182 - INFO - Generating candidate 3/3 for activist_movements in November 2027
+2026-01-10 08:52:50,090 - INFO - Generating prediction for censorship in November 2027
+2026-01-10 08:52:50,090 - INFO - Generating candidate 1/3 for censorship in November 2027
+2026-01-10 08:53:33,119 - INFO - Starting autonomous research prediction system
+2026-01-10 08:53:33,120 - INFO - Predicting for 3 months starting 2026-02-01
+2026-01-10 08:53:33,120 - INFO - Domains: sustainability, quantum_computing, spiritual_movements, future_ai, geopolitics, trump_maga, ai_jobs, ai_global_comparison, cryptocurrency, capitalism, free_speech, activist_movements, censorship, geopolitical_rights, misc_topics
+2026-01-10 08:53:33,121 - INFO - Starting full prediction cycle for 3 months starting 2026-02-01
+2026-01-10 08:53:33,124 - INFO - Processing composite prediction for February 2026
+2026-01-10 08:53:33,124 - INFO - Generating composite prediction for February 2026 across all domains
+2026-01-10 08:53:33,124 - INFO - Generating composite candidate 1/3 for February 2026
+2026-01-10 08:54:03,502 - INFO - Generating composite candidate 2/3 for February 2026
+2026-01-10 08:54:37,954 - INFO - Generating composite candidate 3/3 for February 2026
+2026-01-10 08:55:24,296 - INFO - Completed composite prediction for February 2026
+2026-01-10 08:55:24,297 - INFO - Processing composite prediction for March 2026
+2026-01-10 08:55:24,297 - INFO - Generating composite prediction for March 2026 across all domains
+2026-01-10 08:55:24,297 - INFO - Generating composite candidate 1/3 for March 2026
+2026-01-10 08:55:55,223 - INFO - Generating composite candidate 2/3 for March 2026
+2026-01-10 08:56:31,655 - INFO - Generating composite candidate 3/3 for March 2026
+2026-01-10 08:57:23,912 - INFO - Completed composite prediction for March 2026
+2026-01-10 08:57:23,912 - INFO - Processing composite prediction for April 2026
+2026-01-10 08:57:23,912 - INFO - Generating composite prediction for April 2026 across all domains
+2026-01-10 08:57:23,912 - INFO - Generating composite candidate 1/3 for April 2026
+2026-01-10 08:57:54,283 - INFO - Generating composite candidate 2/3 for April 2026
+2026-01-10 08:58:22,005 - INFO - Generating composite candidate 3/3 for April 2026
+2026-01-10 08:59:01,487 - INFO - Completed composite prediction for April 2026
+2026-01-10 08:59:01,488 - INFO - Predictions saved to autonomous_research/results/composite_prediction_test.json
+2026-01-10 08:59:01,489 - INFO - Total predictions generated: 3

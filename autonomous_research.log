@@ -1888,3 +1888,86 @@
 2026-01-10 08:59:01,487 - INFO - Completed composite prediction for April 2026
 2026-01-10 08:59:01,488 - INFO - Predictions saved to autonomous_research/results/composite_prediction_test.json
 2026-01-10 08:59:01,489 - INFO - Total predictions generated: 3
+2026-01-10 21:04:23,773 - INFO - Starting autonomous research prediction system
+2026-01-10 21:04:23,773 - INFO - Predicting for 240 months starting 2026-02-01
+2026-01-10 21:04:23,773 - INFO - Domains: sustainability, quantum_computing, spiritual_movements, future_ai, geopolitics, trump_maga, ai_jobs, ai_global_comparison, cryptocurrency, capitalism, free_speech, activist_movements, censorship, geopolitical_rights, misc_topics
+2026-01-10 21:04:23,774 - INFO - Starting full prediction cycle for 240 months starting 2026-02-01
+2026-01-10 21:04:23,776 - INFO - Processing composite prediction for February 2026
+2026-01-10 21:04:23,776 - INFO - Generating composite prediction for February 2026 across all domains
+2026-01-10 21:04:23,776 - INFO - Generating composite candidate 1/3 for February 2026
+2026-01-10 21:04:43,253 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 21:04:43,253 - ERROR - Invalid API response for composite prediction: None
+2026-01-10 21:04:43,253 - WARNING - Composite candidate 1 generation failed for February 2026
+2026-01-10 21:04:45,256 - INFO - Generating composite candidate 2/3 for February 2026
+2026-01-10 21:05:16,823 - INFO - Generating composite candidate 3/3 for February 2026
+2026-01-10 21:05:59,678 - INFO - Completed composite prediction for February 2026
+2026-01-10 21:05:59,679 - INFO - Processing composite prediction for March 2026
+2026-01-10 21:05:59,679 - INFO - Generating composite prediction for March 2026 across all domains
+2026-01-10 21:05:59,679 - INFO - Generating composite candidate 1/3 for March 2026
+2026-01-10 21:06:38,942 - INFO - Generating composite candidate 2/3 for March 2026
+2026-01-10 21:07:07,312 - INFO - Generating composite candidate 3/3 for March 2026
+2026-01-10 21:07:42,985 - WARNING - Composite candidate 3 generation failed for March 2026
+2026-01-10 21:08:12,102 - INFO - Completed composite prediction for March 2026
+2026-01-10 21:08:12,102 - INFO - Processing composite prediction for April 2026
+2026-01-10 21:08:12,102 - INFO - Generating composite prediction for April 2026 across all domains
+2026-01-10 21:08:12,102 - INFO - Generating composite candidate 1/3 for April 2026
+2026-01-10 21:08:37,860 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:09:06,023 - INFO - Generating composite candidate 2/3 for April 2026
+2026-01-10 21:09:42,494 - INFO - Generating composite candidate 3/3 for April 2026
+2026-01-10 21:10:31,906 - INFO - Completed composite prediction for April 2026
+2026-01-10 21:10:31,906 - INFO - Processing composite prediction for May 2026
+2026-01-10 21:10:31,906 - INFO - Generating composite prediction for May 2026 across all domains
+2026-01-10 21:10:31,906 - INFO - Generating composite candidate 1/3 for May 2026
+2026-01-10 21:10:58,738 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:11:26,574 - INFO - Generating composite candidate 2/3 for May 2026
+2026-01-10 21:11:56,946 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:12:20,608 - INFO - Generating composite candidate 3/3 for May 2026
+2026-01-10 21:13:21,269 - INFO - Completed composite prediction for May 2026
+2026-01-10 21:13:21,269 - INFO - Processing composite prediction for June 2026
+2026-01-10 21:13:21,269 - INFO - Generating composite prediction for June 2026 across all domains
+2026-01-10 21:13:21,269 - INFO - Generating composite candidate 1/3 for June 2026
+2026-01-10 21:13:48,489 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:14:14,351 - INFO - Generating composite candidate 2/3 for June 2026
+2026-01-10 21:14:44,467 - INFO - Generating composite candidate 3/3 for June 2026
+2026-01-10 21:15:06,216 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:15:55,839 - INFO - Completed composite prediction for June 2026
+2026-01-10 21:15:55,840 - INFO - Processing composite prediction for July 2026
+2026-01-10 21:15:55,840 - INFO - Generating composite prediction for July 2026 across all domains
+2026-01-10 21:15:55,840 - INFO - Generating composite candidate 1/3 for July 2026
+2026-01-10 21:16:26,737 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:16:54,774 - INFO - Generating composite candidate 2/3 for July 2026
+2026-01-10 21:17:27,958 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:17:59,452 - INFO - Generating composite candidate 3/3 for July 2026
+2026-01-10 21:18:29,065 - INFO - Detected Chinese text, translating to English...
+2026-01-10 21:19:14,329 - INFO - Completed composite prediction for July 2026
+2026-01-10 21:19:14,329 - INFO - Processing composite prediction for August 2026
+2026-01-10 21:19:14,329 - INFO - Generating composite prediction for August 2026 across all domains
+2026-01-10 21:19:14,329 - INFO - Generating composite candidate 1/3 for August 2026
+2026-01-10 21:19:41,140 - INFO - Generating composite candidate 2/3 for August 2026
+2026-01-10 21:20:08,724 - INFO - Generating composite candidate 3/3 for August 2026
+2026-01-10 21:20:55,394 - INFO - Completed composite prediction for August 2026
+2026-01-10 21:20:55,394 - INFO - Processing composite prediction for September 2026
+2026-01-10 21:20:55,394 - INFO - Generating composite prediction for September 2026 across all domains
+2026-01-10 21:20:55,394 - INFO - Generating composite candidate 1/3 for September 2026
+2026-01-10 21:21:28,624 - INFO - Generating composite candidate 2/3 for September 2026
+2026-01-10 21:21:51,163 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 21:21:51,164 - ERROR - Invalid API response for composite prediction: None
+2026-01-10 21:21:51,164 - WARNING - Composite candidate 2 generation failed for September 2026
+2026-01-10 21:21:53,165 - INFO - Generating composite candidate 3/3 for September 2026
+2026-01-10 21:22:21,325 - WARNING - Composite candidate 3 generation failed for September 2026
+2026-01-10 21:22:23,328 - INFO - Completed composite prediction for September 2026
+2026-01-10 21:22:23,328 - INFO - Processing composite prediction for October 2026
+2026-01-10 21:22:23,328 - INFO - Generating composite prediction for October 2026 across all domains
+2026-01-10 21:22:23,328 - INFO - Generating composite candidate 1/3 for October 2026
+2026-01-10 21:22:45,116 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 21:22:45,116 - ERROR - Invalid API response for composite prediction: None
+2026-01-10 21:22:45,116 - WARNING - Composite candidate 1 generation failed for October 2026
+2026-01-10 21:22:47,118 - INFO - Generating composite candidate 2/3 for October 2026
+2026-01-10 21:23:16,693 - INFO - Generating composite candidate 3/3 for October 2026
+2026-01-10 21:23:37,005 - ERROR - API error 400: {"contentFilter":[{"level":1,"role":"assistant"}],"error":{"code":"1301","message":"System detected potentially unsafe or sensitive content in input or generation. Please avoid using prompts that may generate sensitive content. Thank you for your cooperation."}}
+2026-01-10 21:23:37,006 - ERROR - Invalid API response for composite prediction: None
+2026-01-10 21:23:37,006 - WARNING - Composite candidate 3 generation failed for October 2026
+2026-01-10 21:23:39,008 - INFO - Completed composite prediction for October 2026
+2026-01-10 21:23:39,008 - INFO - Processing composite prediction for November 2026
+2026-01-10 21:23:39,008 - INFO - Generating composite prediction for November 2026 across all domains
+2026-01-10 21:23:39,009 - INFO - Generating composite candidate 1/3 for November 2026

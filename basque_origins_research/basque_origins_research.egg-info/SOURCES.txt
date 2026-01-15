@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+basque_origins_research.egg-info/PKG-INFO
+basque_origins_research.egg-info/SOURCES.txt
+basque_origins_research.egg-info/dependency_links.txt
+basque_origins_research.egg-info/requires.txt
+basque_origins_research.egg-info/top_level.txt

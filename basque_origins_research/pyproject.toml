@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "basque-origins-research"
+version = "0.1.0"
+description = "Deep-time linguistic analysis of Euskara using aDNA and AI-driven reconstruction"
+authors = [{name = "Autonomous Research Agent", email = "research@autonomous.ai"}]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aiohttp>=3.8.0",
+    "pandas>=1.5.0",
+    "numpy>=1.21.0",
+    "backoff>=2.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=22.0",
+    "flake8>=4.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["basque_origins_research*"]

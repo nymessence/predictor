@@ -29,7 +29,7 @@
         "topological_validation": 0.85,
         "temporal_coherence": 0.82
       },
-      "timestamp": "2026-01-16T00:28:40.758886",
+      "timestamp": "2026-01-16T04:39:49.723313",
       "fill_method": "enhanced_phylogenetic_reconstruction",
       "fill_result": {
         "common_ancestor_completion": [],
@@ -80,13 +80,13 @@
           "components": [
             [
               "proto-uralic",
-              "basque",
-              "proto-nostratic"
+              "proto-nostratic",
+              "basque"
             ],
             [
+              "proto-indoeuropean",
               "hittite",
-              "sanskrit",
-              "proto-indoeuropean"
+              "sanskrit"
             ],
             [
               "proto_uralic"
@@ -195,7 +195,7 @@
   ],
   "validation_metrics": {},
   "metadata": {
-    "gap_filling_completed": "2026-01-16T00:28:40.759314",
+    "gap_filling_completed": "2026-01-16T04:39:49.723778",
     "gaps_filled_count": 1,
     "validation_passed": true,
     "quality_improvement": 0

@@ -761,102 +761,6 @@
     "sound_correspondences": {
       "potential_correspondences": [
         {
-          "basque_form": "gaizto",
-          "family_form": "dusnis",
-          "semantic_field": "bad",
-          "initial_correspondence": "g → d",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "su",
-          "family_form": "pahhur",
-          "semantic_field": "fire",
-          "initial_correspondence": "s → p",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "ume",
-          "family_form": "wat",
-          "semantic_field": "child",
-          "initial_correspondence": "u → w",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "bost",
-          "family_form": "pinkwe",
-          "semantic_field": "five",
-          "initial_correspondence": "b → p",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "harri",
-          "family_form": "happis",
-          "semantic_field": "stone",
-          "initial_correspondence": "h → h",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "maite",
-          "family_form": "kunis",
-          "semantic_field": "love",
-          "initial_correspondence": "m → k",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "beltz",
-          "family_form": "dusni",
-          "semantic_field": "black",
-          "initial_correspondence": "b → d",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "egun",
-          "family_form": "ussar",
-          "semantic_field": "day",
-          "initial_correspondence": "e → u",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "heriotza",
-          "family_form": "marnis",
-          "semantic_field": "death",
-          "initial_correspondence": "h → m",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "emakume",
-          "family_form": "wannes",
-          "semantic_field": "woman",
-          "initial_correspondence": "e → w",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "lau",
-          "family_form": "kettur",
-          "semantic_field": "four",
-          "initial_correspondence": "l → k",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "txiki",
-          "family_form": "kuppi",
-          "semantic_field": "small",
-          "initial_correspondence": "t → k",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
           "basque_form": "urdin",
           "family_form": "parsu",
           "semantic_field": "blue",
@@ -865,20 +769,12 @@
           "confidence": 0.6
         },
         {
-          "basque_form": "gizon",
-          "family_form": "per",
-          "semantic_field": "man",
-          "initial_correspondence": "g → p",
+          "basque_form": "handi",
+          "family_form": "harni",
+          "semantic_field": "big",
+          "initial_correspondence": "h → h",
           "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "gau",
-          "family_form": "elpas",
-          "semantic_field": "night",
-          "initial_correspondence": "g → e",
-          "position": "initial",
-          "confidence": 0.5
+          "confidence": 0.7
         },
         {
           "basque_form": "gazte",
@@ -889,82 +785,10 @@
           "confidence": 0.6
         },
         {
-          "basque_form": "bero",
-          "family_form": "wassu",
-          "semantic_field": "hot",
-          "initial_correspondence": "b → w",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "labur",
-          "family_form": "kuppi",
-          "semantic_field": "short",
-          "initial_correspondence": "l → k",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "gorri",
-          "family_form": "harni",
-          "semantic_field": "red",
-          "initial_correspondence": "g → h",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
-          "basque_form": "gerra",
-          "family_form": "paran",
-          "semantic_field": "war",
-          "initial_correspondence": "g → p",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "gorroto",
-          "family_form": "harnis",
-          "semantic_field": "hate",
-          "initial_correspondence": "g → h",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "berri",
-          "family_form": "parsu",
-          "semantic_field": "new",
-          "initial_correspondence": "b → p",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "zuha",
-          "family_form": "wignis",
-          "semantic_field": "tree",
-          "initial_correspondence": "z → w",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "berde",
-          "family_form": "parsu",
-          "semantic_field": "green",
-          "initial_correspondence": "b → p",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "ur",
-          "family_form": "watar",
-          "semantic_field": "water",
-          "initial_correspondence": "u → w",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "lur",
-          "family_form": "apil",
-          "semantic_field": "earth",
-          "initial_correspondence": "l → a",
+          "basque_form": "mendi",
+          "family_form": "hurnas",
+          "semantic_field": "mountain",
+          "initial_correspondence": "m → h",
           "position": "initial",
           "confidence": 0.5
         },
@@ -977,28 +801,84 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "begi",
-          "family_form": "akku",
-          "semantic_field": "eye",
-          "initial_correspondence": "b → a",
+          "basque_form": "on",
+          "family_form": "kuis",
+          "semantic_field": "good",
+          "initial_correspondence": "o → k",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "gaizto",
+          "family_form": "dusnis",
+          "semantic_field": "bad",
+          "initial_correspondence": "g → d",
           "position": "initial",
           "confidence": 0.6
         },
         {
-          "basque_form": "itsaso",
-          "family_form": "mari",
-          "semantic_field": "sea",
-          "initial_correspondence": "i → m",
+          "basque_form": "hiru",
+          "family_form": "tris",
+          "semantic_field": "three",
+          "initial_correspondence": "h → t",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "harri",
+          "family_form": "happis",
+          "semantic_field": "stone",
+          "initial_correspondence": "h → h",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "hotz",
-          "family_form": "parsu",
-          "semantic_field": "cold",
-          "initial_correspondence": "h → p",
+          "basque_form": "su",
+          "family_form": "pahhur",
+          "semantic_field": "fire",
+          "initial_correspondence": "s → p",
           "position": "initial",
           "confidence": 0.5
+        },
+        {
+          "basque_form": "maite",
+          "family_form": "kunis",
+          "semantic_field": "love",
+          "initial_correspondence": "m → k",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "bero",
+          "family_form": "wassu",
+          "semantic_field": "hot",
+          "initial_correspondence": "b → w",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "bost",
+          "family_form": "pinkwe",
+          "semantic_field": "five",
+          "initial_correspondence": "b → p",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "heriotza",
+          "family_form": "marnis",
+          "semantic_field": "death",
+          "initial_correspondence": "h → m",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "gerra",
+          "family_form": "paran",
+          "semantic_field": "war",
+          "initial_correspondence": "g → p",
+          "position": "initial",
+          "confidence": 0.6
         },
         {
           "basque_form": "ibai",
@@ -1017,20 +897,44 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "hiru",
-          "family_form": "tris",
-          "semantic_field": "three",
-          "initial_correspondence": "h → t",
+          "basque_form": "bake",
+          "family_form": "pars",
+          "semantic_field": "peace",
+          "initial_correspondence": "b → p",
           "position": "initial",
           "confidence": 0.6
         },
         {
-          "basque_form": "eguzki",
-          "family_form": "sawes",
-          "semantic_field": "sun",
-          "initial_correspondence": "e → s",
+          "basque_form": "ume",
+          "family_form": "wat",
+          "semantic_field": "child",
+          "initial_correspondence": "u → w",
           "position": "initial",
-          "confidence": 0.5
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "beltz",
+          "family_form": "dusni",
+          "semantic_field": "black",
+          "initial_correspondence": "b → d",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "ur",
+          "family_form": "watar",
+          "semantic_field": "water",
+          "initial_correspondence": "u → w",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "txiki",
+          "family_form": "kuppi",
+          "semantic_field": "small",
+          "initial_correspondence": "t → k",
+          "position": "initial",
+          "confidence": 0.7
         },
         {
           "basque_form": "zahar",
@@ -1041,34 +945,58 @@
           "confidence": 0.6
         },
         {
-          "basque_form": "on",
-          "family_form": "kuis",
-          "semantic_field": "good",
-          "initial_correspondence": "o → k",
+          "basque_form": "lur",
+          "family_form": "apil",
+          "semantic_field": "earth",
+          "initial_correspondence": "l → a",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "mendi",
-          "family_form": "hurnas",
-          "semantic_field": "mountain",
-          "initial_correspondence": "m → h",
+          "basque_form": "gau",
+          "family_form": "elpas",
+          "semantic_field": "night",
+          "initial_correspondence": "g → e",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "jauna",
-          "family_form": "iyan",
-          "semantic_field": "god",
-          "initial_correspondence": "j → i",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "errege",
-          "family_form": "sar",
-          "semantic_field": "king",
+          "basque_form": "eguzki",
+          "family_form": "sawes",
+          "semantic_field": "sun",
           "initial_correspondence": "e → s",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "itsaso",
+          "family_form": "mari",
+          "semantic_field": "sea",
+          "initial_correspondence": "i → m",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "emakume",
+          "family_form": "wannes",
+          "semantic_field": "woman",
+          "initial_correspondence": "e → w",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "hotz",
+          "family_form": "parsu",
+          "semantic_field": "cold",
+          "initial_correspondence": "h → p",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "egun",
+          "family_form": "ussar",
+          "semantic_field": "day",
+          "initial_correspondence": "e → u",
           "position": "initial",
           "confidence": 0.5
         },
@@ -1081,12 +1009,60 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "handi",
-          "family_form": "harni",
-          "semantic_field": "big",
-          "initial_correspondence": "h → h",
+          "basque_form": "bi",
+          "family_form": "dwor",
+          "semantic_field": "two",
+          "initial_correspondence": "b → d",
           "position": "initial",
-          "confidence": 0.7
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "lau",
+          "family_form": "kettur",
+          "semantic_field": "four",
+          "initial_correspondence": "l → k",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "jauna",
+          "family_form": "iyan",
+          "semantic_field": "god",
+          "initial_correspondence": "j → i",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "labur",
+          "family_form": "kuppi",
+          "semantic_field": "short",
+          "initial_correspondence": "l → k",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "begi",
+          "family_form": "akku",
+          "semantic_field": "eye",
+          "initial_correspondence": "b → a",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "errege",
+          "family_form": "sar",
+          "semantic_field": "king",
+          "initial_correspondence": "e → s",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "zuha",
+          "family_form": "wignis",
+          "semantic_field": "tree",
+          "initial_correspondence": "z → w",
+          "position": "initial",
+          "confidence": 0.5
         },
         {
           "basque_form": "esku",
@@ -1097,12 +1073,12 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "bi",
-          "family_form": "dwor",
-          "semantic_field": "two",
-          "initial_correspondence": "b → d",
+          "basque_form": "berri",
+          "family_form": "parsu",
+          "semantic_field": "new",
+          "initial_correspondence": "b → p",
           "position": "initial",
-          "confidence": 0.5
+          "confidence": 0.6
         },
         {
           "basque_form": "etxe",
@@ -1113,18 +1089,90 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "bake",
-          "family_form": "pars",
-          "semantic_field": "peace",
+          "basque_form": "bizitza",
+          "family_form": "westis",
+          "semantic_field": "life",
+          "initial_correspondence": "b → w",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "berde",
+          "family_form": "parsu",
+          "semantic_field": "green",
           "initial_correspondence": "b → p",
           "position": "initial",
           "confidence": 0.6
         },
         {
-          "basque_form": "bizitza",
-          "family_form": "westis",
-          "semantic_field": "life",
-          "initial_correspondence": "b → w",
+          "basque_form": "gizon",
+          "family_form": "per",
+          "semantic_field": "man",
+          "initial_correspondence": "g → p",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "gorroto",
+          "family_form": "harnis",
+          "semantic_field": "hate",
+          "initial_correspondence": "g → h",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "gorri",
+          "family_form": "harni",
+          "semantic_field": "red",
+          "initial_correspondence": "g → h",
+          "position": "initial",
+          "confidence": 0.7
+        },
+        {
+          "basque_form": "urdin",
+          "family_form": "nīla",
+          "semantic_field": "blue",
+          "initial_correspondence": "u → n",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "handi",
+          "family_form": "mahat",
+          "semantic_field": "big",
+          "initial_correspondence": "h → m",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "gazte",
+          "family_form": "yuvan",
+          "semantic_field": "young",
+          "initial_correspondence": "g → y",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "mendi",
+          "family_form": "giri",
+          "semantic_field": "mountain",
+          "initial_correspondence": "m → g",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "urte",
+          "family_form": "samā",
+          "semantic_field": "year",
+          "initial_correspondence": "u → s",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "on",
+          "family_form": "sat",
+          "semantic_field": "good",
+          "initial_correspondence": "o → s",
           "position": "initial",
           "confidence": 0.5
         },
@@ -1137,26 +1185,10 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "su",
-          "family_form": "agni",
-          "semantic_field": "fire",
-          "initial_correspondence": "s → a",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "ume",
-          "family_form": "bāla",
-          "semantic_field": "child",
-          "initial_correspondence": "u → b",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "bost",
-          "family_form": "pañcan",
-          "semantic_field": "five",
-          "initial_correspondence": "b → p",
+          "basque_form": "hiru",
+          "family_form": "trayas",
+          "semantic_field": "three",
+          "initial_correspondence": "h → t",
           "position": "initial",
           "confidence": 0.5
         },
@@ -1169,90 +1201,18 @@
           "confidence": 0.6
         },
         {
+          "basque_form": "su",
+          "family_form": "agni",
+          "semantic_field": "fire",
+          "initial_correspondence": "s → a",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
           "basque_form": "maite",
           "family_form": "prema",
           "semantic_field": "love",
           "initial_correspondence": "m → p",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "beltz",
-          "family_form": "kṛṣṇa",
-          "semantic_field": "black",
-          "initial_correspondence": "b → k",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "egun",
-          "family_form": "ahna",
-          "semantic_field": "day",
-          "initial_correspondence": "e → a",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "heriotza",
-          "family_form": "mṛtyu",
-          "semantic_field": "death",
-          "initial_correspondence": "h → m",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "emakume",
-          "family_form": "strī",
-          "semantic_field": "woman",
-          "initial_correspondence": "e → s",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "lau",
-          "family_form": "catvāra",
-          "semantic_field": "four",
-          "initial_correspondence": "l → c",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "txiki",
-          "family_form": "kanīyas",
-          "semantic_field": "small",
-          "initial_correspondence": "t → k",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "urdin",
-          "family_form": "nīla",
-          "semantic_field": "blue",
-          "initial_correspondence": "u → n",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "gizon",
-          "family_form": "nara",
-          "semantic_field": "man",
-          "initial_correspondence": "g → n",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "gau",
-          "family_form": "rātri",
-          "semantic_field": "night",
-          "initial_correspondence": "g → r",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "gazte",
-          "family_form": "yuvan",
-          "semantic_field": "young",
-          "initial_correspondence": "g → y",
           "position": "initial",
           "confidence": 0.6
         },
@@ -1265,106 +1225,26 @@
           "confidence": 0.6
         },
         {
-          "basque_form": "labur",
-          "family_form": "hrasva",
-          "semantic_field": "short",
-          "initial_correspondence": "l → h",
+          "basque_form": "bost",
+          "family_form": "pañcan",
+          "semantic_field": "five",
+          "initial_correspondence": "b → p",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "gorri",
-          "family_form": "rakta",
-          "semantic_field": "red",
-          "initial_correspondence": "g → r",
+          "basque_form": "heriotza",
+          "family_form": "mṛtyu",
+          "semantic_field": "death",
+          "initial_correspondence": "h → m",
           "position": "initial",
-          "confidence": 0.6
+          "confidence": 0.5
         },
         {
           "basque_form": "gerra",
           "family_form": "yuddha",
           "semantic_field": "war",
           "initial_correspondence": "g → y",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "gorroto",
-          "family_form": "dveṣa",
-          "semantic_field": "hate",
-          "initial_correspondence": "g → d",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "berri",
-          "family_form": "navas",
-          "semantic_field": "new",
-          "initial_correspondence": "b → n",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "zuha",
-          "family_form": "vṛkṣa",
-          "semantic_field": "tree",
-          "initial_correspondence": "z → v",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "berde",
-          "family_form": "hari",
-          "semantic_field": "green",
-          "initial_correspondence": "b → h",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "ur",
-          "family_form": "ap",
-          "semantic_field": "water",
-          "initial_correspondence": "u → a",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "lur",
-          "family_form": "bhūmi",
-          "semantic_field": "earth",
-          "initial_correspondence": "l → b",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "urte",
-          "family_form": "samā",
-          "semantic_field": "year",
-          "initial_correspondence": "u → s",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "begi",
-          "family_form": "akṣi",
-          "semantic_field": "eye",
-          "initial_correspondence": "b → a",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
-          "basque_form": "itsaso",
-          "family_form": "samudra",
-          "semantic_field": "sea",
-          "initial_correspondence": "i → s",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "hotz",
-          "family_form": "śīta",
-          "semantic_field": "cold",
-          "initial_correspondence": "h → ś",
           "position": "initial",
           "confidence": 0.6
         },
@@ -1385,18 +1265,42 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "hiru",
-          "family_form": "trayas",
-          "semantic_field": "three",
-          "initial_correspondence": "h → t",
+          "basque_form": "bake",
+          "family_form": "śama",
+          "semantic_field": "peace",
+          "initial_correspondence": "b → ś",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "ume",
+          "family_form": "bāla",
+          "semantic_field": "child",
+          "initial_correspondence": "u → b",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "eguzki",
-          "family_form": "sūrya",
-          "semantic_field": "sun",
-          "initial_correspondence": "e → s",
+          "basque_form": "beltz",
+          "family_form": "kṛṣṇa",
+          "semantic_field": "black",
+          "initial_correspondence": "b → k",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "ur",
+          "family_form": "ap",
+          "semantic_field": "water",
+          "initial_correspondence": "u → a",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "txiki",
+          "family_form": "kanīyas",
+          "semantic_field": "small",
+          "initial_correspondence": "t → k",
           "position": "initial",
           "confidence": 0.5
         },
@@ -1409,58 +1313,66 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "on",
-          "family_form": "sat",
-          "semantic_field": "good",
-          "initial_correspondence": "o → s",
+          "basque_form": "lur",
+          "family_form": "bhūmi",
+          "semantic_field": "earth",
+          "initial_correspondence": "l → b",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "mendi",
-          "family_form": "giri",
-          "semantic_field": "mountain",
-          "initial_correspondence": "m → g",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "jauna",
-          "family_form": "deva",
-          "semantic_field": "god",
-          "initial_correspondence": "j → d",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "errege",
-          "family_form": "rājan",
-          "semantic_field": "king",
-          "initial_correspondence": "e → r",
+          "basque_form": "gau",
+          "family_form": "rātri",
+          "semantic_field": "night",
+          "initial_correspondence": "g → r",
           "position": "initial",
           "confidence": 0.5
+        },
+        {
+          "basque_form": "eguzki",
+          "family_form": "sūrya",
+          "semantic_field": "sun",
+          "initial_correspondence": "e → s",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "itsaso",
+          "family_form": "samudra",
+          "semantic_field": "sea",
+          "initial_correspondence": "i → s",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "emakume",
+          "family_form": "strī",
+          "semantic_field": "woman",
+          "initial_correspondence": "e → s",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "hotz",
+          "family_form": "śīta",
+          "semantic_field": "cold",
+          "initial_correspondence": "h → ś",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "egun",
+          "family_form": "ahna",
+          "semantic_field": "day",
+          "initial_correspondence": "e → a",
+          "position": "initial",
+          "confidence": 0.6
         },
         {
           "basque_form": "zuri",
           "family_form": "śveta",
           "semantic_field": "white",
           "initial_correspondence": "z → ś",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "handi",
-          "family_form": "mahat",
-          "semantic_field": "big",
-          "initial_correspondence": "h → m",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "esku",
-          "family_form": "hasta",
-          "semantic_field": "hand",
-          "initial_correspondence": "e → h",
           "position": "initial",
           "confidence": 0.5
         },
@@ -1473,18 +1385,74 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "etxe",
-          "family_form": "gṛha",
-          "semantic_field": "house",
-          "initial_correspondence": "e → g",
+          "basque_form": "lau",
+          "family_form": "catvāra",
+          "semantic_field": "four",
+          "initial_correspondence": "l → c",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "jauna",
+          "family_form": "deva",
+          "semantic_field": "god",
+          "initial_correspondence": "j → d",
           "position": "initial",
           "confidence": 0.6
         },
         {
-          "basque_form": "bake",
-          "family_form": "śama",
-          "semantic_field": "peace",
-          "initial_correspondence": "b → ś",
+          "basque_form": "labur",
+          "family_form": "hrasva",
+          "semantic_field": "short",
+          "initial_correspondence": "l → h",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "begi",
+          "family_form": "akṣi",
+          "semantic_field": "eye",
+          "initial_correspondence": "b → a",
+          "position": "initial",
+          "confidence": 0.7
+        },
+        {
+          "basque_form": "errege",
+          "family_form": "rājan",
+          "semantic_field": "king",
+          "initial_correspondence": "e → r",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "zuha",
+          "family_form": "vṛkṣa",
+          "semantic_field": "tree",
+          "initial_correspondence": "z → v",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "esku",
+          "family_form": "hasta",
+          "semantic_field": "hand",
+          "initial_correspondence": "e → h",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "berri",
+          "family_form": "navas",
+          "semantic_field": "new",
+          "initial_correspondence": "b → n",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "etxe",
+          "family_form": "gṛha",
+          "semantic_field": "house",
+          "initial_correspondence": "e → g",
           "position": "initial",
           "confidence": 0.6
         },
@@ -1497,98 +1465,34 @@
           "confidence": 0.6
         },
         {
-          "basque_form": "gaizto",
-          "family_form": "*huono",
-          "semantic_field": "bad",
-          "initial_correspondence": "g → *",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
-          "basque_form": "su",
-          "family_form": "*tuli",
-          "semantic_field": "fire",
-          "initial_correspondence": "s → *",
+          "basque_form": "berde",
+          "family_form": "hari",
+          "semantic_field": "green",
+          "initial_correspondence": "b → h",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "ume",
-          "family_form": "*lapsi",
-          "semantic_field": "child",
-          "initial_correspondence": "u → *",
+          "basque_form": "gizon",
+          "family_form": "nara",
+          "semantic_field": "man",
+          "initial_correspondence": "g → n",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "bost",
-          "family_form": "*viisi",
-          "semantic_field": "five",
-          "initial_correspondence": "b → *",
+          "basque_form": "gorroto",
+          "family_form": "dveṣa",
+          "semantic_field": "hate",
+          "initial_correspondence": "g → d",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "harri",
-          "family_form": "*kivi",
-          "semantic_field": "stone",
-          "initial_correspondence": "h → *",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
-          "basque_form": "maite",
-          "family_form": "*rakas",
-          "semantic_field": "love",
-          "initial_correspondence": "m → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "beltz",
-          "family_form": "*musta",
-          "semantic_field": "black",
-          "initial_correspondence": "b → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "egun",
-          "family_form": "*päivä",
-          "semantic_field": "day",
-          "initial_correspondence": "e → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "heriotza",
-          "family_form": "*kuolema",
-          "semantic_field": "death",
-          "initial_correspondence": "h → *",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
-          "basque_form": "emakume",
-          "family_form": "*nainen",
-          "semantic_field": "woman",
-          "initial_correspondence": "e → *",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "lau",
-          "family_form": "*neljä",
-          "semantic_field": "four",
-          "initial_correspondence": "l → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "txiki",
-          "family_form": "*pieni",
-          "semantic_field": "small",
-          "initial_correspondence": "t → *",
+          "basque_form": "gorri",
+          "family_form": "rakta",
+          "semantic_field": "red",
+          "initial_correspondence": "g → r",
           "position": "initial",
           "confidence": 0.6
         },
@@ -1601,18 +1505,10 @@
           "confidence": 0.6
         },
         {
-          "basque_form": "gizon",
-          "family_form": "*mies",
-          "semantic_field": "man",
-          "initial_correspondence": "g → *",
-          "position": "initial",
-          "confidence": 0.6
-        },
-        {
-          "basque_form": "gau",
-          "family_form": "*yö",
-          "semantic_field": "night",
-          "initial_correspondence": "g → *",
+          "basque_form": "handi",
+          "family_form": "*suuri",
+          "semantic_field": "big",
+          "initial_correspondence": "h → *",
           "position": "initial",
           "confidence": 0.6
         },
@@ -1625,84 +1521,12 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "bero",
-          "family_form": "*kuuma",
-          "semantic_field": "hot",
-          "initial_correspondence": "b → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "labur",
-          "family_form": "*lyhyt",
-          "semantic_field": "short",
-          "initial_correspondence": "l → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "gorri",
-          "family_form": "*punane",
-          "semantic_field": "red",
-          "initial_correspondence": "g → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "gerra",
-          "family_form": "*sota",
-          "semantic_field": "war",
-          "initial_correspondence": "g → *",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
-          "basque_form": "gorroto",
-          "family_form": "*viha",
-          "semantic_field": "hate",
-          "initial_correspondence": "g → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "berri",
-          "family_form": "*uusi",
-          "semantic_field": "new",
-          "initial_correspondence": "b → *",
-          "position": "initial",
-          "confidence": 0.7
-        },
-        {
-          "basque_form": "zuha",
-          "family_form": "*puu",
-          "semantic_field": "tree",
-          "initial_correspondence": "z → *",
+          "basque_form": "mendi",
+          "family_form": "*vuori",
+          "semantic_field": "mountain",
+          "initial_correspondence": "m → *",
           "position": "initial",
           "confidence": 0.6
-        },
-        {
-          "basque_form": "berde",
-          "family_form": "*vihreä",
-          "semantic_field": "green",
-          "initial_correspondence": "b → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "ur",
-          "family_form": "*wesi",
-          "semantic_field": "water",
-          "initial_correspondence": "u → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
-          "basque_form": "lur",
-          "family_form": "*måđi",
-          "semantic_field": "earth",
-          "initial_correspondence": "l → *",
-          "position": "initial",
-          "confidence": 0.5
         },
         {
           "basque_form": "urte",
@@ -1713,28 +1537,84 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "begi",
-          "family_form": "*silme",
-          "semantic_field": "eye",
+          "basque_form": "on",
+          "family_form": "*hyvä",
+          "semantic_field": "good",
+          "initial_correspondence": "o → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "gaizto",
+          "family_form": "*huono",
+          "semantic_field": "bad",
+          "initial_correspondence": "g → *",
+          "position": "initial",
+          "confidence": 0.7
+        },
+        {
+          "basque_form": "hiru",
+          "family_form": "*kolme",
+          "semantic_field": "three",
+          "initial_correspondence": "h → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "harri",
+          "family_form": "*kivi",
+          "semantic_field": "stone",
+          "initial_correspondence": "h → *",
+          "position": "initial",
+          "confidence": 0.7
+        },
+        {
+          "basque_form": "su",
+          "family_form": "*tuli",
+          "semantic_field": "fire",
+          "initial_correspondence": "s → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "maite",
+          "family_form": "*rakas",
+          "semantic_field": "love",
+          "initial_correspondence": "m → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "bero",
+          "family_form": "*kuuma",
+          "semantic_field": "hot",
           "initial_correspondence": "b → *",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "itsaso",
-          "family_form": "*meri",
-          "semantic_field": "sea",
-          "initial_correspondence": "i → *",
+          "basque_form": "bost",
+          "family_form": "*viisi",
+          "semantic_field": "five",
+          "initial_correspondence": "b → *",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "hotz",
-          "family_form": "*kylmä",
-          "semantic_field": "cold",
+          "basque_form": "heriotza",
+          "family_form": "*kuolema",
+          "semantic_field": "death",
           "initial_correspondence": "h → *",
           "position": "initial",
-          "confidence": 0.5
+          "confidence": 0.7
+        },
+        {
+          "basque_form": "gerra",
+          "family_form": "*sota",
+          "semantic_field": "war",
+          "initial_correspondence": "g → *",
+          "position": "initial",
+          "confidence": 0.7
         },
         {
           "basque_form": "ibai",
@@ -1753,18 +1633,42 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "hiru",
-          "family_form": "*kolme",
-          "semantic_field": "three",
-          "initial_correspondence": "h → *",
+          "basque_form": "bake",
+          "family_form": "*rauha",
+          "semantic_field": "peace",
+          "initial_correspondence": "b → *",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "eguzki",
-          "family_form": "*päiwä",
-          "semantic_field": "sun",
-          "initial_correspondence": "e → *",
+          "basque_form": "ume",
+          "family_form": "*lapsi",
+          "semantic_field": "child",
+          "initial_correspondence": "u → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "beltz",
+          "family_form": "*musta",
+          "semantic_field": "black",
+          "initial_correspondence": "b → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "ur",
+          "family_form": "*wesi",
+          "semantic_field": "water",
+          "initial_correspondence": "u → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "txiki",
+          "family_form": "*pieni",
+          "semantic_field": "small",
+          "initial_correspondence": "t → *",
           "position": "initial",
           "confidence": 0.6
         },
@@ -1777,33 +1681,57 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "on",
-          "family_form": "*hyvä",
-          "semantic_field": "good",
-          "initial_correspondence": "o → *",
+          "basque_form": "lur",
+          "family_form": "*måđi",
+          "semantic_field": "earth",
+          "initial_correspondence": "l → *",
           "position": "initial",
           "confidence": 0.5
         },
         {
-          "basque_form": "mendi",
-          "family_form": "*vuori",
-          "semantic_field": "mountain",
-          "initial_correspondence": "m → *",
+          "basque_form": "gau",
+          "family_form": "*yö",
+          "semantic_field": "night",
+          "initial_correspondence": "g → *",
           "position": "initial",
           "confidence": 0.6
         },
         {
-          "basque_form": "jauna",
-          "family_form": "*jumala",
-          "semantic_field": "god",
-          "initial_correspondence": "j → *",
+          "basque_form": "eguzki",
+          "family_form": "*päiwä",
+          "semantic_field": "sun",
+          "initial_correspondence": "e → *",
           "position": "initial",
           "confidence": 0.6
         },
         {
-          "basque_form": "errege",
-          "family_form": "*kuningas",
-          "semantic_field": "king",
+          "basque_form": "itsaso",
+          "family_form": "*meri",
+          "semantic_field": "sea",
+          "initial_correspondence": "i → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "emakume",
+          "family_form": "*nainen",
+          "semantic_field": "woman",
+          "initial_correspondence": "e → *",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "hotz",
+          "family_form": "*kylmä",
+          "semantic_field": "cold",
+          "initial_correspondence": "h → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "egun",
+          "family_form": "*päivä",
+          "semantic_field": "day",
           "initial_correspondence": "e → *",
           "position": "initial",
           "confidence": 0.5
@@ -1817,10 +1745,58 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "handi",
-          "family_form": "*suuri",
-          "semantic_field": "big",
-          "initial_correspondence": "h → *",
+          "basque_form": "bi",
+          "family_form": "*kaksi",
+          "semantic_field": "two",
+          "initial_correspondence": "b → *",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "lau",
+          "family_form": "*neljä",
+          "semantic_field": "four",
+          "initial_correspondence": "l → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "jauna",
+          "family_form": "*jumala",
+          "semantic_field": "god",
+          "initial_correspondence": "j → *",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "labur",
+          "family_form": "*lyhyt",
+          "semantic_field": "short",
+          "initial_correspondence": "l → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "begi",
+          "family_form": "*silme",
+          "semantic_field": "eye",
+          "initial_correspondence": "b → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "errege",
+          "family_form": "*kuningas",
+          "semantic_field": "king",
+          "initial_correspondence": "e → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "zuha",
+          "family_form": "*puu",
+          "semantic_field": "tree",
+          "initial_correspondence": "z → *",
           "position": "initial",
           "confidence": 0.6
         },
@@ -1833,12 +1809,12 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "bi",
-          "family_form": "*kaksi",
-          "semantic_field": "two",
+          "basque_form": "berri",
+          "family_form": "*uusi",
+          "semantic_field": "new",
           "initial_correspondence": "b → *",
           "position": "initial",
-          "confidence": 0.6
+          "confidence": 0.7
         },
         {
           "basque_form": "etxe",
@@ -1849,100 +1825,124 @@
           "confidence": 0.5
         },
         {
-          "basque_form": "bake",
-          "family_form": "*rauha",
-          "semantic_field": "peace",
-          "initial_correspondence": "b → *",
-          "position": "initial",
-          "confidence": 0.5
-        },
-        {
           "basque_form": "bizitza",
           "family_form": "*elämä",
           "semantic_field": "life",
           "initial_correspondence": "b → *",
           "position": "initial",
           "confidence": 0.5
+        },
+        {
+          "basque_form": "berde",
+          "family_form": "*vihreä",
+          "semantic_field": "green",
+          "initial_correspondence": "b → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "gizon",
+          "family_form": "*mies",
+          "semantic_field": "man",
+          "initial_correspondence": "g → *",
+          "position": "initial",
+          "confidence": 0.6
+        },
+        {
+          "basque_form": "gorroto",
+          "family_form": "*viha",
+          "semantic_field": "hate",
+          "initial_correspondence": "g → *",
+          "position": "initial",
+          "confidence": 0.5
+        },
+        {
+          "basque_form": "gorri",
+          "family_form": "*punane",
+          "semantic_field": "red",
+          "initial_correspondence": "g → *",
+          "position": "initial",
+          "confidence": 0.5
         }
       ],
       "regularity_analysis": {
         "pattern_distribution": {
-          "g → d": 2,
-          "s → p": 1,
-          "u → w": 2,
-          "b → p": 5,
-          "h → h": 2,
-          "m → k": 1,
-          "b → d": 3,
-          "e → u": 1,
-          "h → m": 3,
-          "e → w": 2,
-          "l → k": 2,
-          "t → k": 2,
           "u → p": 1,
+          "h → h": 2,
           "g → p": 3,
-          "g → e": 1,
-          "b → w": 2,
-          "g → h": 2,
-          "z → w": 1,
-          "l → a": 1,
+          "m → h": 1,
           "u → a": 2,
-          "b → a": 2,
-          "i → m": 1,
-          "h → p": 1,
+          "o → k": 1,
+          "g → d": 2,
+          "h → t": 2,
+          "s → p": 1,
+          "m → k": 1,
+          "b → w": 2,
+          "b → p": 5,
+          "h → m": 3,
           "i → d": 1,
           "l → h": 2,
-          "h → t": 2,
-          "e → s": 4,
+          "u → w": 2,
+          "b → d": 3,
+          "t → k": 2,
           "z → h": 1,
-          "o → k": 1,
-          "m → h": 1,
-          "j → i": 1,
+          "l → a": 1,
+          "g → e": 1,
+          "e → s": 4,
+          "i → m": 1,
+          "e → w": 2,
+          "h → p": 1,
+          "e → u": 1,
           "z → p": 2,
+          "l → k": 2,
+          "j → i": 1,
+          "b → a": 2,
+          "z → w": 1,
           "e → p": 1,
-          "g → a": 1,
-          "s → a": 1,
-          "u → b": 1,
-          "h → a": 1,
-          "m → p": 1,
-          "b → k": 1,
-          "e → a": 1,
-          "l → c": 1,
+          "g → h": 2,
           "u → n": 1,
-          "g → n": 1,
-          "g → r": 2,
           "g → y": 2,
-          "b → u": 1,
-          "b → n": 1,
-          "z → v": 1,
-          "b → h": 1,
-          "l → b": 1,
+          "m → g": 1,
           "u → s": 1,
-          "i → s": 1,
-          "h → ś": 1,
+          "o → s": 1,
+          "g → a": 1,
+          "h → a": 1,
+          "s → a": 1,
+          "m → p": 1,
+          "b → u": 1,
           "i → n": 1,
           "l → d": 1,
-          "o → s": 1,
-          "m → g": 1,
+          "b → ś": 1,
+          "u → b": 1,
+          "b → k": 1,
+          "l → b": 1,
+          "g → r": 2,
+          "i → s": 1,
+          "h → ś": 1,
+          "e → a": 1,
+          "z → ś": 1,
+          "l → c": 1,
           "j → d": 1,
           "e → r": 1,
-          "z → ś": 1,
+          "z → v": 1,
           "e → h": 1,
+          "b → n": 1,
           "e → g": 1,
-          "b → ś": 1,
           "b → j": 1,
-          "g → *": 7,
-          "s → *": 1,
+          "b → h": 1,
+          "g → n": 1,
           "u → *": 4,
-          "b → *": 9,
           "h → *": 5,
+          "g → *": 7,
           "m → *": 2,
-          "e → *": 6,
+          "o → *": 1,
+          "s → *": 1,
+          "b → *": 9,
+          "i → *": 2,
           "l → *": 4,
           "t → *": 1,
           "z → *": 3,
-          "i → *": 2,
-          "o → *": 1,
+          "e → *": 6,
           "j → *": 1
         },
         "regularity_measures": {
@@ -1953,53 +1953,53 @@
         },
         "exception_analysis": {
           "singleton_patterns": [
+            "u → p",
+            "m → h",
+            "o → k",
             "s → p",
             "m → k",
-            "e → u",
-            "u → p",
-            "g → e",
-            "z → w",
-            "l → a",
-            "i → m",
-            "h → p",
             "i → d",
             "z → h",
-            "o → k",
-            "m → h",
+            "l → a",
+            "g → e",
+            "i → m",
+            "h → p",
+            "e → u",
             "j → i",
+            "z → w",
             "e → p",
-            "g → a",
-            "s → a",
-            "u → b",
-            "h → a",
-            "m → p",
-            "b → k",
-            "e → a",
-            "l → c",
             "u → n",
-            "g → n",
-            "b → u",
-            "b → n",
-            "z → v",
-            "b → h",
-            "l → b",
+            "m → g",
             "u → s",
-            "i → s",
-            "h → ś",
+            "o → s",
+            "g → a",
+            "h → a",
+            "s → a",
+            "m → p",
+            "b → u",
             "i → n",
             "l → d",
-            "o → s",
-            "m → g",
+            "b → ś",
+            "u → b",
+            "b → k",
+            "l → b",
+            "i → s",
+            "h → ś",
+            "e → a",
+            "z → ś",
+            "l → c",
             "j → d",
             "e → r",
-            "z → ś",
+            "z → v",
             "e → h",
+            "b → n",
             "e → g",
-            "b → ś",
             "b → j",
+            "b → h",
+            "g → n",
+            "o → *",
             "s → *",
             "t → *",
-            "o → *",
             "j → *"
           ],
           "exception_count": 48
@@ -3192,52 +3192,6 @@
     "cognate_analysis": {
       "potential_cognates": [
         {
-          "basque_form": "ume",
-          "family_form": "wat",
-          "semantic_field": "child",
-          "family": "hittite",
-          "cognate_probability": 0.32,
-          "phonological_similarity": 0.5,
-          "morphological_similarity": 0.1,
-          "evidence": []
-        },
-        {
-          "basque_form": "harri",
-          "family_form": "happis",
-          "semantic_field": "stone",
-          "family": "hittite",
-          "cognate_probability": 0.3866666666666667,
-          "phonological_similarity": 0.6666666666666667,
-          "morphological_similarity": 0.5,
-          "evidence": [
-            "High phonetic similarity (0.67)"
-          ]
-        },
-        {
-          "basque_form": "emakume",
-          "family_form": "wannes",
-          "semantic_field": "woman",
-          "family": "hittite",
-          "cognate_probability": 0.34857142857142853,
-          "phonological_similarity": 0.5714285714285714,
-          "morphological_similarity": 0.1,
-          "evidence": [
-            "High phonetic similarity (0.57)"
-          ]
-        },
-        {
-          "basque_form": "txiki",
-          "family_form": "kuppi",
-          "semantic_field": "small",
-          "family": "hittite",
-          "cognate_probability": 0.31999999999999995,
-          "phonological_similarity": 0.7,
-          "morphological_similarity": 0.4,
-          "evidence": [
-            "High phonetic similarity (0.70)"
-          ]
-        },
-        {
           "basque_form": "urdin",
           "family_form": "parsu",
           "semantic_field": "blue",
@@ -3250,15 +3204,39 @@
           ]
         },
         {
-          "basque_form": "gorri",
+          "basque_form": "handi",
           "family_form": "harni",
-          "semantic_field": "red",
+          "semantic_field": "big",
           "family": "hittite",
-          "cognate_probability": 0.31999999999999995,
-          "phonological_similarity": 0.7,
+          "cognate_probability": 0.4,
+          "phonological_similarity": 0.9,
           "morphological_similarity": 0.4,
           "evidence": [
-            "High phonetic similarity (0.70)"
+            "High phonetic similarity (0.90)"
+          ]
+        },
+        {
+          "basque_form": "hiru",
+          "family_form": "tris",
+          "semantic_field": "three",
+          "family": "hittite",
+          "cognate_probability": 0.3400000000000001,
+          "phonological_similarity": 0.75,
+          "morphological_similarity": 0.1,
+          "evidence": [
+            "High phonetic similarity (0.75)"
+          ]
+        },
+        {
+          "basque_form": "harri",
+          "family_form": "happis",
+          "semantic_field": "stone",
+          "family": "hittite",
+          "cognate_probability": 0.3866666666666667,
+          "phonological_similarity": 0.6666666666666667,
+          "morphological_similarity": 0.5,
+          "evidence": [
+            "High phonetic similarity (0.67)"
           ]
         },
         {
@@ -3274,9 +3252,9 @@
           ]
         },
         {
-          "basque_form": "lur",
-          "family_form": "apil",
-          "semantic_field": "earth",
+          "basque_form": "ume",
+          "family_form": "wat",
+          "semantic_field": "child",
           "family": "hittite",
           "cognate_probability": 0.32,
           "phonological_similarity": 0.5,
@@ -3284,36 +3262,16 @@
           "evidence": []
         },
         {
-          "basque_form": "begi",
-          "family_form": "akku",
-          "semantic_field": "eye",
+          "basque_form": "txiki",
+          "family_form": "kuppi",
+          "semantic_field": "small",
           "family": "hittite",
-          "cognate_probability": 0.32,
-          "phonological_similarity": 0.5,
-          "morphological_similarity": 0.1,
-          "evidence": []
-        },
-        {
-          "basque_form": "hiru",
-          "family_form": "tris",
-          "semantic_field": "three",
-          "family": "hittite",
-          "cognate_probability": 0.3400000000000001,
-          "phonological_similarity": 0.75,
-          "morphological_similarity": 0.1,
+          "cognate_probability": 0.31999999999999995,
+          "phonological_similarity": 0.7,
+          "morphological_similarity": 0.4,
           "evidence": [
-            "High phonetic similarity (0.75)"
+            "High phonetic similarity (0.70)"
           ]
-        },
-        {
-          "basque_form": "eguzki",
-          "family_form": "sawes",
-          "semantic_field": "sun",
-          "family": "hittite",
-          "cognate_probability": 0.32,
-          "phonological_similarity": 0.5,
-          "morphological_similarity": 0.1,
-          "evidence": []
         },
         {
           "basque_form": "zahar",
@@ -3328,16 +3286,46 @@
           ]
         },
         {
-          "basque_form": "handi",
-          "family_form": "harni",
-          "semantic_field": "big",
+          "basque_form": "lur",
+          "family_form": "apil",
+          "semantic_field": "earth",
           "family": "hittite",
-          "cognate_probability": 0.4,
-          "phonological_similarity": 0.9,
-          "morphological_similarity": 0.4,
+          "cognate_probability": 0.32,
+          "phonological_similarity": 0.5,
+          "morphological_similarity": 0.1,
+          "evidence": []
+        },
+        {
+          "basque_form": "eguzki",
+          "family_form": "sawes",
+          "semantic_field": "sun",
+          "family": "hittite",
+          "cognate_probability": 0.32,
+          "phonological_similarity": 0.5,
+          "morphological_similarity": 0.1,
+          "evidence": []
+        },
+        {
+          "basque_form": "emakume",
+          "family_form": "wannes",
+          "semantic_field": "woman",
+          "family": "hittite",
+          "cognate_probability": 0.34857142857142853,
+          "phonological_similarity": 0.5714285714285714,
+          "morphological_similarity": 0.1,
           "evidence": [
-            "High phonetic similarity (0.90)"
+            "High phonetic similarity (0.57)"
           ]
+        },
+        {
+          "basque_form": "begi",
+          "family_form": "akku",
+          "semantic_field": "eye",
+          "family": "hittite",
+          "cognate_probability": 0.32,
+          "phonological_similarity": 0.5,
+          "morphological_similarity": 0.1,
+          "evidence": []
         },
         {
           "basque_form": "esku",
@@ -3358,6 +3346,30 @@
           "phonological_similarity": 0.5,
           "morphological_similarity": 0.1,
           "evidence": []
+        },
+        {
+          "basque_form": "gorri",
+          "family_form": "harni",
+          "semantic_field": "red",
+          "family": "hittite",
+          "cognate_probability": 0.31999999999999995,
+          "phonological_similarity": 0.7,
+          "morphological_similarity": 0.4,
+          "evidence": [
+            "High phonetic similarity (0.70)"
+          ]
+        },
+        {
+          "basque_form": "handi",
+          "family_form": "mahat",
+          "semantic_field": "big",
+          "family": "sanskrit",
+          "cognate_probability": 0.31999999999999995,
+          "phonological_similarity": 0.7,
+          "morphological_similarity": 0.1,
+          "evidence": [
+            "High phonetic similarity (0.70)"
+          ]
         },
         {
           "basque_form": "harri",
@@ -3384,16 +3396,6 @@
           ]
         },
         {
-          "basque_form": "gizon",
-          "family_form": "nara",
-          "semantic_field": "man",
-          "family": "sanskrit",
-          "cognate_probability": 0.32,
-          "phonological_similarity": 0.5,
-          "morphological_similarity": 0.1,
-          "evidence": []
-        },
-        {
           "basque_form": "ur",
           "family_form": "ap",
           "semantic_field": "water",
@@ -3416,18 +3418,6 @@
           ]
         },
         {
-          "basque_form": "handi",
-          "family_form": "mahat",
-          "semantic_field": "big",
-          "family": "sanskrit",
-          "cognate_probability": 0.31999999999999995,
-          "phonological_similarity": 0.7,
-          "morphological_similarity": 0.1,
-          "evidence": [
-            "High phonetic similarity (0.70)"
-          ]
-        },
-        {
           "basque_form": "esku",
           "family_form": "hasta",
           "semantic_field": "hand",
@@ -3441,6 +3431,16 @@
           "basque_form": "etxe",
           "family_form": "gṛha",
           "semantic_field": "house",
+          "family": "sanskrit",
+          "cognate_probability": 0.32,
+          "phonological_similarity": 0.5,
+          "morphological_similarity": 0.1,
+          "evidence": []
+        },
+        {
+          "basque_form": "gizon",
+          "family_form": "nara",
+          "semantic_field": "man",
           "family": "sanskrit",
           "cognate_probability": 0.32,
           "phonological_similarity": 0.5,
@@ -3472,6 +3472,18 @@
           ]
         },
         {
+          "basque_form": "eguzki",
+          "family_form": "*päiwä",
+          "semantic_field": "sun",
+          "family": "proto_uralic",
+          "cognate_probability": 0.3533333333333334,
+          "phonological_similarity": 0.5833333333333334,
+          "morphological_similarity": 0.1,
+          "evidence": [
+            "High phonetic similarity (0.58)"
+          ]
+        },
+        {
           "basque_form": "emakume",
           "family_form": "*nainen",
           "semantic_field": "woman",
@@ -3484,18 +3496,6 @@
           ]
         },
         {
-          "basque_form": "gizon",
-          "family_form": "*mies",
-          "semantic_field": "man",
-          "family": "proto_uralic",
-          "cognate_probability": 0.36,
-          "phonological_similarity": 0.6,
-          "morphological_similarity": 0.1,
-          "evidence": [
-            "High phonetic similarity (0.60)"
-          ]
-        },
-        {
           "basque_form": "begi",
           "family_form": "*silme",
           "semantic_field": "eye",
@@ -3504,18 +3504,6 @@
           "phonological_similarity": 0.5,
           "morphological_similarity": 0.1,
           "evidence": []
-        },
-        {
-          "basque_form": "eguzki",
-          "family_form": "*päiwä",
-          "semantic_field": "sun",
-          "family": "proto_uralic",
-          "cognate_probability": 0.3533333333333334,
-          "phonological_similarity": 0.5833333333333334,
-          "morphological_similarity": 0.1,
-          "evidence": [
-            "High phonetic similarity (0.58)"
-          ]
         },
         {
           "basque_form": "esku",
@@ -3538,6 +3526,18 @@
           "phonological_similarity": 0.5,
           "morphological_similarity": 0.1,
           "evidence": []
+        },
+        {
+          "basque_form": "gizon",
+          "family_form": "*mies",
+          "semantic_field": "man",
+          "family": "proto_uralic",
+          "cognate_probability": 0.36,
+          "phonological_similarity": 0.6,
+          "morphological_similarity": 0.1,
+          "evidence": [
+            "High phonetic similarity (0.60)"
+          ]
         }
       ],
       "cognate_confidence_scores": {},
@@ -4052,13 +4052,13 @@
       "components": [
         [
           "proto-uralic",
-          "basque",
-          "proto-nostratic"
+          "proto-nostratic",
+          "basque"
         ],
         [
+          "proto-indoeuropean",
           "hittite",
-          "sanskrit",
-          "proto-indoeuropean"
+          "sanskrit"
         ],
         [
           "proto_uralic"
@@ -4559,7 +4559,7 @@
     }
   ],
   "metadata": {
-    "analysis_completed": "2026-01-16T00:28:40.709715",
+    "analysis_completed": "2026-01-16T04:39:49.713839",
     "analysis_depth": "detailed",
     "languages_analyzed": 4,
     "features_analyzed": 9

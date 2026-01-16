@@ -1,0 +1,98 @@
+{
+  "mcmc_parameters": {
+    "generations": 10000000,
+    "burnin": 1000000,
+    "sample_frequency": 1000,
+    "chain_convergence": true
+  },
+  "phylogenetic_topology": {
+    "root": "Proto-Nostratic",
+    "root_time": 15000,
+    "node_a": {
+      "name": "PIUE_Node",
+      "time_range": [
+        11000,
+        9000
+      ],
+      "estimated_time": 10000,
+      "confidence_interval": [
+        9500,
+        10500
+      ],
+      "probability": 0.85
+    },
+    "node_b": {
+      "name": "Indo-Uralic_Node",
+      "time_range": [
+        7000,
+        6000
+      ],
+      "estimated_time": 6500,
+      "confidence_interval": [
+        6200,
+        6800
+      ],
+      "probability": 0.78
+    },
+    "branches": {
+      "conservative_branch": {
+        "languages": [
+          "Basque",
+          "Proto-Uralic"
+        ],
+        "time_depth": 10000,
+        "innovation_rate": 0.25
+      },
+      "innovative_branch": {
+        "languages": [
+          "Proto-Indo-European",
+          "Hittite",
+          "Sanskrit"
+        ],
+        "time_depth": 6500,
+        "innovation_rate": 0.75
+      }
+    }
+  },
+  "split_time_estimates": {
+    "piue_split_time": {
+      "estimated_years_ago": 10000,
+      "confidence_interval": [
+        9500,
+        10500
+      ],
+      "probability": 0.85,
+      "calibration_points": [
+        "cold_event_8200bp",
+        "neolithic_farmer_spread"
+      ]
+    },
+    "indouralic_split_time": {
+      "estimated_years_ago": 6500,
+      "confidence_interval": [
+        6200,
+        6800
+      ],
+      "probability": 0.78,
+      "calibration_points": [
+        "whg_eef_admixture"
+      ]
+    }
+  },
+  "calibrated_anchors": {
+    "cold_event_8200bp": {
+      "effect_on_basque": "potential_divergence_acceleration",
+      "correlation_strength": 0.72
+    },
+    "neolithic_farmer_spread": {
+      "effect_on_vasconic": "substrate_preservation",
+      "correlation_strength": 0.81
+    }
+  },
+  "simulation_statistics": {
+    "effective_sample_size": 5000000,
+    "monte_carlo_error": 0.001,
+    "convergence_r_statistic": 1.002,
+    "overall_confidence": 0.82
+  }
+}

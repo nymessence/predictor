@@ -1,0 +1,180 @@
+{
+  "graph": {
+    "nodes": [
+      [
+        "Proto-Nostratic",
+        {
+          "time_depth": 15000,
+          "type": "root"
+        }
+      ],
+      [
+        "PIUE_Node",
+        {
+          "time_depth": 10000,
+          "type": "internal"
+        }
+      ],
+      [
+        "Indo-Uralic_Node",
+        {
+          "time_depth": 6500,
+          "type": "internal"
+        }
+      ],
+      [
+        "Basque",
+        {
+          "time_depth": 0,
+          "type": "terminal"
+        }
+      ],
+      [
+        "Proto-Uralic",
+        {
+          "time_depth": 0,
+          "type": "terminal"
+        }
+      ],
+      [
+        "Proto-Indo-European",
+        {
+          "time_depth": 0,
+          "type": "terminal"
+        }
+      ],
+      [
+        "Hittite",
+        {
+          "time_depth": 3500,
+          "type": "terminal"
+        }
+      ],
+      [
+        "Sanskrit",
+        {
+          "time_depth": 3000,
+          "type": "terminal"
+        }
+      ]
+    ],
+    "edges": [
+      [
+        "Proto-Nostratic",
+        "PIUE_Node",
+        {
+          "time_depth": 15000,
+          "probability": 0.85
+        }
+      ],
+      [
+        "PIUE_Node",
+        "Basque",
+        {
+          "time_depth": 10000,
+          "probability": 0.88
+        }
+      ],
+      [
+        "PIUE_Node",
+        "Indo-Uralic_Node",
+        {
+          "time_depth": 10000,
+          "probability": 0.78
+        }
+      ],
+      [
+        "Indo-Uralic_Node",
+        "Proto-Uralic",
+        {
+          "time_depth": 6500,
+          "probability": 0.82
+        }
+      ],
+      [
+        "Indo-Uralic_Node",
+        "Proto-Indo-European",
+        {
+          "time_depth": 6500,
+          "probability": 0.8
+        }
+      ],
+      [
+        "Proto-Indo-European",
+        "Hittite",
+        {
+          "time_depth": 4000,
+          "probability": 0.85
+        }
+      ],
+      [
+        "Proto-Indo-European",
+        "Sanskrit",
+        {
+          "time_depth": 3500,
+          "probability": 0.87
+        }
+      ]
+    ]
+  },
+  "layout": {
+    "Proto-Nostratic": [
+      0,
+      10
+    ],
+    "PIUE_Node": [
+      0,
+      7
+    ],
+    "Indo-Uralic_Node": [
+      0,
+      4
+    ],
+    "Basque": [
+      -4.0,
+      1
+    ],
+    "Proto-Uralic": [
+      -2.0,
+      1
+    ],
+    "Proto-Indo-European": [
+      0.0,
+      1
+    ],
+    "Hittite": [
+      2.0,
+      1
+    ],
+    "Sanskrit": [
+      4.0,
+      1
+    ]
+  },
+  "newick_string": "((Basque:15000:5000,(Proto-Uralic:15000:8500,(Hittite:11500:11000,Sanskrit:12000:11500)Proto-Indo-European:8500)Indo-Uralic_Node:5000)PIUE_Node:0)Proto-Nostratic;",
+  "hpd_intervals": {},
+  "branch_lengths": {
+    "Proto-Nostratic->PIUE_Node": 15000,
+    "PIUE_Node->Basque": 10000,
+    "PIUE_Node->Indo-Uralic_Node": 10000,
+    "Indo-Uralic_Node->Proto-Uralic": 6500,
+    "Indo-Uralic_Node->Proto-Indo-European": 6500,
+    "Proto-Indo-European->Hittite": 4000,
+    "Proto-Indo-European->Sanskrit": 3500
+  },
+  "confidence_values": {
+    "Proto-Nostratic->PIUE_Node": 0.85,
+    "PIUE_Node->Basque": 0.88,
+    "PIUE_Node->Indo-Uralic_Node": 0.78,
+    "Indo-Uralic_Node->Proto-Uralic": 0.82,
+    "Indo-Uralic_Node->Proto-Indo-European": 0.8,
+    "Proto-Indo-European->Hittite": 0.85,
+    "Proto-Indo-European->Sanskrit": 0.87
+  },
+  "metadata": {
+    "tree_created": "2026-01-16T04:06:17.174126",
+    "total_nodes": 8,
+    "total_edges": 7,
+    "layout_algorithm": "organized_hierarchical"
+  }
+}

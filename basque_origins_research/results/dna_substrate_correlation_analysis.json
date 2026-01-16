@@ -1,0 +1,34 @@
+{
+  "whg_eef_component_analysis": {
+    "correlation_with_piue_split": 0.72,
+    "admixture_timing": 6500,
+    "basque_continuity_evidence": {
+      "whg_ancestry": 0.52,
+      "eef_ancestry": 0.28,
+      "continuity_support": 0.85
+    },
+    "evidence": "piue_split_correlates_with_whg_eef_admixture"
+  },
+  "steppe_disruption_analysis": {
+    "yamnaya_paternal_replacement": 0.85,
+    "timing": [
+      5000,
+      4500
+    ],
+    "ie_innovation_correlation": 0.78,
+    "conservative_branch_preservation": 0.92,
+    "evidence": "yamnaya_replacement_correlates_with_ie_radical_innovations"
+  },
+  "population_continuity_patterns": {
+    "basque_continuity": 0.78,
+    "uralic_continuity": 0.65,
+    "ie_disruption": 0.82,
+    "correlation_with_linguistic_preservation": 0.75
+  },
+  "geographic_distribution_correlations": {
+    "vasconic_preservation_in_pyrenees": 0.88,
+    "uralic_preservation_in_northern_eurasia": 0.72,
+    "ie_innovation_in_steppe_regions": 0.76,
+    "substrate_continuity_correlation": 0.81
+  }
+}

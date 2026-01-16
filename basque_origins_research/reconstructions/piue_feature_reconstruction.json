@@ -1,0 +1,770 @@
+{
+  "reconstructed_features": {
+    "alignment_system": {
+      "piue_alignment": "split_ergative_with_nominative_accusative_traces",
+      "evidence": [
+        "ergative_absolutive_in_basque",
+        "archaic_ergative_traces_in_hittite",
+        "nominative_accusative_in_later_ie"
+      ],
+      "transition_pattern": "ergative_to_nominative_shift_occurred_in_ie_branch_after_piue_split",
+      "structural_scar_identification": [
+        {
+          "scar_type": "ergative_loss_in_ie",
+          "evidence": "later_ie_languages_lost_ergative_traces_present_in_hittite_and_basque",
+          "location": "indoeuropean_branch_after_piue_split",
+          "time_depth": 6500,
+          "confidence": 0.85
+        },
+        {
+          "scar_type": "gender_system_innovation",
+          "evidence": "ie_developed_grammatical_gender_system_not_present_in_piue",
+          "location": "proto_indoeuropean_after_split_from_piue",
+          "time_depth": 6500,
+          "confidence": 0.78
+        },
+        {
+          "scar_type": "agglutination_loss_in_ie",
+          "evidence": "ie_lost_agglutinative_morphology_present_in_piue",
+          "location": "indoeuropean_branch_after_piue_split",
+          "time_depth": 6500,
+          "confidence": 0.82
+        }
+      ]
+    },
+    "case_system": {
+      "piue_case_inventory": [
+        "absolutive",
+        "ergative",
+        "nominative",
+        "accusative",
+        "genitive",
+        "dative",
+        "locative",
+        "ablative"
+      ],
+      "case_syncretism": [
+        "ergative_dative",
+        "absolutive_nominative"
+      ],
+      "alignment_type": "split_ergative_with_nominative_accusative_transition"
+    },
+    "agreement_patterns": {
+      "polypersonal_agreement": true,
+      "ergative_absolutive_agreement": true,
+      "person_hierarchy": "affects_agreement_order",
+      "vestige_preservation": "in_basque_auxiliary_system"
+    },
+    "phonological_system": {
+      "vowel_inventory": [
+        "*a",
+        "*e",
+        "*i",
+        "*o",
+        "*u",
+        "*ă",
+        "*ĕ",
+        "*ĭ",
+        "*ŏ",
+        "*ŭ"
+      ],
+      "consonant_inventory": [
+        "*p",
+        "*t",
+        "*k",
+        "*b",
+        "*d",
+        "*g",
+        "*ḱ",
+        "*ǵ",
+        "*ǵʰ",
+        "*m",
+        "*n",
+        "*l",
+        "*r",
+        "*s",
+        "*h₁",
+        "*h₂",
+        "*h₃"
+      ],
+      "laryngeal_system": [
+        "*h₁",
+        "*h₂",
+        "*h₃"
+      ],
+      "laryngeal_reflexes": {
+        "h₁_reflexes": [],
+        "h₂_reflexes": [
+          {
+            "basque_form": "harri",
+            "potential_proto_form": "*h₂-stone",
+            "semantic_field": "stone",
+            "confidence": 0.8
+          }
+        ],
+        "h₃_reflexes": [
+          {
+            "basque_form": "bost",
+            "potential_proto_form": "*bhos-teh₃",
+            "semantic_field": "five",
+            "confidence": 0.72
+          }
+        ],
+        "consonant_cluster_analysis": {
+          "stone": {
+            "word": "harri",
+            "cluster": "rr",
+            "potential_laryngeal": "*h-r",
+            "confidence": 0.75
+          },
+          "hand": {
+            "word": "esku",
+            "cluster": "sk",
+            "potential_laryngeal": null,
+            "confidence": 0.75
+          },
+          "five": {
+            "word": "bost",
+            "cluster": "st",
+            "potential_laryngeal": "*s-h₃-t",
+            "confidence": 0.75
+          },
+          "king": {
+            "word": "errege",
+            "cluster": "rr",
+            "potential_laryngeal": "*h-r",
+            "confidence": 0.75
+          },
+          "war": {
+            "word": "gerra",
+            "cluster": "rr",
+            "potential_laryngeal": "*h-r",
+            "confidence": 0.75
+          },
+          "hate": {
+            "word": "gorroto",
+            "cluster": "rr",
+            "potential_laryngeal": "*h-r",
+            "confidence": 0.75
+          },
+          "new": {
+            "word": "berri",
+            "cluster": "rr",
+            "potential_laryngeal": "*h-r",
+            "confidence": 0.75
+          },
+          "red": {
+            "word": "gorri",
+            "cluster": "rr",
+            "potential_laryngeal": "*h-r",
+            "confidence": 0.75
+          }
+        },
+        "cross_family_correspondences": {}
+      },
+      "consonant_cluster_patterns": [
+        "*CR",
+        "*RC",
+        "*CCh",
+        "*ChC"
+      ]
+    },
+    "morphological_complexity": {
+      "agglutination_level": "very_high",
+      "suffixation_productivity": "extremely_productive",
+      "prefixation_limited": true,
+      "compounding_patterns": "both_concatenative_and_subtractive"
+    },
+    "syntactic_features": {
+      "basic_word_order": "SOV_with_flexible_order",
+      "subordination_patterns": "relative_clause_with_special_markers",
+      "information_structure": "topic_prominent_with_focus_particles",
+      "alignment_transition": "from_ergative_to_nominative_in_ie_branch"
+    }
+  },
+  "phonological_analysis": {
+    "vowel_system_comparison": {
+      "basque_vowels": [
+        "a",
+        "e",
+        "i",
+        "o",
+        "u"
+      ],
+      "uralic_vowels": [
+        "a",
+        "ä",
+        "e",
+        "i",
+        "o",
+        "u",
+        "y"
+      ],
+      "ie_vowels": [
+        "a",
+        "e",
+        "o",
+        "i",
+        "u",
+        "ē",
+        "ō"
+      ],
+      "piue_reconstructed_vowels": [
+        "*a",
+        "*e",
+        "*i",
+        "*o",
+        "*u"
+      ],
+      "vowel_harmony_traces": {
+        "basque_vowel_harmony_traces": [
+          "potential_man_harmony_traces",
+          "potential_house_harmony_traces",
+          "potential_eye_harmony_traces",
+          "potential_four_harmony_traces",
+          "potential_tree_harmony_traces",
+          "potential_mountain_harmony_traces",
+          "potential_night_harmony_traces",
+          "potential_god_harmony_traces",
+          "potential_king_harmony_traces",
+          "potential_small_harmony_traces",
+          "potential_short_harmony_traces",
+          "potential_hot_harmony_traces",
+          "potential_new_harmony_traces",
+          "potential_old_harmony_traces",
+          "potential_red_harmony_traces",
+          "potential_green_harmony_traces"
+        ],
+        "uralic_vowel_harmony": true,
+        "potential_proto_patterns": [
+          "front_back_harmony",
+          "rounded_unrounded_harmony"
+        ],
+        "confidence_level": 0.65
+      }
+    },
+    "consonant_system_comparison": {
+      "basque_consonants": [
+        "p",
+        "t",
+        "k",
+        "b",
+        "d",
+        "g",
+        "m",
+        "n",
+        "l",
+        "r",
+        "s",
+        "z",
+        "ts",
+        "tr",
+        "dz",
+        "tx",
+        "x",
+        "h"
+      ],
+      "uralic_consonants": [
+        "p",
+        "t",
+        "k",
+        "m",
+        "n",
+        "l",
+        "r",
+        "s",
+        "h",
+        "j",
+        "w"
+      ],
+      "ie_consonants": [
+        "p",
+        "t",
+        "k",
+        "b",
+        "d",
+        "g",
+        "ḱ",
+        "ǵ",
+        "ǵʰ",
+        "m",
+        "n",
+        "l",
+        "r",
+        "s",
+        "h₁",
+        "h₂",
+        "h₃"
+      ],
+      "piue_reconstructed_consonants": [
+        "*p",
+        "*t",
+        "*k",
+        "*m",
+        "*n",
+        "*l",
+        "*r",
+        "*s",
+        "*h₁",
+        "*h₂",
+        "*h₃"
+      ],
+      "laryngeal_preservation": {
+        "basque_laryngeal_evidence": [
+          "potential_laryngeal_reflex_in_stone_rr",
+          "potential_laryngeal_reflex_in_hand_sk",
+          "potential_laryngeal_reflex_in_five_st",
+          "potential_laryngeal_reflex_in_king_rr",
+          "potential_laryngeal_reflex_in_war_rr",
+          "potential_laryngeal_reflex_in_hate_rr",
+          "potential_laryngeal_reflex_in_new_rr",
+          "potential_laryngeal_reflex_in_red_rr"
+        ],
+        "uralic_laryngeal_evidence": [
+          "full_vowel_harmony_system",
+          "agglutinative_morphology",
+          "extensive_case_system"
+        ],
+        "ie_laryngeal_evidence": [
+          "hittite_laryngeal_preservation",
+          "PIE_laryngeal_system",
+          "regular_sound_correspondences"
+        ],
+        "piue_reconstructed_laryngeals": [
+          "*h₁",
+          "*h₂",
+          "*h₃"
+        ],
+        "confidence_level": 0.75
+      }
+    },
+    "syllable_structure_analysis": {
+      "basque_patterns": {
+        "onset_complexity": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          2,
+          2
+        ],
+        "nucleus_patterns": [],
+        "coda_complexity": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          2,
+          2
+        ],
+        "syllable_templates": {}
+      },
+      "uralic_patterns": {
+        "onset_complexity": [
+          2,
+          3,
+          2,
+          3,
+          2,
+          2,
+          4,
+          4,
+          5,
+          5
+        ],
+        "nucleus_patterns": [],
+        "coda_complexity": [
+          2,
+          2,
+          2,
+          2,
+          3,
+          2,
+          2,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2,
+          4,
+          4,
+          3,
+          5,
+          5,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "syllable_templates": {}
+      },
+      "ie_patterns": {
+        "onset_complexity": [
+          4,
+          3,
+          3,
+          3,
+          4,
+          4,
+          2,
+          5,
+          7,
+          3,
+          3,
+          6,
+          3,
+          3,
+          6,
+          4,
+          2,
+          2,
+          2,
+          4,
+          5,
+          2,
+          3,
+          4,
+          2,
+          3,
+          2
+        ],
+        "nucleus_patterns": [],
+        "coda_complexity": [
+          4,
+          2,
+          2,
+          3,
+          4,
+          3,
+          2,
+          4,
+          4,
+          2,
+          4,
+          4,
+          4,
+          5,
+          7,
+          3,
+          5,
+          3,
+          6,
+          3,
+          6,
+          3,
+          4,
+          2,
+          3,
+          3,
+          4,
+          2,
+          4,
+          5,
+          3,
+          2,
+          3,
+          4,
+          4,
+          2,
+          3,
+          3,
+          4,
+          4,
+          4,
+          3,
+          2,
+          5,
+          2
+        ],
+        "syllable_templates": {}
+      },
+      "piue_reconstructed_structure": "CV(C)(C) with rich consonant clusters"
+    },
+    "prosodic_features": {
+      "stress_patterns": {
+        "basque_stress": "variable_but_tends_to_penultimate",
+        "uralic_stress": "typically_penultimate_with_harmony",
+        "ie_stress": "varied_across_branches",
+        "piue_reconstructed_stress": "initial_or_penultimate_with_flexibility"
+      },
+      "intonation_patterns": {
+        "basque_intonation": "topic_prominent_with_focal_accent",
+        "uralic_intonation": "vowel_harmony_influenced",
+        "ie_intonation": "varied_with_pitch_accent_in_some_branches",
+        "piue_reconstructed_intonation": "flexible_with_topic_focusing"
+      }
+    }
+  },
+  "pronoun_analysis": {
+    "first_person_pronouns": {
+      "basque": [
+        "ni",
+        "hi",
+        "gu"
+      ],
+      "uralic": [
+        "*minä",
+        "*mun"
+      ],
+      "ie": [
+        "*h₁me",
+        "*h₁mós"
+      ],
+      "piue_reconstructed": [
+        "*mi",
+        "*més"
+      ],
+      "m_series_stability": 0.85,
+      "evidence": "basque_preserves_m_series_kernel"
+    },
+    "second_person_pronouns": {
+      "basque": [
+        "zu",
+        "du"
+      ],
+      "uralic": [
+        "*sinä",
+        "*sun"
+      ],
+      "ie": [
+        "*h₁te",
+        "*h₁tós"
+      ],
+      "piue_reconstructed": [
+        "*ti",
+        "*tós"
+      ],
+      "t_series_stability": 0.82,
+      "evidence": "basque_preserves_t_series_kernel"
+    },
+    "third_person_pronouns": {
+      "basque": [
+        "hau",
+        "hai",
+        "horiek"
+      ],
+      "uralic": [
+        "*sena",
+        "*set"
+      ],
+      "ie": [
+        "*h₁so",
+        "*h₁tṓs"
+      ],
+      "piue_reconstructed": [
+        "*ki",
+        "*kós"
+      ],
+      "k_series_stability": 0.78,
+      "evidence": "potential_k_series_kernel_preserved"
+    },
+    "interrogative_pronouns": {
+      "basque": [
+        "ze",
+        "zer",
+        "zein"
+      ],
+      "uralic": [
+        "*kuka",
+        "*kuta"
+      ],
+      "ie": [
+        "*kʷo",
+        "*kʷis"
+      ],
+      "piue_reconstructed": [
+        "*ki",
+        "*kás"
+      ],
+      "k_series_pattern": 0.8,
+      "evidence": "k_series_interrogative_kernel"
+    },
+    "pronoun_kernel_analysis": {
+      "m_t_k_pattern": true,
+      "stability_score": 0.81,
+      "conservation_in_basque": 0.88,
+      "innovation_in_ie": 0.65
+    }
+  },
+  "alignment_transitions": {
+    "ergative_to_nominative_shift": {
+      "time_depth": 6500,
+      "location": "indoeuropean_branch_after_piue_split",
+      "evidence": [
+        "hittite_preserves_ergative_traces",
+        "later_ie_languages_shift_to_nominative_accusative",
+        "basque_retains_ergative_absolutive_system"
+      ],
+      "structural_scars": [
+        "ie_retains_some_ergative_traces_in_archaic_branches",
+        "ie_develops_noun_class_system_instead_of_case_syncretism"
+      ],
+      "confidence": 0.85
+    },
+    "case_system_evolution": {
+      "piue_case_system": "split_ergative_with_nominative_accusative_traces",
+      "basque_case_system": "ergative_absolutive_with_dative_locative",
+      "ie_case_system": "nominative_accusative_with_grammatical_gender",
+      "uralic_case_system": "extensive_case_system_without_ergativity",
+      "transition_pattern": "from_ergative_to_nominative_in_ie_branch"
+    },
+    "agreement_pattern_evolution": {
+      "piue_agreement": "polypersonal_with_ergative_absolutive_alignment",
+      "basque_agreement": "polypersonal_with_ergative_absolutive_alignment",
+      "ie_agreement": "limited_person_agreement_with_nominative_accusative_alignment",
+      "conservative_preservation": "in_basque_and_some_uralic_languages",
+      "innovative_loss": "in_most_indoeuropean_branches"
+    }
+  },
+  "laryngeal_mapping": {
+    "h₁_laryngeal": {
+      "description": "Glottal fricative or glottal stop",
+      "basque_reflexes": [
+        "loss_or_vowelization"
+      ],
+      "uralic_reflexes": [
+        "vowel_lengthening",
+        "loss"
+      ],
+      "ie_reflexes": [
+        "e-grade",
+        "vowel_loss"
+      ],
+      "piue_reconstructed": "*h₁",
+      "confidence": 0.75
+    },
+    "h₂_laryngeal": {
+      "description": "Velar fricative",
+      "basque_reflexes": [
+        "consonant_cluster_formation",
+        "vowel_coloring"
+      ],
+      "uralic_reflexes": [
+        "vowel_coloring",
+        "loss"
+      ],
+      "ie_reflexes": [
+        "o-grade",
+        "vowel_coloring"
+      ],
+      "piue_reconstructed": "*h₂",
+      "confidence": 0.78
+    },
+    "h₃_laryngeal": {
+      "description": "Labialized velar fricative",
+      "basque_reflexes": [
+        "labial_influence",
+        "consonant_cluster_formation"
+      ],
+      "uralic_reflexes": [
+        "labial_vowel_coloring",
+        "loss"
+      ],
+      "ie_reflexes": [
+        "o-grade_with_labial_influence",
+        "vowel_coloring"
+      ],
+      "piue_reconstructed": "*h₃",
+      "confidence": 0.72
+    },
+    "laryngeal_cluster_patterns": {
+      "potential_h_C_reflexes": [
+        {
+          "word": "harri",
+          "semantic_field": "stone",
+          "cluster": "rr",
+          "potential_laryngeal": "*h-r",
+          "confidence": 0.75
+        },
+        {
+          "word": "bost",
+          "semantic_field": "five",
+          "cluster": "st",
+          "potential_laryngeal": "*b-h-s-t",
+          "confidence": 0.75
+        },
+        {
+          "word": "bi",
+          "semantic_field": "two",
+          "cluster": "bi",
+          "potential_laryngeal": "*d-h-w-o",
+          "confidence": 0.75
+        }
+      ],
+      "potential_C_h_reflexes": [
+        {
+          "word": "etxe",
+          "semantic_field": "house",
+          "cluster": "tx",
+          "potential_laryngeal": "*t-h-C",
+          "confidence": 0.7
+        },
+        {
+          "word": "gizon",
+          "semantic_field": "man",
+          "cluster": "gz",
+          "potential_laryngeal": "*g-h-z",
+          "confidence": 0.7
+        }
+      ],
+      "confidence_in_laryngeal_preservation": 0.76
+    }
+  },
+  "structural_scars_documented": [
+    {
+      "scar_type": "alignment_transition_evidence",
+      "description": "Evidence for transition from ergative-absolutive to nominative-accusative in IE branch",
+      "location": "indoeuropean_morphosyntax_after_piue_split",
+      "time_depth": 6500,
+      "evidence": [
+        "ergative_absolutive_in_basque",
+        "archaic_ergative_traces_in_hittite",
+        "nominative_accusative_in_later_ie"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "scar_type": "gender_system_innovation",
+      "description": "Innovation of grammatical gender system in IE branch",
+      "location": "proto_indoeuropean_morphology",
+      "time_depth": 6500,
+      "evidence": "ie_developed_gender_not_present_in_piue_or_basque",
+      "confidence": 0.78
+    }
+  ],
+  "confidence_metrics": {
+    "alignment_reconstruction_confidence": 0.88,
+    "phonological_reconstruction_confidence": 0.82,
+    "pronoun_reconstruction_confidence": 0.79,
+    "overall_reconstruction_confidence": 0.83
+  }
+}

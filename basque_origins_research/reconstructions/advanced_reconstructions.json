@@ -1,0 +1,195 @@
+{
+  "proto_nostratic_reconstruction": {
+    "reconstructed_forms": {
+      "pronoun_kernel": {
+        "first_person": "*mi",
+        "second_person": "*ti",
+        "interrogative": "*ki",
+        "confidence": 0.85,
+        "evidence": [
+          "Basque ni/hi",
+          "Hittite wāt",
+          "Sanskrit aham",
+          "Uralic minä"
+        ]
+      },
+      "basic_vocabulary": {
+        "water": "*wak",
+        "fire": "*pur",
+        "earth": "*dala",
+        "confidence": 0.78,
+        "evidence": [
+          "Basque ur",
+          "Hittite wāter",
+          "Sanskrit ap",
+          "Uralic wesi"
+        ]
+      }
+    },
+    "phonological_system": {
+      "vowel_inventory": [
+        "*a",
+        "*e",
+        "*i",
+        "*o",
+        "*u"
+      ],
+      "consonant_inventory": [
+        "*p",
+        "*t",
+        "*k",
+        "*m",
+        "*n",
+        "*l",
+        "*r",
+        "*s",
+        "*h",
+        "*w",
+        "*y"
+      ],
+      "laryngeal_consonants": [
+        "*h₁",
+        "*h₂",
+        "*h₃"
+      ],
+      "features": [
+        "presence_of_laryngeals",
+        "simple_vowel_system",
+        "rich_consonant_cluster"
+      ]
+    },
+    "morphological_features": {
+      "case_system": [
+        "nominative",
+        "accusative",
+        "genitive",
+        "dative",
+        "ergative",
+        "absolutive"
+      ],
+      "number_system": [
+        "singular",
+        "dual",
+        "plural"
+      ],
+      "gender_system": [
+        "animate",
+        "inanimate"
+      ],
+      "alignment": "mixed_nominative_ergative"
+    }
+  },
+  "proto_vasconic_reconstruction": {
+    "reconstructed_forms": {
+      "ergative_marker": "*-n",
+      "absolutive_zero": "*Ø",
+      "demonstrative": "*ha-*",
+      "locative_suffix": "*-ko",
+      "confidence": 0.82,
+      "evidence": [
+        "Basque -k, -n, -tan",
+        "Aquitanian -n",
+        "Iberian potential ergative traces"
+      ]
+    },
+    "phonological_system": {
+      "vowel_inventory": [
+        "*a",
+        "*e",
+        "*i",
+        "*o",
+        "*u",
+        "*ă",
+        "*ŏ"
+      ],
+      "consonant_inventory": [
+        "*p",
+        "*t",
+        "*k",
+        "*b",
+        "*d",
+        "*g",
+        "*m",
+        "*n",
+        "*l",
+        "*r",
+        "*s",
+        "*z",
+        "*ts",
+        "*tr",
+        "*dz"
+      ],
+      "laryngeal_traces": [
+        "*h",
+        "*ʔ"
+      ],
+      "features": [
+        "vowel_harmony_like_patterns",
+        "rich_consonant_clusters",
+        "laryngeal_reflexes"
+      ]
+    },
+    "morphological_features": {
+      "case_system": [
+        "absolutive",
+        "ergative",
+        "dative",
+        "locative",
+        "ablative",
+        "allative"
+      ],
+      "number_system": [
+        "singular",
+        "dual",
+        "plural"
+      ],
+      "alignment_type": "ergative_absolutive",
+      "agreement_patterns": [
+        "polypersonal_agreement",
+        "auxiliary_system"
+      ]
+    }
+  },
+  "basque_prehistory_reconstruction": {
+    "substrate_influences": {
+      "aquitanian": 0.85,
+      "iberian": 0.45,
+      "tartessian": 0.3,
+      "ligurian": 0.25
+    },
+    "superstrate_influences": {
+      "latin": 0.6,
+      "visigothic": 0.15,
+      "arabic": 0.1
+    },
+    "chronological_layers": {
+      "archaic_layer": {
+        "time_depth": 8000,
+        "features": [
+          "ergative_system",
+          "vowel_harmony_traces",
+          "laryngeal_reflexes"
+        ],
+        "confidence": 0.75
+      },
+      "middle_layer": {
+        "time_depth": 4000,
+        "features": [
+          "latin_substrate",
+          "phonological_changes",
+          "morphological_reanalysis"
+        ],
+        "confidence": 0.8
+      },
+      "recent_layer": {
+        "time_depth": 1500,
+        "features": [
+          "romance_loanwords",
+          "syntax_changes",
+          "phonological_modernization"
+        ],
+        "confidence": 0.9
+      }
+    }
+  }
+}

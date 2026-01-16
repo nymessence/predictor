@@ -1,0 +1,911 @@
+{
+  "pelasgian_vasconic_correspondences": [
+    {
+      "semantic_field": "hand",
+      "pre_greek_form": "cheir-*",
+      "basque_form": "esku",
+      "probability": 0.7482285714285714,
+      "reconstructed_form": "*eseku",
+      "confidence": 0.860462857142857,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "stone",
+      "pre_greek_form": "lith-*",
+      "basque_form": "harri",
+      "probability": 0.7312000000000001,
+      "reconstructed_form": "*hairi",
+      "confidence": 0.8408800000000001,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "sun",
+      "pre_greek_form": "hеliо-*",
+      "basque_form": "eguzki",
+      "probability": 0.7007238095238095,
+      "reconstructed_form": "*eguki",
+      "confidence": 0.8058323809523809,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "child",
+      "pre_greek_form": "tekн-*",
+      "basque_form": "ume",
+      "probability": 0.6981333333333334,
+      "reconstructed_form": "*umeme",
+      "confidence": 0.8028533333333333,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "woman",
+      "pre_greek_form": "gyn-*",
+      "basque_form": "emakume",
+      "probability": 0.6969142857142857,
+      "reconstructed_form": "*ememe",
+      "confidence": 0.8014514285714285,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "house",
+      "pre_greek_form": "dom-*",
+      "basque_form": "etxe",
+      "probability": 0.6960000000000001,
+      "reconstructed_form": "*etexe",
+      "confidence": 0.8004,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "earth",
+      "pre_greek_form": "ghе-*",
+      "basque_form": "lur",
+      "probability": 0.6896000000000001,
+      "reconstructed_form": "*luiur",
+      "confidence": 0.7930400000000001,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "two",
+      "pre_greek_form": "dъ-*",
+      "basque_form": "bi",
+      "probability": 0.6792,
+      "reconstructed_form": "*biibi",
+      "confidence": 0.78108,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "eye",
+      "pre_greek_form": "ophthalm-*",
+      "basque_form": "begi",
+      "probability": 0.672,
+      "reconstructed_form": "*beagi",
+      "confidence": 0.7728,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "man",
+      "pre_greek_form": "anthrо-*",
+      "basque_form": "gizon",
+      "probability": 0.6716000000000001,
+      "reconstructed_form": "*giuon",
+      "confidence": 0.77234,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "fire",
+      "pre_greek_form": "pур-*",
+      "basque_form": "su",
+      "probability": 0.6672,
+      "reconstructed_form": "*suusu",
+      "confidence": 0.76728,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "water",
+      "pre_greek_form": "ed-*",
+      "basque_form": "ur",
+      "probability": 0.6592,
+      "reconstructed_form": "*uruur",
+      "confidence": 0.75808,
+      "temporal_depth": 8000
+    }
+  ],
+  "tyrsenian_basque_links": [
+    {
+      "semantic_field": "hand",
+      "etruscan_form": "cel",
+      "basque_form": "esku",
+      "probability": 0.7482285714285714,
+      "reconstructed_form": "*eseku",
+      "confidence": 0.860462857142857,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "stone",
+      "etruscan_form": "selen",
+      "basque_form": "harri",
+      "probability": 0.7312000000000001,
+      "reconstructed_form": "*hairi",
+      "confidence": 0.8408800000000001,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "sun",
+      "etruscan_form": "calu",
+      "basque_form": "eguzki",
+      "probability": 0.7007238095238095,
+      "reconstructed_form": "*eguki",
+      "confidence": 0.8058323809523809,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "child",
+      "etruscan_form": "cecha",
+      "basque_form": "ume",
+      "probability": 0.6981333333333334,
+      "reconstructed_form": "*umeme",
+      "confidence": 0.8028533333333333,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "woman",
+      "etruscan_form": "larth",
+      "basque_form": "emakume",
+      "probability": 0.6969142857142857,
+      "reconstructed_form": "*ememe",
+      "confidence": 0.8014514285714285,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "house",
+      "etruscan_form": "cvil",
+      "basque_form": "etxe",
+      "probability": 0.6960000000000001,
+      "reconstructed_form": "*etexe",
+      "confidence": 0.8004,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "earth",
+      "etruscan_form": "tiris",
+      "basque_form": "lur",
+      "probability": 0.6896000000000001,
+      "reconstructed_form": "*luiur",
+      "confidence": 0.7930400000000001,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "two",
+      "etruscan_form": "zal",
+      "basque_form": "bi",
+      "probability": 0.6792,
+      "reconstructed_form": "*biibi",
+      "confidence": 0.78108,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "eye",
+      "etruscan_form": "alpan",
+      "basque_form": "begi",
+      "probability": 0.672,
+      "reconstructed_form": "*beagi",
+      "confidence": 0.7728,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "man",
+      "etruscan_form": "lupu",
+      "basque_form": "gizon",
+      "probability": 0.6716000000000001,
+      "reconstructed_form": "*giuon",
+      "confidence": 0.77234,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "fire",
+      "etruscan_form": "cel",
+      "basque_form": "su",
+      "probability": 0.6672,
+      "reconstructed_form": "*suusu",
+      "confidence": 0.76728,
+      "temporal_depth": 8000
+    },
+    {
+      "semantic_field": "water",
+      "etruscan_form": "clanis",
+      "basque_form": "ur",
+      "probability": 0.6592,
+      "reconstructed_form": "*uruur",
+      "confidence": 0.75808,
+      "temporal_depth": 8000
+    }
+  ],
+  "aegean_substrate_influences": [
+    {
+      "semantic_field": "hand",
+      "pre_greek_form": "cheir-*",
+      "basque_form": "esku",
+      "probability": 0.7482285714285714,
+      "reconstructed_form": "*eseku",
+      "confidence": 0.860462857142857,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "stone",
+      "pre_greek_form": "lith-*",
+      "basque_form": "harri",
+      "probability": 0.7312000000000001,
+      "reconstructed_form": "*hairi",
+      "confidence": 0.8408800000000001,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "sun",
+      "pre_greek_form": "hеliо-*",
+      "basque_form": "eguzki",
+      "probability": 0.7007238095238095,
+      "reconstructed_form": "*eguki",
+      "confidence": 0.8058323809523809,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "child",
+      "pre_greek_form": "tekн-*",
+      "basque_form": "ume",
+      "probability": 0.6981333333333334,
+      "reconstructed_form": "*umeme",
+      "confidence": 0.8028533333333333,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "woman",
+      "pre_greek_form": "gyn-*",
+      "basque_form": "emakume",
+      "probability": 0.6969142857142857,
+      "reconstructed_form": "*ememe",
+      "confidence": 0.8014514285714285,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "house",
+      "pre_greek_form": "dom-*",
+      "basque_form": "etxe",
+      "probability": 0.6960000000000001,
+      "reconstructed_form": "*etexe",
+      "confidence": 0.8004,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "earth",
+      "pre_greek_form": "ghе-*",
+      "basque_form": "lur",
+      "probability": 0.6896000000000001,
+      "reconstructed_form": "*luiur",
+      "confidence": 0.7930400000000001,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "two",
+      "pre_greek_form": "dъ-*",
+      "basque_form": "bi",
+      "probability": 0.6792,
+      "reconstructed_form": "*biibi",
+      "confidence": 0.78108,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "eye",
+      "pre_greek_form": "ophthalm-*",
+      "basque_form": "begi",
+      "probability": 0.672,
+      "reconstructed_form": "*beagi",
+      "confidence": 0.7728,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "man",
+      "pre_greek_form": "anthrо-*",
+      "basque_form": "gizon",
+      "probability": 0.6716000000000001,
+      "reconstructed_form": "*giuon",
+      "confidence": 0.77234,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "fire",
+      "pre_greek_form": "pур-*",
+      "basque_form": "su",
+      "probability": 0.6672,
+      "reconstructed_form": "*suusu",
+      "confidence": 0.76728,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "water",
+      "pre_greek_form": "ed-*",
+      "basque_form": "ur",
+      "probability": 0.6592,
+      "reconstructed_form": "*uruur",
+      "confidence": 0.75808,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "night",
+      "pre_greek_form": "nukт-*",
+      "basque_form": "gau",
+      "probability": 0.5760000000000001,
+      "reconstructed_form": "*gaaau",
+      "confidence": 0.5760000000000001,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "life",
+      "pre_greek_form": "biо-*",
+      "basque_form": "bizitza",
+      "probability": 0.5676190476190477,
+      "reconstructed_form": "*biiza",
+      "confidence": 0.5676190476190477,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "young",
+      "pre_greek_form": "neо-*",
+      "basque_form": "gazte",
+      "probability": 0.5586666666666668,
+      "reconstructed_form": "*gaete",
+      "confidence": 0.5586666666666668,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "day",
+      "pre_greek_form": "hemer-*",
+      "basque_form": "egun",
+      "probability": 0.5512380952380952,
+      "reconstructed_form": "*egeun",
+      "confidence": 0.5512380952380952,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "blue",
+      "pre_greek_form": "kyan-*",
+      "basque_form": "urdin",
+      "probability": 0.5471111111111112,
+      "reconstructed_form": "*uriin",
+      "confidence": 0.5471111111111112,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "year",
+      "pre_greek_form": "etо-*",
+      "basque_form": "urte",
+      "probability": 0.5406666666666667,
+      "reconstructed_form": "*urute",
+      "confidence": 0.5406666666666667,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "god",
+      "pre_greek_form": "theо-*",
+      "basque_form": "jauna",
+      "probability": 0.5342222222222223,
+      "reconstructed_form": "*jaana",
+      "confidence": 0.5342222222222223,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "short",
+      "pre_greek_form": "brakh-*",
+      "basque_form": "labur",
+      "probability": 0.5171428571428572,
+      "reconstructed_form": "*laaur",
+      "confidence": 0.5171428571428572,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "love",
+      "pre_greek_form": "phil-*",
+      "basque_form": "maite",
+      "probability": 0.5146666666666667,
+      "reconstructed_form": "*maite",
+      "confidence": 0.5146666666666667,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "river",
+      "pre_greek_form": "potam-*",
+      "basque_form": "ibai",
+      "probability": 0.512825396825397,
+      "reconstructed_form": "*ibiai",
+      "confidence": 0.512825396825397,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "three",
+      "pre_greek_form": "trei-*",
+      "basque_form": "hiru",
+      "probability": 0.5093333333333334,
+      "reconstructed_form": "*hiiru",
+      "confidence": 0.5093333333333334,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "black",
+      "pre_greek_form": "melan-*",
+      "basque_form": "beltz",
+      "probability": 0.5064761904761905,
+      "reconstructed_form": "*beetz",
+      "confidence": 0.5064761904761905,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "death",
+      "pre_greek_form": "thanat-*",
+      "basque_form": "heriotza",
+      "probability": 0.5026666666666667,
+      "reconstructed_form": "*heaza",
+      "confidence": 0.5026666666666667,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "hot",
+      "pre_greek_form": "therm-*",
+      "basque_form": "bero",
+      "probability": 0.5021904761904763,
+      "reconstructed_form": "*beero",
+      "confidence": 0.5021904761904763,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    },
+    {
+      "semantic_field": "bad",
+      "pre_greek_form": "kak-*",
+      "basque_form": "gaizto",
+      "probability": 0.5004444444444445,
+      "reconstructed_form": "*aato",
+      "confidence": 0.5004444444444445,
+      "temporal_depth": 8000,
+      "substrate_type": "aegean_pre_greek"
+    }
+  ],
+  "mediterranean_linguistic_strata": {
+    "paleolithic_stratum": {
+      "time_depth": 15000,
+      "features": [
+        "potential_nostratic_kernel",
+        "archaic_morphology",
+        "deep_phonological_traces"
+      ],
+      "confidence": 0.65
+    },
+    "mesolithic_stratum": {
+      "time_depth": 10000,
+      "features": [
+        "vasconic_substrate",
+        "pre_indoeuropean_features",
+        "archaic_syntax"
+      ],
+      "confidence": 0.72
+    },
+    "neolithic_stratum": {
+      "time_depth": 7000,
+      "features": [
+        "agricultural_vocabulary",
+        "substrate_influences",
+        "demographic_expansion_traces"
+      ],
+      "confidence": 0.78
+    },
+    "bronze_age_stratum": {
+      "time_depth": 4000,
+      "features": [
+        "trade_vocabulary",
+        "cultural_exchange_traces",
+        "technological_terms"
+      ],
+      "confidence": 0.68
+    },
+    "historical_stratum": {
+      "time_depth": 2000,
+      "features": [
+        "latin_influence",
+        "romanization_traces",
+        "mediterranean_trade_links"
+      ],
+      "confidence": 0.85
+    }
+  },
+  "temporal_calibration_points": {
+    "neolithic_migration_cap": 6500,
+    "pelasgian_vasconic_split_date": 6500,
+    "etruscan_basque_divergence": 9300,
+    "confidence_interval": [
+      6000,
+      7000
+    ],
+    "aDNA_correlation": {
+      "italian_peninsula_genetic_continuity": 0.65,
+      "cretan_genetic_links": 0.55,
+      "aegean_population_stability": 0.7
+    }
+  },
+  "bayesian_probability_matrix": {
+    "basque_etruscan": {
+      "count": 27,
+      "average_probability": 0.6018988830099942,
+      "high_confidence_count": 3
+    },
+    "basque_pre_greek": {
+      "count": 27,
+      "average_probability": 0.6018988830099942,
+      "high_confidence_count": 3
+    },
+    "etruscan_pre_greek": {
+      "count": 27,
+      "average_probability": 0.6018988830099942,
+      "high_confidence_count": 3
+    },
+    "overall_correlation": 0.6018988830099942
+  },
+  "phylogenetic_tree": {
+    "root": "proto_mediterranean_substrate",
+    "time_depth": 8000,
+    "branches": {
+      "pelasgian_substrate": {
+        "time_depth": 6500,
+        "descendants": [
+          "pre_greek",
+          "aegean_substrate"
+        ],
+        "confidence": 0.78
+      },
+      "vasconic_substrate": {
+        "time_depth": 7000,
+        "descendants": [
+          "basque",
+          "aquitanian"
+        ],
+        "confidence": 0.82
+      },
+      "tyrsenian_family": {
+        "time_depth": 2800,
+        "descendants": [
+          "etruscan",
+          "raetic",
+          "lemnian"
+        ],
+        "confidence": 0.75
+      }
+    },
+    "connections": {
+      "pelasgian_vasconic_connection": {
+        "probability": 0.78,
+        "time_depth": 6500,
+        "evidence": [
+          {
+            "semantic_field": "hand",
+            "basque_form": "esku",
+            "etruscan_form": "cel",
+            "pre_greek_form": "cheir-*",
+            "reconstructed_grandmother_form": "*eseku",
+            "bayesian_probability": 0.7482285714285714,
+            "phonological_similarity": 0.4254761904761904,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.26666666666666666,
+            "confidence_level": 0.860462857142857,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "stone",
+            "basque_form": "harri",
+            "etruscan_form": "selen",
+            "pre_greek_form": "lith-*",
+            "reconstructed_grandmother_form": "*hairi",
+            "bayesian_probability": 0.7312000000000001,
+            "phonological_similarity": 0.42333333333333334,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.8408800000000001,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "sun",
+            "basque_form": "eguzki",
+            "etruscan_form": "calu",
+            "pre_greek_form": "hеliо-*",
+            "reconstructed_grandmother_form": "*eguki",
+            "bayesian_probability": 0.7007238095238095,
+            "phonological_similarity": 0.35984126984126985,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.8058323809523809,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          }
+        ]
+      },
+      "tyrsenian_vasconic_connection": {
+        "probability": 0.75,
+        "time_depth": 5500,
+        "evidence": [
+          {
+            "semantic_field": "hand",
+            "basque_form": "esku",
+            "etruscan_form": "cel",
+            "pre_greek_form": "cheir-*",
+            "reconstructed_grandmother_form": "*eseku",
+            "bayesian_probability": 0.7482285714285714,
+            "phonological_similarity": 0.4254761904761904,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.26666666666666666,
+            "confidence_level": 0.860462857142857,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "stone",
+            "basque_form": "harri",
+            "etruscan_form": "selen",
+            "pre_greek_form": "lith-*",
+            "reconstructed_grandmother_form": "*hairi",
+            "bayesian_probability": 0.7312000000000001,
+            "phonological_similarity": 0.42333333333333334,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.8408800000000001,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "sun",
+            "basque_form": "eguzki",
+            "etruscan_form": "calu",
+            "pre_greek_form": "hеliо-*",
+            "reconstructed_grandmother_form": "*eguki",
+            "bayesian_probability": 0.7007238095238095,
+            "phonological_similarity": 0.35984126984126985,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.8058323809523809,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "child",
+            "basque_form": "ume",
+            "etruscan_form": "cecha",
+            "pre_greek_form": "tekн-*",
+            "reconstructed_grandmother_form": "*umeme",
+            "bayesian_probability": 0.6981333333333334,
+            "phonological_similarity": 0.3544444444444444,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.8028533333333333,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "woman",
+            "basque_form": "emakume",
+            "etruscan_form": "larth",
+            "pre_greek_form": "gyn-*",
+            "reconstructed_grandmother_form": "*ememe",
+            "bayesian_probability": 0.6969142857142857,
+            "phonological_similarity": 0.3519047619047619,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.8014514285714285,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "house",
+            "basque_form": "etxe",
+            "etruscan_form": "cvil",
+            "pre_greek_form": "dom-*",
+            "reconstructed_grandmother_form": "*etexe",
+            "bayesian_probability": 0.6960000000000001,
+            "phonological_similarity": 0.3499999999999999,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.8004,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "earth",
+            "basque_form": "lur",
+            "etruscan_form": "tiris",
+            "pre_greek_form": "ghе-*",
+            "reconstructed_grandmother_form": "*luiur",
+            "bayesian_probability": 0.6896000000000001,
+            "phonological_similarity": 0.33666666666666667,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.7930400000000001,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "two",
+            "basque_form": "bi",
+            "etruscan_form": "zal",
+            "pre_greek_form": "dъ-*",
+            "reconstructed_grandmother_form": "*biibi",
+            "bayesian_probability": 0.6792,
+            "phonological_similarity": 0.2816666666666667,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.26666666666666666,
+            "confidence_level": 0.78108,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "eye",
+            "basque_form": "begi",
+            "etruscan_form": "alpan",
+            "pre_greek_form": "ophthalm-*",
+            "reconstructed_grandmother_form": "*beagi",
+            "bayesian_probability": 0.672,
+            "phonological_similarity": 0.3,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.7728,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "man",
+            "basque_form": "gizon",
+            "etruscan_form": "lupu",
+            "pre_greek_form": "anthrо-*",
+            "reconstructed_grandmother_form": "*giuon",
+            "bayesian_probability": 0.6716000000000001,
+            "phonological_similarity": 0.29916666666666664,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.20000000000000004,
+            "confidence_level": 0.77234,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "fire",
+            "basque_form": "su",
+            "etruscan_form": "cel",
+            "pre_greek_form": "pур-*",
+            "reconstructed_grandmother_form": "*suusu",
+            "bayesian_probability": 0.6672,
+            "phonological_similarity": 0.25666666666666665,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.26666666666666666,
+            "confidence_level": 0.76728,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          },
+          {
+            "semantic_field": "water",
+            "basque_form": "ur",
+            "etruscan_form": "clanis",
+            "pre_greek_form": "ed-*",
+            "reconstructed_grandmother_form": "*uruur",
+            "bayesian_probability": 0.6592,
+            "phonological_similarity": 0.24,
+            "semantic_consistency": 1.0,
+            "morphological_integration": 0.26666666666666666,
+            "confidence_level": 0.75808,
+            "evidence": [
+              "Perfect semantic consistency"
+            ],
+            "temporal_depth": 8000
+          }
+        ]
+      }
+    },
+    "confidence_metrics": {
+      "tree_consistency": 0.8,
+      "branch_support": 0.75,
+      "temporal_coherence": 0.78
+    }
+  },
+  "substrate_preservation_patterns": {
+    "phonological_preservation": {
+      "vowel_system": 0.75,
+      "consonant_system": 0.68,
+      "stress_patterns": 0.55,
+      "laryngeal_traces": 0.72
+    },
+    "morphological_preservation": {
+      "case_system": 0.8,
+      "agreement_patterns": 0.75,
+      "verbal_morphology": 0.65,
+      "nominal_morphology": 0.7
+    },
+    "semantic_preservation": {
+      "basic_vocabulary": 0.82,
+      "cultural_terms": 0.6,
+      "religious_terms": 0.55,
+      "kinship_terms": 0.78
+    },
+    "syntactic_preservation": {
+      "word_order": 0.65,
+      "alignment_type": 0.78,
+      "subordination": 0.6,
+      "information_structure": 0.7
+    }
+  },
+  "cross_family_connections": {
+    "nostratic_hypothesis_support": {
+      "evidence_strength": 0.75,
+      "supported_connections": 3,
+      "confidence": 0.72
+    },
+    "pelasgian_vasconic_hypothesis": {
+      "evidence_strength": 0.78,
+      "supported_connections": 27,
+      "confidence": 0.75
+    },
+    "tyrsenian_vasconic_hypothesis": {
+      "evidence_strength": 0.72,
+      "supported_connections": 27,
+      "confidence": 0.7
+    },
+    "aegean_substrate_hypothesis": {
+      "evidence_strength": 0.7,
+      "supported_connections": 27,
+      "confidence": 0.68
+    }
+  }
+}

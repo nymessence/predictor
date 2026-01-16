@@ -1,0 +1,21 @@
+2026-01-15 21:34:51,213 - INFO - 🚀 Starting Mediterranean Substrate Analysis System...
+2026-01-15 21:34:51,213 - INFO - 🔍 Phase 1: Harvesting Mediterranean substrate data
+2026-01-15 21:34:51,213 - INFO - 🔍 Harvesting Mediterranean substrate data from Tyrshenian and Pre-Greek databases...
+2026-01-15 21:34:51,214 - INFO - ✅ Harvested 3 Tyrsenian languages and Pre-Greek substrate data
+2026-01-15 21:34:51,215 - INFO - 🔍 Phase 2: Applying Bayesian probability analysis to M-N shift
+2026-01-15 21:34:51,215 - INFO - 🔍 Applying Bayesian probability analysis to M-to-N nasal shift...
+2026-01-15 21:34:51,215 - INFO - ✅ Bayesian analysis completed with M-to-N shift probability: 0.637
+2026-01-15 21:34:51,215 - INFO - 🔍 Phase 3: Identifying deep cognates between Basque, Etruscan, and Pelasgian
+2026-01-15 21:34:51,215 - INFO - 🔍 Identifying deep cognates between Basque, Etruscan, and Pelasgian...
+2026-01-15 21:34:51,217 - INFO - ✅ Identified 27 deep cognates with high probability
+2026-01-15 21:34:51,217 - INFO - 🔍 Phase 4: Creating Mediterranean substrate map
+2026-01-15 21:34:51,217 - INFO - 🌍 Creating Mediterranean substrate map...
+2026-01-15 21:34:51,221 - INFO - ✅ Created Mediterranean substrate map with 27 deep cognates
+2026-01-15 21:34:51,221 - INFO - 🔍 Phase 5: Generating top deep cognates with grandmother forms
+2026-01-15 21:34:51,221 - INFO - 🔍 Generating top 20 deep cognates...
+2026-01-15 21:34:51,221 - INFO - ✅ Generated top 20 deep cognates
+2026-01-15 21:34:51,224 - INFO - 🎉 Mediterranean substrate analysis completed successfully!
+2026-01-15 21:34:51,225 - INFO - 📊 Identified 27 deep cognates
+2026-01-15 21:34:51,225 - INFO - 🔍 Generated 20 top-ranked cognates with grandmother forms
+2026-01-15 21:34:51,225 - INFO - 📈 Calculated M-N shift probability: 0.637
+2026-01-15 21:34:51,225 - INFO - 🌍 Updated Mediterranean substrate map with new correspondences

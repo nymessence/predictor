@@ -1,0 +1,140 @@
+{
+  "language_family": "Pre-Greek Substrate",
+  "time_depth": 6500,
+  "region": "aegean_balkans",
+  "wordlist": {
+    "water": "ed-*",
+    "fire": "pур-*",
+    "man": "anthrо-*",
+    "woman": "gyn-*",
+    "child": "tekн-*",
+    "house": "dom-*",
+    "sun": "hеliо-*",
+    "stone": "lith-*",
+    "eye": "ophthalm-*",
+    "hand": "cheir-*",
+    "two": "dъ-*",
+    "three": "trei-*",
+    "four": "tetra-*",
+    "five": "pente-*",
+    "earth": "ghе-*",
+    "tree": "dendrо-*",
+    "mountain": "orо-*",
+    "river": "potam-*",
+    "sea": "thalass-*",
+    "night": "nukт-*",
+    "day": "hemer-*",
+    "year": "etо-*",
+    "god": "theо-*",
+    "king": "basile-*",
+    "war": "polem-*",
+    "peace": "eirēn-*",
+    "death": "thanat-*",
+    "life": "biо-*",
+    "love": "phil-*",
+    "hate": "mise-*",
+    "good": "agath-*",
+    "bad": "kak-*",
+    "big": "meg-*",
+    "small": "mikr-*",
+    "long": "makr-*",
+    "short": "brakh-*",
+    "hot": "therm-*",
+    "cold": "psychr-*",
+    "new": "kain-*",
+    "old": "palaio-*",
+    "young": "neо-*",
+    "red": "eruthr-*",
+    "white": "leuk-*",
+    "black": "melan-*",
+    "green": "chlor-*",
+    "blue": "kyan-*"
+  },
+  "phonological_features": {
+    "vowel_system": [
+      "a",
+      "e",
+      "i",
+      "o",
+      "u",
+      "ē",
+      "ō"
+    ],
+    "consonant_system": [
+      "p",
+      "t",
+      "k",
+      "b",
+      "d",
+      "g",
+      "ph",
+      "th",
+      "kh",
+      "m",
+      "n",
+      "l",
+      "r",
+      "s",
+      "h₁",
+      "h₂",
+      "h₃"
+    ],
+    "laryngeal_system": [
+      "h₁",
+      "h₂",
+      "h₃"
+    ],
+    "nasal_system": [
+      "m",
+      "n",
+      "ŋ"
+    ],
+    "consonant_clusters": [
+      "st",
+      "sk",
+      "sp",
+      "pr",
+      "tr",
+      "kr"
+    ]
+  },
+  "morphological_features": {
+    "case_system": [
+      "nominative",
+      "accusative",
+      "genitive",
+      "dative",
+      "locative",
+      "vocative"
+    ],
+    "number_system": [
+      "singular",
+      "dual",
+      "plural"
+    ],
+    "gender_system": [
+      "masculine",
+      "feminine",
+      "neuter"
+    ],
+    "alignment_type": "nominative_accusative"
+  },
+  "substrate_influences": {
+    "greek_inherited_words": [
+      "thalassa",
+      "anax",
+      "anaxos",
+      "potamos",
+      "lithos",
+      "ophthalmos"
+    ],
+    "phonological_changes": [
+      "laryngeal_loss",
+      "consonant_cluster_simplification"
+    ],
+    "morphological_traces": [
+      "ergative_absolutive_traces",
+      "aspectual_system_traces"
+    ]
+  }
+}

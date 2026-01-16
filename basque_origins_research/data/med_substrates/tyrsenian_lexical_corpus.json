@@ -1,0 +1,236 @@
+{
+  "language_family": "Tyrsenian",
+  "languages": {
+    "etruscan": {
+      "time_depth": 2800,
+      "region": "central_italy",
+      "wordlist": {
+        "water": "clanis",
+        "fire": "cel",
+        "man": "lupu",
+        "woman": "larth",
+        "child": "cecha",
+        "house": "cvil",
+        "sun": "calu",
+        "stone": "selen",
+        "eye": "alpan",
+        "hand": "cel",
+        "two": "zal",
+        "three": "ci",
+        "four": "huθ",
+        "five": "mul",
+        "earth": "tiris",
+        "tree": "mar",
+        "mountain": "cel",
+        "river": "clanis",
+        "sea": "mar",
+        "night": "al",
+        "day": "śa",
+        "year": "hut",
+        "god": "tin",
+        "king": "luc",
+        "war": "cel",
+        "peace": "cvil",
+        "death": "aś",
+        "life": "cvil",
+        "love": "lupu",
+        "hate": "śa",
+        "good": "śa",
+        "bad": "al",
+        "big": "śa",
+        "small": "al",
+        "long": "śa",
+        "short": "al",
+        "hot": "cel",
+        "cold": "al",
+        "new": "śa",
+        "old": "al",
+        "young": "cecha",
+        "red": "śa",
+        "white": "al",
+        "black": "al",
+        "green": "mar",
+        "blue": "clanis"
+      },
+      "phonological_features": {
+        "vowel_system": [
+          "a",
+          "e",
+          "i",
+          "o",
+          "u"
+        ],
+        "consonant_system": [
+          "p",
+          "t",
+          "k",
+          "b",
+          "d",
+          "g",
+          "m",
+          "n",
+          "l",
+          "r",
+          "s",
+          "z",
+          "θ",
+          "ʃ",
+          "h"
+        ],
+        "laryngeal_reflexes": [
+          "potential_laryngeal_reflexes_in_consonant_clusters"
+        ],
+        "nasal_system": [
+          "m",
+          "n",
+          "ŋ"
+        ]
+      },
+      "morphological_features": {
+        "case_system": [
+          "nominative",
+          "accusative",
+          "genitive",
+          "dative",
+          "ablative"
+        ],
+        "number_system": [
+          "singular",
+          "plural"
+        ],
+        "gender_system": [
+          "masculine",
+          "feminine"
+        ],
+        "alignment_type": "nominative_accusative"
+      }
+    },
+    "raetic": {
+      "time_depth": 2500,
+      "region": "alps",
+      "wordlist": {
+        "water": "clanis",
+        "fire": "cel",
+        "man": "lupu",
+        "woman": "larth",
+        "child": "cecha",
+        "house": "cvil",
+        "sun": "calu",
+        "stone": "selen",
+        "eye": "alpan",
+        "hand": "cel",
+        "two": "zal",
+        "three": "ci",
+        "four": "huθ",
+        "five": "mul",
+        "earth": "tiris",
+        "tree": "mar",
+        "mountain": "cel",
+        "river": "clanis",
+        "sea": "mar"
+      },
+      "phonological_features": {
+        "vowel_system": [
+          "a",
+          "e",
+          "i",
+          "o",
+          "u"
+        ],
+        "consonant_system": [
+          "p",
+          "t",
+          "k",
+          "b",
+          "d",
+          "g",
+          "m",
+          "n",
+          "l",
+          "r",
+          "s",
+          "z",
+          "θ",
+          "ʃ",
+          "h"
+        ],
+        "laryngeal_reflexes": [
+          "potential_laryngeal_reflexes"
+        ],
+        "nasal_system": [
+          "m",
+          "n",
+          "ŋ"
+        ]
+      }
+    },
+    "lemnian": {
+      "time_depth": 2700,
+      "region": "aegean",
+      "wordlist": {
+        "water": "clanis",
+        "fire": "cel",
+        "man": "lupu",
+        "woman": "larth",
+        "child": "cecha",
+        "house": "cvil",
+        "sun": "calu",
+        "stone": "selen",
+        "eye": "alpan",
+        "hand": "cel",
+        "two": "zal",
+        "three": "ci",
+        "four": "huθ",
+        "five": "mul",
+        "earth": "tiris",
+        "tree": "mar",
+        "mountain": "cel",
+        "river": "clanis",
+        "sea": "mar"
+      },
+      "phonological_features": {
+        "vowel_system": [
+          "a",
+          "e",
+          "i",
+          "o",
+          "u"
+        ],
+        "consonant_system": [
+          "p",
+          "t",
+          "k",
+          "b",
+          "d",
+          "g",
+          "m",
+          "n",
+          "l",
+          "r",
+          "s",
+          "z",
+          "θ",
+          "ʃ",
+          "h"
+        ],
+        "laryngeal_reflexes": [
+          "potential_laryngeal_reflexes"
+        ],
+        "nasal_system": [
+          "m",
+          "n",
+          "ŋ"
+        ]
+      }
+    }
+  },
+  "common_features": {
+    "first_person_pronoun": "mi",
+    "second_person_pronoun": "tu",
+    "third_person_pronoun": "e",
+    "ergative_absolutive": false,
+    "agglutination": false,
+    "vowel_harmony": false,
+    "laryngeal_system": "potential_laryngeal_reflexes"
+  }
+}
